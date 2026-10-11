@@ -1,32 +1,34 @@
 # Week 1 Status
 
-Progress as of October 10 2026, before the scheduled Week 1 start.
+Progress as of October 11 2026, before the scheduled Week 1 start.
 
 ## Done
 
-- Installed development tools and resolved Python ARM64 package issues.
-- Created the GitHub repository, MIT license, and pinned dependencies.
-- Added CSV and Excel inventory templates with privacy instructions.
-- Documented input schemas, checklist questions, and initial scoring.
-- Built three fictional clinic datasets and expected finding lists.
-- Added header rejection and sample validation tests.
-- All 13 tests pass locally; GitHub checks are green.
+- Set up the repository, MIT license, and pinned dependencies.
+- Added CSV and Excel inventory templates and input documentation.
+- Built three fictional clinic datasets with expected findings.
+- Drafted 25 framework mappings and recorded unresolved decisions.
+- Corrected Q17 and added separate Q24 follow-ups.
+- Created the Week 1–7 and Buffer project board.
+- Built an isolated WSL namespace lab and captured authentic Nmap XML.
+- Documented the lab variation from the brief.
+- All 17 tests pass locally; latest GitHub checks are green.
 
 ## Next
 
-- Review HICP, HHS performance goals, and NIST framework references.
-- Confirm checklist mappings and scoring weights.
-- Create the project board and remaining work items.
-- Set up an authorized lab and generate an authentic Nmap fixture.
-- Record links to the week's pull requests when available.
+- Complete assigned framework reading and resolve mapping decisions.
+- Confirm checklist weights and sample calibration approach.
+- Complete Gate 1 on October 16.
+- Draft the Week 1 progress post.
+- Link relevant pull requests when available.
 
 ## Blocked
 
-No current setup blocker. Framework mappings and score calibration
+No setup blocker. Framework review and final scoring weights
 remain unfinished.
 
 ## Ask
 
-Confirm the Q18 wording correction, unknown exposure policy,
-cloud-service scoring, and Westside's before-and-after target bands.
-Confirm repository transfer arrangements with ChiEAC.
+Review proposed weights, Q23 applicability, cloud-service scoring,
+and the namespace lab variation. Confirm repository transfer
+arrangements with ChiEAC.
