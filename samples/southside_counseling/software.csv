@@ -1,0 +1,6 @@
+asset_id,vendor,product,version,purpose,deployment,touches_phi,mfa_enabled,auto_update,baa_signed,notes
+CLOUD,Example EHR Vendor,Counseling EHR,Unknown,ehr,cloud,Y,Y,Unknown,Y,MFA enabled for all accounts
+CLOUD,Example Telehealth Vendor,Video Care,Unknown,telehealth,cloud,Y,Y,Unknown,Y,MFA enabled for all accounts
+CLOUD,Example Messaging Vendor,Consumer Texting,Unknown,messaging,cloud,Y,Y,Unknown,N,No Business Associate Agreement
+CLOUD,Example Mail Vendor,Work Email,Unknown,email,cloud,Y,N,Unknown,Y,MFA enabled for some accounts but not all
+CLOUD,Example Storage Vendor,Personal Cloud Drive,Unknown,backup,cloud,Y,Y,Unknown,N,Backup uses the same account as daily work and is not separated

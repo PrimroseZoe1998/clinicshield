@@ -1,0 +1,10 @@
+asset_id,asset_name,asset_type,location,owner_role,os_name,os_version,touches_phi,internet_facing,portable,encrypted,auto_update,last_patched,network_segment,notes
+SC-LT01,Therapist laptop 1,laptop,Remote office,Therapist,macOS,15,Y,N,Y,Y,Y,2026-10-01,unknown,Fictional device
+SC-LT02,Therapist laptop 2,laptop,Remote office,Therapist,macOS,15,Y,N,Y,Y,Y,2026-10-01,unknown,Fictional device
+SC-LT03,Therapist laptop 3,laptop,Remote office,Therapist,macOS,15,Y,N,Y,Unknown,Y,2026-10-01,unknown,Encryption status not checked
+SC-LT04,Therapist laptop 4,laptop,Remote office,Therapist,macOS,15,Y,N,Y,Y,Y,2026-10-01,unknown,Fictional device
+SC-LT05,Therapist laptop 5,laptop,Remote office,Therapist,Windows,11 24H2,Y,N,Y,Unknown,Y,2026-10-01,unknown,Encryption status not checked
+SC-LT06,Therapist laptop 6,laptop,Remote office,Therapist,Windows,11 24H2,Y,N,Y,Y,Y,2026-10-01,unknown,Fictional device
+SC-LT07,Administrator laptop,laptop,Remote office,Administrator,Windows,11 24H2,Y,N,Y,Y,Y,2026-10-01,unknown,Fictional device
+SC-PH01,Work access phone 1,phone,Remote office,Therapist,iOS,Unknown,Y,N,Y,Y,Y,,unknown,Personal phone used for work
+SC-PH02,Work access phone 2,phone,Remote office,Therapist,Android,Unknown,Y,N,Y,Y,Y,,unknown,Personal phone used for work

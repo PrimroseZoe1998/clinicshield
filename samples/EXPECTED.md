@@ -49,7 +49,31 @@ Any open Critical finding also imposes the ceiling of 69.
 
 ## Southside Counseling Collective
 
-Dataset and expected findings pending.
+Files are in southside_counseling.
+No services inventory is supplied; network exposure remains unassessed.
+
+### Expected findings
+
+- R05: Encryption status is Unknown on SC-LT03 and SC-LT05.
+- R12: Email MFA is not enabled for every account.
+- R16: Backups are not separated from daily work access.
+- R17: Missing Business Associate Agreements for Consumer Texting
+  and Personal Cloud Drive.
+- R20: No written incident plan or named security official.
+- R22: No documented risk analysis.
+- R24: Unknown versions on software accessing patient information.
+
+Phone operating system support status is unresolved.
+Report that uncertainty without inventing vulnerability matches.
+
+Combine checklist and inventory evidence for the same issue.
+R20 and R22 may share Q24 evidence but describe distinct actions.
+
+### Score expectation
+
+Target band: At risk, 50 to 69.
+Actual score is pending implementation and calibration.
+Open Critical findings impose the ceiling of 69.
 
 ## Westside Community Health
 
