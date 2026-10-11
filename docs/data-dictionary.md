@@ -1,0 +1,160 @@
+# ClinicShield Data Dictionary
+
+ClinicShield accepts inventories of devices, software, and network
+services. Patient records and personal information are prohibited.
+
+These schemas define the validation we will implement.
+The current templates contain fictional examples.
+
+## General rules
+
+- Preserve canonical column names.
+- Required fields must contain a value.
+- Use Unknown only where the field permits it.
+- Trim leading and trailing spaces from values.
+- Normalize headers before checking for prohibited fields.
+- Missing information must never be interpreted as safe.
+- Reject duplicate asset IDs in the assets inventory.
+- Validate links between inventories.
+- Process uploaded content in memory without saving or logging it.
+
+## Assets inventory
+
+One row per device.
+
+| Field | Required | Type or allowed values |
+| --- | --- | --- |
+| asset_id | Yes | Unique nonempty text |
+| asset_name | Yes | Nonempty text |
+| asset_type | Yes | workstation, laptop, server, tablet, phone, printer, network_device, medical_device, iot, other |
+| location | No | Text |
+| owner_role | No | Role description, not a person's name |
+| os_name | Yes | Text; Unknown if not known |
+| os_version | Yes | Text; Unknown if not known |
+| touches_phi | Yes | Y, N, Unknown |
+| internet_facing | Yes | Y, N, Unknown |
+| portable | No | Y or N; infer from asset type when omitted |
+| encrypted | Yes | Y, N, Unknown |
+| auto_update | No | Y, N, Unknown |
+| last_patched | No | Valid YYYY-MM-DD date or blank |
+| network_segment | No | Text; examples: clinic, guest, medical, management, unknown |
+| notes | No | Text without patient or personal information |
+
+PHI means protected health information. touches_phi records whether
+a device accesses it; the inventory must not contain that information.
+
+When portable is omitted, laptop, tablet, and phone default to Y.
+Other asset types default to N.
+
+Proposed asset_name aliases: Device, Computer name.
+Hostname is ambiguous between an asset label and a network host;
+confirm its meaning before mapping it automatically.
+
+## Software inventory
+
+One row per application on a device or per cloud service.
+
+| Field | Required | Type or allowed values |
+| --- | --- | --- |
+| asset_id | No | Existing asset ID; CLOUD or blank for a cloud service |
+| vendor | Yes | Nonempty text |
+| product | Yes | Nonempty text |
+| version | Yes | Text or Unknown |
+| purpose | Yes | ehr, practice_management, billing, email, telehealth, remote_access, browser, antivirus, backup, office, imaging, messaging, other |
+| deployment | Yes | local or cloud |
+| touches_phi | Yes | Y, N, Unknown |
+| mfa_enabled | Yes | Y, N, NA, Unknown |
+| auto_update | No | Y, N, Unknown |
+| baa_signed | No | Y, N, NA, Unknown |
+| notes | No | Text without patient or personal information |
+
+EHR means electronic health record.
+MFA means multifactor authentication.
+BAA means Business Associate Agreement.
+
+A supplied device asset_id must match the assets inventory.
+CLOUD is reserved for cloud services.
+
+Unknown versions produce an uncertainty finding, not a safe result.
+NA means not applicable and must not be treated as Yes.
+
+Proposed aliases
+- Software vendor maps to vendor.
+- Software name maps to product.
+- Software version maps to version.
+- Device ID maps to asset_id.
+
+## Services inventory
+
+One row per listening network service. This inventory is optional.
+
+| Field | Required | Type or allowed values |
+| --- | --- | --- |
+| asset_id | Yes | Existing asset ID, or host address if the asset is unknown |
+| host | No | Internal IP address or hostname |
+| port | Yes | Integer from 1 to 65535 |
+| protocol | Yes | tcp or udp |
+| service | Yes | rdp, smb, ssh, http, https, ftp, telnet, vnc, dicom, other |
+| product | No | Text from the service banner |
+| version | No | Text or Unknown |
+| exposure | Yes | internal, internet, unknown |
+
+Use an existing asset_id when the host is in the assets inventory.
+If only a host address is available, flag the unmatched asset link
+for review. Do not invent its security settings.
+
+Unknown exposure must not be interpreted as internal or safe.
+A listening port alone does not prove internet exposure.
+
+Proposed aliases
+- Device ID maps to asset_id.
+- IP address maps to host.
+- Port number maps to port.
+- Transport maps to protocol.
+- Service name maps to service.
+
+## Nmap XML input
+
+ClinicShield may parse an existing Nmap XML file.
+It must never initiate a network scan.
+
+Before upload, require this confirmation:
+
+"I confirm this scan was run on a network my organization owns
+or has written permission to scan."
+
+Map parsed hosts and services into the services schema.
+Nmap output alone does not establish internet exposure.
+
+## Patient information rejection
+
+Check headers before reading inventory rows into the assessment engine.
+For spreadsheets, check every sheet, including hidden sheets.
+
+Reject headers containing any of these terms, ignoring letter case:
+
+patient, pt_name, patient_name, first_name, last_name, dob,
+date_of_birth, mrn, medical_record, ssn, social_security,
+diagnosis, dx, icd, insurance_id, member_id, policy_number,
+phone, email_address, address
+
+Trim header whitespace and normalize spaces and hyphens to underscores
+before matching. Apply this check before alias mapping.
+
+Display this rejection message:
+
+"This file looks like it contains patient or personal information.
+ClinicShield only needs information about devices, software, and
+settings. Please remove those columns and try again."
+
+Reject the entire upload if any prohibited header is found.
+Do not display, save, or log the rejected file's contents.
+
+Header checks cannot guarantee that a file contains no personal
+information. Keep the upload warning visible and instruct users
+to check all values, including notes, before uploading.
+
+Some aliases, such as IP address, conflict with the address blocklist.
+Reject these headers under the current policy and ask users to use
+the canonical host column instead. Resolve alias conflicts before
+implementing automatic header mapping.
