@@ -508,3 +508,28 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
   https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf
 - HIPAA administrative safeguards:
   https://www.ecfr.gov/current/title-45/section-164.308
+
+  ## Gate 1 Review Decisions
+
+These items remain open. Proposed weights are not final.
+
+- Q03: Basic antivirus does not fully assess the Enhanced endpoint
+  detection goal. Proposed weight 1.
+- Q05: Confirm whether the Essential encryption mapping supports
+  device encryption at rest. Proposed weight 1 pending review.
+- Q09: Limiting administrator rights does not establish separate
+  administrator and ordinary-user accounts. Proposed weight 1.
+- Q22: Breach notification preparation has only a supporting
+  relationship to incident planning. Proposed weight 1.
+- Q24: No direct Essential mapping confirmed for both components.
+  Proposed weight 1; separate follow-ups are documented.
+- Q04, Q12, Q16, Q18, and Q19: Review partial Essential relationships
+  before accepting proposed weight 3.
+- Q02: Precise HIPAA mapping remains unresolved.
+- Q23: Define the answer and scoring treatment when an organization
+  has no network-connected medical devices.
+- Q17: Corrected to require MFA for enabled remote access.
+  Implement the same interpretation in R07.
+- Confirm Unknown handling, cloud-service scoring, and sample calibration.
+
+Record each decision, reviewer, date, and rationale here after review.
