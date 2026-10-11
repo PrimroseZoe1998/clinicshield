@@ -1,0 +1,5 @@
+asset_id,vendor,product,version,purpose,deployment,touches_phi,mfa_enabled,auto_update,baa_signed,notes
+LV-SRV01,Example Dental Vendor,Practice Manager,Unknown,practice_management,local,Y,NA,Y,Y,Fictional product with unverified version
+CLOUD,Example Mail Vendor,Clinic Email,Unknown,email,cloud,Y,N,Unknown,Y,MFA disabled for all mailboxes
+CLOUD,Example Backup Vendor,Clinic Backup,Unknown,backup,cloud,Y,Y,Y,Y,Daily separated backups exist but restore has not been tested
+LV-LT01,Example Remote Vendor,Remote Support,Unknown,remote_access,local,Y,Y,Y,Y,MFA enabled for this tool

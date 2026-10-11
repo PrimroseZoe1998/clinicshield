@@ -1,0 +1,12 @@
+asset_id,asset_name,asset_type,location,owner_role,os_name,os_version,touches_phi,internet_facing,portable,encrypted,auto_update,last_patched,network_segment,notes
+LV-WS01,Front desk PC 1,workstation,Reception,Office manager,Windows,10 22H2,Y,N,N,Y,Y,2025-10-14,clinic,No extended security update coverage
+LV-WS02,Front desk PC 2,workstation,Reception,Office manager,Windows,10 22H2,Y,N,N,Y,Y,2025-10-14,clinic,No extended security update coverage
+LV-WS03,Treatment PC 1,workstation,Treatment room,Clinician,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+LV-WS04,Treatment PC 2,workstation,Treatment room,Clinician,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+LV-WS05,Billing PC,workstation,Office,Billing staff,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+LV-WS06,Office PC,workstation,Office,Office manager,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+LV-SRV01,Practice management server,server,Equipment room,IT vendor,Windows Server,2012 R2,Y,N,N,Y,Y,2023-10-10,clinic,No extended security update coverage
+LV-MD01,X-ray sensor station,medical_device,Imaging room,Clinician,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,medical,Separate medical network
+LV-RT01,Office router,network_device,Equipment room,IT vendor,Unknown,Unknown,N,Y,N,Unknown,Unknown,,management,Default admin password unchanged
+LV-LT01,Owner laptop,laptop,Office and home,Practice owner,Windows,11 24H2,Y,N,Y,N,Y,2026-10-01,clinic,Encryption is off
+LV-LT02,Clinician laptop,laptop,Office,Clinician,Windows,11 24H2,Y,N,Y,Y,Y,2026-10-01,clinic,Fictional device

@@ -1,0 +1,4 @@
+asset_id,host,port,protocol,service,product,version,exposure
+LV-SRV01,192.168.10.10,3389,tcp,rdp,Microsoft Terminal Services,Unknown,internal
+LV-SRV01,192.168.10.10,445,tcp,smb,Microsoft SMB,Unknown,internal
+LV-RT01,192.168.10.1,443,tcp,https,Router administration,Unknown,internal
