@@ -158,3 +158,31 @@ Some aliases, such as IP address, conflict with the address blocklist.
 Reject these headers under the current policy and ask users to use
 the canonical host column instead. Resolve alias conflicts before
 implementing automatic header mapping.
+
+## Checklist follow-up answers
+
+Each sample clinic has a followups.json file containing:
+
+- Q24a: Whether a named person is responsible for security.
+- Q24b: Whether a risk analysis was completed and documented
+  in the last 12 months.
+
+Allowed answers are Yes, No, and Unknown.
+Both keys are required in the current sample format.
+
+Derive the combined Q24 answer:
+- Yes when both follow-ups are Yes.
+- No when either follow-up is No.
+- Unknown otherwise.
+
+Score Q24 once. Do not add scoring weight for Q24a or Q24b.
+
+Reject a supplied combined Q24 answer that conflicts with its follow-ups.
+For older inputs without follow-ups, request the missing answers.
+Do not infer both missing safeguards from Q24 = No.
+
+Use Q24a as evidence for missing security responsibility.
+Use Q24b as evidence for a missing recent documented risk analysis.
+
+The future checklist export must include these follow-up answers
+and a schema version so they can be restored correctly.

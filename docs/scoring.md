@@ -198,3 +198,26 @@ overlapping findings, and the Critical ceiling.
 Westside's initial findings include Critical risks, so its initial
 score cannot exceed 69. It may reach Needs attention after those
 Critical findings are fixed.
+
+## Q24 follow-up scoring and findings
+
+Q24a records whether a named person is responsible for security.
+Q24b records whether a recent documented risk analysis exists.
+
+Derive Q24:
+- Yes if both follow-ups are Yes.
+- No if either follow-up is No.
+- Unknown otherwise.
+
+Use the combined Q24 answer for Safeguards scoring once.
+The follow-ups do not add weight to the scoring denominator.
+
+For findings:
+- R20 uses Q20 for the incident plan and Q24a for security responsibility.
+- R22 uses Q24b for the recent documented risk analysis.
+- Unknown follow-ups require explicit uncertainty and follow-up actions.
+- Never infer both missing controls from the combined Q24 answer alone.
+
+Q24's proposed weight is 1 pending framework review.
+This proposed change from the brief must be recorded at Gate 1
+and included in sample score calibration.
