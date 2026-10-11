@@ -77,5 +77,35 @@ Open Critical findings impose the ceiling of 69.
 
 ## Westside Community Health
 
-Dataset and expected findings pending.
-Initial Critical findings must keep its score at or below 69.
+Files are in westside_health.
+
+### Expected findings
+
+- R03: Unsupported operating systems on WH-MD02 and WH-LT01,
+  which access patient information.
+- R05: Encryption status is Unknown on portable device WH-LT01.
+- R09: Telnet is listening on printer WH-PR01.
+- R11: Ultrasound workstation WH-MD02 shares the clinic segment
+  with workstations. Its notes explicitly confirm this arrangement.
+- R14: A shared nurse-station login, reported by Q06.
+- R16: Backups are separated but have not been test-restored.
+- R24: Unknown versions on software accessing patient information.
+
+Support status for vendor firmware is unresolved.
+Report uncertainty without inventing vulnerability matches.
+
+### Score expectation
+
+Initial target band: At risk, 50 to 69, pending calibration.
+Open Critical findings prevent a score above 69.
+
+After the Critical findings are fixed, the target band is
+Needs attention, 70 to 84, pending calibration.
+
+### Lab scan fixture
+
+The services CSV is synthetic.
+An authentic Nmap XML fixture from an authorized personal lab
+has not been added yet.
+
+Do not describe this CSV as evidence of a completed network scan.

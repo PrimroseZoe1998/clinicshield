@@ -1,0 +1,4 @@
+asset_id,host,port,protocol,service,product,version,exposure
+WH-PR01,192.168.30.50,23,tcp,telnet,Printer administration,Unknown,internal
+WH-SRV01,192.168.30.10,443,tcp,https,Backup administration,Unknown,internal
+WH-VPN01,192.168.40.1,443,tcp,https,VPN administration,Unknown,internal

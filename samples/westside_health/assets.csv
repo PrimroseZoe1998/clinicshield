@@ -1,0 +1,36 @@
+asset_id,asset_name,asset_type,location,owner_role,os_name,os_version,touches_phi,internet_facing,portable,encrypted,auto_update,last_patched,network_segment,notes
+WH-WS01,Workstation 1,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS02,Workstation 2,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS03,Workstation 3,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS04,Workstation 4,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS05,Workstation 5,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS06,Workstation 6,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS07,Workstation 7,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS08,Workstation 8,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS09,Workstation 9,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS10,Workstation 10,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS11,Workstation 11,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS12,Workstation 12,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS13,Workstation 13,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS14,Workstation 14,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS15,Workstation 15,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS16,Workstation 16,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS17,Workstation 17,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS18,Workstation 18,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS19,Workstation 19,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS20,Workstation 20,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS21,Workstation 21,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-WS22,Workstation 22,workstation,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-SRV01,Server 1,server,Satellite clinic,IT contractor,Windows Server,2022,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-SRV02,Server 2,server,Satellite clinic,IT contractor,Windows Server,2022,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-SRV03,Server 3,server,Satellite clinic,IT contractor,Windows Server,2022,Y,N,N,Y,Y,2026-10-01,clinic,Fictional device
+WH-VPN01,Campus VPN appliance,network_device,Satellite clinic,IT contractor,Vendor firmware,Unknown,Unknown,N,N,Unknown,Y,2026-10-01,management,Fictional device
+WH-MD01,Vitals monitor,medical_device,Satellite clinic,IT contractor,Vendor firmware,Unknown,Y,N,N,Y,Y,2026-10-01,medical,Support status requires vendor confirmation
+WH-MD02,Ultrasound workstation,medical_device,Satellite clinic,IT contractor,Windows,7,Y,N,N,Y,Y,2020-01-14,clinic,No extended support; shares workstation network
+WH-PR01,Printer 1,printer,Satellite clinic,IT contractor,Vendor firmware,Unknown,Y,N,N,Unknown,Y,2026-10-01,clinic,Fictional device
+WH-PR02,Printer 2,printer,Satellite clinic,IT contractor,Vendor firmware,Unknown,Y,N,N,Unknown,Y,2026-10-01,clinic,Fictional device
+WH-PR03,Printer 3,printer,Satellite clinic,IT contractor,Vendor firmware,Unknown,Y,N,N,Unknown,Y,2026-10-01,clinic,Fictional device
+WH-LT01,Laptop 1,laptop,Satellite clinic,IT contractor,Windows,10 22H2,Y,N,Y,Unknown,Y,2025-10-14,clinic,No extended security update coverage
+WH-LT02,Laptop 2,laptop,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,Y,Y,Y,2026-10-01,clinic,Fictional device
+WH-LT03,Laptop 3,laptop,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,Y,Y,Y,2026-10-01,clinic,Fictional device
+WH-LT04,Laptop 4,laptop,Satellite clinic,IT contractor,Windows,11 24H2,Y,N,Y,Y,Y,2026-10-01,clinic,Fictional device

@@ -1,0 +1,6 @@
+asset_id,vendor,product,version,purpose,deployment,touches_phi,mfa_enabled,auto_update,baa_signed,notes
+CLOUD,Example EHR Vendor,Community EHR,Unknown,ehr,cloud,Y,Y,Unknown,Y,MFA enabled
+CLOUD,Example Mail Vendor,Work Email,Unknown,email,cloud,Y,Y,Unknown,Y,MFA enabled for every account
+CLOUD,Example Billing Vendor,Clinic Billing,Unknown,billing,cloud,Y,Y,Unknown,Y,MFA enabled
+WH-SRV01,Example Backup Vendor,Clinic Backup,Unknown,backup,local,Y,Y,Y,Y,Daily separated backups exist but restore has not been tested
+WH-SRV02,Example Management Vendor,Site Management,Unknown,practice_management,local,Y,Y,Y,Y,Individual accounts except shared nurse station login
