@@ -256,6 +256,25 @@ a security risk analysis been completed and documented in the last
 A security risk analysis examines how patient information could be
 exposed or disrupted and what safeguards are needed.
 
+Answer these two follow-up questions separately:
+
+- Q24a: Is one named person responsible for security?
+- Q24b: Has a security risk analysis been completed and documented
+  in the last 12 months?
+
+Use Yes, No, or Unknown for each follow-up.
+
+The app derives Q24:
+- Yes when both follow-ups are Yes.
+- No when either follow-up is No.
+- Unknown otherwise.
+
+Score Q24 once. Do not score the follow-ups separately.
+
+Use Q24a to assess missing security responsibility.
+Use Q24b to assess a missing recent documented risk analysis.
+Do not infer both problems from the combined answer alone.
+
 Why we ask: Clear responsibility and a documented assessment help
 the practice identify risks and follow through on fixes.
 

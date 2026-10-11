@@ -457,19 +457,26 @@ Check CSF version compatibility before copying an existing crosswalk.
 
 ## Q24 Security responsibility and risk analysis
 
-- HICP: Practice 10, 10.S.A, Policies, printed pages 31–32;
-  10.S.B, Cybersecurity Risk Assessment and Management,
-  printed pages 33–34.
+- HICP: Practice 10, 10.S.A, printed pages 31–32;
+  10.S.B, printed pages 33–34.
 - HHS CPG: No direct Essential mapping confirmed for both components.
-- CSF 2.0: Govern, GV.RR-02, roles and responsibilities;
-  Identify, ID.RA-04 and ID.RA-05, risk assessment.
+- CSF 2.0: Govern, GV.RR-02;
+  Identify, ID.RA-04 and ID.RA-05.
 - HIPAA: 45 CFR 164.308(a)(2), assigned security responsibility;
   164.308(a)(1)(ii)(A), risk analysis.
 - Coverage: The 12-month interval is ClinicShield's benchmark.
   Risk analysis must also respond to relevant changes.
+- Follow-ups: Q24a records security responsibility.
+  Q24b records the recent documented risk analysis.
+- Combined answer: Yes if both are Yes; No if either is No;
+  Unknown otherwise. Score Q24 once.
+- Rule evidence: R20 uses Q20 and Q24a.
+  R22 uses Q24b. Do not infer both gaps from Q24 alone.
+- Sample follow-ups are stored in followups.json.
+  Tests verify consistency with each sample's combined answer.
 - Proposed weight: 1 until an Essential relationship is supported.
-- Review status: Compound question requires separate follow-up fields.
-  A No answer must not automatically assert that both controls are absent.
+- Review status: Follow-up design documented;
+  engine and export implementation pending.
 
 ## Q25 Staff security training
 

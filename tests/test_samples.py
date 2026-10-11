@@ -60,3 +60,33 @@ def test_sample_inventory_and_checklist(
     )
     assert set(answers) == {f"Q{n:02d}" for n in range(1, 26)}
     assert all(value in {"Yes", "No", "Unknown"} for value in answers.values())
+
+
+@pytest.mark.parametrize(
+    "clinic",
+    ["lakeview_dental", "southside_counseling", "westside_health"],
+)
+def test_q24_followups_match_combined_answer(clinic):
+    folder = SAMPLES / clinic
+    followups = json.loads(
+        (folder / "followups.json").read_text(encoding="utf-8-sig")
+    )
+    answers = json.loads(
+        (folder / "checklist.json").read_text(encoding="utf-8-sig")
+    )
+
+    assert set(followups) == {"Q24a", "Q24b"}
+    assert all(
+        value in {"Yes", "No", "Unknown"}
+        for value in followups.values()
+    )
+
+    values = list(followups.values())
+    if all(value == "Yes" for value in values):
+        combined = "Yes"
+    elif "No" in values:
+        combined = "No"
+    else:
+        combined = "Unknown"
+
+    assert answers["Q24"] == combined
