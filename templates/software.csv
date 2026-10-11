@@ -1,0 +1,4 @@
+asset_id,vendor,product,version,purpose,deployment,touches_phi,mfa_enabled,auto_update,baa_signed,notes
+WS-01,Microsoft,Edge,Unknown,browser,local,Y,NA,Y,NA,Fictional example
+CLOUD,Example Vendor,Example EHR,Unknown,ehr,cloud,Y,Y,Unknown,Y,Fictional example
+CLOUD,Example Vendor,Example Email,Unknown,email,cloud,Y,N,Unknown,Unknown,Fictional example

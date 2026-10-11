@@ -1,0 +1,4 @@
+asset_id,host,port,protocol,service,product,version,exposure
+WS-01,192.168.1.10,3389,tcp,rdp,Microsoft Terminal Services,Unknown,internal
+RT-01,192.168.1.1,443,tcp,https,Router administration,Unknown,internal
+RT-01,192.168.1.1,22,tcp,ssh,Unknown,Unknown,internal

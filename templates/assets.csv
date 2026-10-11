@@ -1,0 +1,4 @@
+asset_id,asset_name,asset_type,location,owner_role,os_name,os_version,touches_phi,internet_facing,portable,encrypted,auto_update,last_patched,network_segment,notes
+WS-01,Front desk computer,workstation,Reception,Office manager,Windows,11,Y,N,N,Y,Y,2026-10-01,clinic,Fictional example
+LT-01,Work laptop,laptop,Office,Clinician,Windows,11,Y,N,Y,Unknown,Y,2026-10-01,clinic,Fictional example
+RT-01,Office router,network_device,Office,IT vendor,Unknown,Unknown,N,Y,N,Unknown,Unknown,,management,Fictional example
