@@ -169,11 +169,16 @@ your network open to attackers.
 ### Q17 Protected remote access
 
 Is remote access to clinic computers turned off unless needed,
-and protected by multifactor authentication or a properly configured
-virtual private network when enabled?
+and does every enabled remote-access connection require
+multifactor authentication?
 
-A virtual private network provides an encrypted connection to
-your organization's network.
+A virtual private network provides an encrypted connection.
+It should also require multifactor authentication; using a VPN
+alone does not answer this question.
+
+If remote access is completely disabled, answer Yes.
+If any enabled connection lacks multifactor authentication, answer No.
+If you have not checked, answer Unknown.
 
 Why we ask: Remote access can give attackers a way into work systems
 if it is left open or poorly protected.

@@ -331,15 +331,19 @@ Check CSF version compatibility before copying an existing crosswalk.
   authentication and network-access protection.
 - HIPAA: 45 CFR 164.312(d), authentication;
   164.312(e)(1), transmission security.
-- Coverage gap: Current wording permits MFA or a VPN.
-  A VPN does not establish that MFA is enabled.
-- Proposed corrected question:
-  "Is remote access turned off unless needed, and does every enabled
-  remote-access connection require multifactor authentication?"
-- VPN security remains an additional control to assess.
-- Proposed weight: 3 after resolving the wording.
-- Review status: Checklist wording and rule R07 must be updated
-  consistently before implementing scoring.
+- Wording corrected: Enabled remote access must require MFA.
+  A VPN alone does not satisfy the question.
+- Answer interpretation: Yes if remote access is disabled, or only
+  needed connections are enabled and all require MFA.
+  No if access is unnecessarily enabled or any connection lacks MFA.
+  Unknown if these settings have not been checked.
+- Coverage: This does not verify phishing resistance, VPN configuration,
+  or every aspect of remote-access security.
+- Proposed weight: 3.
+- Rule R07 must use this corrected interpretation.
+- Existing synthetic Q17 answers require review against this wording.
+- Review status: Wording corrected; rule implementation and sample
+  evidence review pending.
 
 ## Sources for Q14 to Q17
 

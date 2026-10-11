@@ -109,3 +109,37 @@ An authentic Nmap XML fixture from an authorized personal lab
 has not been added yet.
 
 Do not describe this CSV as evidence of a completed network scan.
+
+## Q17 Remote access scenario assumptions
+
+These are fictional scenario definitions, not verified settings
+from real organizations.
+
+### Lakeview Family Dental
+
+Q17 = No.
+The server's internal Remote Desktop connection is enabled without MFA.
+The separate Remote Support product has MFA, but this does not
+protect the server's Remote Desktop connection.
+R07 should identify the server issue.
+
+### Southside Counseling Collective
+
+Q17 = Yes.
+Remote connections into the clinic's laptops are disabled.
+Staff use cloud applications rather than remotely controlling laptops.
+Cloud account MFA is assessed separately by Q01 and Q07.
+
+### Westside Community Health
+
+Q17 = Yes.
+The campus VPN connection is needed and requires MFA for every user.
+Unnecessary remote-access connections are disabled.
+The services inventory alone does not prove these settings;
+the checklist answer supplies this scenario evidence.
+
+### Rule implementation requirement
+
+R07 must not treat a VPN alone as sufficient protection.
+Combine inventory evidence with the corrected Q17 interpretation.
+Unknown answers require follow-up and must not establish safety.
