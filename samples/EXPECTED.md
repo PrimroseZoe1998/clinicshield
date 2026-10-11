@@ -104,11 +104,24 @@ Needs attention, 70 to 84, pending calibration.
 
 ### Lab scan fixture
 
-The services CSV is synthetic.
-An authentic Nmap XML fixture from an authorized personal lab
-has not been added yet.
+samples/lab_scan.xml is an authentic scan from the developer's
+isolated WSL network-namespace lab.
 
-Do not describe this CSV as evidence of a completed network scan.
+Expected parser result:
+- One host: 192.0.2.2.
+- One open TCP service: port 8080, HTTP.
+- Product: SimpleHTTPServer.
+- Map this host to WH-SRV03 for fixture testing.
+- Exposure is internal based on documented lab topology,
+  not inferred from Nmap output.
+
+Keep this fixture separate from the synthetic services.csv until
+ingestion supports combining evidence without duplication.
+
+No risky-service rule should trigger solely because HTTP is
+listening internally on port 8080. This does not establish safety.
+
+See docs/lab.md for setup, scope, and observed results.
 
 ## Q17 Remote access scenario assumptions
 
