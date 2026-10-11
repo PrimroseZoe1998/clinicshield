@@ -56,19 +56,27 @@ Check CSF version compatibility before copying an existing crosswalk.
 
 ## Q02 Email filtering and forwarding
 
-- HICP: Practice 1, Email Protection Systems.
-- Small-organization sub-practice: 1.S.A, Email System Configuration.
-  Printed page 9 discusses active, updated spam and antivirus filtering.
+- HICP: Practice 1, 1.S.A, Email System Configuration.
+  Printed page 9 supports active, updated spam and antivirus filtering.
 - HHS CPG: Email Security, Essential.
 - CSF 2.0: Protect, PR.PS-01, secure configuration practices.
   This is a project interpretation for email configuration.
 - HIPAA: Precise mapping remains pending review.
-  Do not assume transmission security directly covers every control.
-- Coverage: The reviewed HICP section supports filtering.
-  Blocking automatic external forwarding needs an additional source.
+- Filtering evidence: HICP supports this component.
+- Forwarding evidence: Microsoft documents controls for blocking
+  automatic external forwarding in Exchange Online.
+- Scope: The Microsoft reference is provider-specific.
+  Other email providers need equivalent verified guidance.
+  It does not establish a universal legal requirement.
+- Coverage: Q02 combines filtering and forwarding controls.
+  Yes means both are in place; No means either is absent;
+  Unknown means no confirmed failure but at least one is unverified.
 - Proposed weight: 3, based on the Essential Email Security goal.
-- Review status: Partial mapping; forwarding reference and HIPAA
-  mapping remain unresolved.
+- Review status: Forwarding reference added;
+  HIPAA mapping and Gate 1 review remain pending.
+
+Supplementary forwarding source:
+https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-external-email-forwarding
 
 ## Sources for Q01 and Q02
 
