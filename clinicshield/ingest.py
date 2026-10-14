@@ -3,6 +3,7 @@ import io
 
 from pydantic import ValidationError
 
+from clinicshield.headers import map_headers
 from clinicshield.input_limits import (
     MAX_CELL_CHARACTERS,
     MAX_COLUMNS,
@@ -10,7 +11,6 @@ from clinicshield.input_limits import (
     InputError,
     validate_upload,
 )
-from clinicshield.privacy import validate_headers
 from clinicshield.schemas import Asset, Service, Software
 
 
@@ -50,18 +50,7 @@ def read_csv(data: bytes, kind: str) -> list:
         ):
             raise InputError("A CSV column name exceeds the length limit.")
 
-        try:
-            validate_headers(original_headers)
-        except ValueError as exc:
-            raise InputError(str(exc)) from None
-
-        headers = [header.strip() for header in original_headers]
-
-        if any(not header for header in headers):
-            raise InputError("Every column needs a name.")
-
-        if len(headers) != len(set(headers)):
-            raise InputError("Column names must be unique.")
+        headers = map_headers(original_headers, kind)
 
         allowed = set(model.model_fields)
         required = {
