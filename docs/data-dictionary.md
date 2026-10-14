@@ -217,3 +217,30 @@ exposure and unmatched asset links for review.
 
 These checks do not guarantee that uploaded values contain no personal
 information. Review all values, including notes, before uploading.
+
+## Explicit scan-to-asset mapping
+
+The assessment reader accepts an optional scan_host_to_asset dictionary
+when Nmap XML is supplied.
+
+Each key is a scanned host IP address. Each value is an existing device
+asset_id. For example:
+
+    {"192.0.2.2": "WH-SRV03"}
+
+This example links the fictional lab host to the fictional Westside
+asset. It is an explicit test mapping, not evidence about a real clinic.
+
+Mapping validates IP addresses, normalizes IPv6 notation, and rejects
+duplicate normalized hosts, hosts absent from the imported scan services,
+unknown device IDs, and the reserved CLOUD marker.
+
+All imported services for a mapped host receive the selected asset_id.
+Their host address, port, service details, and exposure remain unchanged.
+Mapping does not establish internet exposure.
+
+Unmapped services remain available and are flagged for asset-link review.
+Original service objects are not modified.
+
+Mapping requires Nmap XML and does not bypass scan authorization.
+The application must not guess mappings from names or service banners.
