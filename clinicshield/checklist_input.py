@@ -1,7 +1,11 @@
 import json
 from dataclasses import dataclass
 
-from clinicshield.ingest import InputError
+from clinicshield.input_limits import (
+    MAX_JSON_BYTES,
+    InputError,
+    validate_upload,
+)
 
 
 ANSWERS = {"Yes", "No", "Unknown"}
@@ -25,8 +29,7 @@ def unique_object(pairs):
 
 
 def read_answers(data: bytes, expected_keys: set[str]) -> dict[str, str]:
-    if not isinstance(data, bytes):
-        raise InputError("Provide checklist JSON data as bytes.")
+    validate_upload(data, max_bytes=MAX_JSON_BYTES)
 
     try:
         text = data.decode("utf-8-sig")
