@@ -186,3 +186,34 @@ Use Q24b as evidence for a missing recent documented risk analysis.
 
 The future checklist export must include these follow-up answers
 and a schema version so they can be restored correctly.
+
+## Implemented input limits
+
+- Maximum uploaded file size: 10 MiB (10,485,760 bytes).
+- Maximum checklist or follow-up JSON file size: 64 KiB (65,536 bytes).
+- Maximum CSV data records: 10,000, including blank records.
+- Maximum columns: 50.
+- Maximum header or cell value length: 10,000 characters.
+- Maximum workbook sheets: 20, including hidden sheets.
+- Maximum workbook rows per sheet: 10,001, including the header.
+- Maximum workbook archive components: 1,000.
+- Maximum total decompressed workbook size: 50 MiB (52,428,800 bytes).
+
+Workbook row and column limits include cells retained through formatting.
+Remove unused rows and columns if formatting makes a sheet exceed a limit.
+
+Excel inventory cells must contain values, not formulas or Excel errors.
+Date cells must contain a date without a time.
+Encrypted workbook archives and duplicate archive components are rejected.
+
+Assessment inputs use either CSV inventories or an Excel workbook.
+The assets and software inventories are required; services are optional.
+An Excel services sheet may contain headers only. An uploaded services
+CSV must contain at least one data row.
+
+Nmap XML requires explicit authorization confirmation. Only confirmed
+open ports on active hosts are imported. Scan results retain unknown
+exposure and unmatched asset links for review.
+
+These checks do not guarantee that uploaded values contain no personal
+information. Review all values, including notes, before uploading.
