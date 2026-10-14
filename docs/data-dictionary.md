@@ -206,7 +206,7 @@ Excel inventory cells must contain values, not formulas or Excel errors.
 Date cells must contain a date without a time.
 Encrypted workbook archives and duplicate archive components are rejected.
 
-Assessment inputs use either CSV inventories or an Excel workbook.
+Assessment inputs use separate CSV or JSON inventories, or an Excel workbook.
 The assets and software inventories are required; services are optional.
 An Excel services sheet may contain headers only. An uploaded services
 CSV must contain at least one data row.
@@ -270,3 +270,40 @@ Columns that resolve to the same canonical field are rejected.
 IP address remains prohibited under the current address blocklist;
 use host instead. Hostname remains unsupported because its meaning
 is ambiguous. Unsupported columns are rejected.
+
+## JSON inventory format
+
+Assets, software, and services may each be supplied as a UTF-8 JSON
+array of objects. Object keys use the canonical fields or supported
+header aliases. For example, a services inventory:
+
+```json
+[
+  {
+    "asset_id": "TEST-01",
+    "host": "192.0.2.2",
+    "port": 8080,
+    "protocol": "tcp",
+    "service": "http",
+    "exposure": "unknown"
+  }
+]
+```
+
+Each inventory must contain at least one entry. Omit the services file
+when no services inventory is available.
+
+JSON inventories use the same schemas, privacy header checks, aliases,
+and asset-link validation as CSV inventories.
+
+Duplicate keys, nested field objects or arrays, invalid answers,
+non-finite numbers, and duplicate asset IDs are rejected.
+
+Each JSON inventory is limited to 10 MiB and 10,000 entries.
+Header and string value limits also apply. The smaller 64 KiB JSON
+limit applies only to checklist and follow-up files.
+
+Each inventory may use CSV or JSON, allowing different formats for
+different inventories. Do not supply both formats for the same inventory.
+An Excel workbook cannot be combined with separate CSV or JSON
+inventories. Authorized Nmap XML may accompany either input path.
