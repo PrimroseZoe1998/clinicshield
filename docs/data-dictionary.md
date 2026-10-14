@@ -244,3 +244,29 @@ Original service objects are not modified.
 
 Mapping requires Nmap XML and does not bypass scan authorization.
 The application must not guess mappings from names or service banners.
+
+## Implemented header aliases
+
+CSV and Excel inventory readers support these aliases:
+
+| Inventory | Accepted alias | Canonical field |
+| --- | --- | --- |
+| Assets | Device, Computer name | asset_name |
+| Software | Software vendor | vendor |
+| Software | Software name | product |
+| Software | Software version | version |
+| Software | Device ID | asset_id |
+| Services | Device ID | asset_id |
+| Services | Port number | port |
+| Services | Transport | protocol |
+| Services | Service name | service |
+
+Header matching ignores case, trims surrounding whitespace, and converts
+spaces and hyphens to underscores.
+
+Privacy checks run on original headers before alias mapping.
+Columns that resolve to the same canonical field are rejected.
+
+IP address remains prohibited under the current address blocklist;
+use host instead. Hostname remains unsupported because its meaning
+is ambiguous. Unsupported columns are rejected.
