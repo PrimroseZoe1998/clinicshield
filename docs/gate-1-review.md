@@ -17,8 +17,10 @@ Prepared by Primrose Mangwendeza.
   are implemented and connected.
 - Inventory links, Q24 consistency, privacy headers, and input limits
   are validated.
-- The latest verified test suite contains 239 passing tests.
-- Implementation pull requests #11–18 are merged; GitHub checks passed.
+- Upload limits, workbook hardening, explicit scan-to-asset mapping,
+  and privacy-first header aliases are implemented and documented.
+- The latest verified test suite contains 287 passing tests.
+- Implementation pull requests #11–20 are merged; GitHub checks passed.
 
 ## Decisions requested
 
@@ -76,9 +78,9 @@ Confirm repository transfer arrangements with ChiEAC before deployment.
 
 Core Week 2 ingestion and validation work is implemented ahead of schedule.
 
-Next: review remaining ingestion gaps, including header aliases and
-explicit scan-to-asset mapping, then begin feed enrichment after the
-relevant Gate 1 decisions are recorded.
+Next: review ingestion acceptance criteria and remaining edge cases,
+then begin feed enrichment after the relevant Gate 1 decisions
+are recorded.
 
 ## Decision record
 
