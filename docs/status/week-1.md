@@ -1,6 +1,6 @@
 # Week 1 Status
 
-Progress as of October 11 2026, before the scheduled Week 1 start.
+Progress as of October 13 2026.
 
 ## Done
 
@@ -13,10 +13,12 @@ Progress as of October 11 2026, before the scheduled Week 1 start.
 - Built an isolated WSL namespace lab and captured authentic Nmap XML.
 - Documented the lab variation from the brief.
 - All 17 tests pass locally; latest GitHub checks are green.
+- Completed HICP Volume 1, HHS CPGs, and the assigned NIST reading.
+- Recorded reading notes and implications for ClinicShield.
 
 ## Next
 
-- Complete assigned framework reading and resolve mapping decisions.
+- Resolve outstanding framework mappings and scoring decisions at Gate 1.
 - Confirm checklist weights and sample calibration approach.
 - Complete Gate 1 on October 16.
 - Draft the Week 1 progress post.
