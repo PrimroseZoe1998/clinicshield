@@ -13,7 +13,12 @@ Prepared by Primrose Mangwendeza.
 - Q17 now requires MFA for enabled remote access.
 - Q24 has separate responsibility and risk-analysis follow-ups.
 - An authorized Nmap fixture was captured in an isolated WSL lab.
-- The latest verified test suite contains 17 passing tests.
+- Typed schemas and in-memory CSV, Excel, Nmap XML, and checklist readers
+  are implemented and connected.
+- Inventory links, Q24 consistency, privacy headers, and input limits
+  are validated.
+- The latest verified test suite contains 239 passing tests.
+- Implementation pull requests #11–18 are merged; GitHub checks passed.
 
 ## Decisions requested
 
@@ -69,9 +74,11 @@ Confirm repository transfer arrangements with ChiEAC before deployment.
 
 ## Next milestone
 
-Week 2 ingestion and validation:
-typed schemas, in-memory parsing, upload limits, friendly errors,
-and tests for valid and invalid input.
+Core Week 2 ingestion and validation work is implemented ahead of schedule.
+
+Next: review remaining ingestion gaps, including header aliases and
+explicit scan-to-asset mapping, then begin feed enrichment after the
+relevant Gate 1 decisions are recorded.
 
 ## Decision record
 
