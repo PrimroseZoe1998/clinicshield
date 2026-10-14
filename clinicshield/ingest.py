@@ -3,6 +3,13 @@ import io
 
 from pydantic import ValidationError
 
+from clinicshield.input_limits import (
+    MAX_CELL_CHARACTERS,
+    MAX_COLUMNS,
+    MAX_INVENTORY_ROWS,
+    InputError,
+    validate_upload,
+)
 from clinicshield.privacy import validate_headers
 from clinicshield.schemas import Asset, Service, Software
 
@@ -14,17 +21,12 @@ MODELS = {
 }
 
 
-class InputError(ValueError):
-    """An input error safe to display without exposing uploaded values."""
-
-
 def read_csv(data: bytes, kind: str) -> list:
     """Validate CSV bytes in memory without saving or logging them."""
     if kind not in MODELS:
         raise InputError("Choose assets, software, or services.")
 
-    if not isinstance(data, bytes):
-        raise InputError("Provide CSV data as bytes.")
+    validate_upload(data)
 
     try:
         text = data.decode("utf-8-sig")
@@ -38,6 +40,15 @@ def read_csv(data: bytes, kind: str) -> list:
         original_headers = reader.fieldnames
         if not original_headers:
             raise InputError("The CSV needs a header row.")
+
+        if len(original_headers) > MAX_COLUMNS:
+            raise InputError("The CSV contains too many columns.")
+
+        if any(
+            len(header) > MAX_CELL_CHARACTERS
+            for header in original_headers
+        ):
+            raise InputError("A CSV column name exceeds the length limit.")
 
         try:
             validate_headers(original_headers)
@@ -72,10 +83,19 @@ def read_csv(data: bytes, kind: str) -> list:
         records = []
 
         for row_number, row in enumerate(reader, start=2):
+            if row_number - 1 > MAX_INVENTORY_ROWS:
+                raise InputError("The CSV contains too many data rows.")
+
             if None in row or any(value is None for value in row.values()):
                 raise InputError(
                     f"CSV record {row_number} has the wrong number of values."
                 )
+
+            if any(
+                len(value) > MAX_CELL_CHARACTERS
+                for value in row.values()
+            ):
+                raise InputError("A CSV value exceeds the length limit.")
 
             if all(not value.strip() for value in row.values()):
                 continue

@@ -5,7 +5,7 @@ from defusedxml import ElementTree
 from defusedxml.common import DefusedXmlException
 from pydantic import ValidationError
 
-from clinicshield.ingest import InputError
+from clinicshield.input_limits import InputError, validate_upload
 from clinicshield.schemas import Service
 
 
@@ -34,8 +34,7 @@ def read_nmap(data: bytes, *, authorized: bool = False) -> list[Service]:
             "owns or has written permission to scan."
         )
 
-    if not isinstance(data, bytes):
-        raise InputError("Provide Nmap XML data as bytes.")
+    validate_upload(data)
 
     try:
         root = ElementTree.fromstring(
