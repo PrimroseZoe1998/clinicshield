@@ -13,14 +13,14 @@ Prepared by Primrose Mangwendeza.
 - Q17 now requires MFA for enabled remote access.
 - Q24 has separate responsibility and risk-analysis follow-ups.
 - An authorized Nmap fixture was captured in an isolated WSL lab.
-- Typed schemas and in-memory CSV, Excel, Nmap XML, and checklist readers
-  are implemented and connected.
+- Typed schemas and in-memory CSV, JSON, Excel, Nmap XML, and checklist
+  readers are implemented and connected.
 - Inventory links, Q24 consistency, privacy headers, and input limits
   are validated.
 - Upload limits, workbook hardening, explicit scan-to-asset mapping,
   and privacy-first header aliases are implemented and documented.
-- The latest verified test suite contains 287 passing tests.
-- Implementation pull requests #11–20 are merged; GitHub checks passed.
+- The latest verified test suite contains 334 passing tests.
+- Implementation pull requests #11–21 are merged; GitHub checks passed.
 
 ## Decisions requested
 
@@ -69,6 +69,15 @@ Scanner and target have only the connected lab route, with no
 default route. They share the Linux kernel and filesystem.
 
 Confirm this benign service-testing setup meets the fixture requirement.
+
+### Ingestion implementation choices
+
+Review explicit aliases without fuzzy matching, the unsupported
+ambiguous Hostname alias, and the IP address blocklist conflict.
+
+Review the use of defusedxml instead of python-libnmap.
+
+See docs/ingestion-review.md for remaining acceptance gaps.
 
 ### Ownership and handoff
 

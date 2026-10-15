@@ -1,12 +1,12 @@
 # Ingestion Acceptance Review
 
-Reviewed October 14, 2026 against the project brief.
+Reviewed October 15, 2026 against the project brief.
 This is an implementation review, not Gate 1 approval.
 
 ## Implemented
 
 - Typed asset, software, and service schemas.
-- In-memory CSV and Excel inventory readers.
+- In-memory CSV, JSON, and Excel inventory readers.
 - Required fields, allowed answers, dates, and port validation.
 - Duplicate asset ID rejection and software-to-asset link validation.
 - Unmatched services retained and flagged for review.
@@ -19,12 +19,10 @@ This is an implementation review, not Gate 1 approval.
 - Explicit header aliases with collision rejection.
 - Upload, row, column, cell, and workbook archive limits.
 - Safe validation messages without uploaded row values.
-- 287 tests pass locally; merged pull request checks passed.
+- 334 tests pass locally; merged pull request checks passed.
 
 ## Remaining requirements and review items
 
-- JSON inventory ingestion is not implemented. JSON support currently
-  covers checklist and follow-up answers only.
 - Fuzzy header matching is not implemented. Explicit aliases are used
   to avoid silently selecting the wrong field.
 - Hostname remains unsupported because its meaning is ambiguous.
@@ -44,5 +42,5 @@ Core ingestion is implemented, but full ingestion acceptance remains
 pending. Passing tests do not establish that uploaded values contain
 no personal information.
 
-Record decisions on JSON inventories, header matching, and implementation
-variations at Gate 1. Preserve the privacy and no-persistence guardrails.
+Record decisions on header matching and implementation variations
+at Gate 1. Preserve the privacy and no-persistence guardrails.
