@@ -1,36 +1,44 @@
 # Week 1 LinkedIn Draft
 
-I’m building ClinicShield with Chicago Education Advocacy Cooperative
-(ChiEAC): a free, open-source cyber safety checkup for small healthcare
-providers.
+Planned publication: October 16, 2026.
+Status: Draft — not published.
 
-The goal is to turn equipment inventories and a plain-language security
-checklist into an explained score and a practical Fix First plan.
+## Post
 
-This week, I built the foundation:
-- CSV and Excel inventory templates.
-- Three fictional clinic datasets for testing.
-- A 25-question checklist with draft framework mappings.
-- Patient-information header checks and automated tests.
-- An isolated Linux lab and an authentic Nmap test fixture.
+What does a small clinic do when it has patient appointments to manage
+but no dedicated cybersecurity team?
 
-All 17 current tests pass. I also reviewed HICP, the HHS Cybersecurity
-Performance Goals, and the assigned NIST guidance.
+This week, I started building ClinicShield through my fellowship with
+Chicago Education Advocacy Cooperative (ChiEAC). It will be a free,
+open-source tool that turns a clinic’s technology inventory and a short
+security checklist into a plain-language “Fix First” plan.
 
-One lesson: a security question needs precise wording. A VPN alone
-doesn’t establish multifactor authentication, and one combined answer
-can hide two different missing safeguards.
+The foundation is in place: three fictional clinic datasets, inventory
+templates, and readers for CSV, JSON, Excel, and existing Nmap scan
+results. The code now passes 334 automated tests.
 
-Next is building and testing the input-validation pipeline.
-The assessment engine and user interface are still ahead.
+One lesson: a scan can show an open service, but that alone does not
+prove it is exposed to the internet. ClinicShield preserves that
+uncertainty instead of guessing.
 
-ClinicShield will support risk analysis; it will not certify HIPAA
-compliance or initiate network scans.
+The application does not run network scans. Its input readers check
+for prohibited personal-information headers, but users must still
+review every value before uploading.
+
+Next: review the framework mappings and scoring decisions, then build
+the vulnerability intelligence and rule engine.
 
 Thank you to @Chicago Education Advocacy Cooperative and
-@Benjamin Drury for their guidance.
+@Benjamin Drury for supporting this work.
 
-Repository:
-https://github.com/PrimroseZoe1998/clinicshield
+#HealthcareCybersecurity #VulnerabilityManagement #GRC #NIST #ChiEAC
 
-#Cybersecurity #HealthcareCybersecurity #OpenSource
+## Before publishing
+
+- Attach a screenshot of the passing tests or fictional sample data.
+- Check the screenshot for personal details, notifications, and secrets.
+- Select the actual organization and person from LinkedIn’s suggestions
+  so both mentions resolve.
+- Add the repository link:
+  https://github.com/PrimroseZoe1998/clinicshield
+- Publish on October 16 and record the post link afterward.
