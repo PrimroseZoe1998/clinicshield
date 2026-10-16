@@ -67,7 +67,8 @@ Phone operating system support status is unresolved.
 Report that uncertainty without inventing vulnerability matches.
 
 Combine checklist and inventory evidence for the same issue.
-R20 and R22 may share Q24 evidence but describe distinct actions.
+R20 uses Q20 and Q24a as evidence. R22 uses Q24b.
+These describe distinct actions; the combined Q24 is scored once.
 
 ### Score expectation
 
@@ -112,8 +113,9 @@ Expected parser result:
 - One open TCP service: port 8080, HTTP.
 - Product: SimpleHTTPServer.
 - Map this host to WH-SRV03 for fixture testing.
-- Exposure is internal based on documented lab topology,
-  not inferred from Nmap output.
+- The parser retains exposure as unknown, including after asset mapping.
+- The documented lab topology provides separate evidence of internal
+  exposure; the parser does not apply that evidence automatically.
 
 Keep this fixture separate from the synthetic services.csv until
 ingestion supports combining evidence without duplication.
