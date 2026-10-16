@@ -51,8 +51,11 @@ Check CSF version compatibility before copying an existing crosswalk.
   does not establish a specific MFA requirement.
 - Coverage: The checklist checks MFA for every work mailbox.
   It does not verify phishing resistance or every part of the CPG.
-- Proposed weight: 3.
-- Review status: Source-supported mapping; Gate 1 review pending.
+- Review weight: 3. Email MFA directly assesses a safeguard identified
+  in the Essential Email Security goal's HICP crosswalk.
+- Review status: Question-level review completed October 16, 2026
+  under the accepted Gate 1 weighting policy. This does not establish
+  full CPG compliance or verify phishing-resistant authentication.
 
 ## Q02 Email filtering and forwarding
 
@@ -71,8 +74,12 @@ Check CSF version compatibility before copying an existing crosswalk.
 - Coverage: Q02 combines filtering and forwarding controls.
   Yes means both are in place; No means either is absent;
   Unknown means no confirmed failure but at least one is unverified.
-- Proposed weight: 3, based on the Essential Email Security goal.
-- Review status: Forwarding reference added;
+- Review weight: 3. Filtering and forwarding restrictions directly
+  assess email-security controls related to the Essential Email
+  Security goal.
+- Review status: Weight reviewed October 16, 2026 under the accepted
+  Gate 1 policy. Forwarding guidance remains provider-specific;
+  no precise HIPAA mapping is asserted.
   HIPAA mapping and Gate 1 review remain pending.
 
 Supplementary forwarding source:
@@ -157,8 +164,11 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
 - HIPAA: 45 CFR 164.312(a)(2)(i), unique user identification.
 - Coverage: Individual logins support accountability. This question
   does not verify password reuse or every part of credential management.
-- Proposed weight: 3.
-- Review status: Source-supported; Gate 1 review pending.
+- Review weight: 3. Individual staff logins directly assess a safeguard
+  related to the Essential Unique Credentials goal.
+- Review status: Question-level weight reviewed October 16, 2026
+  under the accepted Gate 1 policy. This question does not establish
+  password uniqueness across systems or complete credential security.
 
 ## Q07 Multifactor authentication for clinical systems
 
@@ -170,8 +180,13 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
 - Coverage: The question checks several systems together.
   One unprotected applicable system means the answer is No.
   It does not verify phishing resistance.
-- Proposed weight: 3.
-- Review status: Source-supported; Gate 1 review pending.
+- Review weight: 3. Requiring MFA for applicable clinical systems
+  and remote access directly assesses the authentication safeguard
+  in the Essential Multifactor Authentication goal.
+- Review status: Question-level weight reviewed October 16, 2026
+  under the accepted Gate 1 policy. The HHS goal emphasizes
+  internet-accessible assets and accounts; ClinicShield asks more
+  broadly. This answer does not verify phishing resistance.
 
 ## Q08 Removing access when staff leave
 
@@ -183,8 +198,12 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
 - Coverage: Same-day removal is ClinicShield's operational benchmark.
   HICP recommends immediate removal; same-day action may leave a gap.
   The cited HIPAA provision does not specify a same-day deadline.
-- Proposed weight: 3.
-- Review status: Source-supported; timing interpretation requires review.
+- Review weight: 3. Disabling departing staff accounts directly
+  assesses the Essential goal for revoking workforce credentials.
+- Review status: Question-level weight reviewed October 16, 2026
+  under the accepted Gate 1 policy. Same-day removal is ClinicShield's
+  benchmark and must not justify delaying access removal when
+  immediate revocation is needed.
 
 ## Q09 Limiting administrator rights
 
@@ -228,8 +247,12 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
 - Coverage: Daily frequency is ClinicShield's benchmark, not an
   explicit interval in the cited HIPAA provision.
   A separate account alone does not prove ransomware isolation.
-- Proposed weight: 3.
-- Review status: Source-supported; frequency and isolation review pending.
+- Review weight: 3. Creating and protecting backups directly assesses
+  backup safeguards identified in the Essential Basic Incident
+  Planning and Preparedness goal's HICP crosswalk.
+- Review status: Question-level weight reviewed October 16, 2026.
+  Daily frequency is a project benchmark; a Yes answer does not
+  establish complete recovery readiness.
 
 ## Q11 Testing backup recovery
 
@@ -242,8 +265,12 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
 - HIPAA: 45 CFR 164.308(a)(7)(ii)(D), testing and revision procedures.
 - Coverage: Six months is ClinicShield's benchmark.
   Restoring one file is a useful check, not a complete recovery exercise.
-- Proposed weight: 3.
-- Review status: Source-supported; testing benchmark review pending.
+- Review weight: 3. Restoration testing directly checks whether
+  backups can support recovery, within the Essential Basic Incident
+  Planning and Preparedness goal's backup-strategy relationship.
+- Review status: Question-level weight reviewed October 16, 2026.
+  The six-month interval is a project benchmark. Restoring one file
+  does not establish complete disaster-recovery capability.
 
 ## Q12 Vendor agreements
 
@@ -272,8 +299,10 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
   and (d)(2)(ii), media re-use.
 - Coverage: Requires an appropriate disposal process.
   Deleting files alone does not establish secure removal.
-- Proposed weight: 1.
-- Review status: Source-supported; Gate 1 review pending.
+- Review weight: 1. No direct Essential goal mapping is established
+  for the current question under the accepted Gate 1 policy.
+- Review status: Question-level weight reviewed October 16, 2026.
+  Supporting framework references do not establish full compliance.
 
 ## Sources for Q10 to Q13
 
@@ -303,8 +332,10 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
   This is a supporting relationship, not the entire requirement.
 - Coverage: Annual review is ClinicShield's benchmark.
   Inventories also need updates when assets change.
-- Proposed weight: 1.
-- Review status: Source-supported; Gate 1 review pending.
+- Review weight: 1. No direct Essential goal mapping is established
+  for the current question under the accepted Gate 1 policy.
+- Review status: Question-level weight reviewed October 16, 2026.
+  Supporting framework references do not establish full compliance.
 
 ## Q15 Separate guest Wi-Fi
 
@@ -316,8 +347,10 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
   supporting project interpretation.
 - Coverage: Guest separation is one part of network segmentation.
   Different network names alone do not prove access is restricted.
-- Proposed weight: 1.
-- Review status: Source-supported; Gate 1 review pending.
+- Review weight: 1. No direct Essential goal mapping is established
+  for the current question under the accepted Gate 1 policy.
+- Review status: Question-level weight reviewed October 16, 2026.
+  Supporting framework references do not establish full compliance.
 
 ## Q16 Router security
 
@@ -353,11 +386,14 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
   Unknown if these settings have not been checked.
 - Coverage: This does not verify phishing resistance, VPN configuration,
   or every aspect of remote-access security.
-- Proposed weight: 3.
+- Review weight: 3. MFA for enabled remote access directly assesses
+  the Essential Multifactor Authentication goal.
 - Rule R07 must use this corrected interpretation.
-- Existing synthetic Q17 answers require review against this wording.
-- Review status: Wording corrected; rule implementation and sample
-  evidence review pending.
+- Synthetic Q17 scenario assumptions are documented in samples/EXPECTED.md.
+- Review status: Wording approved by Benjamin at Gate 1.
+  Question-level weight reviewed October 16, 2026.
+  R07 implementation remains pending; fictional sample assumptions
+  are recorded in samples/EXPECTED.md.
 
 ## Sources for Q14 to Q17
 
@@ -410,8 +446,10 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
 - HIPAA: 45 CFR 164.308(a)(6)(i), security incident procedures.
 - Coverage: A short plan is a starting point. This question does not
   verify exercises, complete playbooks, or successful execution.
-- Proposed weight: 3.
-- Review status: Source-supported; Gate 1 review pending.
+- Review weight: 3. A written response plan directly assesses the
+  Essential Basic Incident Planning and Preparedness goal.
+- Review status: Question-level weight reviewed October 16, 2026.
+  Plan completeness, exercises, and execution are not verified.
 
 ## Q21 Reporting security problems
 
@@ -424,8 +462,11 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
 - HIPAA: 45 CFR 164.308(a)(6)(ii), response and reporting.
 - Coverage: Knowing the reporting contact supports the process.
   It does not establish that reports are acted on or documented.
-- Proposed weight: 3.
-- Review status: Source-supported; Gate 1 review pending.
+- Review weight: 3. Knowing how and where to report security problems
+  directly assesses a staff behavior related to Essential Basic
+  Cybersecurity Training and incident preparedness.
+- Review status: Question-level weight reviewed October 16, 2026.
+  The answer does not verify that reports are acted on or documented.
 
 ## Q22 Breach notification preparation
 
@@ -469,7 +510,8 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
 - Coverage: Inventory, support status, and segmentation are separate
   controls. A single answer cannot identify which part is missing.
   Define how organizations with no medical devices should answer.
-- Proposed weight: 1.
+- Review weight: 1. No direct Essential goal mapping is established
+  for the current question under the accepted Gate 1 policy.
 - Gate 1 decision: Exclude Q23 from the Safeguards denominator only
   when the clinic explicitly confirms it has no medical devices.
   An incomplete inventory or Unknown answer does not justify exclusion.
@@ -509,8 +551,11 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
 - HIPAA: 45 CFR 164.308(a)(5)(i), security awareness and training.
 - Coverage: Completion does not prove effectiveness.
   The cited HIPAA provision does not itself specify an annual interval.
-- Proposed weight: 3.
-- Review status: Source-supported; Gate 1 review pending.
+- Review weight: 3. Staff security training directly assesses the
+  Essential Basic Cybersecurity Training goal.
+- Review status: Question-level weight reviewed October 16, 2026.
+  Annual frequency is a project benchmark; completion alone does
+  not demonstrate training effectiveness.
 
 ## Sources for Q23 to Q25
 
