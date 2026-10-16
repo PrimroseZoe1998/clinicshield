@@ -570,29 +570,42 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
 
   ## Gate 1 Review Decisions
 
-These items remain open. Proposed weights are not final.
+Benjamin accepted the weighting policy by email on October 16, 2026.
+Primrose completed the question-level weight review under that policy.
 
-- Q03: Basic antivirus does not fully assess the Enhanced endpoint
-  detection goal. Proposed weight 1.
-- Q05: Confirm whether the Essential encryption mapping supports
-  device encryption at rest. Proposed weight 1 pending review.
-- Q09: Limiting administrator rights does not establish separate
-  administrator and ordinary-user accounts. Proposed weight 1.
-- Q22: Breach notification preparation has only a supporting
-  relationship to incident planning. Proposed weight 1.
-- Q24: No direct Essential mapping confirmed for both components.
-  Proposed weight 1; separate follow-ups are documented.
-- Q04, Q12, Q16, Q18, and Q19: Review weight 1 under the policy
-  accepted by Benjamin on October 16, 2026. Their current wording
-  only partially assesses the related Essential goals.
-- Q02: Precise HIPAA mapping remains unresolved.
-- Q23: Explicit confirmation of no medical devices permits exclusion
-  from the denominator. Unknown remains scored without Yes credit.
-  Implementation is pending.
-- Q17: Corrected to require MFA for enabled remote access.
-  Implement the same interpretation in R07.
-- Unknown handling and the cloud-service scoring approach were accepted
-  at Gate 1. Detailed scoring implementation and sample calibration
-  remain pending.
+### Reviewed weights
 
-Record each decision, reviewer, date, and rationale here after review.
+Weight 3:
+Q01, Q02, Q06, Q07, Q08, Q10, Q11, Q17, Q20, Q21, Q25.
+
+Weight 1:
+Q03, Q04, Q05, Q09, Q12, Q13, Q14, Q15, Q16, Q18, Q19,
+Q22, Q23, Q24.
+
+These are ClinicShield scoring choices, not weights assigned by HHS.
+A direct safeguard relationship does not establish complete CPG
+coverage or legal compliance.
+
+### Accepted checklist decisions
+
+- Q17 requires MFA for every enabled remote-access connection.
+  Apply the same interpretation in R07.
+- Q18 includes valid extended security-update coverage.
+- Q24 uses separate responsibility and risk-analysis follow-ups,
+  while the combined question is scored once.
+- Q23 is excluded from the Safeguards denominator only when the clinic
+  explicitly confirms that it has no medical devices.
+  Unknown does not qualify for exclusion.
+
+### Remaining work
+
+- Implement the reviewed weights and Q23 applicability in scoring.
+- Implement and test the accepted cloud-entity, unmatched-host,
+  exposure, and duplicate-evidence scoring approach.
+- Calibrate synthetic clinic scores and record any justified changes.
+- Resolve Q02's precise HIPAA relationship or explicitly retain it
+  as unmapped; do not invent a legal citation.
+- Review remaining framework interpretation gaps before marking
+  the complete mapping issue Done.
+
+See docs/gate-1-review.md for the decision record.
