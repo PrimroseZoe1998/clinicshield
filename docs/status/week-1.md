@@ -17,17 +17,20 @@ Progress as of October 16, 2026.
 - Recorded accepted recommendations and implementation follow-ups.
 - Published the [Week 1 LinkedIn update](https://lnkd.in/p/g6vwPfqN)
   on October 16, 2026.
+- Completed the question-level framework mapping and weight review;
+  documented coverage limitations and closed issue #1.
 
 ## Next
 
-- Finalize question-level mappings and weights under the accepted policy.
 - Implement Q23 applicability and accepted scoring decisions.
 - Address remaining ingestion acceptance gaps during Week 2.
 - Update documents to remove the repository transfer requirement.
 
 ## Blocked
 
-No current setup blocker. Accepted scoring changes are not yet implemented.
+Issue #3 awaits Benjamin's final scope and fallback confirmation.
+Development can continue under the existing brief.
+Accepted scoring changes are not yet implemented.
 
 ## Ask
 
