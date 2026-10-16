@@ -15,11 +15,11 @@ Progress as of October 16, 2026.
   [#11–21](https://github.com/PrimroseZoe1998/clinicshield/pulls?q=is%3Apr+is%3Amerged).
 - Completed Gate 1 review with Benjamin by email.
 - Recorded accepted recommendations and implementation follow-ups.
-- Prepared the LinkedIn draft and screenshot.
+- Published the [Week 1 LinkedIn update](https://lnkd.in/p/g6vwPfqN)
+  on October 16, 2026.
 
 ## Next
 
-- Publish the Week 1 LinkedIn post and record its link.
 - Finalize question-level mappings and weights under the accepted policy.
 - Implement Q23 applicability and accepted scoring decisions.
 - Address remaining ingestion acceptance gaps during Week 2.
