@@ -3,7 +3,8 @@
 This document records the sources and reasoning behind the mappings
 for all 25 checklist questions.
 
-Mappings are project interpretations and require review.
+Mappings were reviewed on October 16, 2026 under the accepted Gate 1
+policy. They remain project interpretations with documented limitations.
 A related framework reference does not establish legal compliance.
 
 ## Official sources
@@ -64,7 +65,15 @@ Check CSF version compatibility before copying an existing crosswalk.
 - HHS CPG: Email Security, Essential.
 - CSF 2.0: Protect, PR.PS-01, secure configuration practices.
   This is a project interpretation for email configuration.
-- HIPAA: Precise mapping remains pending review.
+- HIPAA supporting references:
+  45 CFR 164.308(a)(5)(ii)(B), protection from malicious software
+  (Addressable), supports the malware-filtering component.
+  45 CFR 164.308(a)(1)(ii)(B), risk management (Required), provides
+  a broader supporting relationship for controls against unauthorized
+  email forwarding.
+- Mapping limitation: These are project interpretations.
+  Neither cited provision specifically requires spam filtering
+  or a blanket ban on automatic external forwarding.
 - Filtering evidence: HICP supports this component.
 - Forwarding evidence: Microsoft documents controls for blocking
   automatic external forwarding in Exchange Online.
@@ -79,8 +88,9 @@ Check CSF version compatibility before copying an existing crosswalk.
   Security goal.
 - Review status: Weight reviewed October 16, 2026 under the accepted
   Gate 1 policy. Forwarding guidance remains provider-specific;
-  no precise HIPAA mapping is asserted.
-  HIPAA mapping and Gate 1 review remain pending.
+  HIPAA references are supporting relationships, not direct
+  requirements for these email settings.
+  
 
 Supplementary forwarding source:
 https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-external-email-forwarding
@@ -95,6 +105,8 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
   https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf
 - HIPAA technical safeguards:
   https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164.312
+- HIPAA administrative safeguards, supporting Q02 interpretation:
+  https://www.ecfr.gov/current/title-45/section-164.308
 
 ## Q03 Antivirus protection
 
@@ -109,7 +121,9 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
 - HIPAA: 45 CFR 164.308(a)(5)(ii)(B), protection from malicious software.
 - Review weight: 1. The current question does not directly assess
   an Essential goal under the accepted Gate 1 policy.
-- Review status: Source-supported; Gate 1 review pending.
+- Review status: Mapping and weight reviewed October 16, 2026
+  under the accepted Gate 1 policy. Coverage limitations above
+  remain part of the mapping; this is not a compliance determination.
 
 ## Q04 Automatic updates
 
@@ -124,7 +138,9 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
   Automatic updating is a supporting measure, not the complete standard.
 - Review weight: 1 under the accepted Gate 1 policy because the
   current question only partially assesses the Essential goal.
-- Review status: Gate 1 decision required on weighting.
+- Review status: Mapping and weight reviewed October 16, 2026
+  under the accepted Gate 1 policy. Coverage limitations above
+  remain part of the mapping; this is not a compliance determination.
 
 ## Q05 Portable device encryption
 
@@ -139,8 +155,9 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
   This is an Addressable implementation specification.
 - Review weight: 1. The current question does not directly assess
   an Essential goal under the accepted Gate 1 policy.
-- Review status: HICP and CSF relationship supported;
-  CPG weighting requires review.
+- Review status: Mapping and weight reviewed October 16, 2026
+  under the accepted Gate 1 policy. Coverage limitations above
+  remain part of the mapping; this is not a compliance determination.
 
 ## Sources for Q03 to Q05
 
@@ -218,8 +235,9 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
   and 164.312(a)(1), access control.
 - Review weight: 1. The current question does not directly assess
   an Essential goal under the accepted Gate 1 policy.
-- Review status: HICP and CSF relationship supported;
-  CPG weighting requires review.
+- Review status: Mapping and weight reviewed October 16, 2026
+  under the accepted Gate 1 policy. Coverage limitations above
+  remain part of the mapping; this is not a compliance determination.
 
 ## Sources for Q06 to Q09
 
@@ -285,7 +303,9 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
   or the vendor's implementation. Assess applicability first.
 - Review weight: 1 under the accepted Gate 1 policy because the
   current question only partially assesses the Essential goal.
-- Review status: Source-supported; applicability review pending.
+- Review status: Mapping and weight reviewed October 16, 2026
+  under the accepted Gate 1 policy. Coverage limitations above
+  remain part of the mapping; this is not a compliance determination.
 
 ## Q13 Secure disposal
 
@@ -367,7 +387,9 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
   Urgent patches may require much faster action.
 - Review weight: 1 under the accepted Gate 1 policy because the
   current question only partially assesses the Essential goal.
-- Review status: Benchmark and weighting review required.
+- Review status: Mapping and weight reviewed October 16, 2026
+  under the accepted Gate 1 policy. Coverage limitations above
+  remain part of the mapping; this is not a compliance determination.
 
 ## Q17 Protected remote access
 
@@ -421,7 +443,9 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
   must be checked. Support alone does not prove patches are installed.
 - Review weight: 1 under the accepted Gate 1 policy because the
   current question only partially assesses the Essential goal.
-- Review status: Q18 wording correction recorded; Gate 1 review pending.
+- Review status: Mapping and weight reviewed October 16, 2026
+  under the accepted Gate 1 policy. Coverage limitations above
+  remain part of the mapping; this is not a compliance determination.
 
 ## Q19 Checking installed updates
 
@@ -435,7 +459,9 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
   It must not delay urgent vulnerability remediation.
 - Review weight: 1 under the accepted Gate 1 policy because the
   current question only partially assesses the Essential goal.
-- Review status: Source-supported; verification interval review pending.
+- Review status: Mapping and weight reviewed October 16, 2026
+  under the accepted Gate 1 policy. Coverage limitations above
+  remain part of the mapping; this is not a compliance determination.
 
 ## Q20 Written incident plan
 
@@ -482,7 +508,9 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
   identify every recipient, or calculate a legal deadline.
 - Review weight: 1. The current question does not directly assess
   an Essential goal under the accepted Gate 1 policy.
-- Review status: Partial mapping; weighting and legal review pending.
+- Review status: Mapping and weight reviewed October 16, 2026
+  under the accepted Gate 1 policy. Coverage limitations above
+  remain part of the mapping; this is not a compliance determination.
 
 ## Sources for Q18 to Q22
 
@@ -509,7 +537,6 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
   risk analysis and risk management, as supporting relationships.
 - Coverage: Inventory, support status, and segmentation are separate
   controls. A single answer cannot identify which part is missing.
-  Define how organizations with no medical devices should answer.
 - Review weight: 1. No direct Essential goal mapping is established
   for the current question under the accepted Gate 1 policy.
 - Gate 1 decision: Exclude Q23 from the Safeguards denominator only
@@ -568,7 +595,7 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
 - HIPAA administrative safeguards:
   https://www.ecfr.gov/current/title-45/section-164.308
 
-  ## Gate 1 Review Decisions
+## Gate 1 Review Decisions
 
 Benjamin accepted the weighting policy by email on October 16, 2026.
 Primrose completed the question-level weight review under that policy.
@@ -603,9 +630,9 @@ coverage or legal compliance.
 - Implement and test the accepted cloud-entity, unmatched-host,
   exposure, and duplicate-evidence scoring approach.
 - Calibrate synthetic clinic scores and record any justified changes.
-- Resolve Q02's precise HIPAA relationship or explicitly retain it
-  as unmapped; do not invent a legal citation.
-- Review remaining framework interpretation gaps before marking
-  the complete mapping issue Done.
+- Q02 now records supporting HIPAA references and their limitations.
+  Do not present them as specific mandates for the email settings.
+- Preserve documented coverage gaps in rule references and reports.
+  Revisit mappings when question wording or official sources change.
 
 See docs/gate-1-review.md for the decision record.
