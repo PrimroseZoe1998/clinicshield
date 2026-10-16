@@ -1,34 +1,36 @@
 # Week 1 Status
 
-Progress as of October 15, 2026.
+Progress as of October 16, 2026.
 
 ## Done
 
-- Set up the repository, MIT license, pinned dependencies, and project board.
-- Created inventory templates and three fictional clinic datasets.
-- Completed assigned framework reading and drafted 25 checklist mappings.
-- Corrected Q17 and added separate Q24 follow-ups.
+- Created repository, MIT license, pinned dependencies, and project board.
+- Built inventory templates and three fictional clinic datasets.
+- Completed framework reading and drafted 25 checklist mappings.
 - Captured authorized Nmap XML in an isolated WSL lab.
-- Implemented CSV, JSON, Excel, Nmap, and checklist readers.
-- Added inventory links, explicit scan mapping, header aliases,
-  privacy header checks, and upload limits.
-- Connected assessment inputs; 334 tests pass locally.
-- Merged implementation [pull requests #11–21](https://github.com/PrimroseZoe1998/clinicshield/pulls?q=is%3Apr+is%3Amerged);
-  GitHub checks passed.
-- Documented ingestion behavior and remaining acceptance gaps.
+- Implemented CSV, JSON, Excel, Nmap, and checklist validation,
+  inventory links, scan mapping, header aliases, and upload limits.
+- All 334 tests pass locally; GitHub checks passed.
+- Merged implementation pull requests
+  [#11–21](https://github.com/PrimroseZoe1998/clinicshield/pulls?q=is%3Apr+is%3Amerged).
+- Completed Gate 1 review with Benjamin by email.
+- Recorded accepted recommendations and implementation follow-ups.
+- Prepared the LinkedIn draft and screenshot.
 
 ## Next
 
-- Hold Gate 1 on October 16 and record decisions.
-- Finalize and publish the Week 1 LinkedIn update.
+- Publish the Week 1 LinkedIn post and record its link.
+- Finalize question-level mappings and weights under the accepted policy.
+- Implement Q23 applicability and accepted scoring decisions.
 - Address remaining ingestion acceptance gaps during Week 2.
+- Update documents to remove the repository transfer requirement.
 
 ## Blocked
 
-Final framework mappings and scoring decisions remain pending review.
+No current setup blocker. Accepted scoring changes are not yet implemented.
 
 ## Ask
 
-Review checklist weights, Q23 applicability, cloud-service scoring,
-sample calibration, header matching, and implementation variations.
-Confirm repository transfer arrangements with ChiEAC.
+Clarify whether the brief's separate branding, hosted-instance,
+and service-offering terms change. Benjamin confirmed that no
+repository transfer is required.

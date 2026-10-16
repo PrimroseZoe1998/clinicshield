@@ -93,12 +93,16 @@ are recorded.
 
 ## Decision record
 
-Complete during or after the review.
+Gate 1 was reviewed asynchronously by email on October 16, 2026.
+Benjamin accepted the recommendations below. Acceptance does not mean
+the corresponding code changes are already implemented.
 
 | Topic | Decision | Reviewer | Date | Follow-up |
 | --- | --- | --- | --- | --- |
-| Mappings and weights | Pending | | | |
-| Checklist interpretation | Pending | | | |
-| Scoring boundaries | Pending | | | |
-| Lab variation | Pending | | | |
-| Repository ownership | Pending | | | |
+| Mappings and weights | Accepted direct Essential mappings at weight 3; partial or uncertain mappings at weight 1. | Benjamin Drury by email | 2026-10-16 | Review every mapping and update final weights. |
+| Checklist interpretation | Approved revised Q17, Q18, and separate Q24 follow-ups. Accepted Q23 exclusion only when no medical devices are explicitly confirmed. | Benjamin Drury by email | 2026-10-16 | Implement Q23 applicability and denominator adjustment; Unknown remains scored. |
+| Scoring boundaries | Accepted separate cloud entities, provisional unmatched hosts, confirmed-only internet multiplier, and deduplication of the same finding on the same entity. | Benjamin Drury by email | 2026-10-16 | Document entity counting, caps, uncertainty, and deduplication; implement and calibrate. |
+| Lab variation | Accepted WSL namespaces for the benign service-parsing fixture. | Benjamin Drury by email | 2026-10-16 | Retain documentation of shared kernel and filesystem. |
+| Ingestion implementation | Accepted explicit aliases without fuzzy matching and defusedxml for Nmap parsing. | Benjamin Drury by email | 2026-10-16 | Maintain validation and malformed-input tests. |
+| Repository ownership | No repository transfer required; repository remains under Primrose's account. | Benjamin Drury by email | 2026-10-16 | Update transfer references in project documents. |
+| Branding and service rights | Clarification pending. | | | Confirm whether the brief's separate branding, hosted-instance, and service terms change. |
