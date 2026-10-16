@@ -100,7 +100,8 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
 - CSF 2.0: Protect, PR.PS-05, prevention of unauthorized software;
   partial project interpretation.
 - HIPAA: 45 CFR 164.308(a)(5)(ii)(B), protection from malicious software.
-- Proposed weight: 1. No direct Essential mapping confirmed.
+- Review weight: 1. The current question does not directly assess
+  an Essential goal under the accepted Gate 1 policy.
 - Review status: Source-supported; Gate 1 review pending.
 
 ## Q04 Automatic updates
@@ -114,7 +115,8 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
 - CSF 2.0: Protect, PR.PS-02, software maintenance.
 - HIPAA: 45 CFR 164.308(a)(1)(ii)(B), risk management.
   Automatic updating is a supporting measure, not the complete standard.
-- Proposed weight: 3, subject to approval of this partial relationship.
+- Review weight: 1 under the accepted Gate 1 policy because the
+  current question only partially assesses the Essential goal.
 - Review status: Gate 1 decision required on weighting.
 
 ## Q05 Portable device encryption
@@ -128,7 +130,8 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
 - CSF 2.0: Protect, PR.DS-01, protection of data at rest.
 - HIPAA: 45 CFR 164.312(a)(2)(iv), encryption and decryption.
   This is an Addressable implementation specification.
-- Proposed weight: 1 until the Essential mapping is resolved.
+- Review weight: 1. The current question does not directly assess
+  an Essential goal under the accepted Gate 1 policy.
 - Review status: HICP and CSF relationship supported;
   CPG weighting requires review.
 
@@ -194,7 +197,8 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
 - CSF 2.0: Protect, PR.AA-05, least privilege and separation of duties.
 - HIPAA: 45 CFR 164.308(a)(4)(ii)(B), access authorization,
   and 164.312(a)(1), access control.
-- Proposed weight: 1 until the Essential mapping is resolved.
+- Review weight: 1. The current question does not directly assess
+  an Essential goal under the accepted Gate 1 policy.
 - Review status: HICP and CSF relationship supported;
   CPG weighting requires review.
 
@@ -252,7 +256,8 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
   164.314(a)(1) and (a)(2)(i), business associate arrangements.
 - Coverage: Agreement presence does not verify its contents
   or the vendor's implementation. Assess applicability first.
-- Proposed weight: 3, subject to review of the partial CPG relationship.
+- Review weight: 1 under the accepted Gate 1 policy because the
+  current question only partially assesses the Essential goal.
 - Review status: Source-supported; applicability review pending.
 
 ## Q13 Secure disposal
@@ -327,7 +332,8 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
 - Coverage: Changing a default password and updating within a year
   do not establish that the device is currently secure.
   Urgent patches may require much faster action.
-- Proposed weight: 3, subject to review of the partial CPG relationship.
+- Review weight: 1 under the accepted Gate 1 policy because the
+  current question only partially assesses the Essential goal.
 - Review status: Benchmark and weighting review required.
 
 ## Q17 Protected remote access
@@ -377,7 +383,8 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
 - HIPAA: 45 CFR 164.308(a)(1)(ii)(B), risk management.
 - Coverage: Vendor support, including applicable extended coverage,
   must be checked. Support alone does not prove patches are installed.
-- Proposed weight: 3, subject to review of the partial CPG relationship.
+- Review weight: 1 under the accepted Gate 1 policy because the
+  current question only partially assesses the Essential goal.
 - Review status: Q18 wording correction recorded; Gate 1 review pending.
 
 ## Q19 Checking installed updates
@@ -390,7 +397,8 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
 - HIPAA: 45 CFR 164.308(a)(1)(ii)(B), risk management.
 - Coverage: Monthly verification is ClinicShield's benchmark.
   It must not delay urgent vulnerability remediation.
-- Proposed weight: 3, subject to review of the partial CPG relationship.
+- Review weight: 1 under the accepted Gate 1 policy because the
+  current question only partially assesses the Essential goal.
 - Review status: Source-supported; verification interval review pending.
 
 ## Q20 Written incident plan
@@ -431,7 +439,8 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
 - Coverage: The question checks preparation to obtain guidance.
   It does not determine whether an incident is a reportable breach,
   identify every recipient, or calculate a legal deadline.
-- Proposed weight: 1 until the Essential relationship is approved.
+- Review weight: 1. The current question does not directly assess
+  an Essential goal under the accepted Gate 1 policy.
 - Review status: Partial mapping; weighting and legal review pending.
 
 ## Sources for Q18 to Q22
@@ -461,7 +470,11 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
   controls. A single answer cannot identify which part is missing.
   Define how organizations with no medical devices should answer.
 - Proposed weight: 1.
-- Review status: Compound question and applicability require review.
+- Gate 1 decision: Exclude Q23 from the Safeguards denominator only
+  when the clinic explicitly confirms it has no medical devices.
+  An incomplete inventory or Unknown answer does not justify exclusion.
+- Review status: Applicability policy accepted October 16, 2026;
+  input and scoring implementation remain pending.
 
 ## Q24 Security responsibility and risk analysis
 
@@ -482,7 +495,8 @@ https://learn.microsoft.com/en-us/defender-office-365/outbound-spam-policies-ext
   R22 uses Q24b. Do not infer both gaps from Q24 alone.
 - Sample follow-ups are stored in followups.json.
   Tests verify consistency with each sample's combined answer.
-- Proposed weight: 1 until an Essential relationship is supported.
+- Review weight: 1. The current question does not directly assess
+  an Essential goal under the accepted Gate 1 policy.
 - Review status: Follow-up design documented;
   engine and export implementation pending.
 
@@ -523,13 +537,17 @@ These items remain open. Proposed weights are not final.
   relationship to incident planning. Proposed weight 1.
 - Q24: No direct Essential mapping confirmed for both components.
   Proposed weight 1; separate follow-ups are documented.
-- Q04, Q12, Q16, Q18, and Q19: Review partial Essential relationships
-  before accepting proposed weight 3.
+- Q04, Q12, Q16, Q18, and Q19: Review weight 1 under the policy
+  accepted by Benjamin on October 16, 2026. Their current wording
+  only partially assesses the related Essential goals.
 - Q02: Precise HIPAA mapping remains unresolved.
-- Q23: Define the answer and scoring treatment when an organization
-  has no network-connected medical devices.
+- Q23: Explicit confirmation of no medical devices permits exclusion
+  from the denominator. Unknown remains scored without Yes credit.
+  Implementation is pending.
 - Q17: Corrected to require MFA for enabled remote access.
   Implement the same interpretation in R07.
-- Confirm Unknown handling, cloud-service scoring, and sample calibration.
+- Unknown handling and the cloud-service scoring approach were accepted
+  at Gate 1. Detailed scoring implementation and sample calibration
+  remain pending.
 
 Record each decision, reviewer, date, and rationale here after review.
