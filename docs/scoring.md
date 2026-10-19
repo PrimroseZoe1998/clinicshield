@@ -11,22 +11,34 @@ a written reason and updated tests.
 
 ## Safeguards score
 
-Each checklist question has a weight.
+## Safeguards score
 
-- Questions mapped to an HHS Essential Cybersecurity Performance
-  Goal have weight 3.
-- All other questions have weight 1.
+Question-level mappings and weights were reviewed on October 16,
+2026. See docs/framework-mappings.md.
 
-Confirm and document the framework mappings before assigning weights.
+Weight 3:
+Q01, Q02, Q06, Q07, Q08, Q10, Q11, Q17, Q20, Q21, Q25.
+
+All remaining questions have weight 1.
 
 Answers receive:
-
 - Yes: the question's full weight.
 - No: zero.
 - Unknown: zero, with a follow-up action to establish the answer.
 
+Q23 is excluded from both earned weight and total applicable weight
+only when medical-device presence is explicitly No.
+Yes, Unknown, and the default Unknown keep Q23 applicable.
+Do not infer absence from an empty inventory.
+
+Q24 is scored once using its combined answer.
+Q24a and Q24b do not add separate scoring weight.
+
 Safeguards score =
-100 × earned weight ÷ total question weight.
+100 × earned applicable weight ÷ total applicable weight.
+
+The denominator is 47 when all questions apply and 46 when
+Q23 is excluded.
 
 Keep full precision until calculating the final combined score.
 
