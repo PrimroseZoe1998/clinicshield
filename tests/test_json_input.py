@@ -249,3 +249,34 @@ def test_assessment_accepts_json_with_authorized_scan():
 
     assert len(result.inventory.services) == 4
     assert result.inventory.unmatched_service_rows == [4]
+
+@pytest.mark.parametrize(
+    "data",
+    [
+        b'[{"asset_id":"PRIVATE_SENTINEL"}] trailing',
+        b'[{"asset_id":"PRIVATE_SENTINEL",}]',
+        b'[{"asset_id":"PRIVATE_SENTINEL",/* comment */"port":80}]',
+        b'[{"asset_id":"PRIVATE_SENTINEL\n"}]',
+    ],
+)
+def test_rejects_malformed_json_without_exposing_values(data):
+    with pytest.raises(InputError, match="valid UTF-8") as error:
+        read_inventory_json(data, "services")
+
+    assert "PRIVATE_SENTINEL" not in str(error.value)
+
+
+def test_rejects_excessively_nested_json_safely():
+    import sys
+
+    depth = sys.getrecursionlimit() + 100
+    data = (
+        b"[" * depth
+        + b'"PRIVATE_SENTINEL"'
+        + b"]" * depth
+    )
+
+    with pytest.raises(InputError) as error:
+        read_inventory_json(data, "services")
+
+    assert "PRIVATE_SENTINEL" not in str(error.value)

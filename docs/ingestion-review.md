@@ -19,7 +19,7 @@ This is an implementation review, not Gate 1 approval.
 - Explicit header aliases with collision rejection.
 - Upload, row, column, cell, and workbook archive limits.
 - Safe validation messages without uploaded row values.
-- 357 tests pass locally; merged pull request checks passed.
+- 362 tests pass locally; merged pull request checks passed.
 
 ## Remaining requirements and review items
 
@@ -39,7 +39,9 @@ This is an implementation review, not Gate 1 approval.
 - Verify upload behavior and friendly errors in the future Streamlit UI.
 - Enforced a 20 MiB combined upload limit before assessment parsing,
   retaining per-file limits. Boundary and input-type tests pass.
-- Extend malformed-file testing.
+- Added JSON rejection tests for trailing content, trailing commas,
+  comments, unescaped newlines, and excessive nesting.
+  Further malformed-file coverage remains under review.
 
 ## Acceptance status
 
