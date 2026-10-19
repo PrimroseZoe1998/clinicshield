@@ -19,7 +19,9 @@ This is an implementation review, not Gate 1 approval.
 - Explicit header aliases with collision rejection.
 - Upload, row, column, cell, and workbook archive limits.
 - Safe validation messages without uploaded row values.
-- 364 tests pass locally; merged pull request checks passed.
+- 377 tests pass locally; merged pull request checks passed.
+- Medical-device presence defaults to Unknown. Q23 is marked
+  inapplicable only for an explicit No; scoring integration is pending.
 
 ## Remaining requirements and review items
 

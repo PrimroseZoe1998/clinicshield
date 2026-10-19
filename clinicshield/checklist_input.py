@@ -17,6 +17,11 @@ FOLLOWUP_IDS = {"Q24a", "Q24b"}
 class Checklist:
     answers: dict[str, str]
     followups: dict[str, str]
+    medical_devices_present: str = "Unknown"
+
+    @property
+    def q23_applicable(self) -> bool:
+        return self.medical_devices_present != "No"
 
 
 def unique_object(pairs):
@@ -67,8 +72,18 @@ def derive_q24(followups: dict[str, str]) -> str:
 def read_checklist(
     data: bytes,
     followup_data: bytes | None = None,
+    *,
+    medical_devices_present: str = "Unknown",
 ) -> Checklist:
     """Validate checklist answers without logging uploaded content."""
+    if (
+        not isinstance(medical_devices_present, str)
+        or medical_devices_present not in ANSWERS
+    ):
+        raise InputError(
+            "Medical device presence must be Yes, No, or Unknown."
+        )
+
     answers = read_answers(data, QUESTION_IDS)
 
     if followup_data is None:
@@ -76,7 +91,6 @@ def read_checklist(
             "Provide Q24a and Q24b follow-up answers. "
             "They cannot be inferred from the combined Q24 answer."
         )
-
     followups = read_answers(followup_data, FOLLOWUP_IDS)
     combined = derive_q24(followups)
 
@@ -87,4 +101,8 @@ def read_checklist(
             "and Unknown otherwise."
         )
 
-    return Checklist(answers=answers, followups=followups)
+    return Checklist(
+        answers=answers,
+        followups=followups,
+        medical_devices_present=medical_devices_present,
+    )

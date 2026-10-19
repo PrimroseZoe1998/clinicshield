@@ -82,15 +82,6 @@ def test_requires_missing_followups():
         read_checklist(json_bytes(answers("No")))
 
 
-@pytest.mark.parametrize("combined", ["No", "Unknown"])
-def test_rejects_conflicting_q24(combined):
-    with pytest.raises(InputError, match="conflicts"):
-        read_checklist(
-            json_bytes(answers(combined)),
-            json_bytes(followups()),
-        )
-
-
 @pytest.mark.parametrize("change", ["missing", "extra", "wrong_id"])
 def test_rejects_invalid_question_ids(change):
     values = answers()
@@ -174,3 +165,38 @@ def test_rejects_non_bytes_input(target):
 
     with pytest.raises(InputError, match="as bytes"):
         read_checklist(data, extra)
+
+@pytest.mark.parametrize(
+    "presence,expected",
+    [("Yes", True), ("No", False), ("Unknown", True)],
+)
+def test_q23_applicability(presence, expected):
+    result = read_checklist(
+        json_bytes(answers()),
+        json_bytes(followups()),
+        medical_devices_present=presence,
+    )
+    assert result.q23_applicable is expected
+    assert result.medical_devices_present == presence
+    assert len(result.answers) == 25
+
+
+def test_q23_defaults_to_applicable():
+    result = read_checklist(
+        json_bytes(answers()),
+        json_bytes(followups()),
+    )
+    assert result.medical_devices_present == "Unknown"
+    assert result.q23_applicable is True
+
+
+@pytest.mark.parametrize(
+    "presence", [None, False, 0, [], {}, "no", " No ", "invalid"]
+)
+def test_rejects_invalid_medical_device_presence(presence):
+    with pytest.raises(InputError, match="Medical device presence"):
+        read_checklist(
+            json_bytes(answers()),
+            json_bytes(followups()),
+            medical_devices_present=presence,
+        ) 

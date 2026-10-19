@@ -47,6 +47,7 @@ def read_assessment(
     *,
     checklist_json: bytes,
     followups_json: bytes,
+    medical_devices_present: str = "Unknown",
     workbook_xlsx: bytes | None = None,
     assets_csv: bytes | None = None,
     software_csv: bytes | None = None,
@@ -122,7 +123,11 @@ def read_assessment(
         services.extend(scanned_services)
 
     inventory = validate_inventory(assets, software, services)
-    checklist = read_checklist(checklist_json, followups_json)
+    checklist = read_checklist(
+        checklist_json,
+        followups_json,
+        medical_devices_present=medical_devices_present,
+    )
 
     return AssessmentInput(
         inventory=inventory,

@@ -173,3 +173,15 @@ def test_rejects_supplied_empty_services_file():
     values["services_csv"] = b""
     with pytest.raises(InputError, match="header row"):
         read_assessment(**values)
+
+@pytest.mark.parametrize(
+    "presence,expected",
+    [("Yes", True), ("No", False), ("Unknown", True)],
+)
+def test_assessment_preserves_q23_applicability(presence, expected):
+    result = read_assessment(
+        **sample_inputs(),
+        medical_devices_present=presence,
+    )
+    assert result.checklist.medical_devices_present == presence
+    assert result.checklist.q23_applicable is expected 
