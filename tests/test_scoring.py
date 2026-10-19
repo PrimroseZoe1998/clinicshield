@@ -4,7 +4,8 @@ import pytest
 
 from clinicshield.checklist_input import Checklist
 from clinicshield.scoring import score_safeguards
-
+from clinicshield.input_limits import InputError
+from clinicshield.scoring import technical_risk_points
 
 def checklist(answer="Yes", presence="Unknown", **changes):
     answers = {f"Q{number:02d}": answer for number in range(1, 26)}
@@ -68,3 +69,86 @@ def test_each_reviewed_question_weight(question, weight):
     result = score_safeguards(checklist(**{question: "No"}))
     assert result.earned_weight == 47 - weight
     assert result.applicable_weight == 47
+
+@pytest.mark.parametrize(
+    "severity,expected",
+    [
+        ("Critical", 10),
+        ("High", 6),
+        ("Medium", 3),
+        ("Low", 1),
+        ("Info", 0),
+    ],
+)
+def test_base_technical_risk_points(severity, expected):
+    assert technical_risk_points(
+        severity,
+        touches_phi="N",
+        internet_facing="N",
+        medical_device=False,
+    ) == expected
+
+
+@pytest.mark.parametrize("phi", ["Y", "Unknown"])
+def test_phi_multiplier(phi):
+    assert technical_risk_points(
+        "High",
+        touches_phi=phi,
+        internet_facing="N",
+        medical_device=False,
+    ) == 9
+
+
+@pytest.mark.parametrize(
+    "exposure,expected",
+    [("Y", 9), ("N", 6), ("Unknown", 6)],
+)
+def test_only_confirmed_internet_exposure_gets_multiplier(
+    exposure, expected
+):
+    assert technical_risk_points(
+        "High",
+        touches_phi="N",
+        internet_facing=exposure,
+        medical_device=False,
+    ) == expected
+
+
+def test_medical_device_multiplier():
+    assert technical_risk_points(
+        "High",
+        touches_phi="N",
+        internet_facing="N",
+        medical_device=True,
+    ) == Fraction(15, 2)
+
+
+def test_all_multipliers_preserve_exact_precision():
+    assert technical_risk_points(
+        "Critical",
+        touches_phi="Y",
+        internet_facing="Y",
+        medical_device=True,
+    ) == Fraction(225, 8)
+
+
+@pytest.mark.parametrize(
+    "changes",
+    [
+        {"severity": "invalid"},
+        {"touches_phi": None},
+        {"internet_facing": "yes"},
+        {"medical_device": 1},
+    ],
+)
+def test_rejects_invalid_risk_inputs(changes):
+    values = {
+        "severity": "High",
+        "touches_phi": "N",
+        "internet_facing": "N",
+        "medical_device": False,
+    }
+    values.update(changes)
+
+    with pytest.raises(InputError):
+        technical_risk_points(**values)

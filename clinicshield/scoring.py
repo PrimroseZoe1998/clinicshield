@@ -62,3 +62,42 @@ def score_safeguards(checklist: Checklist) -> SafeguardsScore:
         excluded_questions=tuple(excluded),
         unknown_questions=tuple(unknown),
     )
+
+SEVERITY_POINTS = {
+    "Critical": 10,
+    "High": 6,
+    "Medium": 3,
+    "Low": 1,
+    "Info": 0,
+}
+
+
+def technical_risk_points(
+    severity: str,
+    *,
+    touches_phi: str,
+    internet_facing: str,
+    medical_device: bool,
+) -> Fraction:
+    if not isinstance(severity, str) or severity not in SEVERITY_POINTS:
+        raise InputError("Choose a supported finding severity.")
+
+    for value in (touches_phi, internet_facing):
+        if not isinstance(value, str) or value not in {"Y", "N", "Unknown"}:
+            raise InputError("Asset conditions must be Y, N, or Unknown.")
+
+    if type(medical_device) is not bool:
+        raise InputError("Medical device status must be a boolean.")
+
+    points = Fraction(SEVERITY_POINTS[severity])
+
+    if touches_phi in {"Y", "Unknown"}:
+        points *= Fraction(3, 2)
+
+    if internet_facing == "Y":
+        points *= Fraction(3, 2)
+
+    if medical_device:
+        points *= Fraction(5, 4)
+
+    return points
