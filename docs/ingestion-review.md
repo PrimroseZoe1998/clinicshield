@@ -19,7 +19,7 @@ This is an implementation review, not Gate 1 approval.
 - Explicit header aliases with collision rejection.
 - Upload, row, column, cell, and workbook archive limits.
 - Safe validation messages without uploaded row values.
-- 334 tests pass locally; merged pull request checks passed.
+- 342 tests pass locally; merged pull request checks passed.
 
 ## Remaining requirements and review items
 
@@ -28,10 +28,12 @@ This is an implementation review, not Gate 1 approval.
 - Hostname remains unsupported because its meaning is ambiguous.
 - IP address remains prohibited by the current address blocklist;
   the canonical host field is supported.
-- The Nmap reader uses defusedxml rather than python-libnmap.
-  Record this implementation choice at Gate 1.
-- Add documented runtime verification that uploaded content is neither
-  written to disk nor logged.
+- Benjamin accepted explicit aliases without fuzzy matching and
+  defusedxml for Nmap parsing at Gate 1 on October 16, 2026.
+- Runtime tests cover valid and invalid CSV, JSON, Excel, and Nmap
+  inputs: no builtins.open or io.open calls, Python log records,
+  or captured terminal output occurred during parsing.
+  Broader filesystem access and future UI behavior remain unverified.
 - Complete the threat model and SECURITY.md.
 - Verify upload behavior and friendly errors in the future Streamlit UI.
 - Test additional malformed files and combined assessment size limits.
@@ -42,5 +44,5 @@ Core ingestion is implemented, but full ingestion acceptance remains
 pending. Passing tests do not establish that uploaded values contain
 no personal information.
 
-Record decisions on header matching and implementation variations
-at Gate 1. Preserve the privacy and no-persistence guardrails.
+Gate 1 decisions are recorded in docs/gate-1-review.md.
+Preserve the privacy and no-persistence guardrails.
