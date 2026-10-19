@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from clinicshield.checklist_input import Checklist, read_checklist
 from clinicshield.ingest import read_csv
-from clinicshield.input_limits import InputError
+from clinicshield.input_limits import InputError, validate_assessment_uploads
 from clinicshield.inventory import Inventory, validate_inventory
 from clinicshield.json_input import read_inventory_json
 from clinicshield.nmap_input import read_nmap
@@ -59,6 +59,18 @@ def read_assessment(
     scan_host_to_asset: dict[str, str] | None = None,
 ) -> AssessmentInput:
     """Validate assessment inputs in memory without saving or logging them."""
+    validate_assessment_uploads(
+        checklist_json,
+        followups_json,
+        workbook_xlsx,
+        assets_csv,
+        software_csv,
+        services_csv,
+        assets_json,
+        software_json,
+        services_json,
+        nmap_xml,
+    )
     if scan_host_to_asset is not None and nmap_xml is None:
         raise InputError("Provide Nmap XML when supplying scan host mappings.")
 

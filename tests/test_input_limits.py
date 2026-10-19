@@ -15,7 +15,9 @@ from clinicshield.input_limits import (
     validate_upload,
 )
 from clinicshield.nmap_input import read_nmap
-
+from clinicshield import input_limits
+from clinicshield.assessment_input import read_assessment
+from clinicshield.input_limits import validate_assessment_uploads
 
 PROJECT = Path(__file__).resolve().parents[1]
 TEMPLATE = PROJECT / "templates" / "clinicshield_inventory.xlsx"
@@ -185,3 +187,48 @@ def test_workbook_rejects_malformed_internal_xml():
 
     with pytest.raises(InputError, match="valid Excel"):
         workbook.read_workbook(stream.getvalue())
+
+def test_assessment_accepts_exact_combined_limit(monkeypatch):
+    monkeypatch.setattr(input_limits, "MAX_ASSESSMENT_BYTES", 6)
+    validate_assessment_uploads(b"123", None, b"456")
+
+
+def test_assessment_rejects_one_byte_over_combined_limit(monkeypatch):
+    monkeypatch.setattr(input_limits, "MAX_ASSESSMENT_BYTES", 6)
+    with pytest.raises(InputError, match="combined assessment"):
+        validate_assessment_uploads(b"123", b"4567")
+
+
+@pytest.mark.parametrize("value", ["text", bytearray(b"text"), 123])
+def test_assessment_uploads_reject_non_bytes(value):
+    with pytest.raises(InputError, match="as bytes"):
+        validate_assessment_uploads(value)
+
+
+@pytest.mark.parametrize(
+    "field",
+    [
+        "checklist_json",
+        "followups_json",
+        "workbook_xlsx",
+        "assets_csv",
+        "software_csv",
+        "services_csv",
+        "assets_json",
+        "software_json",
+        "services_json",
+        "nmap_xml",
+    ],
+)
+def test_assessment_checks_total_before_parsing(monkeypatch, field):
+    monkeypatch.setattr(input_limits, "MAX_ASSESSMENT_BYTES", 5)
+    values = {
+        "checklist_json": b"x",
+        "followups_json": b"x",
+        field: b"PRIVATE_SENTINEL",
+    }
+
+    with pytest.raises(InputError, match="combined assessment") as error:
+        read_assessment(**values)
+
+    assert "PRIVATE_SENTINEL" not in str(error.value)

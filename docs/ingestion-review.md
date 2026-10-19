@@ -19,7 +19,7 @@ This is an implementation review, not Gate 1 approval.
 - Explicit header aliases with collision rejection.
 - Upload, row, column, cell, and workbook archive limits.
 - Safe validation messages without uploaded row values.
-- 342 tests pass locally; merged pull request checks passed.
+- 357 tests pass locally; merged pull request checks passed.
 
 ## Remaining requirements and review items
 
@@ -37,7 +37,9 @@ This is an implementation review, not Gate 1 approval.
 - Added SECURITY.md and an initial threat model in
   docs/threat-model.md. Deployment checks remain pending.
 - Verify upload behavior and friendly errors in the future Streamlit UI.
-- Test additional malformed files and combined assessment size limits.
+- Enforced a 20 MiB combined upload limit before assessment parsing,
+  retaining per-file limits. Boundary and input-type tests pass.
+- Extend malformed-file testing.
 
 ## Acceptance status
 
