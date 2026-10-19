@@ -34,7 +34,8 @@ This is an implementation review, not Gate 1 approval.
   inputs: no builtins.open or io.open calls, Python log records,
   or captured terminal output occurred during parsing.
   Broader filesystem access and future UI behavior remain unverified.
-- Complete the threat model and SECURITY.md.
+- Added SECURITY.md and an initial threat model in
+  docs/threat-model.md. Deployment checks remain pending.
 - Verify upload behavior and friendly errors in the future Streamlit UI.
 - Test additional malformed files and combined assessment size limits.
 
