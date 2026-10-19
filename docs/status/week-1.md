@@ -19,6 +19,9 @@ Progress as of October 16, 2026.
   on October 16, 2026.
 - Completed the question-level framework mapping and weight review;
   documented coverage limitations and closed issue #1.
+- Benjamin confirmed the scope and fallback priorities; closed issue #3.
+- Benjamin confirmed the existing branding and service terms and
+  approved sharing the public repository link.
 
 ## Next
 
@@ -28,12 +31,9 @@ Progress as of October 16, 2026.
 
 ## Blocked
 
-Issue #3 awaits Benjamin's final scope and fallback confirmation.
-Development can continue under the existing brief.
-Accepted scoring changes are not yet implemented.
+None. Week 1 review is complete.
+Accepted scoring changes remain tracked as implementation work.
 
 ## Ask
 
-Clarify whether the brief's separate branding, hosted-instance,
-and service-offering terms change. Benjamin confirmed that no
-repository transfer is required.
+None outstanding for Week 1.
