@@ -7,7 +7,7 @@ from openpyxl import load_workbook
 
 from clinicshield.ingest import InputError
 from clinicshield.workbook import read_workbook
-
+from zipfile import ZipFile
 
 TEMPLATE = (
     Path(__file__).resolve().parents[1]
@@ -192,3 +192,20 @@ def test_rejects_invalid_workbook(data):
 def test_rejects_non_bytes_input():
     with pytest.raises(InputError, match="as bytes"):
         read_workbook("not bytes")
+
+def test_rejects_truncated_workbook():
+    data = TEMPLATE.read_bytes()
+
+    with pytest.raises(InputError, match="valid Excel"):
+        read_workbook(data[:len(data) // 2])
+
+
+def test_rejects_zip_without_excel_components():
+    stream = io.BytesIO()
+    with ZipFile(stream, "w") as archive:
+        archive.writestr("example.txt", "PRIVATE_SENTINEL")
+
+    with pytest.raises(InputError, match="valid Excel") as error:
+        read_workbook(stream.getvalue())
+
+    assert "PRIVATE_SENTINEL" not in str(error.value)        
