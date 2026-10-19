@@ -105,4 +105,6 @@ the corresponding code changes are already implemented.
 | Lab variation | Accepted WSL namespaces for the benign service-parsing fixture. | Benjamin Drury by email | 2026-10-16 | Retain documentation of shared kernel and filesystem. |
 | Ingestion implementation | Accepted explicit aliases without fuzzy matching and defusedxml for Nmap parsing. | Benjamin Drury by email | 2026-10-16 | Maintain validation and malformed-input tests. |
 | Repository ownership | No repository transfer required; repository remains under Primrose's account. | Benjamin Drury by email | 2026-10-16 | Update transfer references in project documents. |
-| Branding and service rights | Clarification pending. | | | Confirm whether the brief's separate branding, hosted-instance, and service terms change. |
+| Branding and service rights | Confirmed the brief's existing ChiEAC name, branding, hosted-instance, and service-offering terms remain unchanged. | Benjamin Drury by email | 2026-10-18 | Retain ChiEAC credit and Primrose as lead developer. |
+| Scope and fallback priorities | Accepted the fallback order and retained requirements in Primrose's confirmation email. | Benjamin Drury by email | 2026-10-18 | Apply the agreed fallback order if the schedule becomes tight. |
+| Public repository link | Approved sharing the public repository link on LinkedIn and in Primrose's portfolio. | Benjamin Drury by email | 2026-10-18 | Public sharing is permitted. |
