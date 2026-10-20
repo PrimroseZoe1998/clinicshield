@@ -11,7 +11,6 @@ a written reason and updated tests.
 
 ## Safeguards score
 
-## Safeguards score
 
 Question-level mappings and weights were reviewed on October 16,
 2026. See docs/framework-mappings.md.
@@ -57,7 +56,7 @@ No indicates unsupported systems.
 Unknown earns no points and requires investigation.
 
 Do not reuse the original question's answer interpretation.
-Record this wording change for review at the scope gate.
+Benjamin accepted this wording correction at Gate 1 on October 16, 2026.
 
 ## Finding severity points
 
@@ -96,23 +95,45 @@ at the scoring gate.
 
 ## Exposure score
 
-For each asset:
+Scoring entities include inventory devices, grouped cloud services,
+and provisional unmatched hosts.
 
-1. Sum its technical finding risk points.
-2. Cap that asset's total at 25 points.
+- Each device has its own entity.
+- Cloud rows share an entity when normalized vendor, product,
+  and purpose match. Version differences do not create extra entities.
+  Separate tenants cannot currently be distinguished by these fields.
+- Unmatched services share an entity by normalized host, or by
+  their asset ID when no host is supplied.
+- Local software and explicitly linked services map to their device.
+- Cloud and unmatched IDs are local to the current assessment.
 
-Sum the capped totals across assets.
+For each entity:
 
-If there are more than 20 assets, divide that total by
-(asset count ÷ 20).
+1. Count each finding ID once.
+2. Reject duplicate finding IDs with conflicting risk points.
+3. Sum technical finding risk points.
+4. Cap the entity total at 25 points.
+
+Sum the capped totals across all entities, including entities with
+no findings.
+
+If there are more than 20 entities, multiply that total by
+20 divided by the entity count.
 
 Exposure score = maximum of 0 and (100 minus the adjusted total).
 
-Checklist findings do not enter the Exposure score.
-They influence the Safeguards score and the Critical ceiling.
+Unknown conditions remain recorded for explanations.
+Unknown patient-data status receives the 1.5 multiplier.
+Unknown internet exposure receives no internet multiplier.
+Unknown medical-device status receives no medical-device multiplier
+and remains flagged for review.
 
-A score with missing inventory data is incomplete, even if the
-arithmetic produces a high number.
+Checklist findings do not enter Exposure scoring.
+They influence Safeguards scoring and the Critical ceiling.
+
+The arithmetic functions and inventory mappings are implemented.
+Automatic finding generation and complete assessment orchestration
+remain pending. Missing data must not be presented as evidence of safety.
 
 ## Combined Cyber Safety Score
 
@@ -120,7 +141,7 @@ Raw combined score =
 0.6 × Safeguards score + 0.4 × Exposure score.
 
 Round the combined score to the nearest whole number.
-Proposed tie rule: values ending in exactly .5 round upward.
+Implemented tie rule: values ending in exactly .5 round upward.
 
 If any open finding is Critical, cap the final score at 69.
 This includes Critical technical findings and Critical checklist findings.
@@ -139,30 +160,38 @@ in the explanation panel.
 
 ## Worked example
 
-Suppose an organization has 10 assets.
+Suppose an organization has 10 scoring entities and all 25
+checklist questions apply.
 
-Its checklist has a total weight of 65 and earns 52 points.
+Three weight-3 questions are answered No; all others are Yes.
+The checklist earns 38 of the 47 available points.
 
-Safeguards score = 100 × 52 ÷ 65 = 80.
+Safeguards score = 100 × 38 ÷ 47 = approximately 80.8511.
+The calculation retains the exact fraction.
 
 A Critical technical finding affects a device that accesses patient
-information and is internet-facing.
+information and is confirmed internet-facing.
 
 Finding risk = 10 × 1.5 × 1.5 = 22.5 points.
 
-Assume all technical findings total 30 points after applying
-the per-asset caps.
+Assume all technical findings total 30 points after deduplication
+and per-entity caps.
 
-The organization has no more than 20 assets, so no size adjustment applies.
-
+With 10 entities, no size adjustment applies.
 Exposure score = 100 - 30 = 70.
 
-Raw combined score = 0.6 × 80 + 0.4 × 70 = 76.
+Raw combined score =
+0.6 × (3800 ÷ 47) + 0.4 × 70
+= 3596 ÷ 47
+= approximately 76.5106.
 
+The rounded score is 77.
 The open Critical finding caps the final score at 69.
 
 Final result: 69, At risk.
-The explanation must identify the Critical finding causing the cap.
+
+The explanation must retain the raw score, rounded score,
+Critical ceiling, and finding IDs responsible for the ceiling.
 
 ## Fix First ranking
 
@@ -196,16 +225,24 @@ Explain that this initial ranking uses finding points, which may
 differ from the actual score improvement because of asset caps,
 overlapping findings, and the Critical ceiling.
 
-## Decisions still requiring review
+## Implementation status and remaining work
 
-- Confirm checklist framework mappings and weights.
-- Define how cloud services and unmatched hosts contribute to
-  technical exposure without escaping the per-asset cap.
-- Define handling of empty, partial, or contradictory inventories.
+Implemented and tested:
+- Reviewed checklist weights and Q23 applicability.
+- Technical severity points and condition multipliers.
+- Device, cloud-service, and provisional unmatched-host mappings.
+- Per-entity caps, duplicate-finding handling, and size adjustment.
+- Combined scoring, upward rounding of exact .5 ties, score bands,
+  and the Critical ceiling.
+
+Remaining:
+- Connect automatic finding generation to assessment scoring.
+- Ensure every open Critical finding reaches the combined scorer.
+- Preserve uncertainty and incomplete-data warnings in reports.
 - Define practice-area score formulas and their denominators.
-- Confirm treatment of unknown exposure and rounding ties.
-- Confirm duplicate findings and fixes are handled consistently.
-- Calibrate the three sample clinics and record expected findings.
+- Review ambiguous entity grouping and contradictory evidence.
+- Implement Fix First ranking and duplicate-fix handling.
+- Calibrate all three sample clinics against generated findings.
 
 Westside's initial findings include Critical risks, so its initial
 score cannot exceed 69. It may reach Needs attention after those
@@ -230,6 +267,6 @@ For findings:
 - Unknown follow-ups require explicit uncertainty and follow-up actions.
 - Never infer both missing controls from the combined Q24 answer alone.
 
-Q24's proposed weight is 1 pending framework review.
-This proposed change from the brief must be recorded at Gate 1
-and included in sample score calibration.
+Q24's reviewed weight is 1. The combined answer is scored once.
+This policy was accepted at Gate 1 and must be included in
+sample score calibration.
