@@ -6,7 +6,7 @@ from clinicshield.checklist_input import Checklist
 from clinicshield.scoring import score_safeguards
 from clinicshield.input_limits import InputError
 from clinicshield.scoring import technical_risk_points
-
+from clinicshield.scoring import ExposureFinding, score_exposure
 def checklist(answer="Yes", presence="Unknown", **changes):
     answers = {f"Q{number:02d}": answer for number in range(1, 26)}
     answers.update(changes)
@@ -152,3 +152,93 @@ def test_rejects_invalid_risk_inputs(changes):
 
     with pytest.raises(InputError):
         technical_risk_points(**values)
+
+def test_exposure_without_findings():
+    result = score_exposure(["device:1"], [])
+    assert result.entity_count == 1
+    assert result.adjusted_points == 0
+    assert result.score == 100      
+
+
+def test_exposure_caps_each_entity_separately():
+    result = score_exposure(
+        ["device:1", "device:2"],
+        [
+            ExposureFinding("device:1", "R01", Fraction(20)),
+            ExposureFinding("device:1", "R02", Fraction(20)),
+            ExposureFinding("device:2", "R01", Fraction(6)),
+        ],
+    )
+    assert result.capped_entity_points == (
+        ("device:1", Fraction(25)),
+        ("device:2", Fraction(6)),
+    )
+    assert result.adjusted_points == 31
+    assert result.score == 69
+
+
+def test_duplicate_evidence_counts_once():
+    finding = ExposureFinding("device:1", "R01", Fraction(6))
+    result = score_exposure(["device:1"], [finding, finding])
+    assert result.adjusted_points == 6
+    assert result.score == 94
+
+
+def test_conflicting_duplicates_require_review():
+    with pytest.raises(InputError, match="conflicting"):
+        score_exposure(
+            ["device:1"],
+            [
+                ExposureFinding("device:1", "R01", Fraction(6)),
+                ExposureFinding("device:1", "R01", Fraction(9)),
+            ],
+        )
+
+
+@pytest.mark.parametrize(
+    "count,expected",
+    [(20, Fraction(10)), (21, Fraction(200, 21)), (40, Fraction(5))],
+)
+def test_exposure_size_adjustment(count, expected):
+    entities = [f"device:{number}" for number in range(count)]
+    result = score_exposure(
+        entities,
+        [ExposureFinding("device:0", "R01", Fraction(10))],
+    )
+    assert result.entity_count == count
+    assert result.adjusted_points == expected
+    assert result.score == 100 - expected
+
+
+def test_exposure_score_cannot_be_negative():
+    entities = [f"device:{number}" for number in range(5)]
+    findings = [
+        ExposureFinding(entity, "R01", Fraction(25))
+        for entity in entities
+    ]
+    assert score_exposure(entities, findings).score == 0
+
+
+@pytest.mark.parametrize(
+    "entities", [[], ["device:1", "device:1"], [""], [None]]
+)
+def test_rejects_invalid_exposure_entities(entities):
+    with pytest.raises(InputError):
+        score_exposure(entities, [])
+
+
+def test_rejects_unknown_finding_entity():
+    with pytest.raises(InputError, match="unknown entity"):
+        score_exposure(
+            ["device:1"],
+            [ExposureFinding("device:2", "R01", Fraction(6))],
+        )
+
+
+@pytest.mark.parametrize("points", [-1, 1.5, True])
+def test_rejects_invalid_exposure_points(points):
+    with pytest.raises(InputError, match="Risk points"):
+        score_exposure(
+            ["device:1"],
+            [ExposureFinding("device:1", "R01", points)],
+        )
