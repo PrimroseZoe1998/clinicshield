@@ -68,3 +68,156 @@ def validate_inventory(
         services=services,
         unmatched_service_rows=unmatched_service_rows,
     )
+
+@dataclass(frozen=True)
+class ScoringEntity:
+    entity_id: str
+    kind: str
+    touches_phi: str
+    internet_facing: str
+    medical_device: bool | None
+
+
+@dataclass(frozen=True)
+class ScoringInventory:
+    entities: tuple[ScoringEntity, ...]
+    software_entity_ids: tuple[str, ...]
+    service_entity_ids: tuple[str, ...]
+
+def device_scoring_entities(
+    inventory: Inventory,
+) -> tuple[ScoringEntity, ...]:
+    return tuple(
+        ScoringEntity(
+            entity_id=f"device:{asset.asset_id}",
+            kind="device",
+            touches_phi=asset.touches_phi,
+            internet_facing=asset.internet_facing,
+            medical_device=asset.asset_type == "medical_device",
+        )
+        for asset in inventory.assets
+    )
+
+def cloud_scoring_entities(
+    inventory: Inventory,
+) -> tuple[tuple[ScoringEntity, ...], tuple[str, ...]]:
+    groups = {}
+    software_ids = []
+
+    for application in inventory.software:
+        if application.deployment != "cloud":
+            software_ids.append(f"device:{application.asset_id}")
+            continue
+
+        key = (
+            application.vendor.strip().casefold(),
+            application.product.strip().casefold(),
+            application.purpose,
+        )
+
+        if key not in groups:
+            groups[key] = {
+                "entity_id": f"cloud:{len(groups) + 1}",
+                "phi_values": set(),
+            }
+
+        group = groups[key]
+        group["phi_values"].add(application.touches_phi)
+        software_ids.append(group["entity_id"])
+
+    entities = []
+
+    for group in groups.values():
+        values = group["phi_values"]
+        if "Y" in values:
+            phi = "Y"
+        elif "Unknown" in values:
+            phi = "Unknown"
+        else:
+            phi = "N"
+
+        entities.append(
+            ScoringEntity(
+                entity_id=group["entity_id"],
+                kind="cloud",
+                touches_phi=phi,
+                internet_facing="Unknown",
+                medical_device=False,
+            )
+        )
+
+    return tuple(entities), tuple(software_ids)
+
+def unmatched_scoring_entities(
+    inventory: Inventory,
+) -> tuple[tuple[ScoringEntity, ...], tuple[str, ...]]:
+    from ipaddress import ip_address
+
+    device_ids = {asset.asset_id for asset in inventory.assets}
+    groups = {}
+    service_ids = []
+
+    for service in inventory.services:
+        if service.asset_id in device_ids:
+            service_ids.append(f"device:{service.asset_id}")
+            continue
+
+        if service.host.strip():
+            host = service.host.strip()
+            try:
+                host = str(ip_address(host))
+            except ValueError:
+                host = host.casefold()
+            key = ("host", host)
+        else:
+            key = ("asset_id", service.asset_id)
+
+        if key not in groups:
+            groups[key] = {
+                "entity_id": f"unmatched:{len(groups) + 1}",
+                "exposures": set(),
+            }
+
+        group = groups[key]
+        group["exposures"].add(service.exposure)
+        service_ids.append(group["entity_id"])
+
+    entities = []
+
+    for group in groups.values():
+        exposures = group["exposures"]
+        if "internet" in exposures:
+            exposure = "Y"
+        elif exposures == {"internal"}:
+            exposure = "N"
+        else:
+            exposure = "Unknown"
+
+        entities.append(
+            ScoringEntity(
+                entity_id=group["entity_id"],
+                kind="unmatched",
+                touches_phi="Unknown",
+                internet_facing=exposure,
+                medical_device=None,
+            )
+        )
+
+    return tuple(entities), tuple(service_ids)
+
+def build_scoring_inventory(inventory: Inventory) -> ScoringInventory:
+    validated = validate_inventory(
+        inventory.assets,
+        inventory.software,
+        inventory.services,
+    )
+
+    devices = device_scoring_entities(validated)
+    clouds, software_ids = cloud_scoring_entities(validated)
+    unmatched, service_ids = unmatched_scoring_entities(validated)
+
+    return ScoringInventory(
+        entities=devices + clouds + unmatched,
+        software_entity_ids=software_ids,
+        service_entity_ids=service_ids,
+    )

@@ -5,7 +5,7 @@ import pytest
 from clinicshield.ingest import InputError, read_csv
 from clinicshield.inventory import validate_inventory
 from clinicshield.schemas import Asset, Service, Software
-
+from clinicshield.inventory import build_scoring_inventory
 
 SAMPLES = Path(__file__).resolve().parents[1] / "samples"
 
@@ -154,3 +154,64 @@ def test_copies_input_lists():
     assert len(inventory.assets) == 1
     assert len(inventory.software) == 1
     assert len(inventory.services) == 1
+
+def test_scoring_maps_local_records_to_device():
+    inventory = validate_inventory(
+        [make_asset()], [make_software()], [make_service()]
+    )
+    result = build_scoring_inventory(inventory)
+
+    assert len(result.entities) == 1
+    entity = result.entities[0]
+    assert entity.entity_id == "device:TEST-01"
+    assert entity.kind == "device"
+    assert entity.touches_phi == "Y"
+    assert entity.internet_facing == "N"
+    assert entity.medical_device is False
+    assert result.software_entity_ids == ("device:TEST-01",)
+    assert result.service_entity_ids == ("device:TEST-01",)
+
+
+def test_duplicate_cloud_rows_share_one_entity():
+    first = make_software("CLOUD", "cloud")
+    second = first.model_copy(
+        update={"version": "2", "touches_phi": "Unknown"}
+    )
+    inventory = validate_inventory([make_asset()], [first, second])
+    result = build_scoring_inventory(inventory)
+
+    clouds = [entity for entity in result.entities if entity.kind == "cloud"]
+    assert len(clouds) == 1
+    assert result.software_entity_ids == ("cloud:1", "cloud:1")
+    assert clouds[0].touches_phi == "Unknown"
+    assert clouds[0].internet_facing == "Unknown"
+
+
+def test_different_cloud_products_have_separate_entities():
+    first = make_software("CLOUD", "cloud")
+    second = first.model_copy(update={"product": "Another application"})
+    inventory = validate_inventory([make_asset()], [first, second])
+    result = build_scoring_inventory(inventory)
+
+    assert len(result.entities) == 3
+    assert result.software_entity_ids == ("cloud:1", "cloud:2")
+
+
+def test_unmatched_ports_on_same_host_share_one_entity():
+    first = make_service("UNMATCHED-1").model_copy(
+        update={"host": "192.0.2.2", "exposure": "unknown"}
+    )
+    second = first.model_copy(
+        update={"asset_id": "UNMATCHED-2", "port": 443, "exposure": "internet"}
+    )
+    inventory = validate_inventory([make_asset()], [], [first, second])
+    result = build_scoring_inventory(inventory)
+
+    unmatched = [
+        entity for entity in result.entities if entity.kind == "unmatched"
+    ]
+    assert len(unmatched) == 1
+    assert result.service_entity_ids == ("unmatched:1", "unmatched:1")
+    assert unmatched[0].touches_phi == "Unknown"
+    assert unmatched[0].internet_facing == "Y"
+    assert unmatched[0].medical_device is None
