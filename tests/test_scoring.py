@@ -9,6 +9,12 @@ from clinicshield.scoring import technical_risk_points
 from clinicshield.scoring import ExposureFinding, score_exposure
 from clinicshield.inventory import ScoringEntity
 from clinicshield.scoring import evaluate_technical_finding
+from clinicshield.scoring import (
+    ExposureScore,
+    SafeguardsScore,
+    combine_scores,
+)
+
 def checklist(answer="Yes", presence="Unknown", **changes):
     answers = {f"Q{number:02d}": answer for number in range(1, 26)}
     answers.update(changes)
@@ -300,3 +306,79 @@ def test_evaluation_rejects_missing_finding_id(finding_id):
 
     with pytest.raises(InputError, match="nonempty IDs"):
         evaluate_technical_finding(entity, finding_id, "High")
+
+def combined_result(earned, total, exposure, critical=()):
+    safeguards = SafeguardsScore(earned, total, (), ())
+    exposure_result = ExposureScore(
+        entity_count=1,
+        capped_entity_points=(),
+        adjusted_points=100 - Fraction(exposure),
+    )
+    return combine_scores(
+        safeguards,
+        exposure_result,
+        open_critical_findings=critical,
+    )
+
+
+def test_combined_score_uses_60_40_weights():
+    result = combined_result(52, 65, 70)
+    assert result.raw_score == 76
+    assert result.rounded_score == 76
+    assert result.final_score == 76
+    assert result.band == "Needs attention"
+    assert result.critical_ceiling is None
+
+
+def test_combined_score_rounds_half_up():
+    result = combined_result(1, 1, Fraction(5, 4))
+    assert result.raw_score == Fraction(121, 2)
+    assert result.rounded_score == 61
+    assert result.final_score == 61
+
+
+def test_critical_finding_caps_combined_score():
+    result = combined_result(1, 1, 100, ("technical:R01",))
+    assert result.raw_score == 100
+    assert result.rounded_score == 100
+    assert result.final_score == 69
+    assert result.critical_ceiling == 69
+    assert result.band == "At risk"
+
+
+def test_checklist_critical_also_applies_ceiling():
+    result = combined_result(1, 1, 100, ("checklist:R02",))
+    assert result.final_score == 69
+    assert result.critical_findings == ("checklist:R02",)
+
+
+def test_critical_ceiling_does_not_raise_low_score():
+    result = combined_result(0, 1, 0, ("technical:R01",))
+    assert result.final_score == 0
+    assert result.band == "Urgent"
+
+
+@pytest.mark.parametrize(
+    "score,band",
+    [
+        (0, "Urgent"),
+        (49, "Urgent"),
+        (50, "At risk"),
+        (69, "At risk"),
+        (70, "Needs attention"),
+        (84, "Needs attention"),
+        (85, "Good shape"),
+        (100, "Good shape"),
+    ],
+)
+def test_combined_score_band_boundaries(score, band):
+    result = combined_result(score, 100, score)
+    assert result.final_score == score
+    assert result.band == band
+
+
+def test_duplicate_critical_ids_are_listed_once():
+    result = combined_result(
+        1, 1, 100, ("technical:R01", "technical:R01")
+    )
+    assert result.critical_findings == ("technical:R01",)

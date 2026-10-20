@@ -227,3 +227,64 @@ def evaluate_technical_finding(
         ),
         unknown_conditions=tuple(unknown),
     )
+
+@dataclass(frozen=True)
+class CombinedScore:
+    raw_score: Fraction
+    rounded_score: int
+    final_score: int
+    critical_findings: tuple[str, ...]
+
+    @property
+    def critical_ceiling(self) -> int | None:
+        return 69 if self.critical_findings else None
+
+    @property
+    def band(self) -> str:
+        if self.final_score >= 85:
+            return "Good shape"
+        if self.final_score >= 70:
+            return "Needs attention"
+        if self.final_score >= 50:
+            return "At risk"
+        return "Urgent"
+
+
+def combine_scores(
+    safeguards: SafeguardsScore,
+    exposure: ExposureScore,
+    *,
+    open_critical_findings: tuple[str, ...],
+) -> CombinedScore:
+    if not isinstance(open_critical_findings, tuple) or any(
+        not isinstance(value, str) or not value.strip()
+        for value in open_critical_findings
+    ):
+        raise InputError("Provide Critical finding IDs as a tuple of text.")
+
+    safeguards_value = safeguards.score
+    exposure_value = exposure.score
+
+    if not (
+        0 <= safeguards_value <= 100
+        and 0 <= exposure_value <= 100
+    ):
+        raise InputError("Component scores must be between 0 and 100.")
+
+    raw = (
+        Fraction(3, 5) * safeguards_value
+        + Fraction(2, 5) * exposure_value
+    )
+
+    shifted = raw + Fraction(1, 2)
+    rounded = shifted.numerator // shifted.denominator
+
+    critical = tuple(sorted(set(open_critical_findings)))
+    final = min(rounded, 69) if critical else rounded
+
+    return CombinedScore(
+        raw_score=raw,
+        rounded_score=rounded,
+        final_score=final,
+        critical_findings=critical,
+    )
