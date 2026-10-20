@@ -7,6 +7,8 @@ from clinicshield.scoring import score_safeguards
 from clinicshield.input_limits import InputError
 from clinicshield.scoring import technical_risk_points
 from clinicshield.scoring import ExposureFinding, score_exposure
+from clinicshield.inventory import ScoringEntity
+from clinicshield.scoring import evaluate_technical_finding
 def checklist(answer="Yes", presence="Unknown", **changes):
     answers = {f"Q{number:02d}": answer for number in range(1, 26)}
     answers.update(changes)
@@ -242,3 +244,59 @@ def test_rejects_invalid_exposure_points(points):
             ["device:1"],
             [ExposureFinding("device:1", "R01", points)],
         )
+
+def test_evaluates_known_device_conditions():
+    entity = ScoringEntity(
+        entity_id="device:1",
+        kind="device",
+        touches_phi="Y",
+        internet_facing="Y",
+        medical_device=True,
+    )
+    result = evaluate_technical_finding(entity, "R01", "Critical")
+
+    assert result.finding.entity_id == "device:1"
+    assert result.finding.finding_id == "R01"
+    assert result.finding.risk_points == Fraction(225, 8)
+    assert result.unknown_conditions == ()
+
+
+def test_unmatched_host_preserves_unknown_conditions():
+    entity = ScoringEntity(
+        entity_id="unmatched:1",
+        kind="unmatched",
+        touches_phi="Unknown",
+        internet_facing="Unknown",
+        medical_device=None,
+    )
+    result = evaluate_technical_finding(entity, "R01", "High")
+
+    assert result.finding.risk_points == 9
+    assert result.unknown_conditions == (
+        "touches_phi",
+        "internet_facing",
+        "medical_device",
+    )
+
+
+def test_evaluated_finding_connects_to_exposure_score():
+    entity = ScoringEntity(
+        entity_id="cloud:1",
+        kind="cloud",
+        touches_phi="N",
+        internet_facing="Unknown",
+        medical_device=False,
+    )
+    evaluated = evaluate_technical_finding(entity, "R01", "High")
+    result = score_exposure([entity.entity_id], [evaluated.finding])
+
+    assert result.score == 94
+    assert evaluated.unknown_conditions == ("internet_facing",)
+
+
+@pytest.mark.parametrize("finding_id", ["", "   ", None])
+def test_evaluation_rejects_missing_finding_id(finding_id):
+    entity = ScoringEntity("device:1", "device", "N", "N", False)
+
+    with pytest.raises(InputError, match="nonempty IDs"):
+        evaluate_technical_finding(entity, finding_id, "High")

@@ -3,7 +3,7 @@ from fractions import Fraction
 
 from clinicshield.checklist_input import ANSWERS, QUESTION_IDS, Checklist
 from clinicshield.input_limits import InputError
-
+from clinicshield.inventory import ScoringEntity
 
 ESSENTIAL_QUESTIONS = {
     "Q01", "Q02", "Q06", "Q07", "Q08", "Q10",
@@ -182,3 +182,48 @@ def score_exposure(
         capped_entity_points=capped,
         adjusted_points=total,
     )   
+
+@dataclass(frozen=True)
+class EvaluatedFinding:
+    finding: ExposureFinding
+    unknown_conditions: tuple[str, ...]
+
+
+def evaluate_technical_finding(
+    entity: ScoringEntity,
+    finding_id: str,
+    severity: str,
+) -> EvaluatedFinding:
+    if not isinstance(finding_id, str) or not finding_id.strip():
+        raise InputError("Findings require nonempty IDs.")
+
+    if (
+        entity.medical_device is not None
+        and type(entity.medical_device) is not bool
+    ):
+        raise InputError("Medical device status must be boolean or unknown.")
+
+    unknown = []
+
+    if entity.touches_phi == "Unknown":
+        unknown.append("touches_phi")
+    if entity.internet_facing == "Unknown":
+        unknown.append("internet_facing")
+    if entity.medical_device is None:
+        unknown.append("medical_device")
+
+    points = technical_risk_points(
+        severity,
+        touches_phi=entity.touches_phi,
+        internet_facing=entity.internet_facing,
+        medical_device=entity.medical_device is True,
+    )
+
+    return EvaluatedFinding(
+        finding=ExposureFinding(
+            entity_id=entity.entity_id,
+            finding_id=finding_id,
+            risk_points=points,
+        ),
+        unknown_conditions=tuple(unknown),
+    )
