@@ -1,6 +1,6 @@
 # Ingestion Acceptance Review
 
-Reviewed October 15, 2026 against the project brief.
+Reviewed October 21, 2026 against the Week 2 ingestion requirements.
 This is an implementation review, not Gate 1 approval.
 
 ## Implemented
@@ -19,7 +19,7 @@ This is an implementation review, not Gate 1 approval.
 - Explicit header aliases with collision rejection.
 - Upload, row, column, cell, and workbook archive limits.
 - Safe validation messages without uploaded row values.
-- 410 tests pass locally; merged pull request checks passed.
+- Latest full local suite: 502 tests passed; GitHub checks passed.
 - Medical-device presence defaults to Unknown. Q23 is marked
   inapplicable only for an explicit No; Safeguards scoring excludes Q23 from both earned and applicable weight.
 
@@ -32,10 +32,14 @@ This is an implementation review, not Gate 1 approval.
   the canonical host field is supported.
 - Benjamin accepted explicit aliases without fuzzy matching and
   defusedxml for Nmap parsing at Gate 1 on October 16, 2026.
-- Runtime tests cover valid and invalid CSV, JSON, Excel, and Nmap
-  inputs: no builtins.open or io.open calls, Python log records,
-  or captured terminal output occurred during parsing.
-  Broader filesystem access and future UI behavior remain unverified.
+- 44 runtime privacy cases pass, including 36 complete-assessment
+  cases covering all three sample clinics as CSV, JSON, and Excel,
+  with and without authorized Nmap input.
+  Full-assessment tests guard builtins.open, io.open, os.open,
+  os.write, and common tempfile creation functions. They also
+  check Python logs and captured terminal output.
+  These checks provide bounded evidence for current ingestion;
+  future UI, hosting, and operating-system behavior remain unverified.
 - Added SECURITY.md and an initial threat model in
   docs/threat-model.md. Deployment checks remain pending.
 - Verify upload behavior and friendly errors in the future Streamlit UI.
@@ -49,9 +53,26 @@ This is an implementation review, not Gate 1 approval.
 
 ## Acceptance status
 
-Core ingestion is implemented, but full ingestion acceptance remains
-pending. Passing tests do not establish that uploaded values contain
+The current Week 2 ingestion implementation meets issue #4's
+acceptance criteria within the tested scope.
+
+All three sample clinics load successfully. Tests cover invalid
+inputs, safe errors, and runtime privacy across complete assessments.
+The latest full suite has 502 passing tests, with GitHub checks green.
+
+Privacy verification provides bounded evidence for the current
+ingestion paths, not a guarantee covering every operating-system
+mechanism or future deployment.
+
+Header checks do not establish that uploaded values contain
 no personal information.
+
+## Deferred verification
+
+- Future Streamlit upload behavior and friendly error presentation.
+- Hosted-session isolation, caches, logs, and temporary-file handling.
+- Deployment configuration and operating-system data handling.
+- Additional regression cases as new input paths are introduced.
 
 Gate 1 decisions are recorded in docs/gate-1-review.md.
 Preserve the privacy and no-persistence guardrails.

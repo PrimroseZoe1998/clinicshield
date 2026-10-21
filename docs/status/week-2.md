@@ -1,6 +1,6 @@
 # Week 2 Status
 
-Progress as of October 20, 2026.
+Progress as of October 21, 2026.
 
 ## Done
 
@@ -36,11 +36,20 @@ Implemented scoring arithmetic, Q23 applicability, scoring-entity
 mappings, and technical finding evaluation. Automatic finding
 generation and complete assessment orchestration remain pending.
 
-## Remaining before issue #4 closes
+## Acceptance review
 
-- Complete and document the remaining ingestion privacy verification.
-- Review evidence against the issue's acceptance criteria.
-- Confirm final changes pass local tests and GitHub checks.
+Reviewed October 21, 2026 against issue #4.
+The current ingestion implementation meets the acceptance criteria
+within the tested scope. Evidence and limitations are documented
+in docs/ingestion-review.md.
+
+Privacy verification is complete for the tested ingestion paths.
+UI, hosting, and deployment checks remain deferred as listed below.
+
+## Closeout
+
+Push the final acceptance records and confirm GitHub checks pass,
+then record the evidence in issue #4 and close it.
 
 ## Deferred checks
 
