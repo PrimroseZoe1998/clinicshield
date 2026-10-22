@@ -5,7 +5,7 @@ attrs==26.1.0
 bandit==1.9.4
 boolean.py==5.0
 CacheControl==0.14.4
-certifi==2026.7.22
+certifi==2026.10.19
 charset-normalizer==3.5.2
 click==8.5.0
 colorama==0.4.6
@@ -36,7 +36,7 @@ openpyxl==3.1.5
 packageurl-python==0.17.6
 packaging==26.3
 pandas==3.0.6
-pillow==12.3.0
+pillow==13.0.0
 pip-requirements-parser==32.0.1
 pip_api==0.0.35
 pip_audit==2.10.1
@@ -64,7 +64,7 @@ six==1.17.0
 sortedcontainers==2.4.0
 starlette==1.7.0
 stevedore==5.9.1
-streamlit==1.65.0
+streamlit==1.66.1
 toml==0.10.2
 tomli==2.5.0
 tomli_w==1.2.0
