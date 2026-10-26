@@ -1,7 +1,7 @@
 import csv
 import io
 from dataclasses import dataclass
-from datetime import date
+from datetime import date, datetime, timezone
 
 from clinicshield.epss_models import EpssRecord
 
@@ -39,9 +39,20 @@ def parse_epss_csv(text: str) -> EpssDataset:
     if not model_version or "score_date" not in metadata:
         raise ValueError("EPSS model version or score date is missing.")
 
-    score_date = date.fromisoformat(metadata["score_date"])
-    if score_date.isoformat() != metadata["score_date"]:
-        raise ValueError("EPSS score date must use YYYY-MM-DD.")
+    raw_date = metadata["score_date"]
+
+    if "T" in raw_date:
+        published_at = datetime.fromisoformat(raw_date)
+        if (
+            published_at.tzinfo is None
+            or published_at.utcoffset() is None
+        ):
+            raise ValueError("EPSS score timestamp requires a timezone.")
+        score_date = published_at.astimezone(timezone.utc).date()
+    else:
+        score_date = date.fromisoformat(raw_date)
+        if score_date.isoformat() != raw_date:
+            raise ValueError("EPSS score date must use YYYY-MM-DD.")
 
     reader = csv.reader(stream, strict=True)
     if next(reader, None) != ["cve", "epss", "percentile"]:

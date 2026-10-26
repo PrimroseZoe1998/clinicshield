@@ -141,3 +141,28 @@ def test_rejects_excess_records(monkeypatch):
 
     with pytest.raises(ValueError, match="record limit"):
         parse_epss_csv(text)
+
+@pytest.mark.parametrize(
+    "timestamp,expected_date",
+    [
+        ("2026-10-26T12:03:22Z", date(2026, 10, 26)),
+        ("2026-10-26T12:03:22+00:00", date(2026, 10, 26)),
+        ("2026-10-26T23:30:00-04:00", date(2026, 10, 27)),
+    ],
+)
+def test_accepts_timezone_aware_score_timestamp(
+    timestamp, expected_date
+):
+    metadata = f"#model_version:v1,score_date:{timestamp}\n"
+
+    dataset = parse_epss_csv(metadata + HEADER + ROW)
+
+    assert dataset.score_date == expected_date
+    assert dataset.records[0].score_date == expected_date
+
+
+def test_rejects_score_timestamp_without_timezone():
+    metadata = "#model_version:v1,score_date:2026-10-26T12:03:22\n"
+
+    with pytest.raises(ValueError, match="timezone"):
+        parse_epss_csv(metadata + HEADER + ROW)
