@@ -7,7 +7,8 @@ from clinicshield import refresh_feeds
 from clinicshield.epss_cache import EpssSnapshot
 from clinicshield.kev_cache import KevSnapshot
 from clinicshield.kev_models import KevCatalog
-
+from clinicshield.eol_cache import EolSnapshot
+from clinicshield.eol_download import EOL_BASE_URL
 
 @pytest.fixture
 def feeds(tmp_path, monkeypatch):
@@ -165,3 +166,166 @@ def test_unexpected_errors_propagate(
 
     with pytest.raises(RuntimeError, match="programming error"):
         refresh_feeds.main(["--cache-dir", str(tmp_path)])
+
+def make_eol_snapshot(product):
+    return EolSnapshot(
+        source_url=f"{EOL_BASE_URL}{product}/",
+        retrieved_at=datetime(2026, 10, 26, 14, tzinfo=timezone.utc),
+        product=product,
+        response={
+            "schema_version": "1.2.1",
+            "generated_at": "2026-10-26T00:00:00Z",
+            "last_modified": "2026-10-25T12:00:00Z",
+            "result": {
+                "name": product,
+                "label": product,
+                "releases": [],
+            },
+        },
+    )
+
+
+def test_refreshes_selected_eol_products(
+    tmp_path, monkeypatch, capsys, feeds
+):
+    calls = []
+
+    def fake_refresh(path, *, product):
+        calls.append((path, product))
+        return make_eol_snapshot(product)
+
+    monkeypatch.setattr(
+        refresh_feeds, "refresh_eol_cache", fake_refresh
+    )
+
+    result = refresh_feeds.main([
+        "--cache-dir", str(tmp_path),
+        "--eol-product", "python",
+        "--eol-product", "ruby",
+    ])
+
+    output = capsys.readouterr()
+    assert result == 0
+    assert calls == [
+        (tmp_path / "eol-python.json", "python"),
+        (tmp_path / "eol-ruby.json", "ruby"),
+    ]
+    assert "endoflife.date refreshed: python" in output.out
+    assert "endoflife.date refreshed: ruby" in output.out
+    assert output.err == ""
+
+
+def test_no_eol_products_means_no_eol_requests(
+    tmp_path, monkeypatch, feeds
+):
+    def unexpected_refresh(*args, **kwargs):
+        pytest.fail("No lifecycle products were selected.")
+
+    monkeypatch.setattr(
+        refresh_feeds, "refresh_eol_cache", unexpected_refresh
+    )
+
+    assert refresh_feeds.main(["--cache-dir", str(tmp_path)]) == 0
+
+
+def test_duplicate_eol_products_refresh_once(
+    tmp_path, monkeypatch, feeds
+):
+    calls = []
+
+    def fake_refresh(path, *, product):
+        calls.append(product)
+        return make_eol_snapshot(product)
+
+    monkeypatch.setattr(
+        refresh_feeds, "refresh_eol_cache", fake_refresh
+    )
+
+    assert refresh_feeds.main([
+        "--cache-dir", str(tmp_path),
+        "--eol-product", "python",
+        "--eol-product", "python",
+    ]) == 0
+    assert calls == ["python"]
+
+
+@pytest.mark.parametrize(
+    "error_type",
+    [
+        requests.ConnectionError,
+        requests.Timeout,
+        requests.HTTPError,
+        ValueError,
+        OSError,
+    ],
+)
+def test_eol_failure_does_not_stop_next_product(
+    tmp_path, monkeypatch, capsys, feeds, error_type
+):
+    calls = []
+
+    def fake_refresh(path, *, product):
+        calls.append(product)
+        if product == "python":
+            raise error_type("internal error details")
+        return make_eol_snapshot(product)
+
+    monkeypatch.setattr(
+        refresh_feeds, "refresh_eol_cache", fake_refresh
+    )
+
+    result = refresh_feeds.main([
+        "--cache-dir", str(tmp_path),
+        "--eol-product", "python",
+        "--eol-product", "ruby",
+    ])
+
+    output = capsys.readouterr()
+    assert result == 1
+    assert calls == ["python", "ruby"]
+    assert "CISA KEV refreshed" in output.out
+    assert "FIRST EPSS refreshed" in output.out
+    assert "endoflife.date refreshed: ruby" in output.out
+    assert "endoflife.date refresh failed for 'python'" in output.err
+    assert error_type.__name__ in output.err
+    assert "internal error details" not in output.err
+
+
+@pytest.mark.parametrize(
+    "product",
+    ["../python", "Python", "python/extra", "python?x=1"],
+)
+def test_invalid_eol_slug_does_not_reach_refresher(
+    tmp_path, monkeypatch, capsys, feeds, product
+):
+    def unexpected_refresh(*args, **kwargs):
+        pytest.fail("Invalid product must not reach the refresher.")
+
+    monkeypatch.setattr(
+        refresh_feeds, "refresh_eol_cache", unexpected_refresh
+    )
+
+    result = refresh_feeds.main([
+        "--cache-dir", str(tmp_path),
+        "--eol-product", product,
+    ])
+
+    assert result == 1
+    assert "endoflife.date refresh failed" in capsys.readouterr().err
+
+
+def test_unexpected_eol_error_propagates(
+    tmp_path, monkeypatch, feeds
+):
+    def fail_refresh(*args, **kwargs):
+        raise RuntimeError("unexpected programming error")
+
+    monkeypatch.setattr(
+        refresh_feeds, "refresh_eol_cache", fail_refresh
+    )
+
+    with pytest.raises(RuntimeError, match="programming error"):
+        refresh_feeds.main([
+            "--cache-dir", str(tmp_path),
+            "--eol-product", "python",
+        ])
