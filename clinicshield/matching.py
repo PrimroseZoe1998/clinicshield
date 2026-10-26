@@ -5,7 +5,7 @@ from clinicshield.normalization import (
     normalize_name,
     normalize_version,
 )
-
+from clinicshield.feed_models import VulnerabilityRecord
 
 class MatchStatus(str, Enum):
     MATCH = "match"
@@ -45,3 +45,24 @@ def match_exact_versions(
         return MatchStatus.NEEDS_REVIEW
 
     return MatchStatus.NO_MATCH
+
+def match_feed_record(
+    software: NormalizedSoftware,
+    record: VulnerabilityRecord,
+) -> MatchStatus:
+    """Match one feed record without interpreting unsupported rules."""
+    if (
+        software.vendor != record.vendor
+        or software.product != record.product
+    ):
+        return MatchStatus.NO_MATCH
+
+    if record.version_rule == "unsupported":
+        return MatchStatus.NEEDS_REVIEW
+
+    return match_exact_versions(
+        software,
+        vendor=record.vendor,
+        product=record.product,
+        affected_versions=record.affected_versions,
+    )
