@@ -1,0 +1,32 @@
+schema_version: 1
+rule_id: R05
+title: Portable-device encryption gap
+kind: technical
+handler: portable_encryption
+description: >-
+  Identify portable assets whose encryption is disabled or unknown.
+  A disabled setting is a confirmed gap. An unknown setting requires
+  verification and must not be reported as confirmed disabled.
+severity: High
+unknown_severity: Info
+evidence_fields:
+  - asset_id
+  - portable
+  - encrypted
+fix: >-
+  Verify device encryption status. If encryption is disabled, have the
+  responsible IT administrator enable supported device encryption,
+  securely manage recovery keys, and verify the result. Coordinate
+  changes to managed or medical devices with the responsible vendor.
+owner: IT administrator or managed service provider
+effort: 2
+cost: unknown
+framework_references:
+  - framework: Project checklist framework mapping
+    reference: Q05 portable-device encryption
+    source: docs/framework-mappings.md
+    rationale: >-
+      Reuse the documented Q05 mapping as the basis for reviewing this
+      rule. It does not establish compliance or verify implementation.
+    review_status: pending
+review_status: draft
