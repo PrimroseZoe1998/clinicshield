@@ -1,0 +1,43 @@
+schema_version: 1
+rule_id: R03
+title: Operating system support requires attention
+kind: technical
+handler: operating_system_support
+description: >-
+  Assess an operating system using explicitly matched lifecycle
+  evidence. Confirm unsupported status only when the product and
+  release are resolved, the evidence is current, and applicable
+  extended-support coverage has been resolved. Missing, stale,
+  ambiguous, or incomplete evidence requires review. Do not infer
+  support status from an operating system name or age alone.
+severity: High
+unknown_severity: Info
+evidence_fields:
+  - asset_id
+  - os_name
+  - os_version
+  - support_status
+  - support_basis
+  - source_url
+  - retrieved_at
+fix: >-
+  Verify the operating system release and applicable support or
+  extended-security-update coverage. For confirmed unsupported
+  systems, plan a supported upgrade, replacement, or vendor-approved
+  mitigation. Coordinate medical-device changes with the vendor.
+  Resolve uncertain evidence before claiming a system is supported
+  or unsupported.
+owner: IT administrator and system vendor
+effort: 3
+cost: unknown
+framework_references:
+  - framework: Project checklist framework mapping
+    reference: Q18 supported operating systems
+    source: docs/framework-mappings.md
+    rationale: >-
+      Use the documented Q18 mapping as the basis for reviewing
+      lifecycle-based findings. Support status is distinct from
+      confirmed CVE applicability. Rule severity and mapping remain
+      pending review.
+    review_status: pending
+review_status: draft
