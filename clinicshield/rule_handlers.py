@@ -2,7 +2,8 @@ from dataclasses import dataclass
 from typing import Literal
 
 from clinicshield.schemas import Asset, Service
-
+from clinicshield.checklist_input import ANSWERS, Checklist
+from clinicshield.input_limits import InputError
 
 @dataclass(frozen=True)
 class RuleObservation:
@@ -55,4 +56,30 @@ def telnet_service(service: Service) -> RuleObservation | None:
             ("service", service.service),
             ("exposure", service.exposure),
         ),
+    )
+
+def individual_accounts(
+    checklist: Checklist,
+) -> RuleObservation | None:
+    """Detect the individual-account safeguard gap reported by Q06."""
+    answer = checklist.answers.get("Q06")
+
+    if not isinstance(answer, str) or answer not in ANSWERS:
+        raise InputError("R14 requires a valid Q06 answer.")
+
+    if answer == "Yes":
+        return None
+
+    status: Literal["confirmed", "needs_review"]
+
+    if answer == "No":
+        status = "confirmed"
+    else:
+        status = "needs_review"
+
+    return RuleObservation(
+        rule_id="R14",
+        entity_id="assessment",
+        status=status,
+        evidence=(("Q06", answer),),
     )

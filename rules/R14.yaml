@@ -1,0 +1,32 @@
+schema_version: 1
+rule_id: R14
+title: Individual user account safeguard gap
+kind: checklist
+handler: individual_accounts
+description: >-
+  Use Q06 to assess whether every staff member has an individual
+  login without shared accounts. No indicates a reported safeguard
+  gap. Unknown requires verification. Yes does not trigger this rule.
+  Do not infer specific affected accounts from the checklist alone.
+severity: High
+unknown_severity: Info
+evidence_fields:
+  - Q06
+fix: >-
+  Identify shared logins and provide individual accounts where
+  supported. Review permissions and document vendor constraints.
+  Coordinate changes to clinical or medical systems with their
+  responsible owners to preserve required operations.
+owner: IT administrator and system owner
+effort: 2
+cost: unknown
+framework_references:
+  - framework: Project checklist framework mapping
+    reference: Q06 individual accounts
+    source: docs/framework-mappings.md
+    rationale: >-
+      Use the documented Q06 mapping as the basis for reviewing
+      this rule. A checklist response does not independently verify
+      account configuration or establish compliance.
+    review_status: pending
+review_status: draft
