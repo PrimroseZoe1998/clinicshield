@@ -9,9 +9,15 @@ from clinicshield.rule_handlers import (
     portable_encryption,
     telnet_service,
 )
+from clinicshield.rule_handlers import (
+    RuleObservation,
+    individual_accounts,
+    portable_encryption,
+    telnet_service,
+)
 from clinicshield.rule_models import RuleDefinition, Severity
 from clinicshield.schemas import Asset, Service
-
+from clinicshield.checklist_input import Checklist
 
 ASSET_HANDLERS = {
     ("R05", "portable_encryption", "technical"): portable_encryption,
@@ -72,6 +78,36 @@ def evaluate_service_rule(
         raise ValueError("Unsupported service rule registration.")
 
     observation = handler(service)
+
+    if observation is None:
+        return None
+
+    if observation.rule_id != rule.rule_id:
+        raise ValueError("Handler returned a different rule ID.")
+
+    evidence_keys = {key for key, _ in observation.evidence}
+    if not set(rule.evidence_fields).issubset(evidence_keys):
+        raise ValueError("Handler did not provide required evidence.")
+
+    return RuleFinding(rule=rule, observation=observation)
+
+CHECKLIST_HANDLERS = {
+    ("R14", "individual_accounts", "checklist"): individual_accounts,
+}
+
+
+def evaluate_checklist_rule(
+    rule: RuleDefinition,
+    checklist: Checklist,
+) -> RuleFinding | None:
+    """Evaluate an explicitly registered checklist rule."""
+    key = (rule.rule_id, rule.handler, rule.kind)
+    handler = CHECKLIST_HANDLERS.get(key)
+
+    if handler is None:
+        raise ValueError("Unsupported checklist rule registration.")
+
+    observation = handler(checklist)
 
     if observation is None:
         return None
