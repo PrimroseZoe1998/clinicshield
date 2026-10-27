@@ -14,6 +14,7 @@ from clinicshield.rule_handlers import (
     antivirus_protection,
     reporting_preparation,
     unknown_software_version,
+    cloud_baa_status,
 )
 
 from clinicshield.rule_models import RuleDefinition, Severity
@@ -132,6 +133,7 @@ def evaluate_checklist_rule(
 
 SOFTWARE_HANDLERS = {
     ("R24", "unknown_software_version", "technical"): unknown_software_version,
+    ("R17", "cloud_baa_status", "technical"): cloud_baa_status,
 }
 
 

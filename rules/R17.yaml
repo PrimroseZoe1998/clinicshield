@@ -1,0 +1,42 @@
+schema_version: 1
+rule_id: R17
+title: Cloud service agreement requires attention
+kind: technical
+handler: cloud_baa_status
+description: >-
+  Assess cloud software where touches_phi is Y or Unknown.
+  When touches_phi is Y and baa_signed is N, report a confirmed
+  inventory-reported agreement gap. Unknown patient-information
+  access, Unknown agreement status, or an NA agreement value
+  requires review. A Y agreement value with touches_phi Y does
+  not trigger. Local software and touches_phi N are outside
+  this rule's scope. Do not determine legal applicability.
+severity: High
+unknown_severity: Info
+evidence_fields:
+  - asset_id
+  - vendor
+  - product
+  - deployment
+  - touches_phi
+  - baa_signed
+fix: >-
+  Verify the service's handling of patient information and whether
+  a Business Associate Agreement is applicable. Confirm the
+  agreement's existence and coverage with the responsible owner
+  and qualified privacy or legal adviser. Resolve reported gaps
+  and investigate Unknown or NA values without assuming that
+  every cloud service legally requires an agreement.
+owner: Service owner and privacy official
+effort: 3
+cost: unknown
+framework_references:
+  - framework: Project checklist framework mapping
+    reference: Q12 vendor agreements
+    source: docs/framework-mappings.md
+    rationale: >-
+      Use the documented Q12 mapping as the basis for reviewing
+      inventory-based agreement evidence. Applicability requires
+      contextual review; this rule does not establish compliance.
+    review_status: pending
+review_status: draft

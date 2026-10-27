@@ -345,3 +345,39 @@ def unknown_software_version(
             ("touches_phi", software.touches_phi),
         ),
     )
+
+def cloud_baa_status(
+    software: Software,
+    *,
+    entity_id: str,
+) -> RuleObservation | None:
+    """Assess reported agreement status without deciding applicability."""
+    if not isinstance(entity_id, str) or not entity_id.strip():
+        raise InputError("R17 requires a software entry identifier.")
+
+    if software.deployment != "cloud" or software.touches_phi == "N":
+        return None
+
+    if software.touches_phi == "Y" and software.baa_signed == "Y":
+        return None
+
+    status: Literal["confirmed", "needs_review"]
+
+    if software.touches_phi == "Y" and software.baa_signed == "N":
+        status = "confirmed"
+    else:
+        status = "needs_review"
+
+    return RuleObservation(
+        rule_id="R17",
+        entity_id=entity_id,
+        status=status,
+        evidence=(
+            ("asset_id", software.asset_id),
+            ("vendor", software.vendor),
+            ("product", software.product),
+            ("deployment", software.deployment),
+            ("touches_phi", software.touches_phi),
+            ("baa_signed", software.baa_signed),
+        ),
+    )
