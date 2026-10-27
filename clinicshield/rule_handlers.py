@@ -455,3 +455,36 @@ def clinical_system_mfa(
             ("mfa_enabled", software.mfa_enabled),
         ),
     )
+
+def remote_admin_exposure(
+    service: Service,
+) -> RuleObservation | None:
+    """Assess reported exposure of explicitly identified remote services."""
+    if service.protocol != "tcp" or service.service not in {
+        "rdp", "vnc", "ssh", "telnet"
+    }:
+        return None
+
+    if service.exposure == "internal":
+        return None
+
+    status: Literal["confirmed", "needs_review"]
+
+    if service.exposure == "internet":
+        status = "confirmed"
+    else:
+        status = "needs_review"
+
+    return RuleObservation(
+        rule_id="R06",
+        entity_id=service.asset_id,
+        status=status,
+        evidence=(
+            ("asset_id", service.asset_id),
+            ("host", service.host),
+            ("port", str(service.port)),
+            ("protocol", service.protocol),
+            ("service", service.service),
+            ("exposure", service.exposure),
+        ),
+    )

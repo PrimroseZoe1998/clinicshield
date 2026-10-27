@@ -17,6 +17,7 @@ from clinicshield.rule_handlers import (
     cloud_baa_status,
     email_mfa,
     clinical_system_mfa,
+    remote_admin_exposure,
 )
 
 from clinicshield.rule_models import RuleDefinition, Severity
@@ -66,6 +67,7 @@ def evaluate_asset_rule(
     return RuleFinding(rule=rule, observation=observation)
 
 SERVICE_HANDLERS = {
+    ("R06", "remote_admin_exposure", "technical"): remote_admin_exposure,
     ("R09", "telnet_service", "technical"): telnet_service,
 }
 

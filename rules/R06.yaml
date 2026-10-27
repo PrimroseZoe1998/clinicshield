@@ -1,0 +1,42 @@
+schema_version: 1
+rule_id: R06
+title: Remote administration exposure requires attention
+kind: technical
+handler: remote_admin_exposure
+description: >-
+  Assess TCP services explicitly identified as rdp, vnc, ssh,
+  or telnet. Internet exposure produces a confirmed reported
+  exposure finding. Unknown exposure requires verification.
+  Internal exposure does not trigger this rule. Do not infer
+  service identity from port numbers, missing authentication,
+  exploitability, or unauthorized access.
+severity: High
+unknown_severity: Info
+evidence_fields:
+  - asset_id
+  - host
+  - port
+  - protocol
+  - service
+  - exposure
+fix: >-
+  Verify whether remote administration is reachable from the
+  internet and whether that access is necessary. Restrict exposure
+  using an appropriately secured access design, review authentication
+  and access controls, and disable unnecessary services. Verify
+  Unknown exposure before describing a service as internet-facing.
+  Coordinate changes to preserve required operations.
+owner: Network administrator and system owner
+effort: 2
+cost: unknown
+framework_references:
+  - framework: Project checklist framework mapping
+    reference: Q17 protected remote access
+    source: docs/framework-mappings.md
+    rationale: >-
+      Review the Q17 references for this proposed exposure rule.
+      Exposure is distinct from R07 safeguard evidence. A VPN alone
+      does not establish adequate protection, and this finding does
+      not independently assess authentication controls.
+    review_status: pending
+review_status: draft
