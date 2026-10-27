@@ -1,0 +1,33 @@
+schema_version: 1
+rule_id: R23
+title: Staff security training gap
+kind: checklist
+handler: staff_security_training
+description: >-
+  Use Q25 to assess the staff security training described in the
+  checklist. No indicates a reported safeguard gap. Unknown
+  requires verification. Yes does not trigger this rule. Do not
+  infer which staff members or training topics are affected.
+severity: Medium
+unknown_severity: Info
+evidence_fields:
+  - Q25
+fix: >-
+  Review the training expectations in Q25 and identify missing
+  activities. Arrange appropriate staff security training, document
+  participation, and establish a repeatable process for new staff
+  and refresher training. Verify Unknown answers before describing
+  training as absent.
+owner: Security official and staff training coordinator
+effort: 2
+cost: unknown
+framework_references:
+  - framework: Project checklist framework mapping
+    reference: Q25 staff security training
+    source: docs/framework-mappings.md
+    rationale: >-
+      Use the documented Q25 mapping as the basis for reviewing
+      this proposed rule. A checklist response does not independently
+      verify training completion or establish compliance.
+    review_status: pending
+review_status: draft

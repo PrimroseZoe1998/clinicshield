@@ -229,3 +229,29 @@ def backup_safeguards(
             ("Q11", restore_testing),
         ),
     )
+
+def staff_security_training(
+    checklist: Checklist,
+) -> RuleObservation | None:
+    """Detect the staff training gap reported by Q25."""
+    answer = checklist.answers.get("Q25")
+
+    if not isinstance(answer, str) or answer not in ANSWERS:
+        raise InputError("R23 requires a valid Q25 answer.")
+
+    if answer == "Yes":
+        return None
+
+    status: Literal["confirmed", "needs_review"]
+
+    if answer == "No":
+        status = "confirmed"
+    else:
+        status = "needs_review"
+
+    return RuleObservation(
+        rule_id="R23",
+        entity_id="assessment",
+        status=status,
+        evidence=(("Q25", answer),),
+    )
