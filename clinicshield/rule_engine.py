@@ -4,8 +4,13 @@ from clinicshield.rule_handlers import (
     RuleObservation,
     portable_encryption,
 )
+from clinicshield.rule_handlers import (
+    RuleObservation,
+    portable_encryption,
+    telnet_service,
+)
 from clinicshield.rule_models import RuleDefinition, Severity
-from clinicshield.schemas import Asset
+from clinicshield.schemas import Asset, Service
 
 
 ASSET_HANDLERS = {
@@ -37,6 +42,36 @@ def evaluate_asset_rule(
         raise ValueError("Unsupported asset rule registration.")
 
     observation = handler(asset)
+
+    if observation is None:
+        return None
+
+    if observation.rule_id != rule.rule_id:
+        raise ValueError("Handler returned a different rule ID.")
+
+    evidence_keys = {key for key, _ in observation.evidence}
+    if not set(rule.evidence_fields).issubset(evidence_keys):
+        raise ValueError("Handler did not provide required evidence.")
+
+    return RuleFinding(rule=rule, observation=observation)
+
+SERVICE_HANDLERS = {
+    ("R09", "telnet_service", "technical"): telnet_service,
+}
+
+
+def evaluate_service_rule(
+    rule: RuleDefinition,
+    service: Service,
+) -> RuleFinding | None:
+    """Evaluate an explicitly registered rule against one service."""
+    key = (rule.rule_id, rule.handler, rule.kind)
+    handler = SERVICE_HANDLERS.get(key)
+
+    if handler is None:
+        raise ValueError("Unsupported service rule registration.")
+
+    observation = handler(service)
 
     if observation is None:
         return None
