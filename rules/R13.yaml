@@ -1,0 +1,41 @@
+schema_version: 1
+rule_id: R13
+title: Clinical-system multifactor authentication gap
+kind: technical
+handler: clinical_system_mfa
+description: >-
+  Assess software with purpose ehr, practice_management, billing,
+  or telehealth. An mfa_enabled value of N indicates a reported
+  safeguard gap. Unknown or NA requires verification. Y produces
+  no finding. Do not infer affected account counts or phishing
+  resistance. Email is handled by R12; remote-access safeguards
+  belong to R07.
+severity: High
+unknown_severity: Info
+evidence_fields:
+  - asset_id
+  - vendor
+  - product
+  - purpose
+  - deployment
+  - mfa_enabled
+fix: >-
+  Verify MFA coverage and supported authentication options with
+  the application owner. Address confirmed gaps and document
+  constraints or exceptions. Investigate Unknown and NA values
+  rather than treating them as enabled. Coordinate changes with
+  clinical users and vendors to preserve required access.
+owner: Application administrator and system vendor
+effort: 2
+cost: unknown
+framework_references:
+  - framework: Project checklist framework mapping
+    reference: Q07 clinical-system multifactor authentication
+    source: docs/framework-mappings.md
+    rationale: >-
+      Use the documented Q07 mapping as the basis for reviewing
+      this proposed rule. Its initial inventory scope excludes
+      remote access, which is handled separately under R07.
+      Inventory responses do not independently verify configuration.
+    review_status: pending
+review_status: draft

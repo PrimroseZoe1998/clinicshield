@@ -417,3 +417,41 @@ def email_mfa(
             ("mfa_enabled", software.mfa_enabled),
         ),
     )
+
+def clinical_system_mfa(
+    software: Software,
+    *,
+    entity_id: str,
+) -> RuleObservation | None:
+    """Assess reported MFA for the clinical applications in R13."""
+    if not isinstance(entity_id, str) or not entity_id.strip():
+        raise InputError("R13 requires a software entry identifier.")
+
+    if software.purpose not in {
+        "ehr", "practice_management", "billing", "telehealth"
+    }:
+        return None
+
+    if software.mfa_enabled == "Y":
+        return None
+
+    status: Literal["confirmed", "needs_review"]
+
+    if software.mfa_enabled == "N":
+        status = "confirmed"
+    else:
+        status = "needs_review"
+
+    return RuleObservation(
+        rule_id="R13",
+        entity_id=entity_id,
+        status=status,
+        evidence=(
+            ("asset_id", software.asset_id),
+            ("vendor", software.vendor),
+            ("product", software.product),
+            ("purpose", software.purpose),
+            ("deployment", software.deployment),
+            ("mfa_enabled", software.mfa_enabled),
+        ),
+    )
