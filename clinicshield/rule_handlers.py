@@ -83,3 +83,29 @@ def individual_accounts(
         status=status,
         evidence=(("Q06", answer),),
     )
+
+def guest_wifi_separation(
+    checklist: Checklist,
+) -> RuleObservation | None:
+    """Detect the guest Wi-Fi separation gap reported by Q15."""
+    answer = checklist.answers.get("Q15")
+
+    if not isinstance(answer, str) or answer not in ANSWERS:
+        raise InputError("R18 requires a valid Q15 answer.")
+
+    if answer == "Yes":
+        return None
+
+    status: Literal["confirmed", "needs_review"]
+
+    if answer == "No":
+        status = "confirmed"
+    else:
+        status = "needs_review"
+
+    return RuleObservation(
+        rule_id="R18",
+        entity_id="assessment",
+        status=status,
+        evidence=(("Q15", answer),),
+    )

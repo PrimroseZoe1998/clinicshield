@@ -1,0 +1,32 @@
+schema_version: 1
+rule_id: R18
+title: Guest Wi-Fi separation gap
+kind: checklist
+handler: guest_wifi_separation
+description: >-
+  Use Q15 to assess guest Wi-Fi separation from clinical systems.
+  No indicates a reported safeguard gap. Unknown requires
+  verification. Yes does not trigger this rule. Do not infer
+  specific network connections from the checklist alone.
+severity: High
+unknown_severity: Info
+evidence_fields:
+  - Q15
+fix: >-
+  Verify whether guest Wi-Fi can reach clinical systems. Have the
+  responsible network administrator configure appropriate network
+  separation and access restrictions, then test that guest devices
+  cannot reach protected systems while required operations work.
+owner: Network administrator or managed service provider
+effort: 2
+cost: unknown
+framework_references:
+  - framework: Project checklist framework mapping
+    reference: Q15 guest Wi-Fi separation
+    source: docs/framework-mappings.md
+    rationale: >-
+      Use the documented Q15 mapping as the basis for reviewing
+      this rule. A checklist response does not independently verify
+      network isolation or establish compliance.
+    review_status: pending
+review_status: draft

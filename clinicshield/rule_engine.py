@@ -11,10 +11,12 @@ from clinicshield.rule_handlers import (
 )
 from clinicshield.rule_handlers import (
     RuleObservation,
+    guest_wifi_separation,
     individual_accounts,
     portable_encryption,
     telnet_service,
 )
+
 from clinicshield.rule_models import RuleDefinition, Severity
 from clinicshield.schemas import Asset, Service
 from clinicshield.checklist_input import Checklist
@@ -93,6 +95,7 @@ def evaluate_service_rule(
 
 CHECKLIST_HANDLERS = {
     ("R14", "individual_accounts", "checklist"): individual_accounts,
+    ("R18", "guest_wifi_separation", "checklist"): guest_wifi_separation,
 }
 
 
