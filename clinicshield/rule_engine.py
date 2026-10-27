@@ -13,10 +13,11 @@ from clinicshield.rule_handlers import (
     staff_security_training,
     antivirus_protection,
     reporting_preparation,
+    unknown_software_version,
 )
 
 from clinicshield.rule_models import RuleDefinition, Severity
-from clinicshield.schemas import Asset, Service
+from clinicshield.schemas import Asset, Service, Software
 from clinicshield.checklist_input import Checklist
 
 ASSET_HANDLERS = {
@@ -122,6 +123,41 @@ def evaluate_checklist_rule(
 
     if observation.rule_id != rule.rule_id:
         raise ValueError("Handler returned a different rule ID.")
+
+    evidence_keys = {key for key, _ in observation.evidence}
+    if not set(rule.evidence_fields).issubset(evidence_keys):
+        raise ValueError("Handler did not provide required evidence.")
+
+    return RuleFinding(rule=rule, observation=observation)
+
+SOFTWARE_HANDLERS = {
+    ("R24", "unknown_software_version", "technical"): unknown_software_version,
+}
+
+
+def evaluate_software_rule(
+    rule: RuleDefinition,
+    software: Software,
+    *,
+    entity_id: str,
+) -> RuleFinding | None:
+    """Evaluate a registered rule against one identified software entry."""
+    key = (rule.rule_id, rule.handler, rule.kind)
+    handler = SOFTWARE_HANDLERS.get(key)
+
+    if handler is None:
+        raise ValueError("Unsupported software rule registration.")
+
+    observation = handler(software, entity_id=entity_id)
+
+    if observation is None:
+        return None
+
+    if observation.rule_id != rule.rule_id:
+        raise ValueError("Handler returned a different rule ID.")
+
+    if observation.entity_id != entity_id:
+        raise ValueError("Handler returned a different software entry ID.")
 
     evidence_keys = {key for key, _ in observation.evidence}
     if not set(rule.evidence_fields).issubset(evidence_keys):
