@@ -17,6 +17,7 @@ from clinicshield.rule_handlers import (
     router_security,
     telnet_service,
     documented_risk_analysis,
+    incident_readiness,
 )
 
 from clinicshield.rule_models import RuleDefinition, Severity
@@ -100,6 +101,7 @@ CHECKLIST_HANDLERS = {
     ("R18", "guest_wifi_separation", "checklist"): guest_wifi_separation,
     ("R19", "router_security", "checklist"): router_security,
     ("R22", "documented_risk_analysis", "checklist"): documented_risk_analysis,
+    ("R20", "incident_readiness", "checklist"): incident_readiness,
 }
 
 

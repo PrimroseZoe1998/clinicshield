@@ -161,3 +161,37 @@ def documented_risk_analysis(
         status=status,
         evidence=(("Q24b", answer),),
     )
+
+def incident_readiness(
+    checklist: Checklist,
+) -> RuleObservation | None:
+    """Assess Q20 and Q24a separately without inferring either."""
+    plan = checklist.answers.get("Q20")
+    responsibility = checklist.followups.get("Q24a")
+
+    for question, answer in (
+        ("Q20", plan),
+        ("Q24a", responsibility),
+    ):
+        if not isinstance(answer, str) or answer not in ANSWERS:
+            raise InputError(f"R20 requires a valid {question} answer.")
+
+    if plan == "Yes" and responsibility == "Yes":
+        return None
+
+    status: Literal["confirmed", "needs_review"]
+
+    if plan == "No" or responsibility == "No":
+        status = "confirmed"
+    else:
+        status = "needs_review"
+
+    return RuleObservation(
+        rule_id="R20",
+        entity_id="assessment",
+        status=status,
+        evidence=(
+            ("Q20", plan),
+            ("Q24a", responsibility),
+        ),
+    )

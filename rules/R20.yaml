@@ -1,0 +1,35 @@
+schema_version: 1
+rule_id: R20
+title: Incident planning or security responsibility gap
+kind: checklist
+handler: incident_readiness
+description: >-
+  Assess Q20 for a written incident plan and Q24a for named security
+  responsibility. Either No indicates a reported gap. If neither
+  is No but either is Unknown, require verification. Both Yes
+  produces no finding. Preserve both answers and identify which
+  safeguard is missing or unknown. Do not use combined Q24 or Q24b.
+severity: High
+unknown_severity: Info
+evidence_fields:
+  - Q20
+  - Q24a
+fix: >-
+  Verify each safeguard separately. If Q20 is No, establish and
+  document an incident response plan with roles and contact details.
+  If Q24a is No, assign and document security responsibility.
+  Investigate Unknown answers without describing them as confirmed
+  missing controls. Retain separate corrective actions for each gap.
+owner: Organizational leadership and designated security official
+effort: 3
+cost: unknown
+framework_references:
+  - framework: Project checklist framework mapping
+    reference: Q20 incident plan and Q24a security responsibility
+    source: docs/framework-mappings.md
+    rationale: >-
+      Use the documented Q20 and Q24a mappings as the basis for
+      reviewing this rule. Keep Q24b risk analysis under R22.
+      Checklist responses do not independently verify implementation.
+    review_status: pending
+review_status: draft
