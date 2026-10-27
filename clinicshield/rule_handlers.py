@@ -255,3 +255,29 @@ def staff_security_training(
         status=status,
         evidence=(("Q25", answer),),
     )
+
+def antivirus_protection(
+    checklist: Checklist,
+) -> RuleObservation | None:
+    """Detect the endpoint protection gap reported by Q03."""
+    answer = checklist.answers.get("Q03")
+
+    if not isinstance(answer, str) or answer not in ANSWERS:
+        raise InputError("R15 requires a valid Q03 answer.")
+
+    if answer == "Yes":
+        return None
+
+    status: Literal["confirmed", "needs_review"]
+
+    if answer == "No":
+        status = "confirmed"
+    else:
+        status = "needs_review"
+
+    return RuleObservation(
+        rule_id="R15",
+        entity_id="assessment",
+        status=status,
+        evidence=(("Q03", answer),),
+    )

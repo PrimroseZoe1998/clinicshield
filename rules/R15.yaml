@@ -1,0 +1,34 @@
+schema_version: 1
+rule_id: R15
+title: Antivirus protection safeguard gap
+kind: checklist
+handler: antivirus_protection
+description: >-
+  Use Q03 to assess antivirus or endpoint protection that updates
+  itself on all computers. No indicates a reported safeguard gap.
+  Unknown requires verification. Yes does not trigger this rule.
+  A combined No answer does not establish which computers lack
+  protection or whether installation, updating, or both are deficient.
+severity: High
+unknown_severity: Info
+evidence_fields:
+  - Q03
+fix: >-
+  Review endpoint protection coverage and update status with the
+  responsible IT administrator. Identify affected computers and
+  correct confirmed gaps using supported protection. Coordinate
+  changes to medical or vendor-managed systems with their vendors.
+  Investigate Unknown answers before describing protection as absent.
+owner: IT administrator or managed service provider
+effort: 2
+cost: unknown
+framework_references:
+  - framework: Project checklist framework mapping
+    reference: Q03 antivirus protection
+    source: docs/framework-mappings.md
+    rationale: >-
+      Use the documented Q03 mapping as the basis for reviewing
+      this proposed rule. A checklist response does not independently
+      verify endpoint protection or establish compliance.
+    review_status: pending
+review_status: draft
