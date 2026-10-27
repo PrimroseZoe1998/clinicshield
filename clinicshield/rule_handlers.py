@@ -109,3 +109,29 @@ def guest_wifi_separation(
         status=status,
         evidence=(("Q15", answer),),
     )
+
+def router_security(
+    checklist: Checklist,
+) -> RuleObservation | None:
+    """Detect the router safeguard gap reported by Q16."""
+    answer = checklist.answers.get("Q16")
+
+    if not isinstance(answer, str) or answer not in ANSWERS:
+        raise InputError("R19 requires a valid Q16 answer.")
+
+    if answer == "Yes":
+        return None
+
+    status: Literal["confirmed", "needs_review"]
+
+    if answer == "No":
+        status = "confirmed"
+    else:
+        status = "needs_review"
+
+    return RuleObservation(
+        rule_id="R19",
+        entity_id="assessment",
+        status=status,
+        evidence=(("Q16", answer),),
+    )

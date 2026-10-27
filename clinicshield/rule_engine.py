@@ -14,6 +14,7 @@ from clinicshield.rule_handlers import (
     guest_wifi_separation,
     individual_accounts,
     portable_encryption,
+    router_security,
     telnet_service,
 )
 
@@ -96,6 +97,7 @@ def evaluate_service_rule(
 CHECKLIST_HANDLERS = {
     ("R14", "individual_accounts", "checklist"): individual_accounts,
     ("R18", "guest_wifi_separation", "checklist"): guest_wifi_separation,
+    ("R19", "router_security", "checklist"): router_security,
 }
 
 

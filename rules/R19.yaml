@@ -1,0 +1,32 @@
+schema_version: 1
+rule_id: R19
+title: Router security safeguard gap
+kind: checklist
+handler: router_security
+description: >-
+  Use Q16 to assess the router security safeguards described in
+  the checklist. No indicates a reported gap. Unknown requires
+  verification. Yes does not trigger this rule. A combined No
+  answer does not identify which individual setting is deficient.
+severity: High
+unknown_severity: Info
+evidence_fields:
+  - Q16
+fix: >-
+  Review each safeguard listed in Q16 with the responsible network
+  administrator. Identify and correct deficient settings, document
+  the changes, and verify required connectivity. Do not assume every
+  listed safeguard is missing from a single No answer.
+owner: Network administrator or managed service provider
+effort: 2
+cost: unknown
+framework_references:
+  - framework: Project checklist framework mapping
+    reference: Q16 router security
+    source: docs/framework-mappings.md
+    rationale: >-
+      Use the documented Q16 mapping as the basis for reviewing
+      this rule. A checklist response does not independently verify
+      router configuration or establish compliance.
+    review_status: pending
+review_status: draft
