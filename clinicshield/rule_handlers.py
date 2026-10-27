@@ -488,3 +488,43 @@ def remote_admin_exposure(
             ("exposure", service.exposure),
         ),
     )
+
+def remote_access_safeguards(
+    service: Service,
+    checklist: Checklist,
+) -> RuleObservation | None:
+    """Combine remote-service context with the reported Q17 answer."""
+    if service.protocol != "tcp" or service.service not in {
+        "rdp", "vnc", "ssh", "telnet"
+    }:
+        return None
+
+    answer = checklist.answers.get("Q17")
+
+    if not isinstance(answer, str) or answer not in ANSWERS:
+        raise InputError("R07 requires a valid Q17 answer.")
+
+    if answer == "Yes":
+        return None
+
+    status: Literal["confirmed", "needs_review"]
+
+    if answer == "No":
+        status = "confirmed"
+    else:
+        status = "needs_review"
+
+    return RuleObservation(
+        rule_id="R07",
+        entity_id=service.asset_id,
+        status=status,
+        evidence=(
+            ("asset_id", service.asset_id),
+            ("host", service.host),
+            ("port", str(service.port)),
+            ("protocol", service.protocol),
+            ("service", service.service),
+            ("exposure", service.exposure),
+            ("Q17", answer),
+        ),
+    )

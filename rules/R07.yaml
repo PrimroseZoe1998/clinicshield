@@ -1,0 +1,43 @@
+schema_version: 1
+rule_id: R07
+title: Remote-access safeguard gap
+kind: technical
+handler: remote_access_safeguards
+description: >-
+  Combine explicitly identified TCP rdp, vnc, ssh, or telnet
+  services with Q17. No indicates a reported remote-access
+  safeguard gap; Unknown requires verification. Yes produces
+  no finding under this rule. Preserve the service exposure
+  without assuming internet access. Q17 alone does not identify
+  which safeguard or individual service is deficient.
+severity: High
+unknown_severity: Info
+evidence_fields:
+  - asset_id
+  - host
+  - port
+  - protocol
+  - service
+  - exposure
+  - Q17
+fix: >-
+  Review each remote-access safeguard described in Q17. Identify
+  unnecessary connections and verify authentication requirements
+  for connections that remain enabled. Coordinate corrective
+  actions with the responsible administrator or vendor.
+  Do not assume that a VPN alone provides sufficient protection
+  or that every listed service lacks MFA.
+owner: IT administrator and remote-access service owner
+effort: 2
+cost: unknown
+framework_references:
+  - framework: Project checklist framework mapping
+    reference: Q17 protected remote access
+    source: docs/framework-mappings.md
+    rationale: >-
+      Preserve the reviewed Q17 interpretation: a VPN alone is
+      insufficient, unnecessary connections should be disabled,
+      and required remote access needs the safeguards described
+      in Q17. Rule-specific mapping review remains pending.
+    review_status: pending
+review_status: draft

@@ -18,6 +18,7 @@ from clinicshield.rule_handlers import (
     email_mfa,
     clinical_system_mfa,
     remote_admin_exposure,
+    remote_access_safeguards,
 )
 
 from clinicshield.rule_models import RuleDefinition, Severity
@@ -166,6 +167,40 @@ def evaluate_software_rule(
 
     if observation.entity_id != entity_id:
         raise ValueError("Handler returned a different software entry ID.")
+
+    evidence_keys = {key for key, _ in observation.evidence}
+    if not set(rule.evidence_fields).issubset(evidence_keys):
+        raise ValueError("Handler did not provide required evidence.")
+
+    return RuleFinding(rule=rule, observation=observation)
+
+SERVICE_CHECKLIST_HANDLERS = {
+    ("R07", "remote_access_safeguards", "technical"): remote_access_safeguards,
+}
+
+
+def evaluate_service_checklist_rule(
+    rule: RuleDefinition,
+    service: Service,
+    checklist: Checklist,
+) -> RuleFinding | None:
+    """Evaluate a registered rule using service and checklist evidence."""
+    key = (rule.rule_id, rule.handler, rule.kind)
+    handler = SERVICE_CHECKLIST_HANDLERS.get(key)
+
+    if handler is None:
+        raise ValueError("Unsupported service/checklist rule registration.")
+
+    observation = handler(service, checklist)
+
+    if observation is None:
+        return None
+
+    if observation.rule_id != rule.rule_id:
+        raise ValueError("Handler returned a different rule ID.")
+
+    if observation.entity_id != service.asset_id:
+        raise ValueError("Handler returned a different service asset ID.")
 
     evidence_keys = {key for key, _ in observation.evidence}
     if not set(rule.evidence_fields).issubset(evidence_keys):
