@@ -1,0 +1,36 @@
+schema_version: 1
+rule_id: R09
+title: Telnet service present
+kind: technical
+handler: telnet_service
+description: >-
+  Identify a TCP service explicitly recorded as Telnet, regardless
+  of port number or exposure. Port 23 alone does not confirm Telnet.
+  Unknown exposure must remain unknown.
+severity: High
+unknown_severity: Info
+evidence_fields:
+  - asset_id
+  - host
+  - port
+  - protocol
+  - service
+  - exposure
+fix: >-
+  Confirm whether Telnet is needed. Disable it where unnecessary
+  and use a supported encrypted administration method. Coordinate
+  changes to medical or vendor-managed devices with the responsible
+  vendor, and verify that required operations still work.
+owner: IT administrator or device vendor
+effort: 2
+cost: unknown
+framework_references:
+  - framework: Project framework mapping review
+    reference: Secure device administration; mapping pending
+    source: docs/framework-mappings.md
+    rationale: >-
+      Review the secure-configuration references for applicability
+      to Telnet administration. No specific framework control is
+      claimed as reviewed for this rule yet.
+    review_status: pending
+review_status: draft
