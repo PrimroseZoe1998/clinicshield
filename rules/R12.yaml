@@ -1,0 +1,40 @@
+schema_version: 1
+rule_id: R12
+title: Email multifactor authentication gap
+kind: technical
+handler: email_mfa
+description: >-
+  Assess software entries whose purpose is email. An mfa_enabled
+  value of N indicates a reported safeguard gap. Unknown or NA
+  requires verification. Y produces no finding. Preserve the
+  inventory evidence without inferring affected account counts
+  or whether the authentication method is phishing resistant.
+severity: High
+unknown_severity: Info
+evidence_fields:
+  - asset_id
+  - vendor
+  - product
+  - purpose
+  - deployment
+  - mfa_enabled
+fix: >-
+  Verify MFA coverage for email accounts and address confirmed
+  gaps with the service owner. Confirm that protection covers all
+  applicable accounts and document necessary exceptions. Review
+  Unknown or NA values rather than treating them as enabled.
+  Evaluate supported authentication options with the administrator.
+owner: Email administrator or managed service provider
+effort: 2
+cost: unknown
+framework_references:
+  - framework: Project checklist framework mapping
+    reference: Q01 email multifactor authentication
+    source: docs/framework-mappings.md
+    rationale: >-
+      Use the documented Q01 mapping as the basis for reviewing
+      inventory-based email MFA evidence. This rule does not
+      independently verify configuration, phishing resistance,
+      or compliance.
+    review_status: pending
+review_status: draft

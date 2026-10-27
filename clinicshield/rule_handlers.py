@@ -381,3 +381,39 @@ def cloud_baa_status(
             ("baa_signed", software.baa_signed),
         ),
     )
+
+def email_mfa(
+    software: Software,
+    *,
+    entity_id: str,
+) -> RuleObservation | None:
+    """Assess reported MFA status for email software."""
+    if not isinstance(entity_id, str) or not entity_id.strip():
+        raise InputError("R12 requires a software entry identifier.")
+
+    if software.purpose != "email":
+        return None
+
+    if software.mfa_enabled == "Y":
+        return None
+
+    status: Literal["confirmed", "needs_review"]
+
+    if software.mfa_enabled == "N":
+        status = "confirmed"
+    else:
+        status = "needs_review"
+
+    return RuleObservation(
+        rule_id="R12",
+        entity_id=entity_id,
+        status=status,
+        evidence=(
+            ("asset_id", software.asset_id),
+            ("vendor", software.vendor),
+            ("product", software.product),
+            ("purpose", software.purpose),
+            ("deployment", software.deployment),
+            ("mfa_enabled", software.mfa_enabled),
+        ),
+    )
