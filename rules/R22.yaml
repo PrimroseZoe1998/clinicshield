@@ -1,0 +1,32 @@
+schema_version: 1
+rule_id: R22
+title: Documented risk analysis gap
+kind: checklist
+handler: documented_risk_analysis
+description: >-
+  Use Q24b to assess the recent documented risk analysis described
+  in the checklist. No indicates a reported gap. Unknown requires
+  verification. Yes does not trigger this rule. Do not infer Q24b
+  from the combined Q24 answer or from Q24a.
+severity: High
+unknown_severity: Info
+evidence_fields:
+  - Q24b
+fix: >-
+  Verify whether a recent documented risk analysis exists and
+  addresses the organization's systems and risks. If missing,
+  arrange an appropriately scoped analysis, document the findings,
+  and assign follow-up actions to responsible owners.
+owner: Security official and organizational leadership
+effort: 3
+cost: unknown
+framework_references:
+  - framework: Project checklist framework mapping
+    reference: Q24b documented risk analysis
+    source: docs/framework-mappings.md
+    rationale: >-
+      Use the documented Q24 follow-up mapping as the basis for
+      reviewing this rule. Preserve the distinction between Q24a
+      security responsibility and Q24b risk analysis.
+    review_status: pending
+review_status: draft

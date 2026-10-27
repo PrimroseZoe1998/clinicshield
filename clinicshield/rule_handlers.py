@@ -135,3 +135,29 @@ def router_security(
         status=status,
         evidence=(("Q16", answer),),
     )
+
+def documented_risk_analysis(
+    checklist: Checklist,
+) -> RuleObservation | None:
+    """Detect the risk-analysis gap reported specifically by Q24b."""
+    answer = checklist.followups.get("Q24b")
+
+    if not isinstance(answer, str) or answer not in ANSWERS:
+        raise InputError("R22 requires a valid Q24b follow-up answer.")
+
+    if answer == "Yes":
+        return None
+
+    status: Literal["confirmed", "needs_review"]
+
+    if answer == "No":
+        status = "confirmed"
+    else:
+        status = "needs_review"
+
+    return RuleObservation(
+        rule_id="R22",
+        entity_id="assessment",
+        status=status,
+        evidence=(("Q24b", answer),),
+    )
