@@ -12,6 +12,7 @@ from clinicshield.rule_handlers import (
     telnet_service,
     staff_security_training,
     antivirus_protection,
+    reporting_preparation,
 )
 
 from clinicshield.rule_models import RuleDefinition, Severity
@@ -99,6 +100,7 @@ CHECKLIST_HANDLERS = {
     ("R16", "backup_safeguards", "checklist"): backup_safeguards,
     ("R23", "staff_security_training", "checklist"): staff_security_training,
     ("R15", "antivirus_protection", "checklist"): antivirus_protection,
+    ("R21", "reporting_preparation", "checklist"): reporting_preparation,
 }
 
 

@@ -1,0 +1,37 @@
+schema_version: 1
+rule_id: R21
+title: Security reporting or notification preparation gap
+kind: checklist
+handler: reporting_preparation
+description: >-
+  Use Q21 for reporting security problems and Q22 for breach
+  notification preparation. Either No indicates a reported gap.
+  If neither is No but either is Unknown, require verification.
+  Both Yes produces no finding. Preserve both answers separately.
+  Do not infer that a breach occurred or that notification is required.
+severity: Medium
+unknown_severity: Info
+evidence_fields:
+  - Q21
+  - Q22
+fix: >-
+  Review each safeguard separately. For a Q21 gap, document how
+  staff should report suspected security problems and whom to contact.
+  For a Q22 gap, establish a process for assessing incidents and
+  obtaining qualified guidance on notification obligations.
+  Verify Unknown answers. Do not treat this finding as a breach
+  determination or a decision that notification is legally required.
+owner: Security official and organizational leadership
+effort: 2
+cost: unknown
+framework_references:
+  - framework: Project checklist framework mapping
+    reference: Q21 security reporting and Q22 notification preparation
+    source: docs/framework-mappings.md
+    rationale: >-
+      Use the documented Q21 and Q22 mappings as the basis for
+      reviewing this proposed rule. Preserve separate evidence and
+      corrective actions. Checklist responses do not establish
+      legal compliance.
+    review_status: pending
+review_status: draft

@@ -281,3 +281,37 @@ def antivirus_protection(
         status=status,
         evidence=(("Q03", answer),),
     )
+
+def reporting_preparation(
+    checklist: Checklist,
+) -> RuleObservation | None:
+    """Assess Q21 and Q22 without inferring that a breach occurred."""
+    reporting = checklist.answers.get("Q21")
+    notification = checklist.answers.get("Q22")
+
+    for question, answer in (
+        ("Q21", reporting),
+        ("Q22", notification),
+    ):
+        if not isinstance(answer, str) or answer not in ANSWERS:
+            raise InputError(f"R21 requires a valid {question} answer.")
+
+    if reporting == "Yes" and notification == "Yes":
+        return None
+
+    status: Literal["confirmed", "needs_review"]
+
+    if reporting == "No" or notification == "No":
+        status = "confirmed"
+    else:
+        status = "needs_review"
+
+    return RuleObservation(
+        rule_id="R21",
+        entity_id="assessment",
+        status=status,
+        evidence=(
+            ("Q21", reporting),
+            ("Q22", notification),
+        ),
+    )
