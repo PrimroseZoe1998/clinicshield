@@ -195,3 +195,37 @@ def incident_readiness(
             ("Q24a", responsibility),
         ),
     )
+
+def backup_safeguards(
+    checklist: Checklist,
+) -> RuleObservation | None:
+    """Assess Q10 and Q11 without inferring individual backup faults."""
+    backups = checklist.answers.get("Q10")
+    restore_testing = checklist.answers.get("Q11")
+
+    for question, answer in (
+        ("Q10", backups),
+        ("Q11", restore_testing),
+    ):
+        if not isinstance(answer, str) or answer not in ANSWERS:
+            raise InputError(f"R16 requires a valid {question} answer.")
+
+    if backups == "Yes" and restore_testing == "Yes":
+        return None
+
+    status: Literal["confirmed", "needs_review"]
+
+    if backups == "No" or restore_testing == "No":
+        status = "confirmed"
+    else:
+        status = "needs_review"
+
+    return RuleObservation(
+        rule_id="R16",
+        entity_id="assessment",
+        status=status,
+        evidence=(
+            ("Q10", backups),
+            ("Q11", restore_testing),
+        ),
+    )

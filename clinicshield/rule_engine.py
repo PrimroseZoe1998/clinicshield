@@ -2,22 +2,14 @@ from dataclasses import dataclass
 
 from clinicshield.rule_handlers import (
     RuleObservation,
-    portable_encryption,
-)
-from clinicshield.rule_handlers import (
-    RuleObservation,
-    portable_encryption,
-    telnet_service,
-)
-from clinicshield.rule_handlers import (
-    RuleObservation,
+    backup_safeguards,
+    documented_risk_analysis,
     guest_wifi_separation,
+    incident_readiness,
     individual_accounts,
     portable_encryption,
     router_security,
     telnet_service,
-    documented_risk_analysis,
-    incident_readiness,
 )
 
 from clinicshield.rule_models import RuleDefinition, Severity
@@ -102,6 +94,7 @@ CHECKLIST_HANDLERS = {
     ("R19", "router_security", "checklist"): router_security,
     ("R22", "documented_risk_analysis", "checklist"): documented_risk_analysis,
     ("R20", "incident_readiness", "checklist"): incident_readiness,
+    ("R16", "backup_safeguards", "checklist"): backup_safeguards,
 }
 
 

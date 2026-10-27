@@ -1,0 +1,37 @@
+schema_version: 1
+rule_id: R16
+title: Backup safeguards gap
+kind: checklist
+handler: backup_safeguards
+description: >-
+  Use Q10 for daily separated backups and Q11 for restore testing.
+  Either No indicates a reported safeguard gap. If neither is No
+  but either is Unknown, require verification. Both Yes produces
+  no finding. Preserve each answer separately. A No to Q10 does
+  not establish whether backup frequency, separation, or both
+  are deficient.
+severity: High
+unknown_severity: Info
+evidence_fields:
+  - Q10
+  - Q11
+fix: >-
+  Review the Q10 safeguards separately and address confirmed gaps
+  in backup frequency or separation from daily work access.
+  If Q11 is No, arrange a controlled restore test and document
+  its results. Investigate Unknown answers without calling them
+  confirmed missing controls. Coordinate testing to avoid
+  disrupting clinical operations.
+owner: IT administrator and backup service provider
+effort: 3
+cost: unknown
+framework_references:
+  - framework: Project checklist framework mapping
+    reference: Q10 daily separated backups and Q11 restore testing
+    source: docs/framework-mappings.md
+    rationale: >-
+      Use the documented Q10 and Q11 mappings as the basis for
+      reviewing this rule. Checklist responses do not independently
+      verify backup integrity or establish compliance.
+    review_status: pending
+review_status: draft
