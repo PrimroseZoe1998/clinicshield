@@ -1,0 +1,40 @@
+schema_version: 1
+rule_id: R24
+title: Software version requires verification
+kind: technical
+handler: unknown_software_version
+description: >-
+  Identify unknown software versions where touches_phi is Y or
+  Unknown. Preserve uncertainty about both version and patient
+  information access. Report a needs-review finding, not a
+  confirmed vulnerability. Software with touches_phi N is outside
+  this rule's scope; that exclusion does not establish safety.
+severity: Info
+unknown_severity: Info
+evidence_fields:
+  - asset_id
+  - vendor
+  - product
+  - version
+  - deployment
+  - touches_phi
+fix: >-
+  Obtain the installed version or the cloud service's applicable
+  release information from a reliable source. Verify whether the
+  software accesses patient information when that status is unknown.
+  Record unresolved vendor-managed version information explicitly.
+  Reassess vulnerability applicability after verification without
+  inventing a version or treating missing data as safe.
+owner: IT administrator or application vendor
+effort: 1
+cost: unknown
+framework_references:
+  - framework: Project framework mapping review
+    reference: Software inventory accuracy; mapping pending
+    source: docs/framework-mappings.md
+    rationale: >-
+      Review the inventory-management references for applicability
+      to software version verification. No rule-specific framework
+      mapping is claimed as reviewed yet.
+    review_status: pending
+review_status: draft

@@ -1,9 +1,10 @@
 from dataclasses import dataclass
 from typing import Literal
 
-from clinicshield.schemas import Asset, Service
+from clinicshield.schemas import Asset, Service, Software
 from clinicshield.checklist_input import ANSWERS, Checklist
 from clinicshield.input_limits import InputError
+from clinicshield.normalization import normalize_version
 
 @dataclass(frozen=True)
 class RuleObservation:
@@ -313,5 +314,34 @@ def reporting_preparation(
         evidence=(
             ("Q21", reporting),
             ("Q22", notification),
+        ),
+    )
+
+def unknown_software_version(
+    software: Software,
+    *,
+    entity_id: str,
+) -> RuleObservation | None:
+    """Flag missing version information without confirming a CVE."""
+    if not isinstance(entity_id, str) or not entity_id.strip():
+        raise InputError("R24 requires a software entry identifier.")
+
+    if software.touches_phi == "N":
+        return None
+
+    if normalize_version(software.version) is not None:
+        return None
+
+    return RuleObservation(
+        rule_id="R24",
+        entity_id=entity_id,
+        status="needs_review",
+        evidence=(
+            ("asset_id", software.asset_id),
+            ("vendor", software.vendor),
+            ("product", software.product),
+            ("version", software.version),
+            ("deployment", software.deployment),
+            ("touches_phi", software.touches_phi),
         ),
     )
