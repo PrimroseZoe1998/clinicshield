@@ -1,0 +1,42 @@
+schema_version: 1
+rule_id: R10
+title: Default administrator password requires attention
+kind: technical
+handler: default_admin_password
+description: >-
+  Assess explicit evidence about default administrator passwords
+  for the matching asset. Confirm a gap only when current evidence
+  states that an applicable default password remains unchanged.
+  Unknown applicability, missing evidence, or unresolved status
+  requires review. Confirmed changed passwords or confirmed
+  non-applicability produce no finding under this rule.
+severity: High
+unknown_severity: Info
+evidence_fields:
+  - asset_id
+  - applicability
+  - default_password_changed
+  - evidence_basis
+  - evidence_source
+  - observed_at
+fix: >-
+  Verify whether default administrator credentials apply to this
+  device. If an unchanged default password is confirmed, coordinate
+  a supported credential change with the responsible administrator
+  or vendor and securely manage the replacement credentials.
+  Preserve required operations. Never include passwords in
+  assessment inputs, evidence, or logs.
+owner: Device administrator or responsible vendor
+effort: 2
+cost: unknown
+framework_references:
+  - framework: Project framework mapping review
+    reference: Default credential management; mapping pending
+    source: docs/framework-mappings.md
+    rationale: >-
+      Review the documented secure-configuration references for
+      applicability. Keep explicit password-setting evidence
+      distinct from R19's combined Q16 answer. Shared remediation
+      must preserve both evidence sources.
+    review_status: pending
+review_status: draft
