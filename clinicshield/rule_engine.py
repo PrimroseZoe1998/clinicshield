@@ -39,7 +39,10 @@ from clinicshield.application_evidence import ApplicationSupportEvidence
 from clinicshield.application_handlers import application_support
 from clinicshield.kev_cache import KevSnapshot
 from clinicshield.vulnerability_evidence import VulnerabilityEvidence
-from clinicshield.vulnerability_handlers import known_exploited_vulnerability
+from clinicshield.vulnerability_handlers import (
+    known_exploited_vulnerability,
+    other_applicable_vulnerability,
+)
 
 ASSET_HANDLERS = {
     ("R05", "portable_encryption", "technical"): portable_encryption,
@@ -443,6 +446,8 @@ def evaluate_software_support_rule(
 VULNERABILITY_HANDLERS = {
     ("R01", "known_exploited_vulnerability", "technical"):
         known_exploited_vulnerability,
+    ("R02", "other_applicable_vulnerability", "technical"):
+        other_applicable_vulnerability,
 }
 
 
