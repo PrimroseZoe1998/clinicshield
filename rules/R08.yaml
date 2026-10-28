@@ -1,0 +1,47 @@
+schema_version: 1
+rule_id: R08
+title: SMB service on an operating system requiring support review
+kind: technical
+handler: smb_os_support
+description: >-
+  Combine an explicitly identified TCP SMB service with its
+  matching asset and lifecycle evidence. Confirm the finding only
+  when the OS is confirmed unsupported under R03's evidence rules.
+  Unresolved lifecycle evidence requires review. A supported OS
+  produces no finding under this rule. Do not infer SMB version,
+  exploitability, or internet exposure from the service port.
+severity: High
+unknown_severity: Info
+evidence_fields:
+  - asset_id
+  - os_name
+  - os_version
+  - support_status
+  - support_basis
+  - source_url
+  - retrieved_at
+  - host
+  - port
+  - protocol
+  - service
+  - exposure
+fix: >-
+  Verify OS support and whether SMB is required. For a confirmed
+  unsupported OS, plan a supported upgrade, replacement, or
+  vendor-approved mitigation and restrict unnecessary SMB access.
+  Preserve required clinical operations. Resolve uncertain support
+  evidence before claiming the operating system is unsupported.
+owner: IT administrator and system vendor
+effort: 3
+cost: unknown
+framework_references:
+  - framework: Project framework mapping review
+    reference: OS support and network service exposure; mapping pending
+    source: docs/framework-mappings.md
+    rationale: >-
+      Review the documented support and network-security references
+      for this combined condition. Preserve the relationship to R03
+      without losing distinct SMB service evidence. Rule-specific
+      mapping review remains pending.
+    review_status: pending
+review_status: draft

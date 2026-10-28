@@ -7,7 +7,7 @@ from clinicshield.feed_freshness import (
 from clinicshield.lifecycle_evidence import LifecycleEvidence
 from clinicshield.normalization import normalize_name, normalize_version
 from clinicshield.rule_handlers import RuleObservation
-from clinicshield.schemas import Asset
+from clinicshield.schemas import Asset, Service
 
 
 def operating_system_support(
@@ -112,5 +112,44 @@ def operating_system_support(
                 "extended_support",
                 evidence.extended_support if evidence is not None else "unknown",
             ),
+        ),
+    )
+
+def smb_os_support(
+    asset: Asset,
+    service: Service,
+    evidence: LifecycleEvidence | None,
+    *,
+    now: datetime,
+    max_age: timedelta,
+) -> RuleObservation | None:
+    """Combine identified SMB with the matching asset's OS evidence."""
+    if service.protocol != "tcp" or service.service != "smb":
+        return None
+
+    if service.asset_id != asset.asset_id:
+        raise ValueError("SMB service must match the supplied asset.")
+
+    os_observation = operating_system_support(
+        asset,
+        evidence,
+        now=now,
+        max_age=max_age,
+    )
+
+    if os_observation is None:
+        return None
+
+    return RuleObservation(
+        rule_id="R08",
+        entity_id=asset.asset_id,
+        status=os_observation.status,
+        evidence=(
+            *os_observation.evidence,
+            ("host", service.host),
+            ("port", str(service.port)),
+            ("protocol", service.protocol),
+            ("service", service.service),
+            ("exposure", service.exposure),
         ),
     )
