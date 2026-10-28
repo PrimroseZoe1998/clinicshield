@@ -1,0 +1,42 @@
+schema_version: 1
+rule_id: R11
+title: Medical-device network separation requires attention
+kind: technical
+handler: medical_network_separation
+description: >-
+  Assess medical-device assets using explicit, current evidence
+  about network separation. A reported absence of appropriate
+  separation produces a confirmed gap. Missing, stale, or unknown
+  evidence requires review. Confirmed appropriate separation
+  produces no finding under this rule. Network segment labels
+  alone do not prove isolation or unrestricted connectivity.
+severity: High
+unknown_severity: Info
+evidence_fields:
+  - asset_id
+  - asset_type
+  - network_segment
+  - separation_verified
+  - evidence_basis
+  - evidence_source
+  - observed_at
+fix: >-
+  Review required medical-device communications with the device
+  vendor, clinical owner, and network administrator. Address
+  confirmed separation gaps using an appropriate network design
+  and access restrictions, then verify required operations and
+  permitted traffic. Do not change device connectivity solely
+  from a segment label or disrupt necessary clinical functions.
+owner: Network administrator and medical-device vendor
+effort: 3
+cost: unknown
+framework_references:
+  - framework: Project checklist framework mapping
+    reference: Q23 medical-device inventory and separation
+    source: docs/framework-mappings.md
+    rationale: >-
+      Use the documented Q23 mapping as the basis for reviewing
+      asset-specific separation evidence. A segment name or combined
+      checklist response does not independently verify isolation.
+    review_status: pending
+review_status: draft
