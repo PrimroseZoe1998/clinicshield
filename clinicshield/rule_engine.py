@@ -37,6 +37,9 @@ from clinicshield.segmentation_evidence import MedicalSeparationEvidence
 from clinicshield.segmentation_handlers import medical_network_separation
 from clinicshield.application_evidence import ApplicationSupportEvidence
 from clinicshield.application_handlers import application_support
+from clinicshield.kev_cache import KevSnapshot
+from clinicshield.vulnerability_evidence import VulnerabilityEvidence
+from clinicshield.vulnerability_handlers import known_exploited_vulnerability
 
 ASSET_HANDLERS = {
     ("R05", "portable_encryption", "technical"): portable_encryption,
@@ -417,6 +420,53 @@ def evaluate_software_support_rule(
     observation = handler(
         software,
         evidence,
+        entity_id=entity_id,
+        now=now,
+        max_age=max_age,
+    )
+
+    if observation is None:
+        return None
+
+    if observation.rule_id != rule.rule_id:
+        raise ValueError("Handler returned a different rule ID.")
+
+    if observation.entity_id != entity_id:
+        raise ValueError("Handler returned a different software entry ID.")
+
+    evidence_keys = {key for key, _ in observation.evidence}
+    if not set(rule.evidence_fields).issubset(evidence_keys):
+        raise ValueError("Handler did not provide required evidence.")
+
+    return RuleFinding(rule=rule, observation=observation)
+
+VULNERABILITY_HANDLERS = {
+    ("R01", "known_exploited_vulnerability", "technical"):
+        known_exploited_vulnerability,
+}
+
+
+def evaluate_software_vulnerability_rule(
+    rule: RuleDefinition,
+    software: Software,
+    evidence: VulnerabilityEvidence,
+    kev_snapshot: KevSnapshot | None,
+    *,
+    entity_id: str,
+    now: datetime,
+    max_age: timedelta,
+) -> RuleFinding | None:
+    """Evaluate version applicability with KEV coverage evidence."""
+    key = (rule.rule_id, rule.handler, rule.kind)
+    handler = VULNERABILITY_HANDLERS.get(key)
+
+    if handler is None:
+        raise ValueError("Unsupported vulnerability rule registration.")
+
+    observation = handler(
+        software,
+        evidence,
+        kev_snapshot,
         entity_id=entity_id,
         now=now,
         max_age=max_age,
