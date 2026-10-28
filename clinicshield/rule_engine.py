@@ -33,6 +33,8 @@ from clinicshield.schemas import Asset, Service, Software
 from clinicshield.checklist_input import Checklist
 from clinicshield.credential_evidence import DefaultPasswordEvidence
 from clinicshield.credential_handlers import default_admin_password
+from clinicshield.segmentation_evidence import MedicalSeparationEvidence
+from clinicshield.segmentation_handlers import medical_network_separation
 
 ASSET_HANDLERS = {
     ("R05", "portable_encryption", "technical"): portable_encryption,
@@ -324,6 +326,48 @@ def evaluate_asset_credential_rule(
 
     if handler is None:
         raise ValueError("Unsupported credential rule registration.")
+
+    observation = handler(
+        asset,
+        evidence,
+        now=now,
+        max_age=max_age,
+    )
+
+    if observation is None:
+        return None
+
+    if observation.rule_id != rule.rule_id:
+        raise ValueError("Handler returned a different rule ID.")
+
+    if observation.entity_id != asset.asset_id:
+        raise ValueError("Handler returned a different asset ID.")
+
+    evidence_keys = {key for key, _ in observation.evidence}
+    if not set(rule.evidence_fields).issubset(evidence_keys):
+        raise ValueError("Handler did not provide required evidence.")
+
+    return RuleFinding(rule=rule, observation=observation)
+
+SEGMENTATION_HANDLERS = {
+    ("R11", "medical_network_separation", "technical"): medical_network_separation,
+}
+
+
+def evaluate_asset_segmentation_rule(
+    rule: RuleDefinition,
+    asset: Asset,
+    evidence: MedicalSeparationEvidence | None,
+    *,
+    now: datetime,
+    max_age: timedelta,
+) -> RuleFinding | None:
+    """Evaluate medical-device separation using explicit evidence."""
+    key = (rule.rule_id, rule.handler, rule.kind)
+    handler = SEGMENTATION_HANDLERS.get(key)
+
+    if handler is None:
+        raise ValueError("Unsupported segmentation rule registration.")
 
     observation = handler(
         asset,
