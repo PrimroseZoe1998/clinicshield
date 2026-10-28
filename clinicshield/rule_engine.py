@@ -24,7 +24,10 @@ from clinicshield.rule_handlers import (
 from datetime import datetime, timedelta
 
 from clinicshield.lifecycle_evidence import LifecycleEvidence
-from clinicshield.lifecycle_handlers import operating_system_support
+from clinicshield.lifecycle_handlers import (
+    operating_system_support,
+    smb_os_support,
+)
 from clinicshield.rule_models import RuleDefinition, Severity
 from clinicshield.schemas import Asset, Service, Software
 from clinicshield.checklist_input import Checklist
@@ -234,6 +237,52 @@ def evaluate_asset_lifecycle_rule(
 
     observation = handler(
         asset,
+        evidence,
+        now=now,
+        max_age=max_age,
+    )
+
+    if observation is None:
+        return None
+
+    if observation.rule_id != rule.rule_id:
+        raise ValueError("Handler returned a different rule ID.")
+
+    if observation.entity_id != asset.asset_id:
+        raise ValueError("Handler returned a different asset ID.")
+
+    evidence_keys = {key for key, _ in observation.evidence}
+    if not set(rule.evidence_fields).issubset(evidence_keys):
+        raise ValueError("Handler did not provide required evidence.")
+
+    return RuleFinding(rule=rule, observation=observation)
+
+ASSET_SERVICE_LIFECYCLE_HANDLERS = {
+    ("R08", "smb_os_support", "technical"): smb_os_support,
+}
+
+
+def evaluate_asset_service_lifecycle_rule(
+    rule: RuleDefinition,
+    asset: Asset,
+    service: Service,
+    evidence: LifecycleEvidence | None,
+    *,
+    now: datetime,
+    max_age: timedelta,
+) -> RuleFinding | None:
+    """Evaluate a service against its asset and lifecycle evidence."""
+    key = (rule.rule_id, rule.handler, rule.kind)
+    handler = ASSET_SERVICE_LIFECYCLE_HANDLERS.get(key)
+
+    if handler is None:
+        raise ValueError(
+            "Unsupported asset/service lifecycle rule registration."
+        )
+
+    observation = handler(
+        asset,
+        service,
         evidence,
         now=now,
         max_age=max_age,
