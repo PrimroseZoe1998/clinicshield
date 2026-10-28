@@ -1,0 +1,44 @@
+schema_version: 1
+rule_id: R01
+title: Applicable vulnerability listed in CISA KEV
+kind: technical
+handler: known_exploited_vulnerability
+description: >-
+  Combine confirmed software-version applicability with membership
+  of the same CVE in a current CISA KEV cache. Product-name matches
+  or KEV membership alone cannot confirm that software is affected.
+  Missing, stale, or unsupported applicability evidence requires
+  review. Missing or stale KEV coverage must remain explicit.
+severity: Critical
+unknown_severity: Info
+evidence_fields:
+  - asset_id
+  - vendor
+  - product
+  - version
+  - vulnerability_id
+  - applicability
+  - applicability_source
+  - applicability_retrieved_at
+  - kev_status
+  - kev_retrieved_at
+fix: >-
+  Verify the affected release and follow the vendor's remediation
+  or mitigation guidance, informed by the corresponding KEV entry.
+  Coordinate changes with the application owner and relevant
+  clinical or device vendor. Reassess applicability after changes.
+  Do not claim exploitation of this organization from KEV membership.
+owner: Application owner and responsible IT administrator
+effort: 3
+cost: unknown
+framework_references:
+  - framework: Project framework mapping review
+    reference: Vulnerability remediation and prioritization; mapping pending
+    source: docs/framework-mappings.md
+    rationale: >-
+      Review the documented vulnerability-management references.
+      KEV describes known exploitation of the CVE, not proof that
+      this organization's software was exploited. Critical severity
+      and rule-specific references remain provisional.
+    review_status: pending
+review_status: draft
