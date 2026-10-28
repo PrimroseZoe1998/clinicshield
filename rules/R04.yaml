@@ -1,0 +1,44 @@
+schema_version: 1
+rule_id: R04
+title: Application support requires attention
+kind: technical
+handler: application_support
+description: >-
+  Assess software using explicitly matched vendor, product, and
+  release evidence. Confirm unsupported status only when current
+  evidence resolves the installed release and applicable support
+  coverage. Missing, stale, mismatched, or incomplete evidence
+  requires review. Product names or unknown versions alone cannot
+  establish unsupported status.
+severity: High
+unknown_severity: Info
+evidence_fields:
+  - asset_id
+  - vendor
+  - product
+  - version
+  - deployment
+  - support_status
+  - support_basis
+  - source_url
+  - retrieved_at
+fix: >-
+  Verify the application release and applicable vendor support
+  coverage. For confirmed unsupported software, plan a supported
+  upgrade, replacement, or vendor-approved mitigation. Coordinate
+  changes with application owners and clinical users. Obtain
+  vendor confirmation for cloud services whose release or support
+  information is not available to the customer.
+owner: Application owner and software vendor
+effort: 3
+cost: unknown
+framework_references:
+  - framework: Project framework mapping review
+    reference: Supported software and inventory management; mapping pending
+    source: docs/framework-mappings.md
+    rationale: >-
+      Review the documented support and inventory references for
+      application lifecycle findings. Unsupported status is distinct
+      from a confirmed CVE match. Rule-specific review remains pending.
+    review_status: pending
+review_status: draft
