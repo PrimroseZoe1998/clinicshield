@@ -1,0 +1,44 @@
+schema_version: 1
+rule_id: R02
+title: Applicable vulnerability outside the current KEV catalog
+kind: technical
+handler: other_applicable_vulnerability
+description: >-
+  Report confirmed software-version applicability when the same
+  CVE is absent from a current KEV catalog. Current KEV membership
+  belongs to R01. Unresolved applicability requires review.
+  Unknown KEV coverage is handled by R01's coverage-review path
+  rather than asserted as absence. EPSS may inform prioritization
+  but never establishes applicability or safety.
+severity: High
+unknown_severity: Info
+evidence_fields:
+  - asset_id
+  - vendor
+  - product
+  - version
+  - vulnerability_id
+  - applicability
+  - applicability_source
+  - applicability_retrieved_at
+  - kev_status
+  - kev_retrieved_at
+fix: >-
+  Verify the affected release and follow the vendor's remediation
+  or mitigation guidance. Coordinate changes with the application
+  owner and relevant clinical or device vendor, then reassess.
+  Absence from KEV or a low EPSS score must not be treated as
+  proof that the vulnerability is harmless or unexploited.
+owner: Application owner and responsible IT administrator
+effort: 3
+cost: unknown
+framework_references:
+  - framework: Project framework mapping review
+    reference: Vulnerability remediation and prioritization; mapping pending
+    source: docs/framework-mappings.md
+    rationale: >-
+      Review the documented vulnerability-management references.
+      Keep applicability separate from exploitation prioritization.
+      Rule-specific mapping and severity review remain pending.
+    review_status: pending
+review_status: draft
