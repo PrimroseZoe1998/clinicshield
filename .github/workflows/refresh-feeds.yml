@@ -42,6 +42,7 @@ jobs:
           python -m clinicshield.refresh_feeds \
             --cache-dir feed-output \
             --eol-product python \
+            --eol-product windows \
             2>&1 | tee feed-output/refresh.log
 
       - name: Preserve snapshots and refresh log
