@@ -35,6 +35,8 @@ from clinicshield.credential_evidence import DefaultPasswordEvidence
 from clinicshield.credential_handlers import default_admin_password
 from clinicshield.segmentation_evidence import MedicalSeparationEvidence
 from clinicshield.segmentation_handlers import medical_network_separation
+from clinicshield.application_evidence import ApplicationSupportEvidence
+from clinicshield.application_handlers import application_support
 
 ASSET_HANDLERS = {
     ("R05", "portable_encryption", "technical"): portable_encryption,
@@ -384,6 +386,50 @@ def evaluate_asset_segmentation_rule(
 
     if observation.entity_id != asset.asset_id:
         raise ValueError("Handler returned a different asset ID.")
+
+    evidence_keys = {key for key, _ in observation.evidence}
+    if not set(rule.evidence_fields).issubset(evidence_keys):
+        raise ValueError("Handler did not provide required evidence.")
+
+    return RuleFinding(rule=rule, observation=observation)
+
+APPLICATION_SUPPORT_HANDLERS = {
+    ("R04", "application_support", "technical"): application_support,
+}
+
+
+def evaluate_software_support_rule(
+    rule: RuleDefinition,
+    software: Software,
+    evidence: ApplicationSupportEvidence | None,
+    *,
+    entity_id: str,
+    now: datetime,
+    max_age: timedelta,
+) -> RuleFinding | None:
+    """Evaluate support evidence for one identified software entry."""
+    key = (rule.rule_id, rule.handler, rule.kind)
+    handler = APPLICATION_SUPPORT_HANDLERS.get(key)
+
+    if handler is None:
+        raise ValueError("Unsupported application support rule registration.")
+
+    observation = handler(
+        software,
+        evidence,
+        entity_id=entity_id,
+        now=now,
+        max_age=max_age,
+    )
+
+    if observation is None:
+        return None
+
+    if observation.rule_id != rule.rule_id:
+        raise ValueError("Handler returned a different rule ID.")
+
+    if observation.entity_id != entity_id:
+        raise ValueError("Handler returned a different software entry ID.")
 
     evidence_keys = {key for key, _ in observation.evidence}
     if not set(rule.evidence_fields).issubset(evidence_keys):
