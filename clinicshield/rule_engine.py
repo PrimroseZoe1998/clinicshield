@@ -31,6 +31,8 @@ from clinicshield.lifecycle_handlers import (
 from clinicshield.rule_models import RuleDefinition, Severity
 from clinicshield.schemas import Asset, Service, Software
 from clinicshield.checklist_input import Checklist
+from clinicshield.credential_evidence import DefaultPasswordEvidence
+from clinicshield.credential_handlers import default_admin_password
 
 ASSET_HANDLERS = {
     ("R05", "portable_encryption", "technical"): portable_encryption,
@@ -283,6 +285,48 @@ def evaluate_asset_service_lifecycle_rule(
     observation = handler(
         asset,
         service,
+        evidence,
+        now=now,
+        max_age=max_age,
+    )
+
+    if observation is None:
+        return None
+
+    if observation.rule_id != rule.rule_id:
+        raise ValueError("Handler returned a different rule ID.")
+
+    if observation.entity_id != asset.asset_id:
+        raise ValueError("Handler returned a different asset ID.")
+
+    evidence_keys = {key for key, _ in observation.evidence}
+    if not set(rule.evidence_fields).issubset(evidence_keys):
+        raise ValueError("Handler did not provide required evidence.")
+
+    return RuleFinding(rule=rule, observation=observation)
+
+CREDENTIAL_HANDLERS = {
+    ("R10", "default_admin_password", "technical"): default_admin_password,
+}
+
+
+def evaluate_asset_credential_rule(
+    rule: RuleDefinition,
+    asset: Asset,
+    evidence: DefaultPasswordEvidence | None,
+    *,
+    now: datetime,
+    max_age: timedelta,
+) -> RuleFinding | None:
+    """Evaluate an asset using explicit credential-setting evidence."""
+    key = (rule.rule_id, rule.handler, rule.kind)
+    handler = CREDENTIAL_HANDLERS.get(key)
+
+    if handler is None:
+        raise ValueError("Unsupported credential rule registration.")
+
+    observation = handler(
+        asset,
         evidence,
         now=now,
         max_age=max_age,
