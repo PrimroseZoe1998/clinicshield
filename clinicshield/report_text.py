@@ -22,6 +22,15 @@ def render_assessment_text(report: dict) -> str:
         "Overall weighting: 60% Safeguards and 40% Exposure.",
     ]
 
+    example = report.get("example_context")
+    if example is not None:
+        lines[1:1] = [
+            f"Fictional clinic: {example['clinic']}",
+            f"Evidence mode: {example['evidence_mode']}",
+            example["notice"],
+            "",
+        ]
+        
     if score["critical_ceiling"] is not None:
         lines.append(
             f"A confirmed Critical finding limits the overall score "

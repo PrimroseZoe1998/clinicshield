@@ -136,3 +136,60 @@ def test_expected_input_failure_shows_safe_message(monkeypatch):
     assert "example could not be evaluated" in app.error[0].value
     assert "internal test details" not in app.error[0].value
     assert not app.metric
+
+@pytest.mark.parametrize(
+    "clinic,expected_score",
+    [
+        ("Lakeview Family Dental", 65),
+        ("Southside Counseling Collective", 82),
+        ("Westside Community Health", 80),
+    ],
+)
+def test_documented_scenario_mode(clinic, expected_score):
+    app = open_app()
+    app.selectbox[0].select(clinic).run()
+    app.checkbox[0].set_value(True).run()
+    app.button[0].click().run()
+
+    assert not app.exception
+    assert not app.error
+    report = app.session_state["assessment_report"]
+    assert report["score"]["final"] == expected_score
+    assert report["score"]["status"] == "provisional"
+    assert report["example_context"]["evidence_mode"] == (
+        "documented fictional scenario"
+    )
+    assert any(
+        "Synthetic scenario evidence is enabled" in item.value
+        for item in app.warning
+    )
+
+
+def test_changing_evidence_mode_clears_previous_report():
+    app = open_app()
+    app.button[0].click().run()
+    assert app.metric
+
+    app.checkbox[0].set_value(True).run()
+
+    assert not app.exception
+    assert not app.metric
+    assert "assessment_report" not in app.session_state
+
+
+@pytest.mark.parametrize("include_scenario", [False, True])
+def test_downloaded_text_retains_fictional_example_label(include_scenario):
+    from clinicshield.report_text import render_assessment_text
+
+    app = open_app()
+    app.checkbox[0].set_value(include_scenario).run()
+    app.button[0].click().run()
+
+    assert not app.exception
+    report = app.session_state["assessment_report"]
+    text = render_assessment_text(report)
+
+    assert "Fictional clinic: lakeview_dental" in text
+    assert report["example_context"]["evidence_mode"] in text
+    assert "not an assessment of a real clinic" in text
+    assert "fixture generation rather than real-world verification" in text

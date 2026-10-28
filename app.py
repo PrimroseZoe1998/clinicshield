@@ -4,6 +4,7 @@ from pathlib import Path
 
 import streamlit as st
 
+from clinicshield.sample_evidence import build_sample_evidence
 from clinicshield.assessment_evidence import (
     AssessmentEvidence,
     AssessmentFreshnessPolicy,
@@ -23,7 +24,7 @@ CLINICS = {
 }
 
 
-def generate_example(clinic, observation_days):
+def generate_example(clinic, observation_days, include_scenario=False):
     folder = ROOT / "samples" / clinic
     services = folder / "services.csv"
 
@@ -34,18 +35,38 @@ def generate_example(clinic, observation_days):
         software_csv=(folder / "software.csv").read_bytes(),
         services_csv=services.read_bytes() if services.exists() else None,
     )
+    now = datetime.now(timezone.utc)
+    evidence = (
+        build_sample_evidence(clinic, assessment, now=now)
+        if include_scenario else AssessmentEvidence()
+    )
+
     result = score_assessment(
         assessment,
-        AssessmentEvidence(),
+        evidence,
         AssessmentFreshnessPolicy(
             administrator_observation_max_age=timedelta(
                 days=observation_days
             )
         ),
         rules_directory=ROOT / "rules",
-        now=datetime.now(timezone.utc),
+        now=now,
     )
-    return build_assessment_report(result)
+    report = build_assessment_report(result)
+    report["example_context"] = {
+        "clinic": clinic,
+        "evidence_mode": (
+            "documented fictional scenario"
+            if include_scenario else "fictional inventory only"
+        ),
+        "notice": (
+            "Demonstration only; not an assessment of a real clinic. "
+            "Any scenario evidence is synthetic, and its timestamps "
+            "represent fixture generation rather than real-world verification. "
+            "Live threat-intelligence caches are not loaded."
+        ),
+    }
+    return report
 
 
 def main():
@@ -56,8 +77,9 @@ def main():
         "Scores are provisional and unresolved evidence remains visible."
     )
     st.caption(
-        "This preview does not load threat-intelligence caches or "
-        "administrator observations. It does not assess a real clinic."
+        "This preview does not load live threat-intelligence caches or "
+        "real administrator observations. Optional scenario evidence "
+        "is fictional. This does not assess a real clinic."
     )
 
     clinic_name = st.selectbox(
@@ -76,13 +98,26 @@ def main():
         "Public-feed freshness uses the provisional eight-day limit."
     )
 
-    selection = (clinic, observation_days)
+    include_scenario = st.checkbox(
+        "Include documented fictional scenario evidence",
+        value=False,
+    )
+    if include_scenario:
+        st.warning(
+            "Synthetic scenario evidence is enabled for demonstration. "
+            "It is not verified vendor or administrator evidence."
+        )
+
+    selection = (clinic, observation_days, include_scenario)
     if st.session_state.get("report_selection") != selection:
         st.session_state.pop("assessment_report", None)
 
     if st.button("Generate example assessment", type="primary"):
         try:
-            report = generate_example(clinic, observation_days)
+                        report = generate_example(
+                clinic, observation_days, include_scenario
+            )
+
         except (ValueError, OSError):
             st.error(
                 "The example could not be evaluated. "
