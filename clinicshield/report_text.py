@@ -22,6 +22,8 @@ def render_assessment_text(report: dict) -> str:
         "Overall weighting: 60% Safeguards and 40% Exposure.",
     ]
 
+    lines.extend(report.get("cache_messages", []))
+
     example = report.get("example_context")
     if example is not None:
         lines[1:1] = [

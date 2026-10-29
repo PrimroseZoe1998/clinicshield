@@ -4,6 +4,9 @@ from pathlib import Path
 
 import streamlit as st
 
+from clinicshield.assessment_applicability import load_reviewed_applicability
+from clinicshield.assessment_lifecycle import load_assessment_lifecycle, read_lifecycle_mappings
+from clinicshield.assessment_cache import load_assessment_caches
 from clinicshield.sample_evidence import build_sample_evidence
 from clinicshield.assessment_evidence import (
     AssessmentEvidence,
@@ -24,7 +27,7 @@ CLINICS = {
 }
 
 
-def generate_example(clinic, observation_days, include_scenario=False):
+def generate_example(clinic, observation_days, include_scenario=False, cache_directory=None, lifecycle_mappings=None, applicability_json=None):
     folder = ROOT / "samples" / clinic
     services = folder / "services.csv"
 
@@ -41,6 +44,25 @@ def generate_example(clinic, observation_days, include_scenario=False):
         if include_scenario else AssessmentEvidence()
     )
 
+    cache_messages = ()
+    if cache_directory is not None:
+        evidence, cache_messages = load_assessment_caches(
+            evidence, Path(cache_directory), now=now,
+            max_age=timedelta(days=8),
+        )
+
+    if lifecycle_mappings is not None:
+        if cache_directory is None:
+            raise ValueError("Lifecycle mappings require a public-feed cache folder.")
+        evidence, lifecycle_messages = load_assessment_lifecycle(
+            assessment, evidence, read_lifecycle_mappings(lifecycle_mappings),
+            Path(cache_directory), now=now, max_age=timedelta(days=8),
+        )
+        cache_messages += lifecycle_messages
+
+    if applicability_json is not None:
+        evidence = load_reviewed_applicability(assessment, evidence, applicability_json)
+
     result = score_assessment(
         assessment,
         evidence,
@@ -53,6 +75,7 @@ def generate_example(clinic, observation_days, include_scenario=False):
         now=now,
     )
     report = build_assessment_report(result)
+    report["cache_messages"] = list(cache_messages)
     report["example_context"] = {
         "clinic": clinic,
         "evidence_mode": (
@@ -63,7 +86,12 @@ def generate_example(clinic, observation_days, include_scenario=False):
             "Demonstration only; not an assessment of a real clinic. "
             "Any scenario evidence is synthetic, and its timestamps "
             "represent fixture generation rather than real-world verification. "
-            "Live threat-intelligence caches are not loaded."
+            + (
+                "Saved public-feed caches were requested; see cache status. "
+                "No CVE applicability is inferred from those feeds."
+                if cache_directory is not None else
+                "Live threat-intelligence caches are not loaded."
+            )
         ),
     }
     return report
@@ -77,7 +105,7 @@ def main():
         "Scores are provisional and unresolved evidence remains visible."
     )
     st.caption(
-        "This preview does not load live threat-intelligence caches or "
+        "This preview can use saved public-feed caches, but does not collect "
         "real administrator observations. Optional scenario evidence "
         "is fictional. This does not assess a real clinic."
     )
@@ -108,20 +136,55 @@ def main():
             "It is not verified vendor or administrator evidence."
         )
 
-    selection = (clinic, observation_days, include_scenario)
+    use_caches = st.checkbox("Load saved public-feed caches", value=False)
+    cache_directory = None
+    lifecycle_mappings = None
+    if use_caches:
+        cache_directory = st.text_input(
+            "Public-feed cache folder", value=str(ROOT / "feed-output")
+        )
+        st.caption(
+            "Reads kev.json and epss.json locally. No feeds are downloaded. "
+            "Optional lifecycle mappings use eol-PRODUCT.json files. CVE applicability requires reviewed evidence."
+        )
+
+        if not include_scenario:
+            mapping_upload = st.file_uploader(
+                "Reviewed OS lifecycle mappings (JSON)", type=["json"]
+            )
+            if mapping_upload is not None:
+                lifecycle_mappings = mapping_upload.getvalue()
+            st.caption(
+                "Mappings must match the inventory OS and version exactly. "
+                "Extended-support coverage remains unknown."
+            )
+
+    applicability_json = None
+    if not include_scenario:
+        applicability_upload = st.file_uploader(
+            "Reviewed CVE applicability evidence (JSON)", type=["json"]
+        )
+        if applicability_upload is not None:
+            applicability_json = applicability_upload.getvalue()
+        st.caption(
+            "Source records must identify the software entry, vendor, product, "
+            "affected versions, source URL and timestamps. Unresolved matches stay flagged."
+        )
+
+    selection = (clinic, observation_days, include_scenario, cache_directory, lifecycle_mappings, applicability_json)
     if st.session_state.get("report_selection") != selection:
         st.session_state.pop("assessment_report", None)
 
     if st.button("Generate example assessment", type="primary"):
         try:
-                        report = generate_example(
-                clinic, observation_days, include_scenario
+            report = generate_example(
+                clinic, observation_days, include_scenario, cache_directory, lifecycle_mappings, applicability_json
             )
 
         except (ValueError, OSError):
             st.error(
                 "The example could not be evaluated. "
-                "Check the sample files and rule definitions."
+                "Check the sample files, uploaded evidence and rule definitions."
             )
             return
 
@@ -131,6 +194,9 @@ def main():
     report = st.session_state.get("assessment_report")
     if report is None:
         return
+
+    for message in report.get("cache_messages", []):
+        st.warning(message)
 
     score = report["score"]
     st.subheader("Scores within the assessed scope")
