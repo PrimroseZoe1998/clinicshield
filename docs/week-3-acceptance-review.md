@@ -23,9 +23,9 @@ acceptance checklist was found in the repository.
 | Framework presentation | R16 screenshot and user-confirmed readable download | Exercised path passed |
 | Explained findings/report | Evidence, actions, owners, effort, costs, score and coverage explanations | Implemented; finding order is severity-based |
 | Fix First plan | `scoring.md` specifies points/effort, tie-breakers and four action groups | Implemented with conservative exact-action-set consolidation; Lakeview preview/download checks passed |
-| Limited-CVE NVD cache | Accepted October 28; allowlist up to 50 CVEs and acceptance checks documented | **Not implemented**; uploaded applicability JSON is not a substitute |
+| Limited-CVE NVD cache | Accepted October 28; allowlist up to 50 CVEs and acceptance checks documented | Bounded refresh/cache and conservative reviewed-CPE adapter implemented; availability/no-mapping preview/download checked; revised workflow and manual mapping-upload checks pending |
 | Practice-area scores | Formulas/denominators remain listed as unresolved in `scoring.md` | Not implemented; milestone timing needs confirmation |
-| CI/security | User reported green checks on 64bb497; 2,379 local tests excluding stalled AppTest file | Known local UI automation limit; high-severity Bandit check passed |
+| CI/security | User reported green checks on 8771794; 2,429 local tests excluding stalled AppTest file | Known local UI automation limit; high-severity Bandit check passed |
 
 ## Remaining work in order
 
@@ -33,8 +33,10 @@ acceptance checklist was found in the repository.
    Automated tests cover exact priorities, tie order, unknown costs, mixed evidence
    and repeated actions; original 65/82/80 scenario scores remain unchanged.
    Scope, grouping choices and manual results are in `fix-first-plan.md`.
-2. Implement accepted limited-CVE NVD caching and its privacy/failure tests, or
-   obtain an explicit scope change. Recheck current NVD guidance before building.
+2. Verify the revised NVD refresh workflow and, where needed, mapping-upload cases.
+   The public download, offline load and availability/no-mapping browser/download
+   path passed within their documented scope.
+   Review supported logic and guide-access limits in `nvd-cache-implementation.md`.
 3. Confirm milestone timing for practice-area scores and additional administrator/
    application evidence capture. Do not infer acceptance from a working prototype.
 4. Run final CI and relevant manual checks, document remaining limitations and

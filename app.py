@@ -5,6 +5,8 @@ from pathlib import Path
 
 import streamlit as st
 
+from clinicshield.assessment_nvd import load_assessment_nvd
+from clinicshield.nvd_cache import read_nvd_allowlist
 from clinicshield.assessment_applicability import load_reviewed_applicability
 from clinicshield.assessment_lifecycle import load_assessment_lifecycle, read_lifecycle_mappings
 from clinicshield.assessment_cache import load_assessment_caches
@@ -29,7 +31,7 @@ CLINICS = {
 }
 
 
-def generate_example(clinic, observation_days, include_scenario=False, cache_directory=None, lifecycle_mappings=None, applicability_json=None):
+def generate_example(clinic, observation_days, include_scenario=False, cache_directory=None, lifecycle_mappings=None, applicability_json=None, nvd_mappings=None):
     folder = ROOT / "samples" / clinic
     services = folder / "services.csv"
 
@@ -49,7 +51,7 @@ def generate_example(clinic, observation_days, include_scenario=False, cache_dir
     report = evaluate_supplied_assessment(
         assessment, evidence, observation_days, now=now,
         cache_directory=cache_directory, lifecycle_mappings=lifecycle_mappings,
-        applicability_json=applicability_json,
+        applicability_json=applicability_json, nvd_mappings=nvd_mappings,
     )
     report["example_context"] = {
         "clinic": clinic,
@@ -75,7 +77,7 @@ def generate_example(clinic, observation_days, include_scenario=False, cache_dir
 
 def evaluate_supplied_assessment(
     assessment, evidence, observation_days, *, now, cache_directory=None,
-    lifecycle_mappings=None, applicability_json=None,
+    lifecycle_mappings=None, applicability_json=None, nvd_mappings=None,
 ):
     cache_messages = ()
     if cache_directory is not None:
@@ -96,6 +98,22 @@ def evaluate_supplied_assessment(
     if applicability_json is not None:
         evidence = load_reviewed_applicability(assessment, evidence, applicability_json)
 
+    if cache_directory is not None:
+        try:
+            allowlist = read_nvd_allowlist(ROOT / "config" / "nvd-allowlist.json")
+        except (ValueError, OSError):
+            if nvd_mappings is not None:
+                raise InputError("NVD allowlist is unavailable or invalid.") from None
+            cache_messages += ("NVD allowlist unavailable or invalid; coverage is unassessed.",)
+        else:
+            evidence, nvd_messages = load_assessment_nvd(
+                assessment, evidence, Path(cache_directory), allowlist, nvd_mappings,
+                now=now, max_age=timedelta(days=8),
+            )
+            cache_messages += nvd_messages
+    elif nvd_mappings is not None:
+        raise InputError("NVD mappings require a saved public-feed cache folder.")
+
     result = score_assessment(
         assessment,
         evidence,
@@ -114,20 +132,20 @@ def evaluate_supplied_assessment(
 
 def generate_uploaded(
     uploads, observation_days, *, cache_directory=None,
-    lifecycle_mappings=None, applicability_json=None,
+    lifecycle_mappings=None, applicability_json=None, nvd_mappings=None,
 ):
     required = ("checklist_json", "followups_json")
     if any(uploads.get(key) is None for key in required):
         raise InputError("Provide checklist and follow-up JSON files.")
     validate_assessment_uploads(
         *(value for value in uploads.values() if isinstance(value, bytes)),
-        lifecycle_mappings, applicability_json,
+        lifecycle_mappings, applicability_json, nvd_mappings,
     )
     assessment = read_assessment(**uploads)
     report = evaluate_supplied_assessment(
         assessment, AssessmentEvidence(), observation_days,
         now=datetime.now(timezone.utc), cache_directory=cache_directory,
-        lifecycle_mappings=lifecycle_mappings, applicability_json=applicability_json,
+        lifecycle_mappings=lifecycle_mappings, applicability_json=applicability_json, nvd_mappings=nvd_mappings,
     )
     report["assessment_context"] = {
         "input_mode": "uploaded inventory",
@@ -217,13 +235,14 @@ def main():
     use_caches = st.checkbox("Load saved public-feed caches", value=False)
     cache_directory = None
     lifecycle_mappings = None
+    nvd_mappings = None
     if use_caches:
         cache_directory = st.text_input(
             "Public-feed cache folder", value=str(ROOT / "feed-output")
         )
         st.caption(
             "Reads kev.json and epss.json locally. No feeds are downloaded. "
-            "Optional lifecycle mappings use eol-PRODUCT.json files. CVE applicability requires reviewed evidence."
+            "Lifecycle mappings use eol-PRODUCT.json; NVD records use the nvd subfolder. No applicability is inferred without reviewed mappings."
         )
 
         if not include_scenario:
@@ -235,6 +254,16 @@ def main():
             st.caption(
                 "Mappings must match the inventory OS and version exactly. "
                 "Extended-support coverage remains unknown."
+            )
+
+            nvd_upload = st.file_uploader(
+                "Reviewed NVD software mappings (JSON)", type=["json"], key=f"nvd-{mode}"
+            )
+            if nvd_upload is not None:
+                nvd_mappings = nvd_upload.getvalue()
+            st.caption(
+                "Uses only repository-allowlisted CVEs from the local nvd folder. "
+                "Exact reviewed mappings are required; unsupported configurations stay flagged."
             )
 
     applicability_json = None
@@ -254,7 +283,7 @@ def main():
         for key, value in sorted(uploads.items())
     )
     selection = (mode, clinic, observation_days, include_scenario, cache_directory,
-                 lifecycle_mappings, applicability_json, upload_selection)
+                 lifecycle_mappings, applicability_json, nvd_mappings, upload_selection)
     if st.session_state.get("report_selection") != selection:
         st.session_state.pop("assessment_report", None)
 
@@ -264,12 +293,12 @@ def main():
             if is_upload:
                 report = generate_uploaded(
                     uploads, observation_days, cache_directory=cache_directory,
-                    lifecycle_mappings=lifecycle_mappings, applicability_json=applicability_json,
+                    lifecycle_mappings=lifecycle_mappings, applicability_json=applicability_json, nvd_mappings=nvd_mappings,
                 )
             else:
                 report = generate_example(
                     clinic, observation_days, include_scenario, cache_directory,
-                    lifecycle_mappings, applicability_json,
+                    lifecycle_mappings, applicability_json, nvd_mappings,
                 )
         except (ValueError, OSError):
             st.session_state.pop("assessment_report", None)

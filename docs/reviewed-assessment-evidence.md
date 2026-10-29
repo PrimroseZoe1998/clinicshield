@@ -87,3 +87,10 @@ Manual verification completed on October 29, 2026:
 
 These checks verify the exercised paths, not every interactive input or a real
 vendor support/CVE assertion. Synthetic manual fixtures remain outside the repository.
+
+## NVD-backed evidence
+
+Saved NVD records and reviewed software-to-CPE mappings can now supply conservative
+exact-version evidence without embedding source CVE records in the mapping upload.
+See `nvd-cache-implementation.md`. Manual applicability JSON remains a separate
+input; conflicting records are rejected rather than silently replaced.

@@ -34,3 +34,7 @@ the artifact ZIP contains all six expected snapshots/log/status files. These are
 manual success-path observations; injected local tests cover expected failure
 and status-write paths. Scheduled execution and live failure notifications have
 not been independently observed.
+
+The NVD allowlist option now adds one status row per requested CVE, with the same
+partial-failure semantics. See `nvd-cache-implementation.md`. Existing run #3
+predates this addition and does not verify NVD refresh in GitHub Actions.

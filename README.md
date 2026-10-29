@@ -17,12 +17,13 @@ CSV/JSON/XLSX uploads, grouped scoring and readable report downloads.
 Saved public feeds and reviewed lifecycle/CVE applicability evidence can be
 loaded offline. Missing coverage and unresolved information remain visible.
 
-The latest reviewed checkpoint is `64bb497`, with green GitHub checks reported
-by the developer. Current local verification passed 2,379 tests excluding a known
+The latest pushed checkpoint is `8771794`, with green GitHub checks reported
+by the developer. Current local verification passed 2,429 tests excluding a known
 Streamlit AppTest socket-pair stall. Manual checks cover the documented paths.
 
 Week 3 remains incomplete: Fix First is implemented and manually checked with fictional data,
-and accepted limited-CVE NVD caching remains unfinished. See the [acceptance audit](docs/week-3-acceptance-review.md)
+and limited-CVE NVD caching is implemented with availability browser checks complete;
+the revised refresh workflow still needs verification. See the [acceptance audit](docs/week-3-acceptance-review.md)
 and [Week 3 status](docs/status/week-3.md).
 
 ## Run locally
@@ -47,6 +48,11 @@ Refresh public data separately from assessment generation. The weekly/manual
 GitHub Actions workflow produces a ZIP with snapshots, a log and per-feed status.
 Extract it into a local folder to load in the app. Assessment generation does not
 download workflow artifacts or infer CVE applicability from KEV/EPSS alone.
+
+The bounded NVD refresh uses a reviewed repository allowlist and preserves full
+source records. Assessments require reviewed software mappings and support only
+a narrow exact-configuration subset; complex logic remains for review. See the
+[NVD implementation guide](docs/nvd-cache-implementation.md).
 
 See [evidence inputs](docs/reviewed-assessment-evidence.md),
 [mapping scope](docs/rule-framework-review.md) and

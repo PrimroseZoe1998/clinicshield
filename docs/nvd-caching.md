@@ -1,6 +1,9 @@
 # NVD scope and caching strategy
 
-Status: implementation plan, not completed functionality.
+Status: bounded cache and conservative exact-configuration adapter implemented
+October 29, 2026. See `nvd-cache-implementation.md` for supported logic, source checks,
+test results and remaining browser/workflow verification. This document retains
+the accepted scope and acceptance checks; comprehensive range support is not claimed.
 
 ## Initial scope
 

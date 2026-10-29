@@ -65,6 +65,24 @@ def test_status_atomic_failure_preserves_previous_report(tmp_path, monkeypatch):
     assert path.read_text() == "previous report"
     assert list(tmp_path.iterdir()) == [path]
 
+
+def test_nvd_allowlist_refresh_joins_per_feed_status(tmp_path,monkeypatch,feeds):
+    from clinicshield.nvd_cache import NvdAllowlist
+    listing=NvdAllowlist(review_status="reviewed",review_basis="Synthetic test",cve_ids=["CVE-2026-12345"])
+    monkeypatch.setattr(refresh_feeds,"read_nvd_allowlist",lambda path:listing)
+    calls=[]
+    def refresh(value,directory):
+        calls.append((value,directory))
+        return [{"source":"NVD:CVE-2026-12345","outcome":"failed","error_type":"Timeout"}]
+    monkeypatch.setattr(refresh_feeds,"refresh_nvd_allowlist",refresh)
+    path=tmp_path/"status.json"
+    assert refresh_feeds.main(["--cache-dir",str(tmp_path),"--status-file",str(path),"--nvd-allowlist",str(tmp_path/"allowlist.json")])==1
+    assert calls==[(listing,tmp_path/"nvd")]
+    report=json.loads(path.read_text())
+    assert report["outcome"]=="failed"
+    assert report["feeds"][-1]["source"]=="NVD:CVE-2026-12345"
+    assert report["feeds"][0]["outcome"]=="succeeded"
+
 @pytest.fixture
 def feeds(tmp_path, monkeypatch):
     retrieved_at = datetime(2026, 10, 26, 14, tzinfo=timezone.utc)

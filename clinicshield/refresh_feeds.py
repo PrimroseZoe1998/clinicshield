@@ -10,6 +10,8 @@ from clinicshield.epss_refresh import refresh_epss_cache
 from clinicshield.kev_refresh import refresh_kev_cache
 from clinicshield.eol_refresh import refresh_eol_cache
 from clinicshield.refresh_status import write_refresh_status
+from clinicshield.nvd_cache import read_nvd_allowlist
+from clinicshield.nvd_refresh import refresh_nvd_allowlist
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Refresh public feed caches.")
@@ -28,6 +30,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--status-file", type=Path,
         help="Optional per-run JSON status report; contains no inventory data.",
+    )
+    parser.add_argument(
+        "--nvd-allowlist", type=Path,
+        help="Reviewed repository CVE allowlist; never derived from assessment uploads.",
     )
     args = parser.parse_args(argv)
     failed = False
@@ -111,6 +117,24 @@ def main(argv: list[str] | None = None) -> int:
                 f"{len(eol_snapshot.response.result.releases)} releases; "
                 f"retrieved {eol_snapshot.retrieved_at.isoformat()}"
             )
+    if args.nvd_allowlist is not None:
+        try:
+            allowlist = read_nvd_allowlist(args.nvd_allowlist)
+            outcomes = refresh_nvd_allowlist(allowlist, args.cache_dir / "nvd")
+        except (ValueError, OSError) as error:
+            record("NVD allowlist", "failed", error=error)
+            print(f"NVD refresh failed: {type(error).__name__}", file=sys.stderr)
+            failed = True
+        else:
+            status["feeds"].extend(outcomes)
+            if not outcomes:
+                record("NVD allowlist (empty)", "skipped")
+            for outcome in outcomes:
+                if outcome["outcome"] == "failed":
+                    failed = True
+                    print(f"{outcome['source']} refresh failed: {outcome['error_type']}", file=sys.stderr)
+                else:
+                    print(f"{outcome['source']} refreshed; retrieved {outcome['retrieved_at']}")
     status["finished_at"] = datetime.now(timezone.utc).isoformat()
     status["outcome"] = "failed" if failed else "succeeded"
     if args.status_file is not None:

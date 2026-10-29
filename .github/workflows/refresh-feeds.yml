@@ -42,6 +42,7 @@ jobs:
           python -m clinicshield.refresh_feeds \
             --cache-dir feed-output \
             --status-file feed-output/refresh-status.json \
+            --nvd-allowlist config/nvd-allowlist.json \
             --eol-product python \
             --eol-product windows \
             2>&1 | tee feed-output/refresh.log

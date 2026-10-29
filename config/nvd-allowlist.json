@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "review_status": "reviewed",
+  "review_basis": "Coding-agent source review on October 29, 2026: public CVE-2021-44228 API record verified for a bounded transport/configuration-preservation regression case for R01/R02. No claim of applicability to fictional or real clinic inventories. Adding CVEs requires a repository review; the list must not be generated from uploaded inventories.",
+  "cve_ids": ["CVE-2021-44228"]
+}

@@ -5,7 +5,7 @@
 - All 24 draft rules are registered.
 - Saved KEV/EPSS and reviewed lifecycle/applicability evidence are connected.
 - CSV, JSON and XLSX upload paths are implemented and manually tested with fictional files.
-- Latest pushed checkpoint `64bb497` passed GitHub checks, as reported by the user.
+- Latest pushed checkpoint `8771794` passed GitHub checks, as reported by the user.
 - Benjamin accepted retaining the model and revising sample expectations, as reported
   by the user. See `../benjamin-decisions-2026-10-29.md`.
 - Refresh reporting saves optional per-run JSON and renders an Actions summary.
@@ -15,7 +15,7 @@
   `refresh-status.json`, `refresh.log`, `kev.json`, `epss.json`, `eol-python.json`
   and `eol-windows.json`. Artifact contents were confirmed by the user, not
   independently downloaded by the agent.
-- Local verification: 2,379 tests passed with the known stalled Streamlit AppTest
+- Local verification: 2,429 tests passed with the known stalled Streamlit AppTest
   file excluded. The CI-equivalent high-severity Bandit check passed; no medium
   or high findings were reported. Native UI automation remains unverified locally.
 
@@ -39,8 +39,11 @@ Remaining:
   repeated-action-set handling are implemented and tested. The user confirmed
   Lakeview priorities 4.5 and 3, single R03/R08 grouping, and the matching download
   with a separate verification section; see `../fix-first-plan.md`.
-- Implement accepted limited-CVE NVD caching, or explicitly agree a scope change.
-  Supplied applicability JSON does not replace that downloader/cache requirement.
+- Limited-CVE NVD caching and conservative reviewed exact-CPE adaptation are now
+  implemented. The initial one-record public download/cache/offline check passed;
+  the screenshot and user-confirmed download verify availability/no-mapping behavior.
+  The revised GitHub workflow and manual mapping-upload cases remain unverified.
+  See `../nvd-cache-implementation.md`.
 
 The older checkpoint below is retained as history.
 
