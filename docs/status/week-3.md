@@ -5,7 +5,7 @@
 - All 24 draft rules are registered.
 - Saved KEV/EPSS and reviewed lifecycle/applicability evidence are connected.
 - CSV, JSON and XLSX upload paths are implemented and manually tested with fictional files.
-- Latest pushed checkpoint `8771794` passed GitHub checks, as reported by the user.
+- Latest pushed checkpoint `71d762b` passed GitHub checks, as reported by the user.
 - Benjamin accepted retaining the model and revising sample expectations, as reported
   by the user. See `../benjamin-decisions-2026-10-29.md`.
 - Refresh reporting saves optional per-run JSON and renders an Actions summary.
@@ -22,7 +22,7 @@
 - R16 framework labels, limits and URLs were checked in the browser screenshot
   and user-confirmed readable download.
 
-Acceptance status: **not complete**. See `../week-3-acceptance-review.md`.
+Acceptance status: **pending milestone scope confirmation and final review**. See `../week-3-acceptance-review.md`.
 
 Remaining:
 
@@ -42,7 +42,10 @@ Remaining:
 - Limited-CVE NVD caching and conservative reviewed exact-CPE adaptation are now
   implemented. The initial one-record public download/cache/offline check passed;
   the screenshot and user-confirmed download verify availability/no-mapping behavior.
-  The revised GitHub workflow and manual mapping-upload cases remain unverified.
+  The user confirmed successful NVD refresh run `40963762712`, its NVD status row
+  and the CVE JSON artifact. The unsupported mapping-upload preview/download
+  path was then verified with synthetic inventory: needs_review and unchanged
+  displayed scores; the download preserves the explanation and fixture notice.
   See `../nvd-cache-implementation.md`.
 
 The older checkpoint below is retained as history.

@@ -110,6 +110,38 @@ changed.
 The supplied browser screenshot shows one fresh allowlisted NVD record, no inferred
 software applicability and scores of 80/72.3/91.0. The user confirmed the readable
 download retains the available-record count and no-mapping/no-applicability notice.
-This completes the exercised availability/no-mapping browser path. Manual mapping
-upload cases and the revised GitHub refresh workflow remain unverified; automated
-checks cover supported mappings, nonmatches and unsupported logic.
+This completes the exercised availability/no-mapping browser path. The unsupported
+mapping path has also been exercised manually, as recorded below. Exact supported
+matches/nonmatches remain automated checks rather than claimed manual results.
+
+
+## GitHub refresh verification
+
+The user reported green CI for `71d762b` and a successful manual refresh run:
+https://github.com/PrimroseZoe1998/clinicshield/actions/runs/40963762712
+
+The user confirmed `NVD:CVE-2021-44228` succeeded in the summary and the downloaded
+artifact contains `nvd/CVE-2021-44228.json`. These are user-reported checks; the
+agent did not independently download that Actions artifact. This verifies the
+exercised NVD refresh/artifact path, not scheduled execution or a live failure.
+
+A separate synthetic upload pack has been prepared and locally validated for
+manual testing against the authentic local cache. It uses a fictional inventory
+row labeled Apache/Log4j 2.14.1 and an explicitly synthetic reviewed mapping.
+Expected: unsupported configuration, `needs_review`, zero confirmed CVE points.
+This fixture is outside the repository and does not describe a real clinic.
+
+
+## Unsupported mapping manual check
+
+The supplied screenshots show the synthetic mapping loaded with unknown record
+status and unsupported configuration interpretation. R01 for LV-SRV01 is in the
+verification section with `applicability: needs_review`; the details retain the
+unsupported-logic explanation and synthetic-inventory notice. The displayed scores
+remain 80/72.3/91.0. Other unresolved source/KEV conditions may also contribute to
+review status; this test does not isolate unsupported logic as the only cause.
+
+The user confirmed the readable download retains the unsupported-configuration
+explanation and SYNTHETIC INVENTORY TEST ONLY notice. The local fixture check
+also verified zero confirmed CVE Exposure points. This closes the exercised
+unsupported-mapping preview/download check, not every possible mapping case.

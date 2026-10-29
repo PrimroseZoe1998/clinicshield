@@ -17,13 +17,15 @@ CSV/JSON/XLSX uploads, grouped scoring and readable report downloads.
 Saved public feeds and reviewed lifecycle/CVE applicability evidence can be
 loaded offline. Missing coverage and unresolved information remain visible.
 
-The latest pushed checkpoint is `8771794`, with green GitHub checks reported
+The latest pushed checkpoint is `71d762b`, with green GitHub checks reported
 by the developer. Current local verification passed 2,429 tests excluding a known
 Streamlit AppTest socket-pair stall. Manual checks cover the documented paths.
 
 Week 3 remains incomplete: Fix First is implemented and manually checked with fictional data,
 and limited-CVE NVD caching is implemented with availability browser checks complete;
-the revised refresh workflow still needs verification. See the [acceptance audit](docs/week-3-acceptance-review.md)
+the revised refresh workflow/artifact checks passed as reported by the developer.
+The unsupported NVD mapping-upload path was manually checked; milestone scope
+confirmation and final review remain open. See the [acceptance audit](docs/week-3-acceptance-review.md)
 and [Week 3 status](docs/status/week-3.md).
 
 ## Run locally

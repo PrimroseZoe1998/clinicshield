@@ -1,7 +1,7 @@
 # Week 3 acceptance audit
 
 Reviewed October 29, 2026 against repository implementation and the user's
-reported manual/CI results. Status: **not complete**.
+reported manual/CI results. Status: **pending milestone scope confirmation and final review**.
 
 This working audit draws on the recorded Benjamin decisions, `scoring.md`,
 `nvd-caching.md`, the rule catalog and Week 3 status. It is not a newly approved
@@ -23,9 +23,9 @@ acceptance checklist was found in the repository.
 | Framework presentation | R16 screenshot and user-confirmed readable download | Exercised path passed |
 | Explained findings/report | Evidence, actions, owners, effort, costs, score and coverage explanations | Implemented; finding order is severity-based |
 | Fix First plan | `scoring.md` specifies points/effort, tie-breakers and four action groups | Implemented with conservative exact-action-set consolidation; Lakeview preview/download checks passed |
-| Limited-CVE NVD cache | Accepted October 28; allowlist up to 50 CVEs and acceptance checks documented | Bounded refresh/cache and conservative reviewed-CPE adapter implemented; availability/no-mapping preview/download checked; revised workflow and manual mapping-upload checks pending |
+| Limited-CVE NVD cache | Accepted October 28; allowlist up to 50 CVEs and acceptance checks documented | Bounded refresh/cache and conservative reviewed-CPE adapter implemented; availability/no-mapping preview/download checked; NVD workflow/artifact checks passed as reported by user; unsupported mapping-upload preview/download checked; other manual mapping cases not claimed |
 | Practice-area scores | Formulas/denominators remain listed as unresolved in `scoring.md` | Not implemented; milestone timing needs confirmation |
-| CI/security | User reported green checks on 8771794; 2,429 local tests excluding stalled AppTest file | Known local UI automation limit; high-severity Bandit check passed |
+| CI/security | User reported green checks on 71d762b; 2,429 local tests excluding stalled AppTest file | Known local UI automation limit; high-severity Bandit check passed |
 
 ## Remaining work in order
 
@@ -33,7 +33,10 @@ acceptance checklist was found in the repository.
    Automated tests cover exact priorities, tie order, unknown costs, mixed evidence
    and repeated actions; original 65/82/80 scenario scores remain unchanged.
    Scope, grouping choices and manual results are in `fix-first-plan.md`.
-2. Verify the revised NVD refresh workflow and, where needed, mapping-upload cases.
+2. The unsupported NVD mapping-upload preview/download check is complete for the
+   synthetic fixture: needs_review, unchanged displayed scores and preserved
+   unsupported-configuration/synthetic notices. The user also confirmed the revised
+   refresh workflow and CVE artifact in run 40963762712.
    The public download, offline load and availability/no-mapping browser/download
    path passed within their documented scope.
    Review supported logic and guide-access limits in `nvd-cache-implementation.md`.
