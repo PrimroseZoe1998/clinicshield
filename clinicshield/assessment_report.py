@@ -1,4 +1,5 @@
 from clinicshield.assessment_scoring import ScoredAssessment
+from clinicshield.fix_first import build_fix_first
 
 
 def build_assessment_report(result: ScoredAssessment) -> dict:
@@ -165,4 +166,5 @@ def build_assessment_report(result: ScoredAssessment) -> dict:
             for conflict in result.checklist_conflicts
         ],
         "findings": findings,
+        "fix_first": build_fix_first(result),
     }

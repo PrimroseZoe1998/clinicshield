@@ -22,17 +22,17 @@ acceptance checklist was found in the repository.
 | Rule framework references | Partial CSF mappings for 24 rules, selected CIS mappings for 22 | Source checked; not full safeguard assessment or independent crosswalk approval |
 | Framework presentation | R16 screenshot and user-confirmed readable download | Exercised path passed |
 | Explained findings/report | Evidence, actions, owners, effort, costs, score and coverage explanations | Implemented; finding order is severity-based |
-| Fix First plan | `scoring.md` specifies points/effort, tie-breakers and four action groups | **Not implemented** as the specified ranked plan; duplicate-action handling unfinished |
+| Fix First plan | `scoring.md` specifies points/effort, tie-breakers and four action groups | Implemented with conservative exact-action-set consolidation; Lakeview preview/download checks passed |
 | Limited-CVE NVD cache | Accepted October 28; allowlist up to 50 CVEs and acceptance checks documented | **Not implemented**; uploaded applicability JSON is not a substitute |
 | Practice-area scores | Formulas/denominators remain listed as unresolved in `scoring.md` | Not implemented; milestone timing needs confirmation |
-| CI/security | User reported green checks on 64bb497; 2,360 local tests excluding stalled AppTest file | Known local UI automation limit; high-severity Bandit check passed |
+| CI/security | User reported green checks on 64bb497; 2,379 local tests excluding stalled AppTest file | Known local UI automation limit; high-severity Bandit check passed |
 
 ## Remaining work in order
 
-1. Implement the documented Fix First formula, action groups and duplicate-fix
-   handling without changing scores. Keep verification items separate. Use
-   source-backed KEV, Essential-goal and patient-information tie-breakers without
-   inventing unavailable metadata. Explain why priority is not guaranteed score gain.
+1. Fix First preview/download checks are complete for the exercised Lakeview path.
+   Automated tests cover exact priorities, tie order, unknown costs, mixed evidence
+   and repeated actions; original 65/82/80 scenario scores remain unchanged.
+   Scope, grouping choices and manual results are in `fix-first-plan.md`.
 2. Implement accepted limited-CVE NVD caching and its privacy/failure tests, or
    obtain an explicit scope change. Recheck current NVD guidance before building.
 3. Confirm milestone timing for practice-area scores and additional administrator/

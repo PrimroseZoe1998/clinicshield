@@ -15,7 +15,7 @@
   `refresh-status.json`, `refresh.log`, `kev.json`, `epss.json`, `eol-python.json`
   and `eol-windows.json`. Artifact contents were confirmed by the user, not
   independently downloaded by the agent.
-- Local verification: 2,360 tests passed with the known stalled Streamlit AppTest
+- Local verification: 2,379 tests passed with the known stalled Streamlit AppTest
   file excluded. The CI-equivalent high-severity Bandit check passed; no medium
   or high findings were reported. Native UI automation remains unverified locally.
 
@@ -35,8 +35,10 @@ Remaining:
 - Actual clinic controls, application support and administrator observations still
   need source evidence; upload success does not verify them.
 - Full source coverage/NVD range ingestion and completed rule review are not claimed.
-- Implement the documented Fix First priority formula, tie-breakers, action grouping
-  and duplicate-fix handling. Severity-only finding order is not that ranking.
+- Fix First priority, conservative tie-breakers, four action groups and exact
+  repeated-action-set handling are implemented and tested. The user confirmed
+  Lakeview priorities 4.5 and 3, single R03/R08 grouping, and the matching download
+  with a separate verification section; see `../fix-first-plan.md`.
 - Implement accepted limited-CVE NVD caching, or explicitly agree a scope change.
   Supplied applicability JSON does not replace that downloader/cache requirement.
 

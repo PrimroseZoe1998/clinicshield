@@ -77,6 +77,34 @@ def render_assessment_text(report: dict) -> str:
                 "Review both evidence sources."
             )
 
+    plan = report.get("fix_first")
+    if plan is not None:
+        lines.extend(["", "Fix First plan", plan["notice"]])
+        for heading in plan["groups"]:
+            lines.extend(["", heading])
+            actions = [item for item in plan["actions"] if item["group"] == heading]
+            if not actions:
+                lines.append("No confirmed actions assigned to this group.")
+            for action in actions:
+                lines.extend([
+                    f"#{action['rank']} — {', '.join(action['rule_ids'])} — {action['entity_id']}",
+                    f"Priority: {action['priority']:.3g} ({action['points']:g} points / effort {action['effort']}).",
+                    "Responsible roles: " + ", ".join(action["owners"]),
+                    "Estimated cost: " + ", ".join(action["costs"]),
+                ])
+                lines.extend("  - " + value for value in action["recommendations"])
+                ties = action["tie_breakers"]
+                lines.append(
+                    f"Tie evidence: confirmed KEV={ties['confirmed_kev']}; "
+                    f"reviewed Essential question links={', '.join(ties['essential_questions']) or 'none'}; "
+                    f"confirmed patient-information scope={ties['confirmed_patient_information_scope']}."
+                )
+        lines.extend(["", "Verify before planning remediation"])
+        for item in plan["verification_items"]:
+            lines.append(f"- {', '.join(item['rule_ids'])} at {item['entity_id']}: {item['notice']}")
+        if not plan["verification_items"]:
+            lines.append("No unresolved finding evidence in this assessment.")
+
     for section, confirmed in (
         ("Findings from supplied evidence", True),
         ("Items requiring verification", False),

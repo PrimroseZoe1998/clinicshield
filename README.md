@@ -7,7 +7,8 @@ healthcare providers review their cybersecurity practices.
 
 It uses device/software inventories and a security checklist to produce an
 explained provisional Cyber Safety Score and evidence-based findings.
-The planned prioritized Fix First action plan remains unfinished.
+A ranked Fix First plan groups confirmed actions and separates verification items.
+See [ranking scope and limits](docs/fix-first-plan.md).
 
 ## Project status
 
@@ -17,11 +18,11 @@ Saved public feeds and reviewed lifecycle/CVE applicability evidence can be
 loaded offline. Missing coverage and unresolved information remain visible.
 
 The latest reviewed checkpoint is `64bb497`, with green GitHub checks reported
-by the developer. Local verification passed 2,360 tests excluding a known
+by the developer. Current local verification passed 2,379 tests excluding a known
 Streamlit AppTest socket-pair stall. Manual checks cover the documented paths.
 
-Week 3 remains incomplete: Fix First ranking and accepted limited-CVE NVD
-caching are unfinished. See the [acceptance audit](docs/week-3-acceptance-review.md)
+Week 3 remains incomplete: Fix First is implemented and manually checked with fictional data,
+and accepted limited-CVE NVD caching remains unfinished. See the [acceptance audit](docs/week-3-acceptance-review.md)
 and [Week 3 status](docs/status/week-3.md).
 
 ## Run locally

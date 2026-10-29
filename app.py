@@ -332,6 +332,38 @@ def main():
                 f"disagrees with a Yes answer to {conflict['question_id']}."
             )
 
+    plan = report.get("fix_first")
+    if plan is not None:
+        st.subheader("Fix First plan")
+        st.caption(plan["notice"])
+        for heading in plan["groups"]:
+            st.write(heading)
+            actions = [item for item in plan["actions"] if item["group"] == heading]
+            if not actions:
+                st.caption("No confirmed actions assigned to this group.")
+            for action in actions:
+                label = f"#{action['rank']} · {', '.join(action['rule_ids'])} · {action['entity_id']}"
+                with st.expander(label):
+                    st.text(
+                        f"Priority: {action['priority']:.3g} "
+                        f"({action['points']:g} points ÷ effort {action['effort']})"
+                    )
+                    for recommendation in action["recommendations"]:
+                        st.text(recommendation)
+                    st.text("Responsible roles: " + ", ".join(action["owners"]))
+                    st.text("Estimated cost: " + ", ".join(action["costs"]))
+                    ties = action["tie_breakers"]
+                    st.caption(
+                        f"Tie evidence: confirmed KEV={ties['confirmed_kev']}; "
+                        f"reviewed Essential question links={', '.join(ties['essential_questions']) or 'none'}; "
+                        f"confirmed patient-information scope={ties['confirmed_patient_information_scope']}."
+                    )
+        st.write("Verify before planning remediation")
+        for item in plan["verification_items"]:
+            st.text(f"{', '.join(item['rule_ids'])} · {item['entity_id']}: {item['notice']}")
+        if not plan["verification_items"]:
+            st.caption("No unresolved finding evidence in this assessment.")
+
     for heading, confirmed in (
         ("Findings from supplied evidence", True),
         ("Items requiring verification", False),

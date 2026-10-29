@@ -241,7 +241,8 @@ Remaining:
 - Preserve uncertainty and incomplete-data warnings in reports.
 - Define practice-area score formulas and their denominators.
 - Review ambiguous entity grouping and contradictory evidence.
-- Implement Fix First ranking and duplicate-fix handling.
+- Fix First ranking and exact repeated-action-set consolidation are now implemented;
+  the exercised Lakeview preview/download checks passed. See `fix-first-plan.md`.
 - Calibrate all three sample clinics against generated findings.
 
 The measured Westside fictional scenario currently scores 80, Needs attention,

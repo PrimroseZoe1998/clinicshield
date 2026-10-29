@@ -99,6 +99,7 @@ def test_upload_ui_generates_download_and_clears_stale_report(monkeypatch):
     ui = fake_ui(monkeypatch, values)
     app.main()
     assert not ui.error.called
+    ui.subheader.assert_any_call("Fix First plan")
     assert "assessment_report" in ui.session_state
     assert "uploaded inventory" in ui.download_button.call_args.kwargs["data"]
     assert ui.download_button.call_args.kwargs["file_name"] == "clinicshield-uploaded-assessment.txt"
