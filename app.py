@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta, timezone
+from hashlib import sha256
 from decimal import Decimal
 from pathlib import Path
 
@@ -13,6 +14,7 @@ from clinicshield.assessment_evidence import (
     AssessmentFreshnessPolicy,
 )
 from clinicshield.assessment_input import read_assessment
+from clinicshield.input_limits import InputError, validate_assessment_uploads
 from clinicshield.assessment_report import build_assessment_report
 from clinicshield.assessment_scoring import score_assessment
 from clinicshield.report_text import render_assessment_text
@@ -44,6 +46,37 @@ def generate_example(clinic, observation_days, include_scenario=False, cache_dir
         if include_scenario else AssessmentEvidence()
     )
 
+    report = evaluate_supplied_assessment(
+        assessment, evidence, observation_days, now=now,
+        cache_directory=cache_directory, lifecycle_mappings=lifecycle_mappings,
+        applicability_json=applicability_json,
+    )
+    report["example_context"] = {
+        "clinic": clinic,
+        "evidence_mode": (
+            "documented fictional scenario"
+            if include_scenario else "fictional inventory only"
+        ),
+        "notice": (
+            "Demonstration only; not an assessment of a real clinic. "
+            "Any scenario evidence is synthetic, and its timestamps "
+            "represent fixture generation rather than real-world verification. "
+            + (
+                "Saved public-feed caches were requested; see cache status. "
+                "No CVE applicability is inferred from those feeds."
+                if cache_directory is not None else
+                "Live threat-intelligence caches are not loaded."
+            )
+        ),
+    }
+    return report
+
+
+
+def evaluate_supplied_assessment(
+    assessment, evidence, observation_days, *, now, cache_directory=None,
+    lifecycle_mappings=None, applicability_json=None,
+):
     cache_messages = ()
     if cache_directory is not None:
         evidence, cache_messages = load_assessment_caches(
@@ -76,47 +109,91 @@ def generate_example(clinic, observation_days, include_scenario=False, cache_dir
     )
     report = build_assessment_report(result)
     report["cache_messages"] = list(cache_messages)
-    report["example_context"] = {
-        "clinic": clinic,
-        "evidence_mode": (
-            "documented fictional scenario"
-            if include_scenario else "fictional inventory only"
-        ),
+    return report
+
+
+def generate_uploaded(
+    uploads, observation_days, *, cache_directory=None,
+    lifecycle_mappings=None, applicability_json=None,
+):
+    required = ("checklist_json", "followups_json")
+    if any(uploads.get(key) is None for key in required):
+        raise InputError("Provide checklist and follow-up JSON files.")
+    validate_assessment_uploads(
+        *(value for value in uploads.values() if isinstance(value, bytes)),
+        lifecycle_mappings, applicability_json,
+    )
+    assessment = read_assessment(**uploads)
+    report = evaluate_supplied_assessment(
+        assessment, AssessmentEvidence(), observation_days,
+        now=datetime.now(timezone.utc), cache_directory=cache_directory,
+        lifecycle_mappings=lifecycle_mappings, applicability_json=applicability_json,
+    )
+    report["assessment_context"] = {
+        "input_mode": "uploaded inventory",
         "notice": (
-            "Demonstration only; not an assessment of a real clinic. "
-            "Any scenario evidence is synthetic, and its timestamps "
-            "represent fixture generation rather than real-world verification. "
-            + (
-                "Saved public-feed caches were requested; see cache status. "
-                "No CVE applicability is inferred from those feeds."
-                if cache_directory is not None else
-                "Live threat-intelligence caches are not loaded."
-            )
+            "Assessment based on supplied inventory, answers and optional evidence. "
+            "Inputs have not been independently verified. Scores remain provisional."
         ),
     }
     return report
 
 
+def upload_inventory_inputs():
+    uploads = {}
+    inventory_format = st.radio("Inventory format", ["CSV", "JSON", "Excel workbook"])
+    if inventory_format == "Excel workbook":
+        workbook = st.file_uploader("Inventory workbook (XLSX)", type=["xlsx"])
+        uploads["workbook_xlsx"] = workbook.getvalue() if workbook else None
+    else:
+        suffix = inventory_format.lower()
+        for kind in ("assets", "software", "services"):
+            optional = " (optional)" if kind == "services" else ""
+            file = st.file_uploader(
+                f"{kind.title()} inventory ({inventory_format}){optional}", type=[suffix],
+            )
+            uploads[f"{kind}_{suffix}"] = file.getvalue() if file else None
+    for key, label in (
+        ("checklist_json", "Checklist answers (JSON)"),
+        ("followups_json", "Follow-up answers (JSON)"),
+    ):
+        file = st.file_uploader(label, type=["json"])
+        uploads[key] = file.getvalue() if file else None
+    uploads["medical_devices_present"] = st.selectbox(
+        "Are medical devices present?", ["Unknown", "Yes", "No"],
+    )
+    st.caption(
+        "Assets and software plus checklist and follow-up answers are required. "
+        "Services are optional; missing coverage stays visible. "
+        "Uploaded inventories are evaluated in memory and are not saved to disk."
+    )
+    return uploads
+
+
 def main():
     st.set_page_config(page_title="ClinicShield", layout="wide")
     st.title("ClinicShield")
-    st.info(
-        "Example assessments using fictional clinic inventories. "
-        "Scores are provisional and unresolved evidence remains visible."
-    )
-    st.caption(
-        "This preview can use saved public-feed caches, but does not collect "
-        "real administrator observations. Optional scenario evidence "
-        "is fictional. This does not assess a real clinic."
-    )
-
-    clinic_name = st.selectbox(
-        "Choose a fictional clinic",
-        list(CLINICS),
-    )
-    clinic = CLINICS[clinic_name]
+    mode = st.radio("Assessment source", ["Fictional example", "Upload inventory"])
+    is_upload = mode == "Upload inventory"
+    uploads = {}
+    if is_upload:
+        st.info("Assess supplied inventories. Scores are provisional and missing evidence stays visible.")
+        uploads = upload_inventory_inputs()
+        clinic = "uploaded"
+    else:
+        st.info(
+            "Example assessments using fictional clinic inventories. "
+            "Scores are provisional and unresolved evidence remains visible."
+        )
+        st.caption(
+            "This preview can use saved public-feed caches, but does not collect "
+            "real administrator observations. Optional scenario evidence "
+            "is fictional. This does not assess a real clinic."
+        )
+        clinic_name = st.selectbox("Choose a fictional clinic", list(CLINICS))
+        clinic = CLINICS[clinic_name]
     observation_days = int(st.number_input(
-        "Example administrator observation age limit in days",
+        "Administrator observation age limit in days",
         min_value=1,
         max_value=365,
         value=30,
@@ -126,10 +203,11 @@ def main():
         "Public-feed freshness uses the provisional eight-day limit."
     )
 
-    include_scenario = st.checkbox(
-        "Include documented fictional scenario evidence",
-        value=False,
-    )
+    include_scenario = False
+    if not is_upload:
+        include_scenario = st.checkbox(
+            "Include documented fictional scenario evidence", value=False,
+        )
     if include_scenario:
         st.warning(
             "Synthetic scenario evidence is enabled for demonstration. "
@@ -150,7 +228,7 @@ def main():
 
         if not include_scenario:
             mapping_upload = st.file_uploader(
-                "Reviewed OS lifecycle mappings (JSON)", type=["json"]
+                "Reviewed OS lifecycle mappings (JSON)", type=["json"], key=f"lifecycle-{mode}"
             )
             if mapping_upload is not None:
                 lifecycle_mappings = mapping_upload.getvalue()
@@ -162,7 +240,7 @@ def main():
     applicability_json = None
     if not include_scenario:
         applicability_upload = st.file_uploader(
-            "Reviewed CVE applicability evidence (JSON)", type=["json"]
+            "Reviewed CVE applicability evidence (JSON)", type=["json"], key=f"applicability-{mode}"
         )
         if applicability_upload is not None:
             applicability_json = applicability_upload.getvalue()
@@ -171,21 +249,41 @@ def main():
             "affected versions, source URL and timestamps. Unresolved matches stay flagged."
         )
 
-    selection = (clinic, observation_days, include_scenario, cache_directory, lifecycle_mappings, applicability_json)
+    upload_selection = tuple(
+        (key, sha256(value).hexdigest() if isinstance(value, bytes) else value)
+        for key, value in sorted(uploads.items())
+    )
+    selection = (mode, clinic, observation_days, include_scenario, cache_directory,
+                 lifecycle_mappings, applicability_json, upload_selection)
     if st.session_state.get("report_selection") != selection:
         st.session_state.pop("assessment_report", None)
 
-    if st.button("Generate example assessment", type="primary"):
+    button_label = "Generate assessment" if is_upload else "Generate example assessment"
+    if st.button(button_label, type="primary"):
         try:
-            report = generate_example(
-                clinic, observation_days, include_scenario, cache_directory, lifecycle_mappings, applicability_json
-            )
-
+            if is_upload:
+                report = generate_uploaded(
+                    uploads, observation_days, cache_directory=cache_directory,
+                    lifecycle_mappings=lifecycle_mappings, applicability_json=applicability_json,
+                )
+            else:
+                report = generate_example(
+                    clinic, observation_days, include_scenario, cache_directory,
+                    lifecycle_mappings, applicability_json,
+                )
         except (ValueError, OSError):
-            st.error(
-                "The example could not be evaluated. "
-                "Check the sample files, uploaded evidence and rule definitions."
-            )
+            st.session_state.pop("assessment_report", None)
+            if is_upload:
+                st.error(
+                    "The uploaded assessment could not be evaluated. "
+                    "Provide valid assets/software or a workbook, checklist and follow-up answers. "
+                    "Check file formats, required columns, asset links, evidence and size limits."
+                )
+            else:
+                st.error(
+                    "The example could not be evaluated. "
+                    "Check the sample files, uploaded evidence and rule definitions."
+                )
             return
 
         st.session_state["assessment_report"] = report

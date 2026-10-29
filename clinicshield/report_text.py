@@ -24,6 +24,10 @@ def render_assessment_text(report: dict) -> str:
 
     lines.extend(report.get("cache_messages", []))
 
+    context = report.get("assessment_context")
+    if context is not None:
+        lines[1:1] = [f"Input mode: {context['input_mode']}", context["notice"], ""]
+
     example = report.get("example_context")
     if example is not None:
         lines[1:1] = [
