@@ -1,5 +1,31 @@
 # Week 3 status
 
+## October 29, 2026 checkpoint
+
+- All 24 draft rules are registered.
+- Saved KEV/EPSS and reviewed lifecycle/applicability evidence are connected.
+- CSV, JSON and XLSX upload paths are implemented and manually tested with fictional files.
+- Latest pushed checkpoint `85d0998` passed GitHub checks, as reported by the user.
+- Benjamin accepted retaining the model and revising sample expectations, as reported
+  by the user. See `../benjamin-decisions-2026-10-29.md`.
+- Refresh reporting now saves optional per-run JSON and renders an Actions summary.
+  Local failure-path checks passed; the revised workflow has not run on GitHub yet.
+- Local verification: 2,354 tests passed with the known stalled Streamlit AppTest
+  file excluded. The CI-equivalent high-severity Bandit check passed; no medium
+  or high findings were reported. Native UI automation remains unverified locally.
+
+Remaining:
+
+- 24 of 24 rule-specific framework references remain pending source validation.
+- Confirm the revised refresh workflow and artifacts in GitHub Actions.
+- Scheduled execution remains unobserved; artifacts provide 30-day per-run history,
+  not an indefinite aggregated failure ledger.
+- Actual clinic controls, application support and administrator observations still
+  need source evidence; upload success does not verify them.
+- Full source coverage/NVD range ingestion and completed rule review are not claimed.
+
+The older checkpoint below is retained as history.
+
 ## Verified on October 26, 2026
 
 - 975 automated tests passing.

@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+import json
 
 import pytest
 import requests
@@ -9,6 +10,60 @@ from clinicshield.kev_cache import KevSnapshot
 from clinicshield.kev_models import KevCatalog
 from clinicshield.eol_cache import EolSnapshot
 from clinicshield.eol_download import EOL_BASE_URL
+
+
+def test_status_reports_partial_failure_without_error_contents(tmp_path, monkeypatch, feeds):
+    def fail(path):
+        raise requests.Timeout("sensitive URL details must not be copied")
+    monkeypatch.setattr(refresh_feeds, "refresh_kev_cache", fail)
+    destination = tmp_path / "refresh-status.json"
+    assert refresh_feeds.main([
+        "--cache-dir", str(tmp_path), "--status-file", str(destination),
+    ]) == 1
+    payload = json.loads(destination.read_text())
+    assert payload["outcome"] == "failed"
+    assert payload["feeds"][0] == {"source": "CISA KEV", "outcome": "failed", "error_type": "Timeout"}
+    assert payload["feeds"][1]["outcome"] == "succeeded"
+    assert "sensitive URL" not in destination.read_text()
+    assert datetime.fromisoformat(payload["finished_at"]) >= datetime.fromisoformat(payload["started_at"])
+
+
+def test_status_success_lists_all_requested_sources(tmp_path, monkeypatch, feeds):
+    monkeypatch.setattr(refresh_feeds, "refresh_eol_cache", lambda path, product: make_eol_snapshot(product))
+    destination = tmp_path / "status.json"
+    assert refresh_feeds.main([
+        "--cache-dir", str(tmp_path), "--status-file", str(destination),
+        "--eol-product", "python", "--eol-product", "python",
+    ]) == 0
+    payload = json.loads(destination.read_text())
+    assert payload["outcome"] == "succeeded"
+    assert [feed["source"] for feed in payload["feeds"]] == ["CISA KEV", "FIRST EPSS", "endoflife.date:python"]
+    assert all("retrieved_at" in feed for feed in payload["feeds"])
+
+
+def test_status_write_failure_returns_failure(tmp_path, monkeypatch, capsys, feeds):
+    def fail(*args):
+        raise OSError("private path")
+    monkeypatch.setattr(refresh_feeds, "write_refresh_status", fail)
+    assert refresh_feeds.main([
+        "--cache-dir", str(tmp_path), "--status-file", str(tmp_path / "status.json"),
+    ]) == 1
+    output = capsys.readouterr()
+    assert "Refresh status report failed: OSError" in output.err
+    assert "private path" not in output.err
+
+
+def test_status_atomic_failure_preserves_previous_report(tmp_path, monkeypatch):
+    from clinicshield import refresh_status
+    path = tmp_path / "status.json"
+    path.write_text("previous report")
+    def fail(*args):
+        raise OSError("replace failed")
+    monkeypatch.setattr(refresh_status.os, "replace", fail)
+    with pytest.raises(OSError):
+        refresh_status.write_refresh_status(path, {"outcome": "failed"})
+    assert path.read_text() == "previous report"
+    assert list(tmp_path.iterdir()) == [path]
 
 @pytest.fixture
 def feeds(tmp_path, monkeypatch):
