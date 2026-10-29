@@ -7,6 +7,11 @@ Mappings were reviewed on October 16, 2026 under the accepted Gate 1
 policy. They remain project interpretations with documented limitations.
 A related framework reference does not establish legal compliance.
 
+This document covers checklist questions. The separate October 29 rule-specific
+CSF 2.0/CIS v8.1 source review, including conditional mappings and coverage limits,
+is in `rule-framework-review.md`. It does not change checklist weights or claim
+new HIPAA/HHS/HICP rule crosswalks.
+
 ## Official sources
 
 - HICP 2023, including Technical Volume 1:

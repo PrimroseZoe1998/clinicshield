@@ -24,3 +24,13 @@ notifications remain unchanged.
 
 Successful retrieval does not prove source completeness or software applicability.
 Assessments retain their independent freshness and coverage checks.
+
+## Manual verification on October 29, 2026
+
+[Run #3 on commit 6099acb](https://github.com/PrimroseZoe1998/clinicshield/actions/runs/40949949834)
+completed successfully. The supplied summary screenshot lists KEV, EPSS,
+endoflife.date:python and endoflife.date:windows as succeeded. The user confirmed
+the artifact ZIP contains all six expected snapshots/log/status files. These are
+manual success-path observations; injected local tests cover expected failure
+and status-write paths. Scheduled execution and live failure notifications have
+not been independently observed.

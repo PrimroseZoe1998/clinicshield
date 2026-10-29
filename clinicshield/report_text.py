@@ -158,7 +158,7 @@ def render_assessment_text(report: dict) -> str:
 
             for reference in finding["framework_references"]:
                 label = (
-                    "Reviewed framework reference"
+                    "Source-checked project mapping"
                     if reference["review_status"] == "reviewed"
                     else "Framework reference pending validation"
                 )
@@ -166,5 +166,9 @@ def render_assessment_text(report: dict) -> str:
                     f"{label}: {reference['framework']} — "
                     f"{reference['reference']}"
                 )
+                if reference.get("rationale"):
+                    lines.append("Mapping scope: " + reference["rationale"])
+                if reference.get("source"):
+                    lines.append("Source: " + reference["source"])
 
     return "\n".join(lines) + "\n"

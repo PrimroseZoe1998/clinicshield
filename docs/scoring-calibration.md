@@ -66,7 +66,9 @@ Future formula or classification changes require justification and regression te
 - Saved KEV/EPSS and explicitly mapped lifecycle caches are now connected;
   freshness and missing coverage remain visible.
 - No real CVE applicability is asserted for fictional sample products.
-- Full framework mapping validation remains pending.
+- The October 29 source check adds partial CSF 2.0 and selected CIS v8.1
+  rule mappings; see `rule-framework-review.md`. Rule definitions remain draft,
+  and independent review/additional framework families are not implied.
 - CSV, JSON and XLSX upload integration is implemented and manually exercised
   with fictional files. Real clinic data has not been verified.
 - NVD ingestion and comprehensive source coverage remain out of scope of these tests.

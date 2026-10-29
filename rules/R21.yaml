@@ -25,13 +25,18 @@ owner: Security official and organizational leadership
 effort: 2
 cost: unknown
 framework_references:
-  - framework: Project checklist framework mapping
-    reference: Q21 security reporting and Q22 notification preparation
-    source: docs/framework-mappings.md
-    rationale: >-
-      Use the documented Q21 and Q22 mappings as the basis for
-      reviewing this proposed rule. Preserve separate evidence and
-      corrective actions. Checklist responses do not establish
-      legal compliance.
-    review_status: pending
+- framework: NIST CSF 2.0
+  reference: RS.CO-02 (partial)
+  source: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf#page=27
+  rationale: Partial project mapping; source checked October 29, 2026. Q21/Q22 address reporting and notification
+    preparation. Preparation is narrower than actual incident notification; no breach, recipient, deadline
+    or legal obligation is determined.
+  review_status: reviewed
+- framework: CIS Controls v8.1
+  reference: 17.2; 17.3 (partial; conditional where stated)
+  source: https://www.cisecurity.org/controls/CIS-controls-navigator
+  rationale: Partial project mapping; source checked October 29, 2026. Q21/Q22 address reporting and notification
+    preparation. Preparation is narrower than actual incident notification; no breach, recipient, deadline
+    or legal obligation is determined.
+  review_status: reviewed
 review_status: draft

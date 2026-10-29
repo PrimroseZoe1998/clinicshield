@@ -29,12 +29,18 @@ owner: IT administrator or application vendor
 effort: 1
 cost: unknown
 framework_references:
-  - framework: Project framework mapping review
-    reference: Software inventory accuracy; mapping pending
-    source: docs/framework-mappings.md
-    rationale: >-
-      Review the inventory-management references for applicability
-      to software version verification. No rule-specific framework
-      mapping is claimed as reviewed yet.
-    review_status: pending
+- framework: NIST CSF 2.0
+  reference: ID.AM-02 (partial)
+  source: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf#page=23
+  rationale: Partial project mapping; source checked October 29, 2026. Unknown versions require inventory
+    follow-up. Versions are identifiers here, not proof of vulnerability; the rule does not audit every
+    inventory field or its review cadence.
+  review_status: reviewed
+- framework: CIS Controls v8.1
+  reference: 2.1 (partial; conditional where stated)
+  source: https://www.cisecurity.org/controls/CIS-controls-navigator
+  rationale: Partial project mapping; source checked October 29, 2026. Unknown versions require inventory
+    follow-up. Versions are identifiers here, not proof of vulnerability; the rule does not audit every
+    inventory field or its review cadence.
+  review_status: reviewed
 review_status: draft

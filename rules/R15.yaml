@@ -23,12 +23,18 @@ owner: IT administrator or managed service provider
 effort: 2
 cost: unknown
 framework_references:
-  - framework: Project checklist framework mapping
-    reference: Q03 antivirus protection
-    source: docs/framework-mappings.md
-    rationale: >-
-      Use the documented Q03 mapping as the basis for reviewing
-      this proposed rule. A checklist response does not independently
-      verify endpoint protection or establish compliance.
-    review_status: pending
+- framework: NIST CSF 2.0
+  reference: PR.PS-01 (partial)
+  source: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf#page=25
+  rationale: Partial project mapping; source checked October 29, 2026. Q03 combines protection and automatic
+    updating. A combined No does not identify the affected computers or which component failed; detection
+    effectiveness is not tested.
+  review_status: reviewed
+- framework: CIS Controls v8.1
+  reference: 10.1; 10.2 (partial; conditional where stated)
+  source: https://www.cisecurity.org/controls/CIS-controls-navigator
+  rationale: Partial project mapping; source checked October 29, 2026. Q03 combines protection and automatic
+    updating. A combined No does not identify the affected computers or which component failed; detection
+    effectiveness is not tested.
+  review_status: reviewed
 review_status: draft

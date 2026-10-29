@@ -35,13 +35,18 @@ owner: IT administrator and system vendor
 effort: 3
 cost: unknown
 framework_references:
-  - framework: Project framework mapping review
-    reference: OS support and network service exposure; mapping pending
-    source: docs/framework-mappings.md
-    rationale: >-
-      Review the documented support and network-security references
-      for this combined condition. Preserve the relationship to R03
-      without losing distinct SMB service evidence. Rule-specific
-      mapping review remains pending.
-    review_status: pending
+- framework: NIST CSF 2.0
+  reference: PR.PS-02 (partial)
+  source: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf#page=25
+  rationale: Partial project mapping; source checked October 29, 2026. The support-related finding also
+    records SMB presence. It does not identify an exploitable SMB defect or require disabling every file-sharing
+    service.
+  review_status: reviewed
+- framework: CIS Controls v8.1
+  reference: 2.2 (partial; conditional where stated)
+  source: https://www.cisecurity.org/controls/CIS-controls-navigator
+  rationale: Partial project mapping; source checked October 29, 2026. The support-related finding also
+    records SMB presence. It does not identify an exploitable SMB defect or require disabling every file-sharing
+    service.
+  review_status: reviewed
 review_status: draft

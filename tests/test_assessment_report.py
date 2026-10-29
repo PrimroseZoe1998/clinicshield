@@ -155,7 +155,7 @@ def test_unresolved_findings_are_info_with_zero_exposure_points():
     )
 
 
-def test_recommendations_and_pending_references_remain_visible():
+def test_recommendations_and_source_checked_reference_scopes_remain_visible():
     report = build_assessment_report(score(load_sample()))
 
     for finding in report["findings"]:
@@ -164,7 +164,9 @@ def test_recommendations_and_pending_references_remain_visible():
         assert finding["evidence"]
         assert finding["framework_references"]
         assert all(
-            reference["review_status"] == "pending"
+            reference["review_status"] == "reviewed"
+            and "Partial project mapping" in reference["rationale"]
+            and reference["source"].startswith("https://")
             for reference in finding["framework_references"]
         )
 

@@ -28,13 +28,18 @@ owner: Email administrator or managed service provider
 effort: 2
 cost: unknown
 framework_references:
-  - framework: Project checklist framework mapping
-    reference: Q01 email multifactor authentication
-    source: docs/framework-mappings.md
-    rationale: >-
-      Use the documented Q01 mapping as the basis for reviewing
-      inventory-based email MFA evidence. This rule does not
-      independently verify configuration, phishing resistance,
-      or compliance.
-    review_status: pending
+- framework: NIST CSF 2.0
+  reference: PR.AA-03 (partial)
+  source: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf#page=24
+  rationale: Partial project mapping; source checked October 29, 2026. Email MFA coverage is a project
+    check. CIS 6.3 applies conditionally to externally exposed applications where supported; all account
+    configurations are not verified.
+  review_status: reviewed
+- framework: CIS Controls v8.1
+  reference: 6.3 (partial; conditional where stated)
+  source: https://www.cisecurity.org/controls/CIS-controls-navigator
+  rationale: Partial project mapping; source checked October 29, 2026. Email MFA coverage is a project
+    check. CIS 6.3 applies conditionally to externally exposed applications where supported; all account
+    configurations are not verified.
+  review_status: reviewed
 review_status: draft

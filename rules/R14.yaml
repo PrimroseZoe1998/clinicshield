@@ -21,12 +21,11 @@ owner: IT administrator and system owner
 effort: 2
 cost: unknown
 framework_references:
-  - framework: Project checklist framework mapping
-    reference: Q06 individual accounts
-    source: docs/framework-mappings.md
-    rationale: >-
-      Use the documented Q06 mapping as the basis for reviewing
-      this rule. A checklist response does not independently verify
-      account configuration or establish compliance.
-    review_status: pending
+- framework: NIST CSF 2.0
+  reference: PR.AA-01 (partial)
+  source: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf#page=24
+  rationale: Partial project mapping; source checked October 29, 2026. A shared-login answer prompts identity
+    accountability review. It does not establish absent authorization or independently verify unique identities
+    for every user.
+  review_status: reviewed
 review_status: draft

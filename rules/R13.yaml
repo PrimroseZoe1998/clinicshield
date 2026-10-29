@@ -29,13 +29,18 @@ owner: Application administrator and system vendor
 effort: 2
 cost: unknown
 framework_references:
-  - framework: Project checklist framework mapping
-    reference: Q07 clinical-system multifactor authentication
-    source: docs/framework-mappings.md
-    rationale: >-
-      Use the documented Q07 mapping as the basis for reviewing
-      this proposed rule. Its initial inventory scope excludes
-      remote access, which is handled separately under R07.
-      Inventory responses do not independently verify configuration.
-    review_status: pending
+- framework: NIST CSF 2.0
+  reference: PR.AA-03 (partial)
+  source: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf#page=24
+  rationale: Partial project mapping; source checked October 29, 2026. Clinical MFA is assessed from Q07
+    and supplied software. CIS 6.3 is conditional on external exposure and support; it is not a universal
+    mandate for every internal application.
+  review_status: reviewed
+- framework: CIS Controls v8.1
+  reference: 6.3 (partial; conditional where stated)
+  source: https://www.cisecurity.org/controls/CIS-controls-navigator
+  rationale: Partial project mapping; source checked October 29, 2026. Clinical MFA is assessed from Q07
+    and supplied software. CIS 6.3 is conditional on external exposure and support; it is not a universal
+    mandate for every internal application.
+  review_status: reviewed
 review_status: draft

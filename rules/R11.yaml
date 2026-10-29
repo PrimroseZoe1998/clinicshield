@@ -31,12 +31,18 @@ owner: Network administrator and medical-device vendor
 effort: 3
 cost: unknown
 framework_references:
-  - framework: Project checklist framework mapping
-    reference: Q23 medical-device inventory and separation
-    source: docs/framework-mappings.md
-    rationale: >-
-      Use the documented Q23 mapping as the basis for reviewing
-      asset-specific separation evidence. A segment name or combined
-      checklist response does not independently verify isolation.
-    review_status: pending
+- framework: NIST CSF 2.0
+  reference: PR.IR-01 (partial)
+  source: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf#page=25
+  rationale: Partial project mapping; source checked October 29, 2026. Supplied medical-device separation
+    evidence supports a project segmentation finding. The rule does not assess the complete architecture
+    or vendor constraints.
+  review_status: reviewed
+- framework: CIS Controls v8.1
+  reference: 12.2 (partial; conditional where stated)
+  source: https://www.cisecurity.org/controls/CIS-controls-navigator
+  rationale: Partial project mapping; source checked October 29, 2026. Supplied medical-device separation
+    evidence supports a project segmentation finding. The rule does not assess the complete architecture
+    or vendor constraints.
+  review_status: reviewed
 review_status: draft

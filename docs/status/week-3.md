@@ -5,19 +5,26 @@
 - All 24 draft rules are registered.
 - Saved KEV/EPSS and reviewed lifecycle/applicability evidence are connected.
 - CSV, JSON and XLSX upload paths are implemented and manually tested with fictional files.
-- Latest pushed checkpoint `85d0998` passed GitHub checks, as reported by the user.
+- Latest pushed checkpoint `6099acb` passed GitHub checks, as reported by the user.
 - Benjamin accepted retaining the model and revising sample expectations, as reported
   by the user. See `../benjamin-decisions-2026-10-29.md`.
-- Refresh reporting now saves optional per-run JSON and renders an Actions summary.
-  Local failure-path checks passed; the revised workflow has not run on GitHub yet.
-- Local verification: 2,354 tests passed with the known stalled Streamlit AppTest
+- Refresh reporting saves optional per-run JSON and renders an Actions summary.
+  [Manual refresh run #3](https://github.com/PrimroseZoe1998/clinicshield/actions/runs/40949949834)
+  succeeded on `6099acb`. The supplied screenshot shows success for KEV, EPSS,
+  Python and Windows lifecycle feeds. The user confirmed all six artifact files:
+  `refresh-status.json`, `refresh.log`, `kev.json`, `epss.json`, `eol-python.json`
+  and `eol-windows.json`. Artifact contents were confirmed by the user, not
+  independently downloaded by the agent.
+- Local verification: 2,360 tests passed with the known stalled Streamlit AppTest
   file excluded. The CI-equivalent high-severity Bandit check passed; no medium
   or high findings were reported. Native UI automation remains unverified locally.
 
 Remaining:
 
-- 24 of 24 rule-specific framework references remain pending source validation.
-- Confirm the revised refresh workflow and artifacts in GitHub Actions.
+- All 24 rules now have source-checked partial CSF 2.0 mappings; 22 also have
+  source-checked partial/conditional CIS v8.1 mappings. See `../rule-framework-review.md`.
+  Rule definitions remain draft. Additional HICP/HHS/HIPAA rule crosswalks and
+  independent stakeholder review are not implied by this source check.
 - Scheduled execution remains unobserved; artifacts provide 30-day per-run history,
   not an indefinite aggregated failure ledger.
 - Actual clinic controls, application support and administrator observations still
@@ -44,7 +51,7 @@ The older checkpoint below is retained as history.
 - Downloaded artifact contains kev.json, epss.json,
   eol-python.json, and refresh.log.
 
-## Current limits
+## Historical limits as of October 26
 
 - Scheduled execution has not yet been observed.
 - Lifecycle refresh currently selects Python only.

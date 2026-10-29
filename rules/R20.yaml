@@ -24,12 +24,18 @@ owner: Organizational leadership and designated security official
 effort: 3
 cost: unknown
 framework_references:
-  - framework: Project checklist framework mapping
-    reference: Q20 incident plan and Q24a security responsibility
-    source: docs/framework-mappings.md
-    rationale: >-
-      Use the documented Q20 and Q24a mappings as the basis for
-      reviewing this rule. Keep Q24b risk analysis under R22.
-      Checklist responses do not independently verify implementation.
-    review_status: pending
+- framework: NIST CSF 2.0
+  reference: ID.IM-04; GV.RR-02 (partial)
+  source: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf#page=22
+  rationale: Partial project mapping; source checked October 29, 2026. Q20 and Q24a distinguish an incident
+    plan from security responsibility. General security ownership is broader than the CIS incident-handling
+    role; neither answer tests execution.
+  review_status: reviewed
+- framework: CIS Controls v8.1
+  reference: 17.1; 17.4 (partial; conditional where stated)
+  source: https://www.cisecurity.org/controls/CIS-controls-navigator
+  rationale: Partial project mapping; source checked October 29, 2026. Q20 and Q24a distinguish an incident
+    plan from security responsibility. General security ownership is broader than the CIS incident-handling
+    role; neither answer tests execution.
+  review_status: reviewed
 review_status: draft

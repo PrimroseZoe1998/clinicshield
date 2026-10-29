@@ -62,8 +62,8 @@ def test_rejects_duplicate_nested_key(tmp_path, rule_text):
     data = yaml.safe_load(rule_text)
     text = yaml.safe_dump(data, sort_keys=False)
     text = text.replace(
-        "review_status: pending",
-        "review_status: pending\n  review_status: reviewed",
+        "review_status: reviewed",
+        "review_status: reviewed\n  review_status: pending",
         1,
     )
     path = tmp_path / "rule.yaml"

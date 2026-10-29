@@ -415,7 +415,7 @@ def main():
 
                 for reference in finding["framework_references"]:
                     status = (
-                        "Reviewed reference"
+                        "Source-checked project mapping"
                         if reference["review_status"] == "reviewed"
                         else "Reference pending validation"
                     )
@@ -423,6 +423,8 @@ def main():
                         f"{status}: {reference['framework']} — "
                         f"{reference['reference']}"
                     )
+                    st.caption(reference["rationale"])
+                    st.text("Source: " + reference["source"])
 
     st.download_button(
         "Download readable assessment",

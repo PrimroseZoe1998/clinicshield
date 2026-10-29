@@ -33,12 +33,18 @@ owner: Application owner and software vendor
 effort: 3
 cost: unknown
 framework_references:
-  - framework: Project framework mapping review
-    reference: Supported software and inventory management; mapping pending
-    source: docs/framework-mappings.md
-    rationale: >-
-      Review the documented support and inventory references for
-      application lifecycle findings. Unsupported status is distinct
-      from a confirmed CVE match. Rule-specific review remains pending.
-    review_status: pending
+- framework: NIST CSF 2.0
+  reference: PR.PS-02 (partial)
+  source: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf#page=25
+  rationale: Partial project mapping; source checked October 29, 2026. Application support evidence covers
+    one supplied release. Inventory authorization, documented exceptions and ongoing review are outside
+    this finding.
+  review_status: reviewed
+- framework: CIS Controls v8.1
+  reference: 2.2 (partial; conditional where stated)
+  source: https://www.cisecurity.org/controls/CIS-controls-navigator
+  rationale: Partial project mapping; source checked October 29, 2026. Application support evidence covers
+    one supplied release. Inventory authorization, documented exceptions and ongoing review are outside
+    this finding.
+  review_status: reviewed
 review_status: draft

@@ -26,12 +26,18 @@ owner: IT administrator and backup service provider
 effort: 3
 cost: unknown
 framework_references:
-  - framework: Project checklist framework mapping
-    reference: Q10 daily separated backups and Q11 restore testing
-    source: docs/framework-mappings.md
-    rationale: >-
-      Use the documented Q10 and Q11 mappings as the basis for
-      reviewing this rule. Checklist responses do not independently
-      verify backup integrity or establish compliance.
-    review_status: pending
+- framework: NIST CSF 2.0
+  reference: PR.DS-11 (partial)
+  source: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf#page=25
+  rationale: Partial project mapping; source checked October 29, 2026. Q10/Q11 combine daily backup, separation
+    and restore testing. Project daily frequency differs from CIS 11.2; the answers do not establish CIS
+    isolation methods or quarterly sampling.
+  review_status: reviewed
+- framework: CIS Controls v8.1
+  reference: 11.2; 11.4; 11.5 (partial; conditional where stated)
+  source: https://www.cisecurity.org/controls/CIS-controls-navigator
+  rationale: Partial project mapping; source checked October 29, 2026. Q10/Q11 combine daily backup, separation
+    and restore testing. Project daily frequency differs from CIS 11.2; the answers do not establish CIS
+    isolation methods or quarterly sampling.
+  review_status: reviewed
 review_status: draft

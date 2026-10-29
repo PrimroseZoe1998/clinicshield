@@ -89,10 +89,21 @@ def test_includes_recommendations_roles_effort_and_cost():
 
 
 def test_pending_framework_mappings_are_not_labeled_reviewed():
-    text = render_assessment_text(make_report())
+    report = make_report()
+    for finding in report["findings"]:
+        for reference in finding["framework_references"]:
+            reference["review_status"] = "pending"
+    text = render_assessment_text(report)
 
     assert "Framework reference pending validation:" in text
-    assert "Reviewed framework reference:" not in text
+    assert "Source-checked project mapping:" not in text
+
+
+def test_source_checked_reference_preserves_scope_and_source():
+    text = render_assessment_text(make_report())
+    assert "Source-checked project mapping:" in text
+    assert "Mapping scope: Partial project mapping" in text
+    assert "Source: https://nvlpubs.nist.gov/" in text
 
 
 def test_administrative_findings_explain_exposure_exclusion():

@@ -33,12 +33,18 @@ owner: Application owner and responsible IT administrator
 effort: 3
 cost: unknown
 framework_references:
-  - framework: Project framework mapping review
-    reference: Vulnerability remediation and prioritization; mapping pending
-    source: docs/framework-mappings.md
-    rationale: >-
-      Review the documented vulnerability-management references.
-      Keep applicability separate from exploitation prioritization.
-      Rule-specific mapping and severity review remain pending.
-    review_status: pending
+- framework: NIST CSF 2.0
+  reference: ID.RA-01; ID.RA-06 (partial)
+  source: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf#page=23
+  rationale: Partial project mapping; source checked October 29, 2026. Applicability is evaluated independently
+    of EPSS. Priority context does not establish completed remediation or a comprehensive vulnerability
+    program.
+  review_status: reviewed
+- framework: CIS Controls v8.1
+  reference: 7.7 (partial; conditional where stated)
+  source: https://www.cisecurity.org/controls/CIS-controls-navigator
+  rationale: Partial project mapping; source checked October 29, 2026. Applicability is evaluated independently
+    of EPSS. Priority context does not establish completed remediation or a comprehensive vulnerability
+    program.
+  review_status: reviewed
 review_status: draft

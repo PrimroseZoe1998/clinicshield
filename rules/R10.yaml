@@ -30,13 +30,16 @@ owner: Device administrator or responsible vendor
 effort: 2
 cost: unknown
 framework_references:
-  - framework: Project framework mapping review
-    reference: Default credential management; mapping pending
-    source: docs/framework-mappings.md
-    rationale: >-
-      Review the documented secure-configuration references for
-      applicability. Keep explicit password-setting evidence
-      distinct from R19's combined Q16 answer. Shared remediation
-      must preserve both evidence sources.
-    review_status: pending
+- framework: NIST CSF 2.0
+  reference: PR.AA-01 (partial)
+  source: https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf#page=24
+  rationale: Partial project mapping; source checked October 29, 2026. Unchanged default-password evidence
+    covers one credential condition. It does not independently audit all default accounts or their necessity.
+  review_status: reviewed
+- framework: CIS Controls v8.1
+  reference: 4.7 (partial; conditional where stated)
+  source: https://www.cisecurity.org/controls/CIS-controls-navigator
+  rationale: Partial project mapping; source checked October 29, 2026. Unchanged default-password evidence
+    covers one credential condition. It does not independently audit all default accounts or their necessity.
+  review_status: reviewed
 review_status: draft
