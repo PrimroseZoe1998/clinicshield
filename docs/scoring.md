@@ -244,9 +244,11 @@ Remaining:
 - Implement Fix First ranking and duplicate-fix handling.
 - Calibrate all three sample clinics against generated findings.
 
-Westside's initial findings include Critical risks, so its initial
-score cannot exceed 69. It may reach Needs attention after those
-Critical findings are fixed.
+The measured Westside fictional scenario currently scores 80, Needs attention,
+without an invented Critical finding. The earlier expectation of an initial score
+no higher than 69 is superseded by the October 29 sample-scoring decision in
+`scoring-calibration.md`. A confirmed Critical finding still activates the
+existing ceiling of 69.
 
 ## Q24 follow-up scoring and findings
 

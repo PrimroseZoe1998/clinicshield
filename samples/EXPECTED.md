@@ -1,8 +1,10 @@
 # Expected Findings for Synthetic Clinics
 
 All clinic datasets are fictional.
-These expectations will become regression tests as rules are implemented.
-They are not results from a completed assessment engine.
+Measured scenario scores are regression-tested prototype results. Earlier target
+bands were superseded by the October 29 decision to retain the current model.
+See docs/scoring-calibration.md. All scores remain provisional, and fictional
+scenario evidence must be enabled to reproduce the scenario baselines below.
 
 ## Lakeview Family Dental
 
@@ -42,10 +44,9 @@ Record Info findings and explain how to obtain the missing versions.
 
 ### Score expectation
 
-Target band: Urgent, 0 to 49.
-
-The actual score is pending implementation and calibration.
-Any open Critical finding also imposes the ceiling of 69.
+Measured fictional scenario: 65 overall, At risk; 72.34 Safeguards and 55 Exposure.
+The earlier Urgent target is superseded. R03/R08 share one OS-support contribution.
+Only a confirmed Critical finding can impose the existing ceiling of 69.
 
 ## Southside Counseling Collective
 
@@ -72,9 +73,11 @@ These describe distinct actions; the combined Q24 is scored once.
 
 ### Score expectation
 
-Target band: At risk, 50 to 69.
-Actual score is pending implementation and calibration.
-Open Critical findings impose the ceiling of 69.
+Measured fictional scenario: 82 overall, Needs attention; 70.21 Safeguards and
+100 Exposure. The earlier At risk target is superseded. Exposure 100 reflects no
+confirmed technical deductions within the assessed scope; it does not resolve
+missing services or unknown versions. Confirmed Critical findings impose the
+existing ceiling of 69.
 
 ## Westside Community Health
 
@@ -97,11 +100,11 @@ Report uncertainty without inventing vulnerability matches.
 
 ### Score expectation
 
-Initial target band: At risk, 50 to 69, pending calibration.
-Open Critical findings prevent a score above 69.
-
-After the Critical findings are fixed, the target band is
-Needs attention, 70 to 84, pending calibration.
+Measured fictional scenario: 80 overall, Needs attention; 80.85 Safeguards and
+78.68 Exposure. The earlier At risk target and unmeasured post-remediation target
+are superseded. Do not invent Critical findings or remediation scores to match
+those earlier expectations. A confirmed Critical finding still imposes the
+existing ceiling of 69.
 
 ### Lab scan fixture
 

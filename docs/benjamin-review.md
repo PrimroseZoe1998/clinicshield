@@ -1,5 +1,8 @@
 # ClinicShield Week 3 — review requested October 28, 2026
 
+Historical record. For the October 29 sample-scoring decision and current scope,
+see `benjamin-decisions-2026-10-29.md` and `scoring-calibration.md`.
+
 ## Verified progress
 
 - 1,623 local tests passing; GitHub checks green.

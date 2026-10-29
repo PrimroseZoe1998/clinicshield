@@ -20,8 +20,11 @@ Earlier sample documentation proposed:
 - Southside: At risk, 50–69.
 - Westside: At risk, 50–69 before remediation.
 
-Those target bands are not currently achieved. Do not describe
-calibration as complete or change evidence to force those outcomes.
+These earlier targets are superseded by the measured scenario baselines above.
+On October 29, 2026, the user reported Benjamin's agreement to retain the current
+model and revise the earlier expected bands. See
+`benjamin-decisions-2026-10-29.md` for the decision and its scope.
+No evidence, severity, formula or global band threshold was changed to force a target.
 
 ## Current scoring behavior
 
@@ -34,7 +37,7 @@ calibration as complete or change evidence to force those outcomes.
 - Checklist answers are scored once.
 - Missing coverage and conflicting evidence remain visible.
 
-## Interpretation requiring review
+## Interpretation and limitations
 
 Southside's Exposure score of 100 means no confirmed technical
 risk points were assigned within the assessed scope. It does not
@@ -45,9 +48,10 @@ The blend of checklist scoring, technical risk points, entity caps,
 and inventory-size adjustment can produce higher overall scores
 than the earlier qualitative sample expectations.
 
-Review whether the earlier target bands should be revised or the
-scoring model should change. Any formula or classification change
-must be documented, justified, and regression tested.
+Decision: retain the current model for the prototype and use the measured sample
+expectations. This resolves the earlier sample-band decision, not empirical
+validation of risk prediction or review of every severity/framework reference.
+Future formula or classification changes require justification and regression tests.
 
 ## Manual verification
 
@@ -59,12 +63,15 @@ must be documented, justified, and regression tested.
 
 ## Remaining limitations
 
-- The preview does not load live intelligence caches.
+- Saved KEV/EPSS and explicitly mapped lifecycle caches are now connected;
+  freshness and missing coverage remain visible.
 - No real CVE applicability is asserted for fictional sample products.
 - Full framework mapping validation remains pending.
-- Real-upload and expanded source integration remain unfinished.
+- CSV, JSON and XLSX upload integration is implemented and manually exercised
+  with fictional files. Real clinic data has not been verified.
+- NVD ingestion and comprehensive source coverage remain out of scope of these tests.
 
-## Follow-up for Benjamin
+## Historical follow-up for Benjamin (sent before the decision)
 
 Share the labeled example report with:
 - The current score and component explanation.
