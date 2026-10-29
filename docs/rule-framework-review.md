@@ -157,5 +157,9 @@ Additional framework families require their own source review before being added
 excluded. Source-check scope and URLs survive report generation/download rendering;
 pending references still retain a distinct label when supplied. All scenario scores
 remain 65/82/80 and provisional. The high-severity Bandit check passed, with no
-medium or high findings, and `git diff --check` passed. The revised browser
-presentation has not yet been manually checked. No dependency changes were made.
+medium or high findings, and `git diff --check` passed. No dependency changes were made.
+
+The user subsequently confirmed green GitHub checks for `64bb497`. A supplied
+browser screenshot shows R16's NIST/CIS labels, partial-coverage rationale and
+source URLs. The user also confirmed the readable download retains those details.
+This verifies the exercised path, not independent approval of the crosswalks.

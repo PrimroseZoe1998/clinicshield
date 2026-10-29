@@ -5,7 +5,7 @@
 - All 24 draft rules are registered.
 - Saved KEV/EPSS and reviewed lifecycle/applicability evidence are connected.
 - CSV, JSON and XLSX upload paths are implemented and manually tested with fictional files.
-- Latest pushed checkpoint `6099acb` passed GitHub checks, as reported by the user.
+- Latest pushed checkpoint `64bb497` passed GitHub checks, as reported by the user.
 - Benjamin accepted retaining the model and revising sample expectations, as reported
   by the user. See `../benjamin-decisions-2026-10-29.md`.
 - Refresh reporting saves optional per-run JSON and renders an Actions summary.
@@ -19,6 +19,11 @@
   file excluded. The CI-equivalent high-severity Bandit check passed; no medium
   or high findings were reported. Native UI automation remains unverified locally.
 
+- R16 framework labels, limits and URLs were checked in the browser screenshot
+  and user-confirmed readable download.
+
+Acceptance status: **not complete**. See `../week-3-acceptance-review.md`.
+
 Remaining:
 
 - All 24 rules now have source-checked partial CSF 2.0 mappings; 22 also have
@@ -30,6 +35,10 @@ Remaining:
 - Actual clinic controls, application support and administrator observations still
   need source evidence; upload success does not verify them.
 - Full source coverage/NVD range ingestion and completed rule review are not claimed.
+- Implement the documented Fix First priority formula, tie-breakers, action grouping
+  and duplicate-fix handling. Severity-only finding order is not that ranking.
+- Implement accepted limited-CVE NVD caching, or explicitly agree a scope change.
+  Supplied applicability JSON does not replace that downloader/cache requirement.
 
 The older checkpoint below is retained as history.
 
@@ -61,7 +70,7 @@ The older checkpoint below is retained as history.
 - Refresh failures are reported in run logs; a persistent failure
   history is not yet implemented.
 
-## Remaining work
+## Historical remaining work as of October 26
 
 - Define NVD CVE scope and caching strategy.
 - Connect cached intelligence to assessments and findings.
