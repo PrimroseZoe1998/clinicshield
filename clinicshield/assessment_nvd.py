@@ -4,6 +4,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, TypeAdapter, ValidationError, field_validator
 
+from clinicshield.cvss import interpret_cvss
 from clinicshield.assessment_evidence_links import validate_evidence_links
 from clinicshield.feed_freshness import check_feed_freshness
 from clinicshield.feed_models import VulnerabilityRecord
@@ -91,6 +92,7 @@ def adapt_nvd(mapping, snapshot):
     return VulnerabilityEvidence(
         software_entry_id=mapping.software_entry_id, record_status=state,
         source_generated_at=generated,
+        cvss_context=interpret_cvss(record),
         record=VulnerabilityRecord(
             vulnerability_id=snapshot.cve_id, source=snapshot.source,
             source_url=snapshot.request_url, retrieved_at=snapshot.retrieved_at,
@@ -140,6 +142,7 @@ def load_assessment_nvd(assessment, evidence, directory, allowlist, mapping_data
         source = check_feed_freshness(source_time(snapshot.response["timestamp"]), now=now, max_age=max_age)
         analysis = "analyzed" if snapshot.record.get("vulnStatus") == "Analyzed" else "rejected" if snapshot.record.get("vulnStatus") == "Rejected" else "requires review"
         messages.append(f"NVD {identifier}: retrieval {retrieval.value}, API response {source.value}; analysis status {analysis}.")
+        messages.append(f"NVD {identifier} CVSS context: {interpret_cvss(snapshot.record)}")
         if identifier in needed:
             snapshots[identifier] = snapshot
     messages.append(f"NVD: {available}/{len(allowlist.cve_ids)} allowlisted cache records available. Availability is not applicability.")

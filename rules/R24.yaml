@@ -43,4 +43,25 @@ framework_references:
     follow-up. Versions are identifiers here, not proof of vulnerability; the rule does not audit every
     inventory field or its review cadence.
   review_status: reviewed
+- framework: HICP 2023
+  reference: 'Volume 1: 5.S.A; printed p. 22 (partial)'
+  source: https://hhscyber.hhs.gov/Documents/HICP/tech-vol1-508.pdf#page=25
+  rationale: Partial project mapping; source checked October 30, 2026. Unknown software versions are
+    inventory uncertainty supporting risk-analysis follow-up, not confirmed vulnerabilities or a complete
+    risk analysis.
+  review_status: reviewed
+- framework: HIPAA Security Rule
+  reference: 45 CFR 164.308(a)(1)(ii)(A) (partial; applicability-dependent)
+  source: https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164.308
+  rationale: Partial project mapping; source checked October 30, 2026. Unknown software versions are
+    inventory uncertainty supporting risk-analysis follow-up, not confirmed vulnerabilities or a complete
+    risk analysis. Supporting relationship only; not a compliance finding.
+  review_status: reviewed
+- framework: HHS Healthcare CPG
+  reference: Asset Inventory (Enhanced; partial)
+  source: https://hhscyber.hhs.gov/cybersecurity-performance-goals.html
+  rationale: Partial project mapping; source checked October 30, 2026. Version completeness for selected
+    software only; no comprehensive asset discovery or inventory cadence is established. Voluntary
+    goal; no full attainment or legal compliance inferred.
+  review_status: reviewed
 review_status: draft

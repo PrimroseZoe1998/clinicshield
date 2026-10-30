@@ -40,4 +40,33 @@ framework_references:
     and restore testing. Project daily frequency differs from CIS 11.2; the answers do not establish CIS
     isolation methods or quarterly sampling.
   review_status: reviewed
+- framework: HICP 2023
+  reference: 'Volume 1: 4.S.B; printed p. 21 (partial)'
+  source: https://hhscyber.hhs.gov/Documents/HICP/tech-vol1-508.pdf#page=24
+  rationale: Partial project mapping; source checked October 30, 2026. Q10 does not distinguish frequency
+    from separation. Backup copies are Required; contingency testing is Addressable. Daily frequency
+    and a six-month test interval are project benchmarks.
+  review_status: reviewed
+- framework: HIPAA Security Rule
+  reference: 45 CFR 164.308(a)(7)(ii)(A); 164.308(a)(7)(ii)(D) (partial; applicability-dependent)
+  source: https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164.308
+  rationale: Partial project mapping; source checked October 30, 2026. Q10 does not distinguish frequency
+    from separation. Backup copies are Required; contingency testing is Addressable. Daily frequency
+    and a six-month test interval are project benchmarks. Supporting relationship only; not a compliance
+    finding.
+  review_status: reviewed
+- framework: HHS Healthcare CPG
+  reference: Basic Incident Planning and Preparedness (Essential; partial)
+  source: https://hhscyber.hhs.gov/cybersecurity-performance-goals.html
+  rationale: Partial project mapping; source checked October 30, 2026. Backup/restore checks support
+    recovery; they do not demonstrate complete incident readiness. Voluntary goal; no full attainment
+    or legal compliance inferred.
+  review_status: reviewed
+- framework: HICP 2023
+  reference: 'Volume 2: 4.M.D; printed pp. 50-52 (partial; recovery supplement)'
+  source: https://hhscyber.hhs.gov/Documents/HICP/tech-vol2-508.pdf#page=57
+  rationale: Partial project mapping; source checked October 30, 2026. Supplement for the restore-testing
+    branch from medium/large-organization guidance; not a complete small-clinic recovery assessment
+    or a mandated test interval.
+  review_status: reviewed
 review_status: draft

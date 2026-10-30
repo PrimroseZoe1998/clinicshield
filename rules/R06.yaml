@@ -44,4 +44,17 @@ framework_references:
     listener is a project risk signal. Necessary, authorized remote access is not categorically prohibited
     by these references.
   review_status: reviewed
+- framework: HICP 2023
+  reference: 'Volume 1: 6.S.A; printed p. 24 (partial)'
+  source: https://hhscyber.hhs.gov/Documents/HICP/tech-vol1-508.pdf#page=27
+  rationale: Partial project mapping; source checked October 30, 2026. An internet-facing administration
+    listener prompts access review; authorization and actual ePHI access are not established.
+  review_status: reviewed
+- framework: HIPAA Security Rule
+  reference: 45 CFR 164.312(a)(1) (partial; applicability-dependent)
+  source: https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164.312
+  rationale: Partial project mapping; source checked October 30, 2026. An internet-facing administration
+    listener prompts access review; authorization and actual ePHI access are not established. Supporting
+    relationship only; not a compliance finding.
+  review_status: reviewed
 review_status: draft

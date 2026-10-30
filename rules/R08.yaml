@@ -49,4 +49,17 @@ framework_references:
     records SMB presence. It does not identify an exploitable SMB defect or require disabling every file-sharing
     service.
   review_status: reviewed
+- framework: HICP 2023
+  reference: 'Volume 1: 2.S.A; printed p. 14 (partial)'
+  source: https://hhscyber.hhs.gov/Documents/HICP/tech-vol1-508.pdf#page=17
+  rationale: Partial project mapping; source checked October 30, 2026. SMB presence accompanies the
+    OS-support issue; no exploitable SMB defect or separate legal prohibition is inferred.
+  review_status: reviewed
+- framework: HIPAA Security Rule
+  reference: 45 CFR 164.308(a)(1)(ii)(B) (partial; applicability-dependent)
+  source: https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164.308
+  rationale: Partial project mapping; source checked October 30, 2026. SMB presence accompanies the
+    OS-support issue; no exploitable SMB defect or separate legal prohibition is inferred. Supporting
+    relationship only; not a compliance finding.
+  review_status: reviewed
 review_status: draft

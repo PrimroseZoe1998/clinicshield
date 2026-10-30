@@ -1,5 +1,46 @@
 # Week 3 status
 
+## October 30, 2026 brief-based audit
+
+Done: compared the original Week 3 table with the implementation; added
+`../rules.md`; rechecked three fictional scenarios (65/82/80); 162 focused tests
+passed using a writable pytest scratch directory. Unknown versions remained
+review items; no synthetic scenario invented a CVE match.
+
+CVSS follow-up: source-attributed CVSS 3.1 base-score context is implemented
+with explicit unsupported/malformed-data warnings; see ../cvss-context.md.
+Other versions and score recalculation remain outside this bounded step.
+
+Cache follow-up: app and workflow now default to data/cache/; the verified
+artifact is installed locally. Future artifact synchronization is still manual;
+see ../local-feed-cache.md.
+
+Healthcare reference follow-up: all 24 rules now carry partial HICP/HIPAA
+relationships; 18 carry partial/conditional HHS CPG relationships. Six HHS
+omissions are documented rather than forced. See ../healthcare-rule-review.md.
+
+Manual checks on October 30: screenshots show fresh KEV/EPSS, NVD 1/1 and
+CVSS source context. The user confirmed CVSS in the downloaded TXT report and
+healthcare references in the R16 preview and download. These are scoped manual
+checks, not independent validation of the mappings. The garbled UI separators
+were then replaced with ASCII; syntax and 28 focused tests passed.
+Latest broad verification: 2,468 tests passed excluding the known stalled local
+Streamlit AppTest file; the high-severity Bandit check passed at the CVSS step.
+
+Next: review remaining delivery/scope differences and keep full rule approval
+and scheduled execution as unverified. See
+`../week-3-acceptance-review.md` for the requirement-by-requirement assessment.
+
+Blocked/limits: scheduled execution unobserved; rule definitions remain draft.
+No new CI run or independent stakeholder approval was verified in this audit.
+
+Scope correction: scoring/Fix First belong to Week 4; the Streamlit app and
+results sub-scores belong to Week 5. These are not Week 3 blockers. Core engine
+checks pass, but full original-brief conformance is not yet claimed.
+
+The October 29 and October 26 checkpoints below are historical records; their
+pending scope-confirmation statements are superseded by this brief-based audit.
+
 ## October 29, 2026 checkpoint
 
 - All 24 draft rules are registered.

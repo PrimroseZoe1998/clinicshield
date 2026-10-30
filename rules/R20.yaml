@@ -38,4 +38,25 @@ framework_references:
     plan from security responsibility. General security ownership is broader than the CIS incident-handling
     role; neither answer tests execution.
   review_status: reviewed
+- framework: HICP 2023
+  reference: 'Volume 1: 8.S.A; 10.S.A; printed p. 27 (partial)'
+  source: https://hhscyber.hhs.gov/Documents/HICP/tech-vol1-508.pdf#page=30
+  rationale: Partial project mapping; source checked October 30, 2026. Incident planning and security
+    responsibility are separate branches. A combined finding does not mean both failed or that response
+    procedures were exercised.
+  review_status: reviewed
+- framework: HIPAA Security Rule
+  reference: 45 CFR 164.308(a)(6)(i); 164.308(a)(2) (partial; applicability-dependent)
+  source: https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164.308
+  rationale: Partial project mapping; source checked October 30, 2026. Incident planning and security
+    responsibility are separate branches. A combined finding does not mean both failed or that response
+    procedures were exercised. Supporting relationship only; not a compliance finding.
+  review_status: reviewed
+- framework: HHS Healthcare CPG
+  reference: Basic Incident Planning and Preparedness (Essential; partial)
+  source: https://hhscyber.hhs.gov/cybersecurity-performance-goals.html
+  rationale: Partial project mapping; source checked October 30, 2026. Incident-plan branch only;
+    naming a responsible person alone does not demonstrate preparedness. Voluntary goal; no full attainment
+    or legal compliance inferred.
+  review_status: reviewed
 review_status: draft

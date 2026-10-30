@@ -27,4 +27,18 @@ framework_references:
   rationale: Partial project mapping; source checked October 29, 2026. Q24b reports documented risk analysis.
     It does not verify assessment quality, complete threat coverage, likelihood methods or legal sufficiency.
   review_status: reviewed
+- framework: HICP 2023
+  reference: 'Volume 1: 10.S.B; printed p. 33 (partial)'
+  source: https://hhscyber.hhs.gov/Documents/HICP/tech-vol1-508.pdf#page=36
+  rationale: Partial project mapping; source checked October 30, 2026. Reported absence of documented
+    risk analysis prompts follow-up; a Yes answer would not establish a thorough or sufficient legal
+    risk analysis.
+  review_status: reviewed
+- framework: HIPAA Security Rule
+  reference: 45 CFR 164.308(a)(1)(ii)(A) (partial; applicability-dependent)
+  source: https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164.308
+  rationale: Partial project mapping; source checked October 30, 2026. Reported absence of documented
+    risk analysis prompts follow-up; a Yes answer would not establish a thorough or sufficient legal
+    risk analysis. Supporting relationship only; not a compliance finding.
+  review_status: reviewed
 review_status: draft

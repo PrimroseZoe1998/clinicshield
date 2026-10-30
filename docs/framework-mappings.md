@@ -10,7 +10,9 @@ A related framework reference does not establish legal compliance.
 This document covers checklist questions. The separate October 29 rule-specific
 CSF 2.0/CIS v8.1 source review, including conditional mappings and coverage limits,
 is in `rule-framework-review.md`. It does not change checklist weights or claim
-new HIPAA/HHS/HICP rule crosswalks.
+new HIPAA/HHS/HICP rule crosswalks. The separate October 30 rule-level
+extension is in `healthcare-rule-review.md`; its conditional limits do not
+change these question-level weights.
 
 ## Official sources
 

@@ -42,4 +42,25 @@ framework_references:
   rationale: Partial project mapping; source checked October 29, 2026. Unchanged default-password evidence
     covers one credential condition. It does not independently audit all default accounts or their necessity.
   review_status: reviewed
+- framework: HICP 2023
+  reference: 'Volume 1: 7.S.A; printed p. 26 (partial)'
+  source: https://hhscyber.hhs.gov/Documents/HICP/tech-vol1-508.pdf#page=29
+  rationale: Partial project mapping; source checked October 30, 2026. Unchanged-default-password
+    evidence covers one credential condition. Password management is Addressable; no full credential
+    audit is performed.
+  review_status: reviewed
+- framework: HIPAA Security Rule
+  reference: 45 CFR 164.308(a)(5)(ii)(D) (partial; applicability-dependent)
+  source: https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164.308
+  rationale: Partial project mapping; source checked October 30, 2026. Unchanged-default-password
+    evidence covers one credential condition. Password management is Addressable; no full credential
+    audit is performed. Supporting relationship only; not a compliance finding.
+  review_status: reviewed
+- framework: HHS Healthcare CPG
+  reference: Configuration Management (Enhanced; partial)
+  source: https://hhscyber.hhs.gov/cybersecurity-performance-goals.html
+  rationale: Partial project mapping; source checked October 30, 2026. One default-credential setting
+    only; not a unique-credentials or complete baseline assessment. Voluntary goal; no full attainment
+    or legal compliance inferred.
+  review_status: reviewed
 review_status: draft

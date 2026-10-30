@@ -238,7 +238,7 @@ def main():
     nvd_mappings = None
     if use_caches:
         cache_directory = st.text_input(
-            "Public-feed cache folder", value=str(ROOT / "feed-output")
+            "Public-feed cache folder", value=str(ROOT / "data" / "cache")
         )
         st.caption(
             "Reads kev.json and epss.json locally. No feeds are downloaded. "
@@ -350,7 +350,7 @@ def main():
         )
 
     for limitation in score["limitations"]:
-        st.text(f"• {limitation}")
+        st.text(f"- {limitation}")
 
     with st.expander("Coverage and answers requiring review", expanded=True):
         for issue in report["coverage_issues"]:
@@ -371,11 +371,11 @@ def main():
             if not actions:
                 st.caption("No confirmed actions assigned to this group.")
             for action in actions:
-                label = f"#{action['rank']} · {', '.join(action['rule_ids'])} · {action['entity_id']}"
+                label = f"#{action['rank']} | {', '.join(action['rule_ids'])} | {action['entity_id']}"
                 with st.expander(label):
                     st.text(
                         f"Priority: {action['priority']:.3g} "
-                        f"({action['points']:g} points ÷ effort {action['effort']})"
+                        f"({action['points']:g} points / effort {action['effort']})"
                     )
                     for recommendation in action["recommendations"]:
                         st.text(recommendation)
@@ -389,7 +389,7 @@ def main():
                     )
         st.write("Verify before planning remediation")
         for item in plan["verification_items"]:
-            st.text(f"{', '.join(item['rule_ids'])} · {item['entity_id']}: {item['notice']}")
+            st.text(f"{', '.join(item['rule_ids'])} | {item['entity_id']}: {item['notice']}")
         if not plan["verification_items"]:
             st.caption("No unresolved finding evidence in this assessment.")
 
@@ -415,8 +415,8 @@ def main():
 
         for finding in selected:
             label = (
-                f"{finding['severity']} · "
-                f"{', '.join(finding['rule_ids'])} · "
+                f"{finding['severity']} | "
+                f"{', '.join(finding['rule_ids'])} | "
                 f"{finding['scoring_entity_id']}"
             )
             with st.expander(label):
@@ -481,7 +481,7 @@ def main():
                         else "Reference pending validation"
                     )
                     st.text(
-                        f"{status}: {reference['framework']} — "
+                        f"{status}: {reference['framework']} : "
                         f"{reference['reference']}"
                     )
                     st.caption(reference["rationale"])

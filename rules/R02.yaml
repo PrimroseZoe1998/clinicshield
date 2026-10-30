@@ -47,4 +47,24 @@ framework_references:
     of EPSS. Priority context does not establish completed remediation or a comprehensive vulnerability
     program.
   review_status: reviewed
+- framework: HICP 2023
+  reference: 'Volume 1: 7.S.A; printed p. 26 (partial)'
+  source: https://hhscyber.hhs.gov/Documents/HICP/tech-vol1-508.pdf#page=29
+  rationale: Partial project mapping; source checked October 30, 2026. Applicable CVE evidence supports
+    follow-up; EPSS does not establish exploitation or remediation.
+  review_status: reviewed
+- framework: HIPAA Security Rule
+  reference: 45 CFR 164.308(a)(1)(ii)(B) (partial; applicability-dependent)
+  source: https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164.308
+  rationale: Partial project mapping; source checked October 30, 2026. Applicable CVE evidence supports
+    follow-up; EPSS does not establish exploitation or remediation. Supporting relationship only;
+    not a compliance finding.
+  review_status: reviewed
+- framework: HHS Healthcare CPG
+  reference: Mitigate Known Vulnerabilities (Essential; partial)
+  source: https://hhscyber.hhs.gov/cybersecurity-performance-goals.html
+  rationale: Partial project mapping; source checked October 30, 2026. Conditional on independently
+    established Internet accessibility; this rule alone does not establish that condition. Voluntary
+    goal; no full attainment or legal compliance inferred.
+  review_status: reviewed
 review_status: draft

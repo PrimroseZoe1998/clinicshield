@@ -12,7 +12,8 @@ of rule triggers and severities. Rule definitions remain draft.
 
 CSF outcomes are broad. The mappings below identify related areas; all have
 partial coverage. A source-checked reference does not establish a clinic control.
-No new HICP, HHS CPG or HIPAA rule crosswalk is asserted by this review. Existing
+This October 29 review asserted no new HICP, HHS CPG or HIPAA rule crosswalk.
+The separate October 30 extension is documented in healthcare-rule-review.md. Existing
 question-level crosswalks retain their own scope. No CIS mapping is forced for
 R14 or R22. These omissions are deliberate and not unresolved placeholder IDs.
 

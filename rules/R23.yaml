@@ -36,4 +36,24 @@ framework_references:
     Completion, effectiveness, role coverage, onboarding and annual curriculum review are not independently
     verified.
   review_status: reviewed
+- framework: HICP 2023
+  reference: 'Volume 1: 10.S.C; printed p. 35 (partial)'
+  source: https://hhscyber.hhs.gov/Documents/HICP/tech-vol1-508.pdf#page=38
+  rationale: Partial project mapping; source checked October 30, 2026. Training answers do not verify
+    attendance, coverage, effectiveness or all workforce roles.
+  review_status: reviewed
+- framework: HIPAA Security Rule
+  reference: 45 CFR 164.308(a)(5)(i) (partial; applicability-dependent)
+  source: https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164.308
+  rationale: Partial project mapping; source checked October 30, 2026. Training answers do not verify
+    attendance, coverage, effectiveness or all workforce roles. Supporting relationship only; not
+    a compliance finding.
+  review_status: reviewed
+- framework: HHS Healthcare CPG
+  reference: Basic Cybersecurity Training (Essential; partial)
+  source: https://hhscyber.hhs.gov/cybersecurity-performance-goals.html
+  rationale: Partial project mapping; source checked October 30, 2026. Reported training presence
+    only; behavior change and training effectiveness are untested. Voluntary goal; no full attainment
+    or legal compliance inferred.
+  review_status: reviewed
 review_status: draft

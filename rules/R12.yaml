@@ -42,4 +42,24 @@ framework_references:
     check. CIS 6.3 applies conditionally to externally exposed applications where supported; all account
     configurations are not verified.
   review_status: reviewed
+- framework: HICP 2023
+  reference: 'Volume 1: 1.S.A; printed p. 10 (partial)'
+  source: https://hhscyber.hhs.gov/Documents/HICP/tech-vol1-508.pdf#page=13
+  rationale: Partial project mapping; source checked October 30, 2026. Email MFA evidence covers supplied
+    accounts; phishing resistance and all authentication procedures are not verified.
+  review_status: reviewed
+- framework: HIPAA Security Rule
+  reference: 45 CFR 164.312(d) (partial; applicability-dependent)
+  source: https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164.312
+  rationale: Partial project mapping; source checked October 30, 2026. Email MFA evidence covers supplied
+    accounts; phishing resistance and all authentication procedures are not verified. Supporting relationship
+    only; not a compliance finding.
+  review_status: reviewed
+- framework: HHS Healthcare CPG
+  reference: Email Security (Essential; partial)
+  source: https://hhscyber.hhs.gov/cybersecurity-performance-goals.html
+  rationale: Partial project mapping; source checked October 30, 2026. Email MFA is one component;
+    filtering, forwarding and other email safeguards are outside this rule. Voluntary goal; no full
+    attainment or legal compliance inferred.
+  review_status: reviewed
 review_status: draft

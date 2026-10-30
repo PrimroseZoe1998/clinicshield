@@ -37,4 +37,25 @@ framework_references:
     updating. A combined No does not identify the affected computers or which component failed; detection
     effectiveness is not tested.
   review_status: reviewed
+- framework: HICP 2023
+  reference: 'Volume 1: 2.S.A; printed p. 14 (partial)'
+  source: https://hhscyber.hhs.gov/Documents/HICP/tech-vol1-508.pdf#page=17
+  rationale: Partial project mapping; source checked October 30, 2026. Q03 reports antivirus status,
+    not a complete malware-defense capability. The cited malware specification is Addressable.
+  review_status: reviewed
+- framework: HIPAA Security Rule
+  reference: 45 CFR 164.308(a)(5)(ii)(B) (partial; applicability-dependent)
+  source: https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164.308
+  rationale: Partial project mapping; source checked October 30, 2026. Q03 reports antivirus status,
+    not a complete malware-defense capability. The cited malware specification is Addressable. Supporting
+    relationship only; not a compliance finding.
+  review_status: reviewed
+- framework: HHS Healthcare CPG
+  reference: Detect and Respond to Relevant Threats and Tactics, Techniques, and Procedures (Enhanced;
+    partial)
+  source: https://hhscyber.hhs.gov/cybersecurity-performance-goals.html
+  rationale: Partial project mapping; source checked October 30, 2026. Basic antivirus is a limited
+    supporting measure, not demonstrated endpoint detection and response. Voluntary goal; no full
+    attainment or legal compliance inferred.
+  review_status: reviewed
 review_status: draft

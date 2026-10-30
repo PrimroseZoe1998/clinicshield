@@ -1,49 +1,75 @@
 # Week 3 acceptance audit
 
-Reviewed October 29, 2026 against repository implementation and the user's
-reported manual/CI results. Status: **pending milestone scope confirmation and final review**.
+Reviewed October 30, 2026 against the original
+ClinicShield_Project_Brief_Primrose_Mangwendeza.docx, Week 3 table, the current
+implementation, dated decisions and fresh local checks.
 
-This working audit draws on the recorded Benjamin decisions, `scoring.md`,
-`nvd-caching.md`, the rule catalog and Week 3 status. It is not a newly approved
-replacement for the project brief. No complete, separately approved Week 3
-acceptance checklist was found in the repository.
+Status: core engine implemented and focused regressions passing; original-brief
+conformance has open gaps and design differences. This is not a declaration of
+stakeholder approval or full Week 3 completion.
 
-| Requirement | Evidence | Status and limit |
+## Original Week 3 requirements
+
+| Requirement | Evidence | Assessment |
 | --- | --- | --- |
-| 24 starter rules | Registered typed handlers and tests | Implemented; rule definitions remain draft |
-| Assessment scoring | Checklist weights, grouped findings, entity caps, combined score and Critical ceiling | Implemented within tested scope; provisional results |
-| Evidence grouping | Preserved sources, tested R03/R08 shared support contribution | Implemented for tested groups; not a universal action planner |
-| Sample expectations | Recorded accepted model choice and measured 65/82/80 scenarios | Decision resolved from user-reported email; not validation of real-world risk |
-| CSV/JSON/XLSX uploads | Automated integration and manual fictional-data tests | Implemented; real clinic records not independently verified |
-| Upload errors/state | Changed files clear results; missing services warning; missing assets blocks generation | Manual and automated checks within documented scope |
-| Cached public feeds | KEV/EPSS and explicit lifecycle/applicability integration | Implemented; workflow artifact must be extracted into a local cache folder |
-| Refresh reporting | Per-run JSON, exit status, Actions summary, retained artifacts | Local failure tests; successful live manual refresh; scheduled execution unobserved |
-| Refresh artifact | Run 40949949834 on 6099acb; four successful sources and user-confirmed six files | Verified manually as documented; not an indefinitely retained ledger |
-| Rule framework references | Partial CSF mappings for 24 rules, selected CIS mappings for 22 | Source checked; not full safeguard assessment or independent crosswalk approval |
-| Framework presentation | R16 screenshot and user-confirmed readable download | Exercised path passed |
-| Explained findings/report | Evidence, actions, owners, effort, costs, score and coverage explanations | Implemented; finding order is severity-based |
-| Fix First plan | `scoring.md` specifies points/effort, tie-breakers and four action groups | Implemented with conservative exact-action-set consolidation; Lakeview preview/download checks passed |
-| Limited-CVE NVD cache | Accepted October 28; allowlist up to 50 CVEs and acceptance checks documented | Bounded refresh/cache and conservative reviewed-CPE adapter implemented; availability/no-mapping preview/download checked; NVD workflow/artifact checks passed as reported by user; unsupported mapping-upload preview/download checked; other manual mapping cases not claimed |
-| Practice-area scores | Formulas/denominators remain listed as unresolved in `scoring.md` | Not implemented; milestone timing needs confirmation |
-| CI/security | User reported green checks on 71d762b; 2,429 local tests excluding stalled AppTest file | Known local UI automation limit; high-severity Bandit check passed |
+| Vendor/product/version normalizer | normalization.py and matching tests | Implemented conservatively; no fuzzy identity inference |
+| Weekly KEV, EPSS, endoflife.date and NVD subset caching into data/cache/ | refresh-feeds.yml; refresh modules; user-reported successful manual run 40963762712 | Four-source workflow configured, but runner and app now use data/cache/; snapshots remain ignored local files distributed as 30-day artifacts, not committed repository data; scheduled execution unobserved |
+| KEV, end-of-life, NVD/CVSS and EPSS matchers | Reviewed applicability/lifecycle evidence, KEV/EPSS lookup and narrow NVD adapter | Implemented within bounded reviewed matching scope; source-reported CVSS 3.1 base-score context is now interpreted; other CVSS versions and vector/score recalculation remain unsupported; unsupported NVD ranges/configurations require review |
+| YAML schema/loader and first 20 rules, each tested | 24 YAML definitions, typed registries, individual rule tests | 24 implemented under later recorded rule-assignment decisions; not a claim that original Appendix D definitions were implemented unchanged |
+| Finding evidence and framework references | RuleObservation, RuleFinding, YAML references, reports | Evidence and partial source-checked NIST/CIS references implemented; October 30 extension adds partial HICP/HIPAA relationships to 24 rules and HHS goal relationships to 18; six direct HHS mappings deliberately omitted (healthcare-rule-review.md) |
+| Synthetic planted findings without unexplained false positives | Three-scenario inspection and regression suite | Confirmed findings match documented scenarios, including Lakeview R10 and Westside R11; extra unknown-evidence items remain needs_review rather than invented confirmed gaps |
+| Unmatched versions produce a visible inability-to-check result | Unknown-version and vulnerability matching tests; explicit coverage reporting | Passing within tested scope; R24 is limited to patient-information access Y/Unknown, not every inventory row |
+| Rule catalog, caches, engine and docs/rules.md | rules/, clinicshield/, refresh artifacts, new rules.md | Rule-authoring guide now present; cache delivery differs as recorded above |
 
-## Remaining work in order
+## Fresh verification
 
-1. Fix First preview/download checks are complete for the exercised Lakeview path.
-   Automated tests cover exact priorities, tie order, unknown costs, mixed evidence
-   and repeated actions; original 65/82/80 scenario scores remain unchanged.
-   Scope, grouping choices and manual results are in `fix-first-plan.md`.
-2. The unsupported NVD mapping-upload preview/download check is complete for the
-   synthetic fixture: needs_review, unchanged displayed scores and preserved
-   unsupported-configuration/synthetic notices. The user also confirmed the revised
-   refresh workflow and CVE artifact in run 40963762712.
-   The public download, offline load and availability/no-mapping browser/download
-   path passed within their documented scope.
-   Review supported logic and guide-access limits in `nvd-cache-implementation.md`.
-3. Confirm milestone timing for practice-area scores and additional administrator/
-   application evidence capture. Do not infer acceptance from a working prototype.
-4. Run final CI and relevant manual checks, document remaining limitations and
-   prepare a scoped milestone review for Benjamin.
+162 focused tests passed on October 30, 2026: sample input validation, fictional
+scenario evidence and scores, assessment runner, catalog validation/registration,
+unknown versions, normalization, vulnerability matching and assessment scoring.
+The first attempt hit a sandbox temporary-directory setup error (136 passed,
+14 setup errors); repeating with an explicit writable scratch directory passed.
+No application defect was inferred from that environment error.
 
-Neither comprehensive vulnerability detection, complete version-range interpretation,
-real clinic controls nor legal compliance is established by the current checks.
+A separate offline inspection evaluated all three scenarios using a fixed
+2026-10-28 UTC clock and explicit fictional scenario evidence:
+
+| Scenario | Confirmed rule IDs | Overall |
+| --- | --- | --- |
+| Lakeview | R03, R05, R07, R08, R10, R12, R16, R18, R19 | 65 |
+| Southside | R12, R16, R17, R20, R22 | 82 |
+| Westside | R03, R09, R11, R14, R16 | 80 |
+
+Unknown versions remained review items. No R01/R02 CVE finding was fabricated.
+Southside encryption uncertainty and absent service coverage remained unresolved.
+Scores are provisional and use the October 29 recorded model decision, not the
+superseded original target bands. These are synthetic regressions, not real
+clinic validation or proof that every possible false positive has been excluded.
+
+## Corrected milestone scope
+
+The original brief places scoring and Fix First in Week 4 (November 2-6) and
+Streamlit/results sub-scores/report delivery in Week 5 (November 9-13). Earlier
+uncertainty over whether practice-area scores blocked Week 3 was too broad.
+Additional real administrator observations are evidence needed for real assessments,
+not a prerequisite to completing fictional Week 3 regression checks.
+
+## Remaining decisions and work
+
+1. The bounded CVSS 3.1 context path is implemented; see cvss-context.md.
+   It preserves source assessments and does not recalculate scores or support
+   every CVSS version. Full original-brief conformance is still not implied.
+2. Default local and workflow cache paths now use data/cache/; the verified
+   artifact has been installed locally (see local-feed-cache.md). Artifact
+   extraction is still required for later updates; automatic repository
+   persistence/synchronization remains a documented delivery difference.
+3. The healthcare reference extension is implemented with source locators and
+   limits (healthcare-rule-review.md). Six rules have no selected direct HHS goal.
+   These deliberate omissions remain a difference from a literal all-frameworks
+   mapping requirement; rule approval and compliance are not established.
+4. Keep the scheduled-run observation and full rule review open. Prior manual/CI
+   successes are user-reported historical evidence; no new CI run was verified
+   during this documentation audit.
+
+The prior 2,429-test checkpoint and known local Streamlit AppTest hang remain
+historical evidence. This focused audit did not rerun that entire suite. Neither
+comprehensive vulnerability detection nor legal compliance is established.

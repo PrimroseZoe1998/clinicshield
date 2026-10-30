@@ -43,4 +43,24 @@ framework_references:
     and supplied software. CIS 6.3 is conditional on external exposure and support; it is not a universal
     mandate for every internal application.
   review_status: reviewed
+- framework: HICP 2023
+  reference: 'Volume 1: 3.S.A; printed p. 18 (partial)'
+  source: https://hhscyber.hhs.gov/Documents/HICP/tech-vol1-508.pdf#page=21
+  rationale: Partial project mapping; source checked October 30, 2026. Clinical MFA evidence covers
+    the supplied application; authentication procedures and all access paths are not audited.
+  review_status: reviewed
+- framework: HIPAA Security Rule
+  reference: 45 CFR 164.312(d) (partial; applicability-dependent)
+  source: https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164.312
+  rationale: Partial project mapping; source checked October 30, 2026. Clinical MFA evidence covers
+    the supplied application; authentication procedures and all access paths are not audited. Supporting
+    relationship only; not a compliance finding.
+  review_status: reviewed
+- framework: HHS Healthcare CPG
+  reference: Multifactor Authentication (Essential; partial)
+  source: https://hhscyber.hhs.gov/cybersecurity-performance-goals.html
+  rationale: Partial project mapping; source checked October 30, 2026. Conditional on independently
+    verified Internet accessibility and safe technical capability; internal systems alone do not establish
+    this scope. Voluntary goal; no full attainment or legal compliance inferred.
+  review_status: reviewed
 review_status: draft

@@ -290,7 +290,12 @@ def test_end_to_end_offline_report_with_supported_nvd_evidence(tmp_path,monkeypa
     import app
     from clinicshield.kev_cache import KevSnapshot, write_kev_cache
     from clinicshield.report_text import render_assessment_text
-    write_nvd_cache(tmp_path/"nvd"/f"{CVE}.json",snapshot())
+    data = response_data()
+    data["vulnerabilities"][0]["cve"]["metrics"] = {"cvssMetricV31": [{
+        "source": "synthetic@example.org", "type": "Primary", "cvssData": {
+            "version": "3.1", "baseScore": 9.8, "baseSeverity": "CRITICAL",
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"}}]}
+    write_nvd_cache(tmp_path/"nvd"/f"{CVE}.json",snapshot(data))
     write_kev_cache(tmp_path/"kev.json",KevSnapshot(retrieved_at=NOW,catalog={
         "catalogVersion":"2026.10.29","dateReleased":NOW,"count":0,"vulnerabilities":[]}))
     monkeypatch.setattr(app,"read_nvd_allowlist",lambda path:allowlist())
@@ -306,6 +311,11 @@ def test_end_to_end_offline_report_with_supported_nvd_evidence(tmp_path,monkeypa
     assert "NVD coverage is limited to 1 reviewed allowlisted CVE(s)" in text
     assert "Availability is not applicability" in text
     assert "Synthetic test only" in text
+    details = [item["details"] for finding in report["findings"]
+               for item in finding["evidence"] if item["rule_id"] == "R02"]
+    assert any('"base_score": 9.8' in item["cvss_context"] for item in details)
+    assert "synthetic@example.org" in text
+    assert "not recalculated from vectors" in text
 
 
 def test_http_date_retry_after_is_honored():
@@ -334,3 +344,24 @@ def test_mutated_nested_record_is_revalidated_before_replacing_cache(tmp_path):
     value.record["id"]="CVE-2026-9999"
     with pytest.raises(ValueError): write_nvd_cache(path,value)
     assert path.read_text()=="previous"
+
+
+@pytest.mark.parametrize("condition", ["unknown_version", "unsupported", "stale"])
+def test_critical_cvss_does_not_confirm_unresolved_applicability(tmp_path, condition):
+    data = response_data()
+    data["vulnerabilities"][0]["cve"]["metrics"] = {"cvssMetricV31": [{
+        "source": "synthetic@example.org", "type": "Primary", "cvssData": {
+            "version": "3.1", "baseScore": 9.8, "baseSeverity": "CRITICAL",
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"}}]}
+    if condition == "unsupported":
+        data["vulnerabilities"][0]["cve"]["configurations"] = []
+    now = NOW + timedelta(days=9) if condition == "stale" else NOW
+    evidence, match, _ = adapted(tmp_path, data, now=now)
+    if condition == "unknown_version":
+        supplied = assessment()
+        supplied.inventory.software[0].version = "Unknown"
+        match = evaluate_applicability(supplied.inventory.software[0],
+            evidence, entity_id="software:1",
+            now=now, max_age=timedelta(days=8))
+    assert match.status is MatchStatus.NEEDS_REVIEW
+    assert '"base_score": 9.8' in evidence.cvss_context

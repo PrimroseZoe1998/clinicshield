@@ -39,4 +39,25 @@ framework_references:
     preparation. Preparation is narrower than actual incident notification; no breach, recipient, deadline
     or legal obligation is determined.
   review_status: reviewed
+- framework: HICP 2023
+  reference: 'Volume 1: 8.S.A; printed p. 27 (partial)'
+  source: https://hhscyber.hhs.gov/Documents/HICP/tech-vol1-508.pdf#page=30
+  rationale: Partial project mapping; source checked October 30, 2026. Q21 reporting preparation is
+    related; Q22 requires separate breach/notification evaluation. No breach, legal notification duty,
+    recipient or deadline is determined.
+  review_status: reviewed
+- framework: HIPAA Security Rule
+  reference: 45 CFR 164.308(a)(6)(ii) (partial; applicability-dependent)
+  source: https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164.308
+  rationale: Partial project mapping; source checked October 30, 2026. Q21 reporting preparation is
+    related; Q22 requires separate breach/notification evaluation. No breach, legal notification duty,
+    recipient or deadline is determined. Supporting relationship only; not a compliance finding.
+  review_status: reviewed
+- framework: HHS Healthcare CPG
+  reference: Basic Incident Planning and Preparedness (Essential; partial)
+  source: https://hhscyber.hhs.gov/cybersecurity-performance-goals.html
+  rationale: Partial project mapping; source checked October 30, 2026. Reporting preparation only,
+    not tested incident handling or a breach-notification determination. Voluntary goal; no full attainment
+    or legal compliance inferred.
+  review_status: reviewed
 review_status: draft

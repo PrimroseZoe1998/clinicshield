@@ -45,4 +45,24 @@ framework_references:
     evidence supports a project segmentation finding. The rule does not assess the complete architecture
     or vendor constraints.
   review_status: reviewed
+- framework: HICP 2023
+  reference: 'Volume 1: 9.S.A; 6.S.A; printed pp. 24, 30 (partial)'
+  source: https://hhscyber.hhs.gov/Documents/HICP/tech-vol1-508.pdf#page=33
+  rationale: Partial project mapping; source checked October 30, 2026. Medical-device separation evidence
+    is limited; effective access enforcement and complete device security are not verified.
+  review_status: reviewed
+- framework: HIPAA Security Rule
+  reference: 45 CFR 164.312(a)(1) (partial; applicability-dependent)
+  source: https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164.312
+  rationale: Partial project mapping; source checked October 30, 2026. Medical-device separation evidence
+    is limited; effective access enforcement and complete device security are not verified. Supporting
+    relationship only; not a compliance finding.
+  review_status: reviewed
+- framework: HHS Healthcare CPG
+  reference: Network Segmentation (Enhanced; partial)
+  source: https://hhscyber.hhs.gov/cybersecurity-performance-goals.html
+  rationale: Partial project mapping; source checked October 30, 2026. Only the supplied medical-device
+    boundary; no demonstration of all critical-asset segmentation. Voluntary goal; no full attainment
+    or legal compliance inferred.
+  review_status: reviewed
 review_status: draft
