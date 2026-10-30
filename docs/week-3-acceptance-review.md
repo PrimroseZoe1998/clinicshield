@@ -8,6 +8,53 @@ Status: core engine implemented and focused regressions passing; original-brief
 conformance has open gaps and design differences. This is not a declaration of
 stakeholder approval or full Week 3 completion.
 
+## Verified October 30 checkpoint
+
+Implementation commit: `1963a6f` (CVSS context, local cache default, healthcare
+references and brief-based audit). The user reported the pushed commit's GitHub
+checks green; that CI report was not independently retrieved by the agent.
+
+Manual refresh run:
+https://github.com/PrimroseZoe1998/clinicshield/actions/runs/41084601410
+The user reported all feeds succeeded and confirmed artifact contents. The agent
+then read the downloaded `public-feeds-41084601410.zip`, validated all five
+snapshots with the project's cache readers, and checked refresh-status.json:
+overall succeeded, five feed outcomes succeeded. The inspected artifact records
+KEV/EPSS, Python and Windows lifecycle, and the allowlisted NVD CVE.
+
+The validated snapshots were installed into the ignored local `data/cache/`
+directory without rewriting their embedded retrieval timestamps. Previous cache
+files were backed up in workspace scratch storage. An offline Lakeview assessment
+and its TXT export loaded the new snapshots and CVSS context successfully.
+
+Retrieval timestamps (UTC):
+- KEV: 2026-10-30T15:52:19.311077+00:00
+- EPSS: 2026-10-30T15:52:22.127643+00:00
+- Python lifecycle: 2026-10-30T15:52:22.970422+00:00
+- Windows lifecycle: 2026-10-30T15:52:23.149780+00:00
+- NVD: 2026-10-30T15:52:23.582333+00:00
+
+The user subsequently confirmed that the October 30 retrieval dates matched in
+the app after enabling saved caches. Earlier screenshots and user confirmations
+also exercised CVSS and R16 healthcare references in the preview and TXT download.
+
+Latest broad local run: 2,468 tests passed, excluding the known stalled local
+`tests/test_app_preview.py`. The subsequent ASCII UI-separator change passed
+syntax validation and 28 focused tests. No new runtime changes were made for
+this documentation checkpoint, so tests were not repeated.
+
+Status: verified prototype checkpoint with documented scope differences. Core
+Week 3 functionality is exercised; full original-brief conformance, independent
+rule approval and legal compliance are not claimed. Scheduled execution remains
+unobserved. CVSS support is source-reported v3.1 context, not recalculation or all
+versions. Refresh artifacts require manual local synchronization. Six rules have
+no selected direct HHS CPG relationship. Scoring/Fix First are Week 4 work already
+started; Week 5 UI/report requirements are not Week 3 blockers.
+
+Next: preserve this checkpoint and review the Week 4 scoring/rubric requirements
+against the implemented model before selecting further implementation work.
+No further status email to Benjamin is required for this checkpoint.
+
 ## Original Week 3 requirements
 
 | Requirement | Evidence | Assessment |
@@ -67,9 +114,11 @@ not a prerequisite to completing fictional Week 3 regression checks.
    These deliberate omissions remain a difference from a literal all-frameworks
    mapping requirement; rule approval and compliance are not established.
 4. Keep the scheduled-run observation and full rule review open. Prior manual/CI
-   successes are user-reported historical evidence; no new CI run was verified
-   during this documentation audit.
+   CI success on 1963a6f is user-reported. The latest downloaded refresh
+   artifact was independently validated locally as recorded above; neither
+   evidence source proves a scheduled run.
 
 The prior 2,429-test checkpoint and known local Streamlit AppTest hang remain
-historical evidence. This focused audit did not rerun that entire suite. Neither
+historical evidence. The later 2,468-test run supersedes the initial focused-only verification,
+with the documented local UI-test exclusion. Neither
 comprehensive vulnerability detection nor legal compliance is established.

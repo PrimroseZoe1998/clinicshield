@@ -38,3 +38,9 @@ into data/cache, retaining bytes and timestamps. KEV, EPSS, lifecycle and NVD
 loading are checked locally; no fresh network retrieval or scheduled execution
 is implied. This closes the default local-path usability gap. Automatic persistent
 repository distribution, if required by the original brief, remains a scope difference.
+
+October 30 update: artifact public-feeds-41084601410.zip was validated locally
+(all five snapshot readers and successful per-feed status), then installed into
+data/cache with the previous cache backed up in workspace scratch storage.
+Offline assessment/TXT generation passed, and the user confirmed the refreshed
+October 30 dates in the app. See status/week-3.md for provenance and timestamps.
