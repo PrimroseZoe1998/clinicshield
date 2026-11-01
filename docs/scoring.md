@@ -132,8 +132,8 @@ Checklist findings do not enter Exposure scoring.
 They influence Safeguards scoring and the Critical ceiling.
 
 The arithmetic functions and inventory mappings are implemented.
-Automatic finding generation and complete assessment orchestration
-remain pending. Missing data must not be presented as evidence of safety.
+Automatic finding generation and assessment orchestration are now connected;
+see assessment_scoring.py and score-explanation.md. Missing data must not be presented as evidence of safety.
 
 ## Combined Cyber Safety Score
 
@@ -236,14 +236,16 @@ Implemented and tested:
   and the Critical ceiling.
 
 Remaining:
-- Connect automatic finding generation to assessment scoring.
-- Ensure every open Critical finding reaches the combined scorer.
-- Preserve uncertainty and incomplete-data warnings in reports.
+- Automatic finding integration, confirmed Critical propagation and incomplete-data
+  warnings are implemented and tested. The November 1 structured arithmetic
+  explanation is documented in score-explanation.md.
 - Define practice-area score formulas and their denominators.
 - Review ambiguous entity grouping and contradictory evidence.
 - Fix First ranking and exact repeated-action-set consolidation are now implemented;
   the exercised Lakeview preview/download checks passed. See `fix-first-plan.md`.
-- Calibrate all three sample clinics against generated findings.
+- All three measured fictional scenarios are regression tested; retain the
+  October 29 model/expectation decision while reviewing the original Gate 2
+  three-band benchmark. Final independent rubric sign-off is unverified.
 
 The measured Westside fictional scenario currently scores 80, Needs attention,
 without an invented Critical finding. The earlier expectation of an initial score

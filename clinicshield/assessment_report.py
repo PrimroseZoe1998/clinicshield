@@ -143,6 +143,7 @@ def build_assessment_report(result: ScoredAssessment) -> dict:
             "critical_findings": list(result.combined.critical_findings),
             "limitations": list(result.score_limitations),
         },
+        "score_explanation": result.explanation,
         "freshness_policy": {
             "public_feed_max_age_seconds": policy.public_feed_max_age.total_seconds(),
             "administrator_observation_max_age_seconds": (

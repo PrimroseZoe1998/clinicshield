@@ -82,3 +82,9 @@ headings and R05 for LV-LT01 ranked first. The user confirmed:
 
 These checks use fictional scenario evidence. They verify the exercised display
 and download paths, not every ordering/cost boundary or real remediation outcomes.
+
+## November 1 copyable requests
+
+Confirmed actions now include provider/responsible-lead draft requests in the
+preview and TXT. See provider-requests.md for branch handling, evidence scope
+and tests. No requests are sent and no ranking or score policy changes.

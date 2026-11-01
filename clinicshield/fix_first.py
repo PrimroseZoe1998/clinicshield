@@ -1,3 +1,4 @@
+from clinicshield.provider_requests import provider_requests
 from fractions import Fraction
 
 from clinicshield.assessment_scoring import ScoredAssessment
@@ -41,6 +42,7 @@ def rank_actions(candidates):
                 "owners": set(candidate["owners"]),
                 "costs": set(candidate["costs"]),
                 "essential_questions": set(candidate["essential_questions"]),
+                "provider_requests": set(candidate.get("provider_requests", [])),
             }
             continue
         item = merged[key]
@@ -48,6 +50,7 @@ def rank_actions(candidates):
         item["effort"] = max(item["effort"], candidate["effort"])
         for field in ("rule_ids", "issue_keys", "owners", "costs", "essential_questions"):
             item[field].update(candidate[field])
+        item["provider_requests"].update(candidate.get("provider_requests", []))
         item["kev"] = item["kev"] or candidate["kev"]
         item["touches_phi"] = item["touches_phi"] or candidate["touches_phi"]
 
@@ -66,6 +69,7 @@ def rank_actions(candidates):
             "rule_ids": sorted(item["rule_ids"]), "issue_keys": sorted(item["issue_keys"]),
             "recommendations": sorted(set(item["recommendations"])),
             "owners": sorted(item["owners"]), "costs": sorted(item["costs"]),
+            "provider_requests": sorted(item["provider_requests"]),
             "points": float(item["points"]), "effort": item["effort"],
             "priority": float(priority(item)), "priority_exact": str(priority(item)),
             "group": action_group(item["rule_ids"], item["effort"], item["costs"]),
@@ -121,6 +125,7 @@ def build_fix_first(result: ScoredAssessment) -> dict:
             "entity_id": group.scoring_entity_id, "issue_keys": [group.issue_key],
             "rule_ids": sorted({item.finding.rule.rule_id for item in confirmed}),
             "recommendations": sorted({item.finding.rule.fix for item in confirmed}),
+            "provider_requests": provider_requests(confirmed, group.scoring_entity_id),
             "owners": sorted({item.finding.rule.owner for item in confirmed}),
             "costs": sorted({item.finding.rule.cost for item in confirmed}),
             "points": points, "effort": max(item.finding.rule.effort for item in confirmed),

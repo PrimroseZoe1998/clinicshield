@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
+from clinicshield.score_explanation import build_score_explanation
 from clinicshield.assessment_evidence import (
     AssessmentEvidence,
     AssessmentFreshnessPolicy,
@@ -53,6 +54,7 @@ class ScoredAssessment:
     combined: CombinedScore
     checklist_conflicts: tuple[ChecklistConflict, ...]
     score_limitations: tuple[str, ...]
+    explanation: dict
 
     @property
     def is_provisional(self) -> bool:
@@ -133,4 +135,8 @@ def score_assessment(
             for values in sorted(conflicts)
         ),
         score_limitations=tuple(limitations),
+        explanation=build_score_explanation(
+            assessment.checklist, safeguards, grouped, combined,
+            evaluation.scoring_inventory.entities, groups,
+        ),
     )

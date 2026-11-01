@@ -1,3 +1,4 @@
+from clinicshield.score_explanation import explanation_lines
 from datetime import datetime, timedelta, timezone
 from hashlib import sha256
 from decimal import Decimal
@@ -352,6 +353,11 @@ def main():
     for limitation in score["limitations"]:
         st.text(f"- {limitation}")
 
+    if "score_explanation" in report:
+        with st.expander("Why this score"):
+            for line in explanation_lines(report["score_explanation"]):
+                st.text(line)
+
     with st.expander("Coverage and answers requiring review", expanded=True):
         for issue in report["coverage_issues"]:
             st.text(f"{issue['source_entry_id']}: {issue['message']}")
@@ -379,6 +385,9 @@ def main():
                     )
                     for recommendation in action["recommendations"]:
                         st.text(recommendation)
+                    for request in action.get("provider_requests", []):
+                        st.caption("Copyable request to the responsible provider or lead")
+                        st.code(request, language=None)
                     st.text("Responsible roles: " + ", ".join(action["owners"]))
                     st.text("Estimated cost: " + ", ".join(action["costs"]))
                     ties = action["tie_breakers"]

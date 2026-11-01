@@ -1,3 +1,4 @@
+from clinicshield.score_explanation import explanation_lines
 from decimal import Decimal
 
 
@@ -21,6 +22,9 @@ def render_assessment_text(report: dict) -> str:
         f"Exposure score: {score['exposure']:.1f}/100",
         "Overall weighting: 60% Safeguards and 40% Exposure.",
     ]
+
+    if "score_explanation" in report:
+        lines.extend(["", "Why this score", *explanation_lines(report["score_explanation"]), ""])
 
     lines.extend(report.get("cache_messages", []))
 
@@ -93,6 +97,8 @@ def render_assessment_text(report: dict) -> str:
                     "Estimated cost: " + ", ".join(action["costs"]),
                 ])
                 lines.extend("  - " + value for value in action["recommendations"])
+                for request in action.get("provider_requests", []):
+                    lines.append("Copyable provider/lead request: " + request)
                 ties = action["tie_breakers"]
                 lines.append(
                     f"Tie evidence: confirmed KEV={ties['confirmed_kev']}; "
