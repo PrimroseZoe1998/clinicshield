@@ -1,26 +1,32 @@
-# Week 4 midpoint LinkedIn draft — not published
+# Week 4 midpoint LinkedIn draft - not published
 
-This week, I am making ClinicShield's scores easier to understand and its action
-plans easier to use.
+Making a cybersecurity score explainable has been the focus of my ClinicShield
+work this week.
 
-The prototype now shows a “Why this score” breakdown: checklist weights,
-technical deductions, per-entity caps, rounding and any confirmed Critical ceiling.
-Fix First actions also include copyable requests to the responsible provider or
-lead, asking for dated evidence and a safe implementation plan.
+The prototype now shows how checklist answers, technical findings, multipliers,
+per-entity caps and rounding produce the final score. The same breakdown appears
+in the app and downloaded report.
 
-One test example: changing a weight-3 checklist answer from No to Yes increases
-Safeguards by exactly 300/47 points while leaving Exposure unchanged. The report
-shows how that change reaches the final combined score.
+I also added copyable requests to the Fix First plan, so a recommendation can
+become a concrete conversation with the responsible IT provider or lead.
 
-The latest local test run passed 2,486 tests, excluding a known stalled local UI
-test. GitHub checks passed as well. Manual checks covered the Lakeview preview
-and downloaded report.
+The latest addition is a draft view across ten practice areas. Missing technical
+evidence stays “unassessed” instead of becoming a perfect score. These views do
+not change the overall score.
 
-Still in progress: practice-area scoring definitions and final rubric review.
-All clinic examples are fictional. Scores are provisional and are not compliance
-assessments or predictions of breach probability.
+The latest local run passed 2,497 tests, excluding a known stalled local UI test.
+GitHub checks passed, and I checked the Lakeview preview and TXT export.
+
+My takeaway: explaining what a score does not cover matters just as much as
+explaining its arithmetic.
+
+Final rubric review remains open. All clinic examples are fictional, and the
+scores are provisional—not compliance assessments or breach predictions.
 
 #Cybersecurity #Python #HealthcareCybersecurity #LearningInPublic
 
-Optional: add verified LinkedIn mentions for Benjamin Drury and ChiAEC manually.
-Publish after reviewing the current Week 4 status; this file is only a draft.
+---
+Optional tagging: type @Benjamin Drury and @ChiAEC in LinkedIn and select the
+correct profiles. This draft has not been posted or sent to anyone.
+Suggested screenshots: Why this score summary, R16 copyable request, and draft
+practice results with unassessed/draft labels visible. Avoid private identifiers.

@@ -17,9 +17,8 @@ result was not independently retrieved. No stakeholder sign-off is inferred.
 - [x] Manual Lakeview preview/TXT checks for arithmetic and provider requests.
 - [x] Draft practice-area data, mappings and missing-component behavior implemented
       and labelled provisional; see practice-area-scoring.md. Lakeview app/TXT
-      manual verification passed; independent rubric approval remains open. Their chart presentation can follow in
-      Week 5, but Week 4's reference to all of Appendix B makes the arithmetic an
-      open Week 4 item. The prior Week-5-only classification was too narrow.
+      manual verification passed; independent rubric approval remains open. Chart presentation can follow in
+      Week 5; the arithmetic is implemented as a draft Week 4 interpretation.
 - [ ] Original three-different-bands benchmark: current samples occupy two bands.
       Preserve the October 29 recorded model/expectation decision; do not force
       scores or infer that it independently validates every Gate 2 requirement.
@@ -68,10 +67,10 @@ Implementation differences requiring explicit scope/decision records:
 - HHS tie preference uses the existing reviewed checklist relationship registry;
   the later partial rule references do not silently redefine question weights.
 
-## Practice-area design work next
+## Practice-area design review record
 
-Prepare an explicit mapping of each applicable checklist question and technical
-risk group to the ten HICP practices before implementation. Document:
+The mapping and implementation now exist in practice-area-scoring.md and
+practice_scoring.py. Their explicit design choices cover:
 1. Per-practice earned/applicable question weights and Q23/Q24 handling.
 2. Whether a question/group can belong to multiple practices and how overlap is
    disclosed without summing practice scores into the overall result.
@@ -80,7 +79,7 @@ risk group to the ten HICP practices before implementation. Document:
    coverage. Do not treat missing coverage as a perfect score or invent a denominator.
 5. Whether a combined practice score is justified when one component is unavailable.
 
-This is a design checklist, not an approved new scoring formula. Keep the global
+This is the design-review record for an implemented draft, not an approved rubric. Keep the global
 score unchanged while working through it. Independent sign-off remains unverified;
 Benjamin's preference not to receive routine reports does not supply rubric approval.
 
@@ -102,3 +101,9 @@ limits are visible. The user confirmed the same values in the TXT download.
 This verifies the exercised presentation/export path, not independent rubric
 approval or complete practice coverage. Latest local suite: 2,497 tests passed
 with the known stalled UI file excluded; high-severity Bandit passed.
+
+## November 2 rubric review packet
+
+Technical review and benchmark disposition are recorded in week-4-rubric-review.md.
+The midpoint draft now reflects practice views and the 2,497-test checkpoint.
+Independent sign-off and user publication remain outstanding.

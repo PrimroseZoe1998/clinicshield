@@ -86,3 +86,10 @@ limits are visible. The user confirmed the same values in the TXT download.
 This verifies the exercised presentation/export path, not independent rubric
 approval or complete practice coverage. Latest local suite: 2,497 tests passed
 with the known stalled UI file excluded; high-severity Bandit passed.
+
+## November 2 final technical review packet
+
+Prepared ../week-4-rubric-review.md and updated ../week-4-linkedin-draft.md.
+The user reported ad87f3e pushed with green CI. No model or target band was
+changed. Original three-band departure and draft practice policies are explicit.
+Independent sign-off and post publication remain open; nothing was sent or posted.
