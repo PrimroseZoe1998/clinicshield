@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "review_status": "draft",
+  "basis": "Existing project checklist sections; primary display attribution, not an official crosswalk.",
+  "practices": [
+    {
+      "practice_id": 1,
+      "name": "Email protection",
+      "questions": [
+        "Q01",
+        "Q02"
+      ],
+      "rules": [
+        "R12"
+      ]
+    },
+    {
+      "practice_id": 2,
+      "name": "Endpoint protection",
+      "questions": [
+        "Q03",
+        "Q04",
+        "Q05"
+      ],
+      "rules": [
+        "R05",
+        "R15"
+      ]
+    },
+    {
+      "practice_id": 3,
+      "name": "Access management",
+      "questions": [
+        "Q06",
+        "Q07",
+        "Q08",
+        "Q09"
+      ],
+      "rules": [
+        "R10",
+        "R13",
+        "R14"
+      ]
+    },
+    {
+      "practice_id": 4,
+      "name": "Data protection",
+      "questions": [
+        "Q10",
+        "Q11",
+        "Q12",
+        "Q13"
+      ],
+      "rules": [
+        "R16",
+        "R17"
+      ]
+    },
+    {
+      "practice_id": 5,
+      "name": "Asset management",
+      "questions": [
+        "Q14"
+      ],
+      "rules": [
+        "R24"
+      ]
+    },
+    {
+      "practice_id": 6,
+      "name": "Network management",
+      "questions": [
+        "Q15",
+        "Q16",
+        "Q17"
+      ],
+      "rules": [
+        "R06",
+        "R07",
+        "R09",
+        "R18",
+        "R19"
+      ]
+    },
+    {
+      "practice_id": 7,
+      "name": "Vulnerability management",
+      "questions": [
+        "Q18",
+        "Q19"
+      ],
+      "rules": [
+        "R01",
+        "R02",
+        "R03",
+        "R04",
+        "R08"
+      ]
+    },
+    {
+      "practice_id": 8,
+      "name": "Incident response",
+      "questions": [
+        "Q20",
+        "Q21",
+        "Q22"
+      ],
+      "rules": [
+        "R20",
+        "R21"
+      ]
+    },
+    {
+      "practice_id": 9,
+      "name": "Network-connected medical devices",
+      "questions": [
+        "Q23"
+      ],
+      "rules": [
+        "R11"
+      ]
+    },
+    {
+      "practice_id": 10,
+      "name": "Security oversight and governance",
+      "questions": [
+        "Q24",
+        "Q25"
+      ],
+      "rules": [
+        "R22",
+        "R23"
+      ]
+    }
+  ]
+}

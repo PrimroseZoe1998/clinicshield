@@ -1,3 +1,4 @@
+from clinicshield.practice_scoring import build_practice_scores
 from clinicshield.assessment_scoring import ScoredAssessment
 from clinicshield.fix_first import build_fix_first
 
@@ -144,6 +145,7 @@ def build_assessment_report(result: ScoredAssessment) -> dict:
             "limitations": list(result.score_limitations),
         },
         "score_explanation": result.explanation,
+        "practice_scores": build_practice_scores(result),
         "freshness_policy": {
             "public_feed_max_age_seconds": policy.public_feed_max_age.total_seconds(),
             "administrator_observation_max_age_seconds": (

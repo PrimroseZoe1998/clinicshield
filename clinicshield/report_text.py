@@ -1,3 +1,4 @@
+from clinicshield.practice_scoring import practice_lines
 from clinicshield.score_explanation import explanation_lines
 from decimal import Decimal
 
@@ -25,6 +26,9 @@ def render_assessment_text(report: dict) -> str:
 
     if "score_explanation" in report:
         lines.extend(["", "Why this score", *explanation_lines(report["score_explanation"]), ""])
+
+    if "practice_scores" in report:
+        lines.extend(["", "Practice-area results (draft)", *practice_lines(report["practice_scores"]), ""])
 
     lines.extend(report.get("cache_messages", []))
 

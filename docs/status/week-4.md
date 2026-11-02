@@ -1,5 +1,19 @@
 # Week 4 status
 
+## November 2 requirement review
+
+Saved implementation checkpoint cc9c303 was pushed with green GitHub checks,
+as reported by the user. Both Why this score and R16 provider requests were
+confirmed in the app and TXT. See ../week-4-acceptance-review.md for the full
+brief/Appendix B comparison and fresh baseline/answer-change demonstration.
+
+Scope correction: practice-area arithmetic is an open Week 4 Appendix B item;
+Week 5 covers its results presentation. Earlier Week-5-only statements below
+are historical and superseded. Next: define practice mappings, denominators and
+unassessed-coverage behavior, preserving the global score. Final rubric review,
+original three-band benchmark reconciliation and midpoint publication remain
+open. A LinkedIn draft is saved at ../week-4-linkedin-draft.md; nothing was posted.
+
 ## November 1, 2026 starting checkpoint
 
 Done: reviewed the original Week 4 requirements. Existing scoring, caps, Critical
@@ -39,3 +53,36 @@ The supplied R16 Fix First screenshot shows priority 2 and a copyable request
 for a controlled restore test. The user confirmed its appearance in the TXT
 download. The Why this score preview and TXT were also confirmed earlier.
 These checks cover the exercised Lakeview paths, not independent rubric sign-off.
+
+## November 2 practice-area design
+
+Draft v1 and complete primary mapping table saved in ../practice-area-scoring.md
+and ../practice-area-mapping-draft.json. Checks confirmed unique attribution of
+25 questions and 24 rules, total weight 47, and Lakeview 34/47 reconstruction.
+Exposure uses known deductions and the full inventory denominator; missing
+components stay unassessed. This is a proposed additive report view, not an
+approved rubric or runtime change. Next: implement and test the versioned draft.
+
+## November 2 draft practice results implementation
+
+Added practice_scores data and shared app/TXT presentation labelled draft.
+Coverage behavior, caps, grouping, Q23 exclusion, Q24 single weighting and
+practice-local Critical ceilings are tested; global 65/82/80 and inventory-only
+Lakeview 80 are preserved. Next manual check: regenerate Lakeview and expand
+Practice-area results (draft), then verify its TXT section. Rubric sign-off
+and final scope decisions remain open.
+
+Final local validation November 2: 2,497 tests passed excluding the known
+locally stalled Streamlit AppTest file. High-severity Bandit check passed
+(zero medium/high findings; five existing low findings).
+
+## November 2 manual verification
+
+Supplied inventory-only Lakeview screenshots show Email Safeguards 50 with
+unassessed Exposure; Endpoint Safeguards 66.67, Exposure 91 and combined 76;
+Access Safeguards 100 with 12 review groups; Data Safeguards 62.50 with
+unassessed Exposure. Draft labels, missing-component behavior and coverage
+limits are visible. The user confirmed the same values in the TXT download.
+This verifies the exercised presentation/export path, not independent rubric
+approval or complete practice coverage. Latest local suite: 2,497 tests passed
+with the known stalled UI file excluded; high-severity Bandit passed.

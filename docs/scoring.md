@@ -239,7 +239,8 @@ Remaining:
 - Automatic finding integration, confirmed Critical propagation and incomplete-data
   warnings are implemented and tested. The November 1 structured arithmetic
   explanation is documented in score-explanation.md.
-- Define practice-area score formulas and their denominators.
+- Draft practice-area formulas, denominators and additive report views are
+  implemented; see practice-area-scoring.md. Independent review remains open.
 - Review ambiguous entity grouping and contradictory evidence.
 - Fix First ranking and exact repeated-action-set consolidation are now implemented;
   the exercised Lakeview preview/download checks passed. See `fix-first-plan.md`.

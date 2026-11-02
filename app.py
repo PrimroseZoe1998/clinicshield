@@ -1,3 +1,4 @@
+from clinicshield.practice_scoring import practice_lines
 from clinicshield.score_explanation import explanation_lines
 from datetime import datetime, timedelta, timezone
 from hashlib import sha256
@@ -356,6 +357,11 @@ def main():
     if "score_explanation" in report:
         with st.expander("Why this score"):
             for line in explanation_lines(report["score_explanation"]):
+                st.text(line)
+
+    if "practice_scores" in report:
+        with st.expander("Practice-area results (draft)"):
+            for line in practice_lines(report["practice_scores"]):
                 st.text(line)
 
     with st.expander("Coverage and answers requiring review", expanded=True):
