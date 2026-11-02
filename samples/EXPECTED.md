@@ -161,3 +161,11 @@ the checklist answer supplies this scenario evidence.
 R07 must not treat a VPN alone as sufficient protection.
 Combine inventory evidence with the corrected Q17 interpretation.
 Unknown answers require follow-up and must not establish safety.
+
+## November 2 Westside synthetic post fix comparison
+
+The original scenario remains 80. A separate, explicitly synthetic fixture
+produces 99 after declared changes, with 79 review groups and seven coverage
+issues still open. See docs/westside-post-fix-verification.md for inputs, exact
+scope and benchmark differences. This is not a validated real remediation
+result or independent acceptance of the new post-fix band.

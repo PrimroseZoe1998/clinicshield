@@ -107,3 +107,12 @@ with the known stalled UI file excluded; high-severity Bandit passed.
 Technical review and benchmark disposition are recorded in week-4-rubric-review.md.
 The midpoint draft now reflects practice views and the 2,497-test checkpoint.
 Independent sign-off and user publication remain outstanding.
+
+## November 2 Westside comparison
+
+- [x] Verify the documented original Westside baseline and a separate explicit
+  synthetic post-fix scenario: 80 -> 99, both provisional.
+- [ ] Obtain Benjamin approval of the post-fix assumptions/result and remaining
+  benchmark differences. See westside-post-fix-verification.md.
+
+Latest local validation is 2,504 passing tests with the documented UI exclusion.

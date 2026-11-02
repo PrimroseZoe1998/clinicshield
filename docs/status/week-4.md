@@ -93,3 +93,17 @@ Prepared ../week-4-rubric-review.md and updated ../week-4-linkedin-draft.md.
 The user reported ad87f3e pushed with green CI. No model or target band was
 changed. Original three-band departure and draft practice policies are explicit.
 Independent sign-off and post publication remain open; nothing was sent or posted.
+
+## November 2 Westside comparison
+
+Verified the original 80 baseline and separate synthetic post-fix 99 result;
+saved reproducible backend fixture, tests and initial/post-fix review outputs.
+Original samples are unchanged. Seven coverage issues and 79 review groups
+remain post-fix; all results are provisional. See ../westside-post-fix-verification.md.
+The comparison checkbox can represent this defined technical check, while
+Benjamin's acceptance of rubric/band differences remains pending.
+
+Validation November 2: 2,504 tests passed excluding the known locally stalled
+Streamlit AppTest file. High-severity Bandit check passed (zero medium/high;
+five existing low findings). No new CI run or independent post-fix rubric
+approval is claimed.
