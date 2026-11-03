@@ -1,5 +1,15 @@
 # Practice-area scoring specification — draft v1
 
+## November 3, 2026 — current acceptance status
+
+Benjamin's reply, supplied by the user on November 3, accepts the documented
+prototype scope. See [approval record](week-4-approval.md) for the decision,
+conditions and evidence provenance. Earlier pending-approval statements below
+are historical and superseded by this record; they are not current blockers.
+The mappings and scores remain draft/provisional. Scope acceptance does not
+validate clinical cybersecurity effectiveness, compliance or production readiness.
+
+
 Prepared November 2, 2026. This is a reviewable implementation proposal, not a
 publisher-endorsed crosswalk or independent rubric approval. The design initially made no runtime change; see the implementation
 checkpoint below for the later additive draft view. Global scoring is unchanged. Existing global scores, severity assignments, weights and bands

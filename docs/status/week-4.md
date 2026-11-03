@@ -1,5 +1,24 @@
 # Week 4 status
 
+## November 3, 2026 — prototype scope accepted
+
+Benjamin's approval was supplied by the user today. The scoring model, rubric
+policies, Fix First heuristic, draft practice mappings/denominators and fictional
+Westside comparison are accepted within the stated prototype limits. See
+../week-4-approval.md. This entry supersedes historical pending-review entries.
+
+Technical and documentation acceptance is recorded. The original three-band
+benchmark is an approved deviation, not a passed three-band test. Unknown
+evidence, seven Westside coverage issues and 79 post-fix review groups remain;
+simulated remediation is not a completed corrective action. Framework mappings
+remain unresolved where documented and are not validated by this approval.
+
+The midpoint LinkedIn post remains pending user publication, planned for
+November 6. Do not mark the entire Week 4 checklist complete until that item is
+confirmed. Next development milestone: ../week-5-plan.md (November 9–13).
+No runtime changes or fresh test/CI results are claimed by this update.
+
+
 ## November 2 requirement review
 
 Saved implementation checkpoint cc9c303 was pushed with green GitHub checks,

@@ -20,7 +20,7 @@ GitHub checks passed, and I checked the Lakeview preview and TXT export.
 My takeaway: explaining what a score does not cover matters just as much as
 explaining its arithmetic.
 
-Final rubric review remains open. All clinic examples are fictional, and the
+The documented prototype scope has been accepted for this stage. All clinic examples are fictional, and the
 scores are provisional—not compliance assessments or breach predictions.
 
 #Cybersecurity #Python #HealthcareCybersecurity #LearningInPublic

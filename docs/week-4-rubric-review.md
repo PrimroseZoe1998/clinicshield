@@ -1,5 +1,15 @@
 # Week 4 rubric review packet
 
+## November 3, 2026 — current acceptance status
+
+Benjamin's reply, supplied by the user on November 3, accepts the documented
+prototype scope. See [approval record](week-4-approval.md) for the decision,
+conditions and evidence provenance. Earlier pending-approval statements below
+are historical and superseded by this record; they are not current blockers.
+The mappings and scores remain draft/provisional. Scope acceptance does not
+validate clinical cybersecurity effectiveness, compliance or production readiness.
+
+
 Prepared November 2, 2026 for implementation ad87f3e. Technical review completed;
 independent rubric sign-off remains unverified. This packet is not an approval.
 
@@ -63,7 +73,7 @@ review changed no runtime code, so tests were not rerun.
 - [x] Technical review packet and documented benchmark disposition prepared.
 - [x] Draft practice-area implementation and exercised manual checks recorded.
 - [x] Updated midpoint LinkedIn draft prepared, not published.
-- [ ] Independent rubric sign-off or explicit milestone scope acceptance.
+- [x] Explicit prototype scope acceptance recorded November 3; see week-4-approval.md.
 - [ ] Midpoint post reviewed and published by the user.
 
 Week 4 remains open; technical implementation for this bounded checkpoint is

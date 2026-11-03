@@ -1,5 +1,15 @@
 # Week 4 acceptance review
 
+## November 3, 2026 — current acceptance status
+
+Benjamin's reply, supplied by the user on November 3, accepts the documented
+prototype scope. See [approval record](week-4-approval.md) for the decision,
+conditions and evidence provenance. Earlier pending-approval statements below
+are historical and superseded by this record; they are not current blockers.
+The mappings and scores remain draft/provisional. Scope acceptance does not
+validate clinical cybersecurity effectiveness, compliance or production readiness.
+
+
 Reviewed November 2, 2026 against the original project brief's Week 4 table and
 Appendix B, implementation checkpoint cc9c303, recorded decisions and observed
 manual checks. Status: implementation substantially progressed; milestone open.
@@ -19,10 +29,10 @@ result was not independently retrieved. No stakeholder sign-off is inferred.
       and labelled provisional; see practice-area-scoring.md. Lakeview app/TXT
       manual verification passed; independent rubric approval remains open. Chart presentation can follow in
       Week 5; the arithmetic is implemented as a draft Week 4 interpretation.
-- [ ] Original three-different-bands benchmark: current samples occupy two bands.
+- [x] Benchmark disposition accepted November 3: current samples occupy two bands.
       Preserve the October 29 recorded model/expectation decision; do not force
       scores or infer that it independently validates every Gate 2 requirement.
-- [ ] Final rubric review/sign-off, including unresolved severity and coverage policy.
+- [x] Prototype rubric scope accepted November 3, with severity and coverage limitations retained.
 - [ ] Midpoint LinkedIn post published by the user. A draft is prepared separately.
 
 ## Fresh November 2 benchmark demonstration
@@ -112,7 +122,7 @@ Independent sign-off and user publication remain outstanding.
 
 - [x] Verify the documented original Westside baseline and a separate explicit
   synthetic post-fix scenario: 80 -> 99, both provisional.
-- [ ] Obtain Benjamin approval of the post-fix assumptions/result and remaining
+- [x] Benjamin accepted November 3 the post-fix assumptions/result and remaining
   benchmark differences. See westside-post-fix-verification.md.
 
 Latest local validation is 2,504 passing tests with the documented UI exclusion.

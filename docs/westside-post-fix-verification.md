@@ -1,5 +1,15 @@
 # Westside initial and synthetic post fix comparison
 
+## November 3, 2026 — current acceptance status
+
+Benjamin's reply, supplied by the user on November 3, accepts the documented
+prototype scope. See [approval record](week-4-approval.md) for the decision,
+conditions and evidence provenance. Earlier pending-approval statements below
+are historical and superseded by this record; they are not current blockers.
+The mappings and scores remain draft/provisional. Scope acceptance does not
+validate clinical cybersecurity effectiveness, compliance or production readiness.
+
+
 Verified November 2, 2026. This is a reproducible regression fixture, not real
 remediation, vendor verification or a forecast. The original Westside sample
 files and 80-point scenario baseline are unchanged. The helper is isolated in
