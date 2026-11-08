@@ -19,11 +19,8 @@ evidence_fields:
   - deployment
   - mfa_enabled
 fix: >-
-  Verify MFA coverage for email accounts and address confirmed
-  gaps with the service owner. Confirm that protection covers all
-  applicable accounts and document necessary exceptions. Review
-  Unknown or NA values rather than treating them as enabled.
-  Evaluate supported authentication options with the administrator.
+  Check email multifactor authentication (MFA) with the service owner. MFA adds a second proof of identity to a password. Fix confirmed gaps. Check that all accounts that need it are covered. Record any needed exceptions. Check Unknown or not applicable (NA) entries; do not treat them as enabled. Ask the IT admin which login options the service supports.
+
 owner: Email administrator or managed service provider
 effort: 2
 cost: unknown

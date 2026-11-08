@@ -13,10 +13,8 @@ unknown_severity: Info
 evidence_fields:
   - Q15
 fix: >-
-  Verify whether guest Wi-Fi can reach clinical systems. Have the
-  responsible network administrator configure appropriate network
-  separation and access restrictions, then test that guest devices
-  cannot reach protected systems while required operations work.
+  Check if guest Wi-Fi can reach clinical systems. Ask the network admin to separate the networks and set access rules. Test that guest devices cannot reach protected systems. Check that needed work still runs.
+
 owner: Network administrator or managed service provider
 effort: 2
 cost: unknown

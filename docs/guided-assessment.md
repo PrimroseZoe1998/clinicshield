@@ -26,8 +26,9 @@ format clears the prior inventory. Return navigation preserves loaded files.
 
 ## Checklist
 
-The catalog in clinicshield/checklist_questions.json carries the reviewed wording,
-definitions and why-we-ask text from docs/checklist.md. Samples start with their
+The catalog in clinicshield/checklist_questions.json carries a plain-language
+rendering of the criteria, definitions and why-we-ask text in docs/checklist.md.
+See readability-review.md for wording review and limits. Samples start with their
 existing answers; uploads start Unknown. Users can edit all 25 question outcomes,
 with Q24 derived from two separate follow-ups and scored once. Q23 is excluded
 when medical-device applicability is No, using the existing scoring policy.

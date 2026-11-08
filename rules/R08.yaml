@@ -26,11 +26,8 @@ evidence_fields:
   - service
   - exposure
 fix: >-
-  Verify OS support and whether SMB is required. For a confirmed
-  unsupported OS, plan a supported upgrade, replacement, or
-  vendor-approved mitigation and restrict unnecessary SMB access.
-  Preserve required clinical operations. Resolve uncertain support
-  evidence before claiming the operating system is unsupported.
+  Check operating system support. Check if Server Message Block (SMB) file sharing is needed. If system support has ended, plan an upgrade or replacement. A vendor-approved workaround may also be an option. Limit SMB access that is not needed. Keep needed clinical work running. Check unclear support evidence before saying that support has ended.
+
 owner: IT administrator and system vendor
 effort: 3
 cost: unknown

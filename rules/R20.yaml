@@ -15,11 +15,8 @@ evidence_fields:
   - Q20
   - Q24a
 fix: >-
-  Verify each safeguard separately. If Q20 is No, establish and
-  document an incident response plan with roles and contact details.
-  If Q24a is No, assign and document security responsibility.
-  Investigate Unknown answers without describing them as confirmed
-  missing controls. Retain separate corrective actions for each gap.
+  Check each safeguard on its own. If Q20 is No, write a plan for a security incident. List roles and contacts. If Q24a is No, name a person in charge of security and record the choice. Check Unknown answers; do not call them confirmed gaps. Keep a separate fix for each gap.
+
 owner: Organizational leadership and designated security official
 effort: 3
 cost: unknown

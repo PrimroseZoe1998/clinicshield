@@ -21,12 +21,8 @@ evidence_fields:
   - exposure
   - Q17
 fix: >-
-  Review each remote-access safeguard described in Q17. Identify
-  unnecessary connections and verify authentication requirements
-  for connections that remain enabled. Coordinate corrective
-  actions with the responsible administrator or vendor.
-  Do not assume that a VPN alone provides sufficient protection
-  or that every listed service lacks MFA.
+  Check each safeguard in Q17 on its own. Find remote links that are not needed. Check the login checks on each link that stays on. Plan fixes with the IT admin or vendor. A virtual private network (VPN) alone may not be enough. Do not assume that every listed service lacks multifactor authentication (MFA).
+
 owner: IT administrator and remote-access service owner
 effort: 2
 cost: unknown

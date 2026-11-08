@@ -1,3 +1,4 @@
+from clinicshield.reader_guidance import SCORE_GUIDE, SCOPE_NOTICE, PRIORITY_GUIDE
 """Create owner-summary and full-detail PDF reports entirely in memory."""
 from pathlib import Path
 import re
@@ -68,7 +69,7 @@ def render_assessment_pdf(report: dict) -> bytes:
     if example:
         _paragraph(pdf, "Fictional example: " + _short(example['clinic'], 65), bold=True)
         _paragraph(pdf, "Evidence mode: " + _short(example['evidence_mode'], 100))
-        _paragraph(pdf, "Demonstration only. Synthetic changes are simulated assumptions, not completed corrective actions or verified improvement.")
+        _paragraph(pdf, "Demo only. These changes are made-up assumptions. They are not completed corrective actions or verified improvement.")
     else:
         _paragraph(pdf, "Supplied assessment: inventory and answers have not been independently verified.")
     pdf.ln(4)
@@ -76,17 +77,18 @@ def render_assessment_pdf(report: dict) -> bytes:
     _paragraph(pdf, f"{score['final']}/100 | {_short(score['band'], 45)}", bold=True, size=20, height=11)
     _paragraph(pdf, f"Safeguards {score['safeguards']:.1f}/100 | Exposure {score['exposure']:.1f}/100")
     _paragraph(pdf, "Weighting: 60% Safeguards + 40% Exposure. Status: " + score['status'].replace('_', ' '))
+    _paragraph(pdf, SCORE_GUIDE, size=8)
     if score.get('critical_ceiling') is not None:
         _paragraph(pdf, f"Confirmed Critical finding: overall score capped at {score['critical_ceiling']}.", bold=True)
     pdf.ln(4)
     _paragraph(pdf, "Read the score with its limits", bold=True, size=11, height=7)
     _paragraph(pdf, f"{len(report['coverage_issues'])} coverage issues | {sum(f['status'] != 'confirmed_from_supplied_evidence' for f in report['findings'])} finding groups need review.")
-    _paragraph(pdf, "Missing evidence is not evidence of safety. Scores and draft practice mappings do not establish regulatory compliance, clinical effectiveness or production readiness.")
+    _paragraph(pdf, SCOPE_NOTICE)
     for item in score['limitations'][:3]:
         _paragraph(pdf, "- " + _short(item, 150))
     pdf.ln(4)
     _paragraph(pdf, "Fix First: highest-ranked actions", bold=True, size=11, height=7)
-    _paragraph(pdf, "Priority is finding points / effort. It does not predict score improvement or actual risk reduction. Verify costs and scope before work.")
+    _paragraph(pdf, PRIORITY_GUIDE)
     actions = report.get('fix_first', {}).get('actions', [])
     for action in actions[:3]:
         _paragraph(pdf, f"#{action['rank']} | " + _short(', '.join(action['rule_ids']) + ' | ' + action['entity_id'], 85), bold=True)
@@ -106,14 +108,14 @@ def render_assessment_pdf(report: dict) -> bytes:
     headings = {"Why this score", "Practice-area results (draft)", "What this score covers",
                 "Evidence age policy", "Coverage requiring attention", "Answers that need reconciliation",
                 "Fix First plan", "Verify before planning remediation", "Findings from supplied evidence",
-                "Items requiring verification"}
+                "Items requiring verification", "How to read this report", "Word guide"}
     for line in render_assessment_text(report).splitlines():
         if not line.strip():
             pdf.ln(2)
             continue
         heading = line in headings or bool(re.match(r"^\d+\. ", line))
         if heading:
-            if pdf.will_page_break(16):
+            if pdf.will_page_break(30 if line in headings else 22):
                 pdf.add_page()
             pdf.ln(2)
         _paragraph(pdf, line, bold=heading, size=10 if heading else 8.5,

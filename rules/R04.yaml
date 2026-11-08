@@ -23,12 +23,8 @@ evidence_fields:
   - source_url
   - retrieved_at
 fix: >-
-  Verify the application release and applicable vendor support
-  coverage. For confirmed unsupported software, plan a supported
-  upgrade, replacement, or vendor-approved mitigation. Coordinate
-  changes with application owners and clinical users. Obtain
-  vendor confirmation for cloud services whose release or support
-  information is not available to the customer.
+  Check the app release and the vendor's support terms. If support has ended, plan an upgrade or replacement. A vendor-approved workaround may also be an option. Plan changes with app owners and clinical users. Ask the cloud vendor for proof when you cannot check its release or support terms.
+
 owner: Application owner and software vendor
 effort: 3
 cost: unknown

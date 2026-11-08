@@ -23,11 +23,8 @@ evidence_fields:
   - kev_status
   - kev_retrieved_at
 fix: >-
-  Verify the affected release and follow the vendor's remediation
-  or mitigation guidance, informed by the corresponding KEV entry.
-  Coordinate changes with the application owner and relevant
-  clinical or device vendor. Reassess applicability after changes.
-  Do not claim exploitation of this organization from KEV membership.
+  Check which software release is affected. Follow the vendor's fix or workaround advice and the matching KEV entry. Plan changes with the app owner and the clinical or device vendor. Check again after the change. A KEV listing does not prove that this clinic was attacked.
+
 owner: Application owner and responsible IT administrator
 effort: 3
 cost: unknown

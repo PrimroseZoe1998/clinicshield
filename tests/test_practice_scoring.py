@@ -37,7 +37,7 @@ def test_practice_export_preserves_global_score_and_reconstructs_safeguards(clin
     assert sum(p["safeguards"]["earned_weight"] for p in data["practices"])==result.safeguards.earned_weight
     assert sum(p["safeguards"]["applicable_weight"] for p in data["practices"])==result.safeguards.applicable_weight
     assert "Practice-area results (draft)" in render_assessment_text(report)
-    assert "not an official HICP crosswalk" in data["notice"]
+    assert "not an official Health Industry Cybersecurity Practices (HICP) crosswalk" in data["notice"]
     assert all(p["status"] in {"draft_provisional","not_applicable"} for p in data["practices"])
 
 

@@ -24,11 +24,8 @@ evidence_fields:
   - kev_status
   - kev_retrieved_at
 fix: >-
-  Verify the affected release and follow the vendor's remediation
-  or mitigation guidance. Coordinate changes with the application
-  owner and relevant clinical or device vendor, then reassess.
-  Absence from KEV or a low EPSS score must not be treated as
-  proof that the vulnerability is harmless or unexploited.
+  Check which software release is affected. Follow the vendor's fix or workaround advice. Plan changes with the app owner and the clinical or device vendor. Check again after the change. A flaw can still be harmful if it is not in KEV. A low EPSS score does not prove that no one has used the flaw in an attack.
+
 owner: Application owner and responsible IT administrator
 effort: 3
 cost: unknown

@@ -17,10 +17,8 @@ evidence_fields:
   - service
   - exposure
 fix: >-
-  Confirm whether Telnet is needed. Disable it where unnecessary
-  and use a supported encrypted administration method. Coordinate
-  changes to medical or vendor-managed devices with the responsible
-  vendor, and verify that required operations still work.
+  Check if Telnet is needed. Turn it off if it is not needed. Use a supported admin method that encrypts the link. Plan changes to medical or vendor-managed devices with their vendor. Check that needed work still runs.
+
 owner: IT administrator or device vendor
 effort: 2
 cost: unknown

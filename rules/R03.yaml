@@ -21,12 +21,8 @@ evidence_fields:
   - source_url
   - retrieved_at
 fix: >-
-  Verify the operating system release and applicable support or
-  extended-security-update coverage. For confirmed unsupported
-  systems, plan a supported upgrade, replacement, or vendor-approved
-  mitigation. Coordinate medical-device changes with the vendor.
-  Resolve uncertain evidence before claiming a system is supported
-  or unsupported.
+  Check the system release and its support terms. Check any paid or extended security updates too. If support has ended, plan an upgrade or a new system. A vendor-approved workaround may also be an option. Plan medical-device changes with the vendor. If the evidence is unclear, check it. Do not yet claim that the system has support or that support has ended.
+
 owner: IT administrator and system vendor
 effort: 3
 cost: unknown

@@ -15,12 +15,8 @@ evidence_fields:
   - Q21
   - Q22
 fix: >-
-  Review each safeguard separately. For a Q21 gap, document how
-  staff should report suspected security problems and whom to contact.
-  For a Q22 gap, establish a process for assessing incidents and
-  obtaining qualified guidance on notification obligations.
-  Verify Unknown answers. Do not treat this finding as a breach
-  determination or a decision that notification is legally required.
+  Check each safeguard on its own. For a Q21 gap, write down how staff should report security problems. Say whom to contact. For a Q22 gap, set a process to review incidents. Get qualified advice on who must be told under the law. Check Unknown answers. This finding does not decide that a breach occurred or that notice is required by law.
+
 owner: Security official and organizational leadership
 effort: 2
 cost: unknown

@@ -14,10 +14,8 @@ evidence_fields:
   - portable
   - encrypted
 fix: >-
-  Verify device encryption status. If encryption is disabled, have the
-  responsible IT administrator enable supported device encryption,
-  securely manage recovery keys, and verify the result. Coordinate
-  changes to managed or medical devices with the responsible vendor.
+  Check whether device encryption is on. Encryption scrambles stored data so a key is needed to read it. If it is off, ask the IT admin to turn on a supported option. Store recovery keys safely and check the result. Plan changes to managed or medical devices with their vendor.
+
 owner: IT administrator or managed service provider
 effort: 2
 cost: unknown

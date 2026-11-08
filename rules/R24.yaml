@@ -19,12 +19,8 @@ evidence_fields:
   - deployment
   - touches_phi
 fix: >-
-  Obtain the installed version or the cloud service's applicable
-  release information from a reliable source. Verify whether the
-  software accesses patient information when that status is unknown.
-  Record unresolved vendor-managed version information explicitly.
-  Reassess vulnerability applicability after verification without
-  inventing a version or treating missing data as safe.
+  Get the installed version or the cloud service's release from a reliable source. If it is unclear, check whether the software has access to patient data. Record version details the vendor has not yet supplied. Then check again which flaws apply. Do not invent a version or treat missing data as safe.
+
 owner: IT administrator or application vendor
 effort: 1
 cost: unknown

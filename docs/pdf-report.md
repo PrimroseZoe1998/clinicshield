@@ -34,3 +34,9 @@ Fresh GitHub CI remains pending for this increment.
 
 Local suite: 2,532 passed excluding the known stalled AppTest file. Changed-file
 medium/high Bandit and git diff --check passed. No fresh CI claimed.
+
+
+November 8 plain-language update: owner guidance and recommended actions use
+shorter sentences. The appendix includes a word guide before technical details.
+Scoring/evidence/source content remains intact. See readability-review.md for
+screening method and limitations; it is not a universal grade-8 certification.

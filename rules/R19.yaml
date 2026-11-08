@@ -13,10 +13,8 @@ unknown_severity: Info
 evidence_fields:
   - Q16
 fix: >-
-  Review each safeguard listed in Q16 with the responsible network
-  administrator. Identify and correct deficient settings, document
-  the changes, and verify required connectivity. Do not assume every
-  listed safeguard is missing from a single No answer.
+  Check each Q16 safeguard with the network admin. Fix the settings that are confirmed to be wrong. Record the changes. Check that needed network links still work. One No answer does not prove that every safeguard is missing.
+
 owner: Network administrator or managed service provider
 effort: 2
 cost: unknown

@@ -21,12 +21,8 @@ evidence_fields:
   - evidence_source
   - observed_at
 fix: >-
-  Review required medical-device communications with the device
-  vendor, clinical owner, and network administrator. Address
-  confirmed separation gaps using an appropriate network design
-  and access restrictions, then verify required operations and
-  permitted traffic. Do not change device connectivity solely
-  from a segment label or disrupt necessary clinical functions.
+  Ask the device vendor, clinical owner and network admin which links the medical device needs. For a confirmed gap, agree a network design and access rules. Check that allowed traffic and needed work still run. A network segment label alone is not a reason to change device links. Do not disrupt needed clinical work.
+
 owner: Network administrator and medical-device vendor
 effort: 3
 cost: unknown

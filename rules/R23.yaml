@@ -13,11 +13,8 @@ unknown_severity: Info
 evidence_fields:
   - Q25
 fix: >-
-  Review the training expectations in Q25 and identify missing
-  activities. Arrange appropriate staff security training, document
-  participation, and establish a repeatable process for new staff
-  and refresher training. Verify Unknown answers before describing
-  training as absent.
+  Check each training step in Q25. Find what is missing. Arrange staff security training that fits their work. Record who took part. Set a repeatable process for new staff and refresher training. Check Unknown answers before saying training is absent.
+
 owner: Security official and staff training coordinator
 effort: 2
 cost: unknown

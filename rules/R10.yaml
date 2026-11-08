@@ -20,12 +20,8 @@ evidence_fields:
   - evidence_source
   - observed_at
 fix: >-
-  Verify whether default administrator credentials apply to this
-  device. If an unchanged default password is confirmed, coordinate
-  a supported credential change with the responsible administrator
-  or vendor and securely manage the replacement credentials.
-  Preserve required operations. Never include passwords in
-  assessment inputs, evidence, or logs.
+  Check if this device still uses a default admin login. If the default password is unchanged, plan a supported change with the IT admin or vendor. Store the new login details safely. Keep needed work running. Never put passwords in the input files, evidence or logs.
+
 owner: Device administrator or responsible vendor
 effort: 2
 cost: unknown

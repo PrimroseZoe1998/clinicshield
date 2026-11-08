@@ -16,12 +16,8 @@ evidence_fields:
   - Q10
   - Q11
 fix: >-
-  Review the Q10 safeguards separately and address confirmed gaps
-  in backup frequency or separation from daily work access.
-  If Q11 is No, arrange a controlled restore test and document
-  its results. Investigate Unknown answers without calling them
-  confirmed missing controls. Coordinate testing to avoid
-  disrupting clinical operations.
+  Check each Q10 safeguard on its own. Fix confirmed gaps in how often backups run. Check that backups are separate from daily work access. If Q11 is No, plan a controlled restore test. Record the result. Check Unknown answers; do not call them confirmed gaps. Plan tests so clinical work is not disrupted.
+
 owner: IT administrator and backup service provider
 effort: 3
 cost: unknown

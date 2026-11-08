@@ -8,10 +8,12 @@ from clinicshield.scoring import SafeguardsScore, combine_scores, score_exposure
 PRACTICES = ((1, 'Email protection', ('Q01', 'Q02'), ('R12',)), (2, 'Endpoint protection', ('Q03', 'Q04', 'Q05'), ('R05', 'R15')), (3, 'Access management', ('Q06', 'Q07', 'Q08', 'Q09'), ('R10', 'R13', 'R14')), (4, 'Data protection', ('Q10', 'Q11', 'Q12', 'Q13'), ('R16', 'R17')), (5, 'Asset management', ('Q14',), ('R24',)), (6, 'Network management', ('Q15', 'Q16', 'Q17'), ('R06', 'R07', 'R09', 'R18', 'R19')), (7, 'Vulnerability management', ('Q18', 'Q19'), ('R01', 'R02', 'R03', 'R04', 'R08')), (8, 'Incident response', ('Q20', 'Q21', 'Q22'), ('R20', 'R21')), (9, 'Network-connected medical devices', ('Q23',), ('R11',)), (10, 'Security oversight and governance', ('Q24', 'Q25'), ('R22', 'R23')))
 
 NOTICE = (
-    "Draft practice views use project checklist categories, not an official HICP crosswalk. "
-    "Safeguards reflects reported answers. Exposure shows known deductions only; no confirmed "
-    "technical findings means unassessed, not 100. Combined scores require both components. "
-    "All numeric results are provisional. Practice values do not add or average into the overall score."
+    "These practice views are a draft. They use project groups, not an official "
+    "Health Industry Cybersecurity Practices (HICP) crosswalk. Safeguards uses your "
+    "answers. Exposure shows known deductions only. No confirmed technical findings "
+    "means unassessed, not 100. Both parts are needed for a combined score. "
+    "All scores are provisional: checks are still open. Practice scores do not add "
+    "or average into the overall score."
 )
 
 
@@ -80,7 +82,7 @@ def practice_lines(data):
     lines = [data["notice"]]
     for row in data["practices"]:
         s, e, c = row["safeguards"], row["exposure"], row["combined"]
-        label = f"{row['practice_id']}. {row['name']} [{row['status']}]"
+        label = f"{row['practice_id']}. {row['name']} [{row['status'].replace('_', ' ')}]"
         safeguards = f"{s['score']['value']:.2f}/100 ({s['earned_weight']}/{s['applicable_weight']} weight)" if s["score"] else "not applicable (no applicable questions)"
         exposure = f"{e['score']['value']:.2f}/100; known deductions only" if e["score"] else "unassessed"
         combined = f"{c['score']}/100; {c['band']}" if c["score"] is not None else "unavailable; both components required"

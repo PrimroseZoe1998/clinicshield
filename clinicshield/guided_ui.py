@@ -1,3 +1,4 @@
+from clinicshield.reader_guidance import PRIVACY_NOTICE, glossary_lines
 """Five-screen Streamlit journey. Assessment state stays in the current session."""
 import json
 from datetime import datetime, timezone
@@ -19,6 +20,9 @@ CHOICES = ["Unknown", "Yes", "No"]
 def run_guided_app(st, root, clinics, evaluate, render_results, render_fix_first):
     st.set_page_config(page_title="ClinicShield", layout="wide")
     st.title("ClinicShield")
+    with st.expander("Word guide and file types"):
+        for line in glossary_lines():
+            st.text(line)
     if "guided" not in st.session_state:
         st.session_state["guided"] = new_state()
     state = st.session_state["guided"]
@@ -55,7 +59,7 @@ def run_guided_app(st, root, clinics, evaluate, render_results, render_fix_first
 
     if step == 0:
         st.subheader("Start your checkup")
-        st.info("Do not upload patient data, passwords or recovery codes. Your inputs stay in this session: they are not saved to disk, and ClinicShield does not scan your network.")
+        st.info(PRIVACY_NOTICE)
         old = state["source"]
         mode = st.radio("Assessment source", ["Fictional example", "Upload inventory"],
                         index=1 if old and old[0] == "Upload inventory" else 0)
@@ -89,7 +93,7 @@ def run_guided_app(st, root, clinics, evaluate, render_results, render_fix_first
                 state["revision"] += 1
                 invalidate(state)
             state["format"] = fmt
-            st.caption("Assets and software are required. Network services are optional. Missing coverage stays visible.")
+            st.caption("Upload the device list and software list. You may also add network services. Any gaps in what we can check stay visible.")
             for kind in ("assets", "software", "services"):
                 st.download_button(f"Download {kind} CSV template", (Path(root) / "templates" / f"{kind}.csv").read_bytes(), file_name=f"{kind}.csv", mime="text/csv")
             if fmt == "Excel workbook":
@@ -110,11 +114,11 @@ def run_guided_app(st, root, clinics, evaluate, render_results, render_fix_first
             previous = dict(state["options"])
             opts = state["options"]
             opts["observation_days"] = int(st.number_input("Administrator observation age limit in days", min_value=1, max_value=365, value=opts.get("observation_days",30)))
-            st.caption("This limit is illustrative. Public-feed freshness uses the provisional eight-day limit.")
+            st.caption("This is a draft age limit for staff checks. Saved public feeds use a draft eight-day limit.")
             opts["use_caches"] = st.checkbox("Load saved public-feed caches", value=opts.get("use_caches",False))
             if opts["use_caches"]:
                 opts["cache_directory"] = st.text_input("Public-feed cache folder", value=opts.get("cache_directory",str(Path(root)/"data/cache")))
-                st.caption("Reads saved public feeds locally. No feeds are downloaded and no applicability is inferred.")
+                st.caption("Reads saved public feeds on this server. It does not fetch feeds or assume a flaw affects your software.")
                 if not scenario:
                     file_input("Reviewed OS lifecycle mappings (JSON)","lifecycle_mappings","json",options=True)
                     file_input("Reviewed NVD software mappings (JSON)","nvd_mappings","json",options=True)
@@ -136,7 +140,7 @@ def run_guided_app(st, root, clinics, evaluate, render_results, render_fix_first
 
     if step == 2:
         st.subheader("Security practices checklist")
-        st.caption("Choose Unknown when you have not checked. Yes represents a safer practice; Unknown earns no Safeguards points.")
+        st.caption("Choose Unknown if you have not checked. Yes is the safer answer. Unknown earns no Safeguards points.")
         with st.expander("Load saved checklist answers"):
             saved = st.file_uploader("Checklist answers (JSON)", type=["json"], key="saved-checklist")
             follow = st.file_uploader("Follow-up answers (legacy JSON only)", type=["json"], key="saved-followups")
@@ -170,7 +174,7 @@ def run_guided_app(st, root, clinics, evaluate, render_results, render_fix_first
                 answers["Q24"] = derive_q24(followups)
                 st.text("Q24 derived answer: " + answers["Q24"] + " (scored once)")
             elif q["id"] == "Q23" and presence == "No":
-                st.info("Q23 is not applicable because no network-connected medical devices are present.")
+                st.info("Q23 does not apply because you said there are no medical devices on the network.")
             else:
                 answers[q["id"]] = choose(q["id"] + " answer", answers[q["id"]],prefix+q["id"])
         set_checklist(state, Checklist(answers, followups, presence))

@@ -1,3 +1,4 @@
+from clinicshield.reader_guidance import SCORE_GUIDE, SCOPE_NOTICE, glossary_lines
 from clinicshield.practice_scoring import practice_lines
 from clinicshield.score_explanation import explanation_lines
 from decimal import Decimal
@@ -23,6 +24,9 @@ def render_assessment_text(report: dict) -> str:
         f"Exposure score: {score['exposure']:.1f}/100",
         "Overall weighting: 60% Safeguards and 40% Exposure.",
     ]
+
+    lines.extend(["", "How to read this report", SCORE_GUIDE, SCOPE_NOTICE,
+                  "", "Word guide", *glossary_lines(), ""])
 
     if "score_explanation" in report:
         lines.extend(["", "Why this score", *explanation_lines(report["score_explanation"]), ""])

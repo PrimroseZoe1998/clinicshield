@@ -1,3 +1,4 @@
+from clinicshield.reader_guidance import SCORE_GUIDE, TABLE_GUIDE
 from clinicshield.findings_table import finding_rows, ordered_findings
 from clinicshield.report_pdf import render_assessment_pdf
 from clinicshield.report_exports import render_findings_csv, render_checklist_json
@@ -174,10 +175,10 @@ def render_results(report):
 
     score = report["score"]
     st.subheader("Scores within the assessed scope")
+    st.caption(SCORE_GUIDE)
     if score["status"] == "provisional":
         st.warning(
-            "Provisional score: evidence, coverage, or rule-review "
-            "decisions remain unresolved."
+            "Provisional score: some evidence is missing or checks still need review."
         )
 
     overall, safeguards, exposure = st.columns(3)
@@ -219,11 +220,7 @@ def render_results(report):
             )
 
     st.subheader("Findings overview")
-    st.caption(
-        "Confirmed findings appear first, then items needing review. Within each "
-        "group: severity, then Exposure points before caps. This order is not an "
-        "estimate of actual risk reduction. Use Ref to find full details below."
-    )
+    st.caption(TABLE_GUIDE)
     status_filter = st.selectbox(
         "Show findings", ["All findings", "Confirmed findings", "Needs review"],
         key="findings-status-filter",

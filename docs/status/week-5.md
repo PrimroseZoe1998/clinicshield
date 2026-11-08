@@ -2,31 +2,34 @@
 
 ## Done
 
-November 8: exports 9006866, PDF 4d58d1e and guided-flow 4d5db8a pushed;
-green CI reported by the user. Exercised sample flow, four downloads,
-saved-answer re-upload, PDF summary/appendix and edited Q02 export confirmed.
+November 8: exports, PDF, guided flow and findings-table checkpoint dccfcfc pushed;
+green CI reported by the user. Exercised sample paths verified manually.
 
-Results findings table implemented locally: confirmed/review status, severity,
-entity, rules, evidence, pre-cap points, status filter and stable references to
-full details. Ordering is confirmed first, then review; severity and points within
-each group. Scores, export contents and Fix First ranks are unchanged. See
-../findings-table.md.
+Plain-language increment implemented locally: shorter core guidance, all 25
+checklist entries and 24 rule actions; shared word guide in app/TXT/PDF;
+plain practice status labels and refreshed fictional PDFs. Non-fix rule fields
+are unchanged. Scores remain 65/82/80. See ../readability-review.md.
 
-Validation: 2,556 tests passed with no exclusions, including real Streamlit
-filtering/score checks. Changed-file medium/high Bandit and diff checks passed.
-User screenshots verify Needs review shows 32 of 38 Lakeview groups, and F007
-matches the R04 cloud:1 detail, supporting evidence and unconfirmed status.
-This covers the exercised path; fresh GitHub CI remains pending.
+Screening: 56 selected prose blocks estimate grade 8 or below with a documented
+local heuristic. Raw evidence, technical IDs and source/reference text retain
+formal terms; the literal all-text criterion is not independently demonstrated.
+A human comprehension and timed first-time-user check remain open.
+
+Validation: 2,558 tests passed without exclusions. Changed-file medium/high Bandit
+and diff checks passed. All sample PDF pages were rendered and visually reviewed.
+After the page-break adjustment, eight PDF/guidance checks passed again. User
+screenshot confirms the word guide; the user also confirmed the updated PDF
+owner summary and appendix on the sample path. Fresh GitHub CI remains pending.
 
 ## Next
 
-Save/push the verified findings-table checkpoint and check CI. Continue
-reading-level review, Docker packaging and hosted deployment requirements.
+Save/push this verified wording checkpoint and check CI. Continue Docker
+packaging, ownership/hosting prerequisites and usability checks.
 
 ## Blocked
 
-No implementation blocker. Week 3 framework references remain unresolved.
-Resolve repository ownership/transfer before deployment per the brief.
+Week 3 framework-reference gaps remain unresolved. Resolve repository ownership
+before deployment per the brief.
 
 ## Ask
 

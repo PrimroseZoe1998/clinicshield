@@ -13,10 +13,8 @@ unknown_severity: Info
 evidence_fields:
   - Q06
 fix: >-
-  Identify shared logins and provide individual accounts where
-  supported. Review permissions and document vendor constraints.
-  Coordinate changes to clinical or medical systems with their
-  responsible owners to preserve required operations.
+  Find shared logins. Give each user their own account where the system supports it. Check access rights. Record any vendor limits. Plan changes to clinical or medical systems with their owners. Keep needed work running.
+
 owner: IT administrator and system owner
 effort: 2
 cost: unknown

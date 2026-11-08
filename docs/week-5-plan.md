@@ -74,3 +74,14 @@ The Results overview table is now implemented locally with status filtering,
 severity/points ordering, evidence and stable links to detailed findings. See
 findings-table.md. Browser verification and fresh CI remain pending. Next work
 is the reading-level pass, Docker packaging, and deployment prerequisites/checks.
+
+
+## November 8 plain-language increment
+
+Findings-table checkpoint dccfcfc is pushed with green CI reported by the user.
+Core instructions, checklist wording and recommended fixes are now simplified
+locally, with a shared word guide and refreshed sample PDFs. See
+readability-review.md for the grade-screening scope and technical-text exceptions.
+Do not mark the literal all-text grade-8 condition as universally validated.
+Next: manual wording check, Docker packaging, deployment prerequisites and the
+timed first-time-user/comprehension checks.

@@ -13,10 +13,8 @@ unknown_severity: Info
 evidence_fields:
   - Q24b
 fix: >-
-  Verify whether a recent documented risk analysis exists and
-  addresses the organization's systems and risks. If missing,
-  arrange an appropriately scoped analysis, document the findings,
-  and assign follow-up actions to responsible owners.
+  Check if there is a recent written risk analysis. It must cover the clinic's systems and risks. If it is missing, arrange a review with the right scope. Record the findings. Name an owner for each follow-up task.
+
 owner: Security official and organizational leadership
 effort: 3
 cost: unknown

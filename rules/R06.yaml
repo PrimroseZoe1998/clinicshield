@@ -20,12 +20,8 @@ evidence_fields:
   - service
   - exposure
 fix: >-
-  Verify whether remote administration is reachable from the
-  internet and whether that access is necessary. Restrict exposure
-  using an appropriately secured access design, review authentication
-  and access controls, and disable unnecessary services. Verify
-  Unknown exposure before describing a service as internet-facing.
-  Coordinate changes to preserve required operations.
+  Check if remote admin access can be reached from the internet. Ask if that access is needed. Use a secure access design to limit who can connect. Check login and access rules. Turn off services that are not needed. If exposure is Unknown, check it before calling a service internet-facing. Plan changes so needed work can continue.
+
 owner: Network administrator and system owner
 effort: 2
 cost: unknown

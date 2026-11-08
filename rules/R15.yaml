@@ -14,11 +14,8 @@ unknown_severity: Info
 evidence_fields:
   - Q03
 fix: >-
-  Review endpoint protection coverage and update status with the
-  responsible IT administrator. Identify affected computers and
-  correct confirmed gaps using supported protection. Coordinate
-  changes to medical or vendor-managed systems with their vendors.
-  Investigate Unknown answers before describing protection as absent.
+  Ask the IT admin to check virus and threat protection on work computers. Check its update status too. Find the affected computers. Fix confirmed gaps with supported tools. Plan medical or vendor-managed system changes with their vendor. Check Unknown answers before saying protection is absent.
+
 owner: IT administrator or managed service provider
 effort: 2
 cost: unknown

@@ -20,11 +20,8 @@ evidence_fields:
   - deployment
   - mfa_enabled
 fix: >-
-  Verify MFA coverage and supported authentication options with
-  the application owner. Address confirmed gaps and document
-  constraints or exceptions. Investigate Unknown and NA values
-  rather than treating them as enabled. Coordinate changes with
-  clinical users and vendors to preserve required access.
+  Check MFA coverage and supported login options with the app owner. Fix confirmed gaps. Record limits and exceptions. Check Unknown or NA entries; do not treat them as enabled. Plan changes with clinical users and vendors so needed access still works.
+
 owner: Application administrator and system vendor
 effort: 2
 cost: unknown

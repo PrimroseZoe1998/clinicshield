@@ -11,11 +11,12 @@ ACTION_GROUPS = (
 POLICY_RULES = {"R17", "R20", "R21", "R22", "R23"}
 PLAN_NOTICE = (
     "Priority is finding points divided by effort, not an estimated score increase. "
-    "Entity caps, overlapping findings and the Critical ceiling affect score changes. "
-    "Checklist priorities add no extra score deductions. Ranks compare across groups. "
-    "Repeated actions use the highest points and highest effort, not summed priorities. "
-    "Essential-goal ties use existing reviewed checklist relationships, with partial coverage; "
-    "they do not establish full CPG compliance. Unknown costs require an estimate."
+    "It does not predict a drop in real risk. Caps, shared findings and the Critical "
+    "score limit affect score changes. Checklist findings add no extra score loss. "
+    "Ranks compare all groups. For repeated actions, we use the highest points and "
+    "highest effort. We do not add their priorities. Ties use reviewed checklist "
+    "links to Essential goals. These links are partial and do not prove full "
+    "Cybersecurity Performance Goals (CPG) compliance. Get an estimate for unknown costs."
 )
 
 
