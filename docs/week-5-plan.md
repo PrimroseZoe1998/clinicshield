@@ -94,3 +94,12 @@ allowlisted .dockerignore, local guide and a dedicated container workflow are no
 prepared. Docker is absent locally, so build/startup and clean-machine acceptance
 remain pending successful Docker-equipped verification. See docker.md for scope.
 No public deployment or registry publishing is performed by this workflow.
+
+
+## November 8 deployment decision correction
+
+Gate 1 already records Benjamin's October 16 waiver of repository transfer and
+October 18 retention of ChiEAC branding/service terms. Earlier transfer-blocker
+statements in this plan are superseded; deploy from PrimroseZoe1998/clinicshield.
+See deploy-streamlit.md for prepared Community Cloud settings and remaining
+hosted verification. No transfer or public deployment has been performed here.

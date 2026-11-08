@@ -11,3 +11,10 @@ Regeneration: call app.generate_example(clinic, 30, True), then
 clinicshield.report_pdf.render_assessment_pdf(report). Save returned bytes only
 when deliberately generating fictional sample artifacts. Generation timestamps
 change on rerun; score arithmetic does not. Font license: clinicshield/fonts/.
+
+
+CSV companion samples added November 8 using the same documented fictional
+scenario modes and 65/82/80 expectations. Generate with
+`.venv/Scripts/python.exe scripts/create_demo_csv.py`. Each CSV includes all
+confirmed/review finding groups and evidence. CSV generation timestamps may
+differ from the PDF snapshots; these are not real clinic assessment records.

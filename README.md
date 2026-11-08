@@ -50,8 +50,10 @@ uploaded inputs have not been independently verified by ClinicShield.
 
 A Dockerfile and container build/smoke workflow are prepared. See the
 [Docker guide](docs/docker.md) for build/run commands, local port mapping and
-verification limits. Docker is unavailable on the development computer; a passing
-container workflow or Docker-equipped-machine check is still required.
+verification limits. Docker is unavailable on the development computer; green container CI after
+7210788 was reported by the developer. Hosted verification is still pending.
+See the [hosted v0.9 preparation](docs/deploy-streamlit.md) for Community Cloud
+settings and the existing repository-transfer waiver.
 
 ## Evidence and refreshes
 

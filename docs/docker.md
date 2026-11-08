@@ -68,8 +68,8 @@ original clean-machine benchmark complete from static file checks alone.
 The Python 3.13 slim tag is maintained upstream and is not pinned by digest here.
 Dependencies use the existing requirements file, including development tools.
 A smaller runtime-only lockfile and digest-pinned release are later hardening
-options. Ownership/transfer and hosting prerequisites remain open before public
-deployment. Docker packaging does not validate unresolved framework mappings.
+options. Repository transfer is waived by the recorded Gate 1 decision; see
+deploy-streamlit.md. Hosted verification prerequisites remain open. Docker packaging does not validate unresolved framework mappings.
 
 References: [Streamlit Docker guide](https://docs.streamlit.io/deploy/tutorials/docker),
 [Dockerfile reference](https://docs.docker.com/reference/dockerfile/), and
@@ -94,3 +94,8 @@ rule and now names the unexpected path. Six local layout-check tests pass,
 including rejection of empty report/cache/development directories and a dummy
 secret file. Bandit medium/high and diff checks pass. A rebuilt runner check is
 still required; startup and clean-machine acceptance are not yet established.
+
+
+November 8 runner update: after 7210788 the user reported green checks. This is
+user-reported CI evidence, not independently retrieved runner logs. The local
+computer still has no Docker installation. Hosted behavior remains separate.

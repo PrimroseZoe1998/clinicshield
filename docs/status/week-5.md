@@ -2,36 +2,34 @@
 
 ## Done
 
-November 8: exports, PDF, guided flow, findings table and wording checkpoint
-e83df4f pushed; green CI reported by the user. Exercised sample paths verified.
-Reading screen covers 56 prose blocks; technical-text exceptions and human
-comprehension/timed-user checks remain documented in ../readability-review.md.
+November 8: user reported green after container correction 7210788. No independent
+runner-log retrieval is claimed. Docker remains unavailable on this computer.
 
-Docker packaging prepared locally: Python 3.13 image, existing pinned dependencies,
-non-root user, allowlisted build context, health check and run guide. New
-ClinicShield container workflow builds the image, checks offline sample scores
-and exports, then verifies Streamlit startup. No registry publishing. See
-../docker.md.
+Hosted v0.9 preparation saved locally: Community Cloud fields for
+PrimroseZoe1998/clinicshield, main, app.py, Python 3.13; Streamlit config disables
+usage statistics/file watching and sets a 10 MB upload ceiling. Three fictional
+CSV companions added at 65/82/80 with all finding groups. See ../deploy-streamlit.md.
 
-Validation: workflow YAML, Python smoke-script syntax and Docker JSON commands
-checked; 33 sample/export/PDF tests passed. Changed-script medium/high Bandit and
-diff checks passed. User runner screenshot confirms 74828c8 built successfully; offline checks
-failed on unexpected image content, and startup was skipped. Copy scope is now
-limited to the three named clinics, report directories excluded explicitly, and
-errors name the path. Six layout tests passed; rebuilt container CI is pending.
+Corrected a stale ownership blocker: Gate 1 records Benjamin's October 16
+transfer waiver and October 18 retention of ChiEAC branding/service terms.
+Repository transfer is not required.
+
+Validation: Streamlit loaded all four config settings; 27 sample/export tests
+passed; CSV counts checked; changed-script Bandit and diff checks passed.
+No public deployment, new commit/push or fresh CI claimed for this increment.
 
 ## Next
 
-Save/push packaging and check both existing checks and the new container workflow.
-Verify a sample in a running container. Continue ownership/hosting prerequisites
-and timed first-time-user/comprehension checks.
+SECURITY.md now lists zmangwendeza@gmail.com with explicit user consent. No email
+was sent; delivery is untested. Save/push preparation, then deploy and verify the
+actual hosted URL and revision.
 
 ## Blocked
 
-Docker CLI/Desktop is absent locally. Container and clean-machine benchmarks
-remain pending the Docker-equipped runner. Week 3 framework gaps and repository
-ownership before deployment remain unresolved.
+Hosted logs/session checks and timed first-time-user/comprehension checks remain.
+Week 3 framework-reference gaps remain unresolved.
 
 ## Ask
 
-Week 4 LinkedIn publication remains unconfirmed.
+Sign in to Streamlit Community Cloud for deployment. Week 4 LinkedIn publication
+is still unconfirmed.
