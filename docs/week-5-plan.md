@@ -55,3 +55,13 @@ Findings CSV and reusable checklist JSON are now implemented locally; see
 report-exports.md. They preserve the existing model. Remaining order: PDF report,
 five-screen/checklist/results work, readability/sample verification, packaging
 and deployment. Week 4 publication is not assumed complete without confirmation.
+
+
+## November 8 guided-flow increment
+
+PDF checkpoint 4d58d1e is pushed with green CI reported by the user. Guided
+five-screen navigation and an interactive checklist are now implemented locally;
+see guided-assessment.md for scope, input/state handling and verification.
+Local tests pass without the former UI-file exclusion. Browser confirmation and
+CI remain pending for this increment. Next: risk-sorted findings table, reading
+level, packaging and deployment. The accepted scoring model is unchanged.

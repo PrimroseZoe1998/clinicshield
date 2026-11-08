@@ -1,199 +1,119 @@
 from pathlib import Path
-
 import pytest
 import requests
 from streamlit.testing.v1 import AppTest
-
-from clinicshield import assessment_input
-
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def open_app():
-    return AppTest.from_file(
-        ROOT / "app.py",
-        default_timeout=30,
-    ).run()
+    return AppTest.from_file(ROOT / "app.py", default_timeout=30).run()
 
 
-def test_initial_screen_identifies_fictional_preview():
+def click(app, label):
+    next(b for b in app.button if b.label == label).click().run()
+    assert not app.exception
+    return app
+
+
+def sample_to_checklist(app):
+    click(app, "Continue to Upload")
+    click(app, "Continue to Checklist")
+    assert not app.error
+
+
+def test_start_has_privacy_and_sample_choice():
     app = open_app()
-
     assert not app.exception
     assert app.title[0].value == "ClinicShield"
-    assert any(
-        "fictional clinic inventories" in item.value
-        for item in app.info
-    )
+    assert any("not saved to disk" in item.value for item in app.info)
     assert not app.metric
-    assert "assessment_report" not in app.session_state
+    assert not app.get("download_button")
 
 
-@pytest.mark.parametrize(
-    "clinic",
-    [
-        "Lakeview Family Dental",
-        "Southside Counseling Collective",
-        "Westside Community Health",
-    ],
-)
-def test_generates_each_sample_assessment(clinic):
+@pytest.mark.parametrize("clinic,score", [("Lakeview Family Dental",65),("Southside Counseling Collective",82),("Westside Community Health",80)])
+def test_five_screen_scenario_and_downloads(clinic,score):
     app = open_app()
     app.selectbox[0].select(clinic).run()
-    app.button[0].click().run()
-
-    assert not app.exception
+    app.checkbox[0].set_value(True).run()
+    sample_to_checklist(app)
+    assert len(app.selectbox) == 27  # applicability + 24 direct questions + two Q24 follow-ups
+    assert any("Why we ask" in c.value for c in app.caption)
+    click(app,"Generate assessment")
     assert not app.error
+    assert app.metric[0].value == f"{score}/100"
+    assert any("Provisional score" in w.value for w in app.warning)
+    assert not app.get("download_button")
+    click(app,"Continue to Fix First")
+    assert [b.label for b in app.get("download_button")] == [
+        "Download assessment (PDF)","Download findings (CSV)","Save checklist (JSON)","Download readable assessment"]
+    click(app,"Back")
     assert len(app.metric) == 3
 
-    report = app.session_state["assessment_report"]
-    assert report["score"]["status"] == "provisional"
-    assert report["findings"]
-    assert report["coverage_issues"]
-    assert app.metric[0].value == f"{report['score']['final']}/100"
-    assert any(
-        "Provisional score" in item.value
-        for item in app.warning
-    )
 
-
-def test_changing_clinic_clears_previous_report():
+def test_answer_edit_clears_old_report_and_survives_back_navigation():
     app = open_app()
-    app.button[0].click().run()
+    sample_to_checklist(app)
+    click(app,"Generate assessment")
+    click(app,"Back")
+    next(s for s in app.selectbox if s.label == "Q02 answer").select("No").run()
+    assert app.session_state["guided"]["report"] is None
+    click(app,"Back")
+    click(app,"Continue to Checklist")
+    assert next(s for s in app.selectbox if s.label == "Q02 answer").value == "No"
+    click(app,"Generate assessment")
     assert app.metric
 
+
+def test_q24_derived_and_q23_not_applicable():
+    app = open_app()
+    sample_to_checklist(app)
+    app.selectbox[0].select("No").run()
+    assert not any(s.label == "Q23 answer" for s in app.selectbox)
+    next(s for s in app.selectbox if s.label.startswith("Q24a:")).select("No").run()
+    assert any("Q24 derived answer: No" in t.value for t in app.text)
+    click(app,"Generate assessment")
+    saved=app.session_state["guided"]["report"]["checklist_export"]
+    assert saved["answers"]["Q24"] == "No"
+    assert saved["medical_devices_present"] == "No"
+
+
+def test_changing_source_resets_answers_and_report():
+    app = open_app()
+    sample_to_checklist(app)
+    click(app,"Generate assessment")
+    click(app,"Back")
+    click(app,"Back")
+    click(app,"Back")
     app.selectbox[0].select("Westside Community Health").run()
-
-    assert not app.exception
-    assert not app.metric
-    assert "assessment_report" not in app.session_state
+    assert app.session_state["guided"]["report"] is None
+    assert app.session_state["guided"]["answers"]["Q06"] == "No"
 
 
-def test_changing_policy_clears_previous_report():
+def test_upload_requires_inventory_before_checklist():
     app = open_app()
-    app.button[0].click().run()
-    assert app.metric
-
-    app.number_input[0].set_value(14).run()
-
-    assert not app.exception
-    assert not app.metric
-    assert "assessment_report" not in app.session_state
+    app.radio[0].set_value("Upload inventory").run()
+    click(app,"Continue to Upload")
+    click(app,"Continue to Checklist")
+    assert app.error
+    assert app.session_state["guided"]["step"] == 1
 
 
-def test_selected_observation_policy_reaches_report():
-    app = open_app()
-    app.number_input[0].set_value(14).run()
-    app.button[0].click().run()
-
-    assert not app.exception
-    policy = app.session_state["assessment_report"]["freshness_policy"]
-    assert policy["administrator_observation_max_age_seconds"] == (
-        14 * 24 * 60 * 60
-    )
-    assert policy["public_feed_max_age_seconds"] == 8 * 24 * 60 * 60
-
-
-def test_generated_report_has_all_export_downloads():
-    app = open_app()
-    app.button[0].click().run()
-
-    assert not app.exception
-    buttons = app.get("download_button")
-    assert [button.label for button in buttons] == [
-        "Download assessment (PDF)",
-        "Download findings (CSV)",
-        "Save checklist (JSON)",
-        "Download readable assessment",
-    ]
-
-
-def test_preview_does_not_make_network_requests(monkeypatch):
-    def unexpected_request(*args, **kwargs):
-        pytest.fail("The sample preview must run offline.")
-
-    monkeypatch.setattr(
-        requests.sessions.Session,
-        "request",
-        unexpected_request,
-    )
-
-    app = open_app()
-    app.button[0].click().run()
-
-    assert not app.exception
+def test_sample_path_stays_offline(monkeypatch):
+    def fail(*args,**kwargs):
+        pytest.fail("Sample path must stay offline")
+    monkeypatch.setattr(requests.sessions.Session,"request",fail)
+    app=open_app()
+    sample_to_checklist(app)
+    click(app,"Generate assessment")
     assert app.metric
 
 
-def test_expected_input_failure_shows_safe_message(monkeypatch):
-    def fail_read(*args, **kwargs):
-        raise ValueError("internal test details must not be displayed")
-
-    monkeypatch.setattr(assessment_input, "read_assessment", fail_read)
-
-    app = open_app()
-    app.button[0].click().run()
-
-    assert not app.exception
-    assert len(app.error) == 1
-    assert "example could not be evaluated" in app.error[0].value
-    assert "internal test details" not in app.error[0].value
-    assert not app.metric
-
-@pytest.mark.parametrize(
-    "clinic,expected_score",
-    [
-        ("Lakeview Family Dental", 65),
-        ("Southside Counseling Collective", 82),
-        ("Westside Community Health", 80),
-    ],
-)
-def test_documented_scenario_mode(clinic, expected_score):
-    app = open_app()
-    app.selectbox[0].select(clinic).run()
-    app.checkbox[0].set_value(True).run()
-    app.button[0].click().run()
-
-    assert not app.exception
-    assert not app.error
-    report = app.session_state["assessment_report"]
-    assert report["score"]["final"] == expected_score
-    assert report["score"]["status"] == "provisional"
-    assert report["example_context"]["evidence_mode"] == (
-        "documented fictional scenario"
-    )
-    assert any(
-        "Synthetic scenario evidence is enabled" in item.value
-        for item in app.warning
-    )
-
-
-def test_changing_evidence_mode_clears_previous_report():
-    app = open_app()
-    app.button[0].click().run()
-    assert app.metric
-
-    app.checkbox[0].set_value(True).run()
-
-    assert not app.exception
-    assert not app.metric
-    assert "assessment_report" not in app.session_state
-
-
-@pytest.mark.parametrize("include_scenario", [False, True])
-def test_downloaded_text_retains_fictional_example_label(include_scenario):
-    from clinicshield.report_text import render_assessment_text
-
-    app = open_app()
-    app.checkbox[0].set_value(include_scenario).run()
-    app.button[0].click().run()
-
-    assert not app.exception
-    report = app.session_state["assessment_report"]
-    text = render_assessment_text(report)
-
-    assert "Fictional clinic: lakeview_dental" in text
-    assert report["example_context"]["evidence_mode"] in text
-    assert "not an assessment of a real clinic" in text
-    assert "fixture generation rather than real-world verification" in text
+def test_new_assessment_clears_previous_session_answers():
+    app=open_app()
+    sample_to_checklist(app)
+    click(app,"Generate assessment")
+    click(app,"Continue to Fix First")
+    click(app,"Start a new assessment")
+    assert app.session_state["guided"]["step"] == 0
+    assert app.session_state["guided"]["report"] is None

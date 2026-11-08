@@ -2,31 +2,31 @@
 
 ## Done
 
-November 8: CSV and reusable checklist JSON checkpoint 9006866 pushed; green CI
-reported by the user. Lakeview download/re-upload checks passed manually.
+November 8: CSV/JSON checkpoint 9006866 and PDF checkpoint 4d58d1e pushed;
+green CI reported by the user. Downloads, saved-answer re-upload and PDF
+summary/appendix manually confirmed on exercised sample paths.
 
-PDF increment implemented locally: one-page owner summary, complete appendix,
-font licensing, page numbers and developer credit. Three fictional scenario PDFs
-saved under samples/reports/ (65/82/80), rendered and visually reviewed.
-Rendering stays in memory for uploaded data. Existing UI assertion now includes
-all four downloads. No scoring-model changes.
+Five-screen journey implemented locally: Start, Upload, Checklist, Results,
+Fix First. Includes 25 reviewed questions and why-we-ask text, saved/legacy
+answer loading, derived Q24, Q23 applicability, templates, input validation,
+back navigation, source isolation and stale-report invalidation. Existing
+scoring and all four downloads preserved. See ../guided-assessment.md.
 
-Validation: 2,532 tests passed excluding tests/test_app_preview.py (known local
-stall); PDF text extracted successfully from all three samples. Changed-file
-medium/high Bandit and git diff --check passed. The user confirmed the PDF
-download and owner-summary/appendix browser check on November 8. This confirms
-the exercised sample path, not every input. Fresh GitHub CI remains pending.
+Validation: 2,550 tests passed with no exclusions, including ten real Streamlit
+AppTest cases. Earlier UI stalls were sandbox loopback restrictions; local
+network permission resolved them. Changed-file medium/high Bandit and diff
+checks passed. User verified the sample flow through Fix First, all four
+download buttons, and Q02: No retained in exported JSON on November 8. This
+covers the exercised Lakeview path; fresh GitHub CI remains pending.
 
 ## Next
 
-Save/push the verified PDF increment and check GitHub CI.
-Continue five-screen flow, interactive checklist, findings table, readability,
-Docker and hosting work per ../week-5-plan.md.
+Save/push the verified flow and check CI. Add the risk-sorted findings table. Continue readability, Docker and hosting requirements.
 
 ## Blocked
 
-No current implementation blocker. Week 3 framework-reference review remains
-unresolved. Resolve repository ownership/transfer before deployment per the brief.
+No implementation blocker. Week 3 framework-reference review remains unresolved.
+Resolve repository ownership/transfer before deployment per the brief.
 
 ## Ask
 

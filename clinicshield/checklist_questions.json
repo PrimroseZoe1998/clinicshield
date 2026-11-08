@@ -1,0 +1,202 @@
+[
+  {
+    "id": "Q01",
+    "title": "Multifactor authentication for email",
+    "section": "Email protection",
+    "question": "Is multifactor authentication required for every work email account?",
+    "explanation": "Multifactor authentication means using another proof of identity, such as an authenticator app, in addition to a password.",
+    "why": "It helps protect email accounts when passwords are stolen."
+  },
+  {
+    "id": "Q02",
+    "title": "Email filtering and forwarding",
+    "section": "Email protection",
+    "question": "Does your email service filter spam and malware and block automatic forwarding to outside addresses?",
+    "explanation": "Malware is software designed to damage systems or steal information.",
+    "why": "These settings help block harmful messages and prevent mail from being automatically copied outside the organization."
+  },
+  {
+    "id": "Q03",
+    "title": "Antivirus protection",
+    "section": "Endpoint protection",
+    "question": "Do all computers run an antivirus or endpoint protection product that updates itself?",
+    "explanation": "Endpoint protection is security software that helps detect and block harmful activity on a computer.",
+    "why": "Updated protection helps detect threats on work computers."
+  },
+  {
+    "id": "Q04",
+    "title": "Automatic updates",
+    "section": "Endpoint protection",
+    "question": "Are operating systems and browsers set to install updates automatically?",
+    "explanation": "",
+    "why": "Updates fix security weaknesses that attackers can exploit."
+  },
+  {
+    "id": "Q05",
+    "title": "Portable device encryption",
+    "section": "Endpoint protection",
+    "question": "Is every laptop, tablet, and phone that can access patient information encrypted?",
+    "explanation": "Encryption helps keep stored information unreadable without the correct key or credentials.",
+    "why": "It helps protect information if a device is lost or stolen."
+  },
+  {
+    "id": "Q06",
+    "title": "Individual accounts",
+    "section": "Access management",
+    "question": "Does every staff member have their own login, with no shared accounts?",
+    "explanation": "",
+    "why": "Individual accounts make it easier to control access and identify who performed an action."
+  },
+  {
+    "id": "Q07",
+    "title": "Multifactor authentication for clinical systems",
+    "section": "Access management",
+    "question": "Is multifactor authentication required for your electronic health record system, billing, telehealth, and any remote access?",
+    "explanation": "An electronic health record system stores and manages patient records. Telehealth provides care through phone or video services. Remote access lets someone connect to a work system from another location.",
+    "why": "A stolen password should not be enough to access systems that handle patient information."
+  },
+  {
+    "id": "Q08",
+    "title": "Removing access when staff leave",
+    "section": "Access management",
+    "question": "When someone leaves, are all their work accounts disabled the same day?",
+    "explanation": "",
+    "why": "Former staff should no longer be able to access work systems or patient information."
+  },
+  {
+    "id": "Q09",
+    "title": "Limiting administrator rights",
+    "section": "Access management",
+    "question": "Are administrator rights limited to people who need them for their role?",
+    "explanation": "Administrator rights allow someone to change important settings and install software.",
+    "why": "Limiting these rights reduces the damage an attacker or an accidental change can cause."
+  },
+  {
+    "id": "Q10",
+    "title": "Daily separated backups",
+    "section": "Data protection",
+    "question": "Are backups taken at least daily and kept offline or in a separate account that an attack on your work systems could not access?",
+    "explanation": "A backup is a copy used to recover information if the original is lost.",
+    "why": "Protected backups help the practice recover after ransomware, equipment failure, or accidental deletion."
+  },
+  {
+    "id": "Q11",
+    "title": "Testing backup recovery",
+    "section": "Data protection",
+    "question": "In the last six months, has someone restored a file from backup to confirm it works?",
+    "explanation": "",
+    "why": "A backup is useful only if you can recover information from it when needed."
+  },
+  {
+    "id": "Q12",
+    "title": "Vendor agreements",
+    "section": "Data protection",
+    "question": "Do you have a signed Business Associate Agreement with every vendor that requires one because it handles patient information for you?",
+    "explanation": "A Business Associate Agreement sets out a vendor's responsibilities for protecting patient information.",
+    "why": "These agreements help clarify how vendors protect information and respond to problems."
+  },
+  {
+    "id": "Q13",
+    "title": "Secure disposal",
+    "section": "Data protection",
+    "question": "Are old computers, phones, and drives securely wiped or destroyed before they leave the practice?",
+    "explanation": "",
+    "why": "Information can remain recoverable on discarded devices, even after files are deleted."
+  },
+  {
+    "id": "Q14",
+    "title": "Updated inventory",
+    "section": "Asset management",
+    "question": "Do you have a written list of devices and software that access patient information, reviewed and updated in the last year?",
+    "explanation": "The inventory you prepare for ClinicShield can contribute to this list.",
+    "why": "You need to know what you own before you can protect it or identify missing equipment."
+  },
+  {
+    "id": "Q15",
+    "title": "Separate guest Wi-Fi",
+    "section": "Network management",
+    "question": "Is guest or patient Wi-Fi separate from the network used by your work computers?",
+    "explanation": "",
+    "why": "Separating the networks helps limit access from visitor devices to work systems."
+  },
+  {
+    "id": "Q16",
+    "title": "Router security",
+    "section": "Network management",
+    "question": "Has the router or firewall's default administrator password been changed, and has its firmware been updated in the last year?",
+    "explanation": "Firmware is the software built into a device.",
+    "why": "Default passwords and outdated firmware can leave your network open to attackers."
+  },
+  {
+    "id": "Q17",
+    "title": "Protected remote access",
+    "section": "Network management",
+    "question": "Is remote access to clinic computers turned off unless needed, and does every enabled remote-access connection require multifactor authentication?",
+    "explanation": "A virtual private network provides an encrypted connection. It should also require multifactor authentication; using a VPN alone does not answer this question. If remote access is completely disabled, answer Yes. If any enabled connection lacks multifactor authentication, answer No. If you have not checked, answer Unknown.",
+    "why": "Remote access can give attackers a way into work systems if it is left open or poorly protected."
+  },
+  {
+    "id": "Q18",
+    "title": "Supported operating systems",
+    "section": "Vulnerability management",
+    "question": "Are all devices running operating systems that still receive security updates, including any valid extended support coverage?",
+    "explanation": "An operating system is the main software that runs a device, such as Windows or macOS.",
+    "why": "Unsupported systems can retain security weaknesses that the vendor no longer fixes."
+  },
+  {
+    "id": "Q19",
+    "title": "Checking installed updates",
+    "section": "Vulnerability management",
+    "question": "Does someone check at least monthly that updates were successfully installed on every machine?",
+    "explanation": "",
+    "why": "Automatic updates can fail. Checking confirms that devices received the fixes they need."
+  },
+  {
+    "id": "Q20",
+    "title": "Written incident plan",
+    "section": "Incident response",
+    "question": "Do you have a short written plan explaining who to call and what to do if ransomware hits or a laptop goes missing?",
+    "explanation": "Ransomware is an attack that locks or steals information and demands payment.",
+    "why": "A prepared plan helps staff respond quickly and coordinate recovery."
+  },
+  {
+    "id": "Q21",
+    "title": "Reporting security problems",
+    "section": "Incident response",
+    "question": "Does everyone know how to report a suspicious email or a lost device, and whom to contact?",
+    "explanation": "",
+    "why": "Early reporting gives the practice more time to limit damage and protect information."
+  },
+  {
+    "id": "Q22",
+    "title": "Breach notification preparation",
+    "section": "Incident response",
+    "question": "Do you know whom to contact to determine who must be notified, and by when, if patient information is breached?",
+    "explanation": "",
+    "why": "A prepared contact and notification process helps the practice respond promptly and avoid missing required steps."
+  },
+  {
+    "id": "Q23",
+    "title": "Medical device inventory and separation",
+    "section": "Network-connected medical devices",
+    "question": "Are network-connected medical devices listed in your inventory with their vendor support status, and kept on a separate network where possible?",
+    "explanation": "Examples include imaging equipment, monitors, and dental sensors.",
+    "why": "Medical devices can be difficult to update. Knowing their support status and limiting network access helps manage their risks."
+  },
+  {
+    "id": "Q24",
+    "title": "Security responsibility and risk analysis",
+    "section": "Security oversight and governance",
+    "question": "Is one named person responsible for security, even part time, and has a security risk analysis been completed and documented in the last 12 months?",
+    "explanation": "A security risk analysis examines how patient information could be exposed or disrupted and what safeguards are needed.",
+    "why": "Clear responsibility and a documented assessment help the practice identify risks and follow through on fixes."
+  },
+  {
+    "id": "Q25",
+    "title": "Staff security training",
+    "section": "Security oversight and governance",
+    "question": "Does every staff member complete security awareness training when hired and at least once a year?",
+    "explanation": "",
+    "why": "Training helps staff recognize threats and follow the practice's security procedures."
+  }
+]

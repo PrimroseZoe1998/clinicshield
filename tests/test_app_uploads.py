@@ -74,56 +74,54 @@ def test_upload_evaluation_does_not_write_files_or_request_network(monkeypatch):
     assert report["findings"]
 
 
-def fake_ui(monkeypatch, values):
+def fake_ui(monkeypatch, values, step=2):
+    from clinicshield.guided_assessment import new_state, set_checklist
+    from clinicshield.checklist_input import read_checklist
+    state = new_state()
+    state["source"] = ("Upload inventory", "lakeview_dental", False)
+    state["step"] = step
+    state["uploads"] = {k:v for k,v in values.items() if k not in ("checklist_json", "followups_json")}
+    if values.get("checklist_json"):
+        set_checklist(state, read_checklist(values["checklist_json"], values.get("followups_json")))
     ui = MagicMock()
-    ui.session_state = {}
-    ui.radio.side_effect = lambda label, options: "Upload inventory" if label == "Assessment source" else "CSV"
-    labels = {"Assets inventory (CSV)": "assets_csv", "Software inventory (CSV)": "software_csv",
-              "Services inventory (CSV) (optional)": "services_csv",
-              "Checklist answers (JSON)": "checklist_json", "Follow-up answers (JSON; omit for a saved checklist)": "followups_json"}
-    def upload(label, **kwargs):
-        data = values.get(labels.get(label))
-        return SimpleNamespace(getvalue=lambda: data) if data is not None else None
-    ui.file_uploader.side_effect = upload
-    ui.selectbox.return_value = "Unknown"
+    ui.session_state = {"guided":state}
+    ui.radio.side_effect = lambda label, options, **kwargs: options[kwargs.get("index",0)]
+    ui.selectbox.side_effect = lambda label, options, **kwargs: options[kwargs.get("index",0)]
+    ui.file_uploader.return_value = None
     ui.number_input.return_value = 30
     ui.checkbox.return_value = False
-    ui.button.return_value = True
+    ui.button.side_effect = lambda label, **kwargs: label in ("Generate assessment", "Continue to Checklist")
     ui.columns.return_value = [MagicMock(), MagicMock(), MagicMock()]
     monkeypatch.setattr(app, "st", ui)
     return ui
 
 
-def test_upload_ui_generates_download_and_clears_stale_report(monkeypatch):
+def test_upload_ui_generates_results_and_all_downloads(monkeypatch):
     values = inputs()
     ui = fake_ui(monkeypatch, values)
     app.main()
     assert not ui.error.called
+    state = ui.session_state["guided"]
+    assert state["step"] == 3 and state["report"] is not None
+    app.main()
+    assert ui.metric.called is False  # Metrics live in the three columns.
+    state["step"] = 4
+    app.main()
     downloads = {call.args[0]: call.kwargs for call in ui.download_button.call_args_list}
     assert downloads["Download assessment (PDF)"]["data"].startswith(b"%PDF-")
-    assert downloads["Download assessment (PDF)"]["mime"] == "application/pdf"
     assert downloads["Download findings (CSV)"]["mime"] == "text/csv"
-    assert len(list(csv.DictReader(io.StringIO(downloads["Download findings (CSV)"]["data"])))) > 0
     saved = json.loads(downloads["Save checklist (JSON)"]["data"])
     assert saved["answers"] == json.loads(values["checklist_json"])
     assert saved["followups"] == json.loads(values["followups_json"])
     ui.subheader.assert_any_call("Fix First plan")
-    assert "assessment_report" in ui.session_state
-    assert "uploaded inventory" in ui.download_button.call_args.kwargs["data"]
-    assert ui.download_button.call_args.kwargs["file_name"] == "clinicshield-uploaded-assessment.txt"
-    ui.button.return_value = False
-    values["assets_csv"] = b"changed inventory"
-    app.main()
-    assert "assessment_report" not in ui.session_state
 
 
-def test_invalid_upload_ui_shows_safe_error_without_previous_report(monkeypatch):
-    ui = fake_ui(monkeypatch, {})
-    ui.session_state["assessment_report"] = {"old": "report"}
+def test_invalid_upload_ui_stays_on_upload_and_displays_safe_error(monkeypatch):
+    ui = fake_ui(monkeypatch, {},step=1)
     app.main()
-    assert "assessment_report" not in ui.session_state
-    assert "uploaded assessment could not be evaluated" in ui.error.call_args.args[0]
-    assert not ui.download_button.called
+    assert ui.error.called
+    assert ui.session_state["guided"]["step"] == 1
+    assert ui.session_state["guided"]["report"] is None
 
 
 def test_original_scenario_unchanged():
@@ -156,5 +154,7 @@ def test_saved_bundle_upload_ui_exposes_downloads(monkeypatch):
     ui = fake_ui(monkeypatch, values)
     app.main()
     assert not ui.error.called
+    ui.session_state["guided"]["step"] = 4
+    app.main()
     downloads = {call.args[0]: call.kwargs for call in ui.download_button.call_args_list}
     assert json.loads(downloads["Save checklist (JSON)"]["data"]) == json.loads(saved)

@@ -167,173 +167,7 @@ def generate_uploaded(
     return report
 
 
-def upload_inventory_inputs():
-    uploads = {}
-    inventory_format = st.radio("Inventory format", ["CSV", "JSON", "Excel workbook"])
-    if inventory_format == "Excel workbook":
-        workbook = st.file_uploader("Inventory workbook (XLSX)", type=["xlsx"])
-        uploads["workbook_xlsx"] = workbook.getvalue() if workbook else None
-    else:
-        suffix = inventory_format.lower()
-        for kind in ("assets", "software", "services"):
-            optional = " (optional)" if kind == "services" else ""
-            file = st.file_uploader(
-                f"{kind.title()} inventory ({inventory_format}){optional}", type=[suffix],
-            )
-            uploads[f"{kind}_{suffix}"] = file.getvalue() if file else None
-    for key, label in (
-        ("checklist_json", "Checklist answers (JSON)"),
-        ("followups_json", "Follow-up answers (JSON; omit for a saved checklist)"),
-    ):
-        file = st.file_uploader(label, type=["json"])
-        uploads[key] = file.getvalue() if file else None
-    uploads["medical_devices_present"] = st.selectbox(
-        "Are medical devices present?", ["Unknown", "Yes", "No"],
-    )
-    st.caption(
-        "Assets, software and checklist answers are required. Saved checklist JSON "
-        "includes follow-ups and medical-device presence; leave the presence selector "
-        "at Unknown to use the saved value. Legacy answers need a follow-up file. "
-        "Services are optional; missing coverage stays visible. "
-        "Uploaded inventories are evaluated in memory and are not saved to disk."
-    )
-    return uploads
-
-
-def main():
-    st.set_page_config(page_title="ClinicShield", layout="wide")
-    st.title("ClinicShield")
-    mode = st.radio("Assessment source", ["Fictional example", "Upload inventory"])
-    is_upload = mode == "Upload inventory"
-    uploads = {}
-    if is_upload:
-        st.info("Assess supplied inventories. Scores are provisional and missing evidence stays visible.")
-        uploads = upload_inventory_inputs()
-        clinic = "uploaded"
-    else:
-        st.info(
-            "Example assessments using fictional clinic inventories. "
-            "Scores are provisional and unresolved evidence remains visible."
-        )
-        st.caption(
-            "This preview can use saved public-feed caches, but does not collect "
-            "real administrator observations. Optional scenario evidence "
-            "is fictional. This does not assess a real clinic."
-        )
-        clinic_name = st.selectbox("Choose a fictional clinic", list(CLINICS))
-        clinic = CLINICS[clinic_name]
-    observation_days = int(st.number_input(
-        "Administrator observation age limit in days",
-        min_value=1,
-        max_value=365,
-        value=30,
-    ))
-    st.caption(
-        "The observation limit is illustrative, not an approved policy. "
-        "Public-feed freshness uses the provisional eight-day limit."
-    )
-
-    include_scenario = False
-    if not is_upload:
-        include_scenario = st.checkbox(
-            "Include documented fictional scenario evidence", value=False,
-        )
-    if include_scenario:
-        st.warning(
-            "Synthetic scenario evidence is enabled for demonstration. "
-            "It is not verified vendor or administrator evidence."
-        )
-
-    use_caches = st.checkbox("Load saved public-feed caches", value=False)
-    cache_directory = None
-    lifecycle_mappings = None
-    nvd_mappings = None
-    if use_caches:
-        cache_directory = st.text_input(
-            "Public-feed cache folder", value=str(ROOT / "data" / "cache")
-        )
-        st.caption(
-            "Reads kev.json and epss.json locally. No feeds are downloaded. "
-            "Lifecycle mappings use eol-PRODUCT.json; NVD records use the nvd subfolder. No applicability is inferred without reviewed mappings."
-        )
-
-        if not include_scenario:
-            mapping_upload = st.file_uploader(
-                "Reviewed OS lifecycle mappings (JSON)", type=["json"], key=f"lifecycle-{mode}"
-            )
-            if mapping_upload is not None:
-                lifecycle_mappings = mapping_upload.getvalue()
-            st.caption(
-                "Mappings must match the inventory OS and version exactly. "
-                "Extended-support coverage remains unknown."
-            )
-
-            nvd_upload = st.file_uploader(
-                "Reviewed NVD software mappings (JSON)", type=["json"], key=f"nvd-{mode}"
-            )
-            if nvd_upload is not None:
-                nvd_mappings = nvd_upload.getvalue()
-            st.caption(
-                "Uses only repository-allowlisted CVEs from the local nvd folder. "
-                "Exact reviewed mappings are required; unsupported configurations stay flagged."
-            )
-
-    applicability_json = None
-    if not include_scenario:
-        applicability_upload = st.file_uploader(
-            "Reviewed CVE applicability evidence (JSON)", type=["json"], key=f"applicability-{mode}"
-        )
-        if applicability_upload is not None:
-            applicability_json = applicability_upload.getvalue()
-        st.caption(
-            "Source records must identify the software entry, vendor, product, "
-            "affected versions, source URL and timestamps. Unresolved matches stay flagged."
-        )
-
-    upload_selection = tuple(
-        (key, sha256(value).hexdigest() if isinstance(value, bytes) else value)
-        for key, value in sorted(uploads.items())
-    )
-    selection = (mode, clinic, observation_days, include_scenario, cache_directory,
-                 lifecycle_mappings, applicability_json, nvd_mappings, upload_selection)
-    if st.session_state.get("report_selection") != selection:
-        st.session_state.pop("assessment_report", None)
-
-    button_label = "Generate assessment" if is_upload else "Generate example assessment"
-    if st.button(button_label, type="primary"):
-        try:
-            if is_upload:
-                report = generate_uploaded(
-                    uploads, observation_days, cache_directory=cache_directory,
-                    lifecycle_mappings=lifecycle_mappings, applicability_json=applicability_json, nvd_mappings=nvd_mappings,
-                )
-            else:
-                report = generate_example(
-                    clinic, observation_days, include_scenario, cache_directory,
-                    lifecycle_mappings, applicability_json, nvd_mappings,
-                )
-        except (ValueError, OSError):
-            st.session_state.pop("assessment_report", None)
-            if is_upload:
-                st.error(
-                    "The uploaded assessment could not be evaluated. "
-                    "Provide valid assets/software or a workbook, checklist and follow-up answers. "
-                    "Check file formats, required columns, asset links, evidence and size limits."
-                )
-            else:
-                st.error(
-                    "The example could not be evaluated. "
-                    "Check the sample files, uploaded evidence and rule definitions."
-                )
-            return
-
-        st.session_state["assessment_report"] = report
-        st.session_state["report_selection"] = selection
-
-    report = st.session_state.get("assessment_report")
-    if report is None:
-        return
-
+def render_results(report):
     for message in report.get("cache_messages", []):
         st.warning(message)
 
@@ -382,41 +216,6 @@ def main():
                 f"{conflict['rule_id']} at {conflict['source_entry_id']} "
                 f"disagrees with a Yes answer to {conflict['question_id']}."
             )
-
-    plan = report.get("fix_first")
-    if plan is not None:
-        st.subheader("Fix First plan")
-        st.caption(plan["notice"])
-        for heading in plan["groups"]:
-            st.write(heading)
-            actions = [item for item in plan["actions"] if item["group"] == heading]
-            if not actions:
-                st.caption("No confirmed actions assigned to this group.")
-            for action in actions:
-                label = f"#{action['rank']} | {', '.join(action['rule_ids'])} | {action['entity_id']}"
-                with st.expander(label):
-                    st.text(
-                        f"Priority: {action['priority']:.3g} "
-                        f"({action['points']:g} points / effort {action['effort']})"
-                    )
-                    for recommendation in action["recommendations"]:
-                        st.text(recommendation)
-                    for request in action.get("provider_requests", []):
-                        st.caption("Copyable request to the responsible provider or lead")
-                        st.code(request, language=None)
-                    st.text("Responsible roles: " + ", ".join(action["owners"]))
-                    st.text("Estimated cost: " + ", ".join(action["costs"]))
-                    ties = action["tie_breakers"]
-                    st.caption(
-                        f"Tie evidence: confirmed KEV={ties['confirmed_kev']}; "
-                        f"reviewed Essential question links={', '.join(ties['essential_questions']) or 'none'}; "
-                        f"confirmed patient-information scope={ties['confirmed_patient_information_scope']}."
-                    )
-        st.write("Verify before planning remediation")
-        for item in plan["verification_items"]:
-            st.text(f"{', '.join(item['rule_ids'])} | {item['entity_id']}: {item['notice']}")
-        if not plan["verification_items"]:
-            st.caption("No unresolved finding evidence in this assessment.")
 
     for heading, confirmed in (
         ("Findings from supplied evidence", True),
@@ -512,6 +311,44 @@ def main():
                     st.caption(reference["rationale"])
                     st.text("Source: " + reference["source"])
 
+
+
+def render_fix_first(report, clinic):
+    plan = report.get("fix_first")
+    if plan is not None:
+        st.subheader("Fix First plan")
+        st.caption(plan["notice"])
+        for heading in plan["groups"]:
+            st.write(heading)
+            actions = [item for item in plan["actions"] if item["group"] == heading]
+            if not actions:
+                st.caption("No confirmed actions assigned to this group.")
+            for action in actions:
+                label = f"#{action['rank']} | {', '.join(action['rule_ids'])} | {action['entity_id']}"
+                with st.expander(label):
+                    st.text(
+                        f"Priority: {action['priority']:.3g} "
+                        f"({action['points']:g} points / effort {action['effort']})"
+                    )
+                    for recommendation in action["recommendations"]:
+                        st.text(recommendation)
+                    for request in action.get("provider_requests", []):
+                        st.caption("Copyable request to the responsible provider or lead")
+                        st.code(request, language=None)
+                    st.text("Responsible roles: " + ", ".join(action["owners"]))
+                    st.text("Estimated cost: " + ", ".join(action["costs"]))
+                    ties = action["tie_breakers"]
+                    st.caption(
+                        f"Tie evidence: confirmed KEV={ties['confirmed_kev']}; "
+                        f"reviewed Essential question links={', '.join(ties['essential_questions']) or 'none'}; "
+                        f"confirmed patient-information scope={ties['confirmed_patient_information_scope']}."
+                    )
+        st.write("Verify before planning remediation")
+        for item in plan["verification_items"]:
+            st.text(f"{', '.join(item['rule_ids'])} | {item['entity_id']}: {item['notice']}")
+        if not plan["verification_items"]:
+            st.caption("No unresolved finding evidence in this assessment.")
+
     st.download_button(
         "Download assessment (PDF)",
         data=render_assessment_pdf(report),
@@ -543,6 +380,11 @@ def main():
         file_name=f"clinicshield-{clinic}-assessment.txt",
         mime="text/plain",
     )
+
+
+def main():
+    from clinicshield.guided_ui import run_guided_app
+    run_guided_app(st, ROOT, CLINICS, evaluate_supplied_assessment, render_results, render_fix_first)
 
 
 if __name__ == "__main__":
