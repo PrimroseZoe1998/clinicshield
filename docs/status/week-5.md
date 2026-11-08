@@ -2,34 +2,29 @@
 
 ## Done
 
-November 8: user reported green after container correction 7210788. No independent
-runner-log retrieval is claimed. Docker remains unavailable on this computer.
+November 8: prototype deployed at https://clinicshield-uggyfds2f9etx6qo2qelpx.streamlit.app/
+User confirmed hosted scenarios Lakeview 65, Southside 82 and Westside 80, plus
+the Lakeview PDF owner summary/appendix. Python 3.13 was selected during setup.
+Both check workflows were reported green after preparation checkpoint 519e44c.
+Provider running SHA and unauthenticated access are not independently confirmed.
 
-Hosted v0.9 preparation saved locally: Community Cloud fields for
-PrimroseZoe1998/clinicshield, main, app.py, Python 3.13; Streamlit config disables
-usage statistics/file watching and sets a 10 MB upload ceiling. Three fictional
-CSV companions added at 65/82/80 with all finding groups. See ../deploy-streamlit.md.
-
-Corrected a stale ownership blocker: Gate 1 records Benjamin's October 16
-transfer waiver and October 18 retention of ChiEAC branding/service terms.
-Repository transfer is not required.
-
-Validation: Streamlit loaded all four config settings; 27 sample/export tests
-passed; CSV counts checked; changed-script Bandit and diff checks passed.
-No public deployment, new commit/push or fresh CI claimed for this increment.
+Five-screen flow, findings table, explanations, draft practices, four exports,
+three-clinic PDF/CSV artifacts, wording improvements and Docker packaging are
+implemented. See ../week-5-acceptance-review.md for requirement dispositions.
 
 ## Next
 
-SECURITY.md now lists zmangwendeza@gmail.com with explicit user consent. No email
-was sent; delivery is untested. Save/push preparation, then deploy and verify the
-actual hosted URL and revision.
+Verify separate-browser access, hosted CSV/JSON reuse, safe invalid-upload errors,
+session isolation and runtime/log handling. Record a first-time user's unassisted
+sample/PDF run under five minutes and comprehension feedback. Resolve findings,
+then finalize acceptance and close Week 5.
 
 ## Blocked
 
-Hosted logs/session checks and timed first-time-user/comprehension checks remain.
-Week 3 framework-reference gaps remain unresolved.
+No known new implementation defect. Timed-user evidence is still needed.
+Technical-text reading exceptions and Week 3 mapping gaps remain documented.
+Repository transfer was waived at Gate 1.
 
 ## Ask
 
-Sign in to Streamlit Community Cloud for deployment. Week 4 LinkedIn publication
-is still unconfirmed.
+Arrange a first-time tester. Week 4 LinkedIn publication remains unconfirmed.

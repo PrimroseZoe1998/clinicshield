@@ -1,5 +1,23 @@
 # Hosted v0.9 deployment preparation
 
+## November 8 hosted verification update
+
+Live demo: https://clinicshield-uggyfds2f9etx6qo2qelpx.streamlit.app/
+
+The user deployed from PrimroseZoe1998/clinicshield, main, app.py, with Python
+3.13 selected in the supplied settings screenshot. Deployment followed checkpoint
+519e44c, whose GitHub checks were reported green. The exact provider-reported
+running SHA and public access from an unauthenticated browser remain unverified.
+
+The user confirmed hosted scenario scores Lakeview 65, Southside 82 and Westside
+80 with fictional scenario evidence enabled and unchanged answers. The hosted
+Lakeview PDF downloaded and opened with 65/100, an owner-summary first page and
+a detailed appendix starting on page two. These are user-confirmed observations,
+not independent agent browser checks. Hosted CSV/checklist reuse, separate-session
+isolation, invalid-upload behavior, provider logs and the timed first-time-user
+benchmark remain open. Earlier preparation-only statements below are historical.
+
+
 Prepared November 8, 2026. Target: Streamlit Community Cloud, using the current
 repository and Python 3.13. This prepares a prototype demo; no public URL,
 provider authorization or successful hosted deployment is claimed yet.
@@ -49,9 +67,10 @@ data, personal inventories or local caches are included as deployment secrets.
 
 - [ ] Record the actual HTTPS URL, revision, access settings and Python version.
 - [ ] Open the URL in a separate browser session and follow all five screens.
-- [ ] Verify original sample scenarios at 65/82/80 with scenario evidence enabled.
+- [x] User confirmed original hosted scenarios at 65/82/80 with scenario evidence enabled.
 - [ ] Confirm provisional labels, unknown evidence and draft mappings remain visible.
-- [ ] Download/open PDF and CSV; save/reload checklist answers on synthetic data.
+- [x] User downloaded/opened hosted Lakeview PDF: 65, owner summary and appendix.
+- [ ] Verify hosted CSV download and saved-checklist re-upload on synthetic data.
 - [ ] Check invalid-upload errors and session isolation using fictional inputs.
 - [ ] Review provider logs, temporary storage behavior and app error output.
 - [x] Document the maintainer-selected private reporting route: SECURITY.md lists

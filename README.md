@@ -30,6 +30,15 @@ verification are still in progress. See the [Week 5 status](docs/status/week-5.m
 [Week 4 approval](docs/week-4-approval.md) and
 [Week 3 audit](docs/week-3-acceptance-review.md).
 
+## Hosted prototype
+
+[Open ClinicShield](https://clinicshield-uggyfds2f9etx6qo2qelpx.streamlit.app/)
+
+Hosted scenario scores 65/82/80 and the Lakeview PDF were confirmed by the
+developer on November 8. Final hosted checks and the timed first-time-user
+benchmark remain open; see [Week 5 acceptance](docs/week-5-acceptance-review.md).
+Use fictional examples; do not upload patient data.
+
 ## Run locally
 
 Use Python 3.13 and install the pinned dependencies in a virtual environment:
