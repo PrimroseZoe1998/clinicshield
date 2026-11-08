@@ -95,14 +95,17 @@ def test_selected_observation_policy_reaches_report():
     assert policy["public_feed_max_age_seconds"] == 8 * 24 * 60 * 60
 
 
-def test_generated_report_has_readable_download():
+def test_generated_report_has_all_export_downloads():
     app = open_app()
     app.button[0].click().run()
 
     assert not app.exception
     buttons = app.get("download_button")
-    assert len(buttons) == 1
-    assert buttons[0].label == "Download readable assessment"
+    assert [button.label for button in buttons] == [
+        "Download findings (CSV)",
+        "Save checklist (JSON)",
+        "Download readable assessment",
+    ]
 
 
 def test_preview_does_not_make_network_requests(monkeypatch):

@@ -15,7 +15,9 @@ opened in Excel, JSON downloaded with answers/follow-ups/applicability, and save
 JSON re-upload succeeded after restarting Streamlit: Lakeview inventory-only
 80 overall, 72.3 Safeguards, 91.0 Exposure, with provisional/coverage warnings.
 These observations cover the exercised Lakeview path, not every input path.
-New CI results remain unverified.
+Initial CI: 2,541 passed; one UI assertion still expected a single download.
+Updated it to require CSV, JSON and TXT buttons. Follow-up: 42 export/upload
+tests pass; the local AppTest attempt stalled and was stopped. CI rerun pending.
 
 ## Next
 
