@@ -85,3 +85,12 @@ readability-review.md for the grade-screening scope and technical-text exception
 Do not mark the literal all-text grade-8 condition as universally validated.
 Next: manual wording check, Docker packaging, deployment prerequisites and the
 timed first-time-user/comprehension checks.
+
+
+## November 8 container packaging increment
+
+Wording checkpoint e83df4f is pushed with green CI reported by the user. Dockerfile,
+allowlisted .dockerignore, local guide and a dedicated container workflow are now
+prepared. Docker is absent locally, so build/startup and clean-machine acceptance
+remain pending successful Docker-equipped verification. See docker.md for scope.
+No public deployment or registry publishing is performed by this workflow.

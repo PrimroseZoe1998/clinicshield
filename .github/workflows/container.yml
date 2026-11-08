@@ -1,0 +1,60 @@
+name: ClinicShield container
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  container-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Download repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Build runtime image
+        run: docker build --pull -t clinicshield:smoke .
+
+      - name: Check offline sample assessments and exports
+        run: |
+          docker run --rm -i --network none --read-only \
+            --tmpfs /tmp:rw,noexec,nosuid,size=128m \
+            --cap-drop ALL --security-opt no-new-privileges \
+            --entrypoint python clinicshield:smoke - < scripts/container_smoke.py
+
+      - name: Start application
+        run: |
+          docker run -d --name clinicshield-smoke --read-only \
+            --tmpfs /tmp:rw,noexec,nosuid,size=128m \
+            --cap-drop ALL --security-opt no-new-privileges \
+            -p 127.0.0.1:8501:8501 clinicshield:smoke
+
+      - name: Wait for app health
+        run: |
+          for attempt in $(seq 1 90); do
+            status=$(docker inspect --format='{{.State.Health.Status}}' clinicshield-smoke)
+            if [ "$status" = "healthy" ]; then
+              curl --fail --silent http://127.0.0.1:8501/_stcore/health
+              exit 0
+            fi
+            if [ "$(docker inspect --format='{{.State.Running}}' clinicshield-smoke)" != "true" ]; then
+              break
+            fi
+            sleep 1
+          done
+          docker logs clinicshield-smoke
+          exit 1
+
+      - name: Show startup logs and remove test container
+        if: always()
+        run: |
+          if docker inspect clinicshield-smoke >/dev/null 2>&1; then
+            docker logs clinicshield-smoke
+            docker rm -f clinicshield-smoke
+          fi

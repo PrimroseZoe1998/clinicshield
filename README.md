@@ -17,16 +17,18 @@ CSV/JSON/XLSX uploads, grouped scoring and readable report downloads.
 Saved public feeds and reviewed lifecycle/CVE applicability evidence can be
 loaded offline. Missing coverage and unresolved information remain visible.
 
-The latest pushed checkpoint is `71d762b`, with green GitHub checks reported
-by the developer. Current local verification passed 2,429 tests excluding a known
-Streamlit AppTest socket-pair stall. Manual checks cover the documented paths.
+The guided prototype now includes an interactive checklist, score explanations,
+a findings table, Fix First actions and PDF/CSV/checklist JSON/TXT downloads.
+Checkpoint `e83df4f` has green GitHub checks as reported by the developer.
+The latest full local suite passed 2,558 tests with no exclusions; a later PDF
+page-break adjustment passed the eight relevant PDF/guidance checks again.
+Manual verification covers the documented sample paths.
 
-Week 3 remains incomplete: Fix First is implemented and manually checked with fictional data,
-and limited-CVE NVD caching is implemented with availability browser checks complete;
-the revised refresh workflow/artifact checks passed as reported by the developer.
-The unsupported NVD mapping-upload path was manually checked; milestone scope
-confirmation and final review remain open. See the [acceptance audit](docs/week-3-acceptance-review.md)
-and [Week 3 status](docs/status/week-3.md).
+Week 4's prototype scope is accepted within the documented limits. Week 3
+framework-reference gaps remain unresolved. Week 5 packaging and deployment
+verification are still in progress. See the [Week 5 status](docs/status/week-5.md),
+[Week 4 approval](docs/week-4-approval.md) and
+[Week 3 audit](docs/week-3-acceptance-review.md).
 
 ## Run locally
 
@@ -39,10 +41,17 @@ python -m venv .venv
 ```
 
 Start with **Fictional example**, or choose **Upload inventory** for separate
-CSV/JSON inventories or an Excel workbook. Checklist/follow-up JSON answers
-are required for uploads. See the [upload guide](docs/inventory-upload-assessments.md)
+CSV/JSON inventories or an Excel workbook. Enter checklist answers in the app,
+or load a saved checklist JSON file (legacy files also need follow-up JSON). See the [upload guide](docs/inventory-upload-assessments.md)
 for formats, limits and checks. Example data in `samples/` is fictional;
 uploaded inputs have not been independently verified by ClinicShield.
+
+## Run with Docker
+
+A Dockerfile and container build/smoke workflow are prepared. See the
+[Docker guide](docs/docker.md) for build/run commands, local port mapping and
+verification limits. Docker is unavailable on the development computer; a passing
+container workflow or Docker-equipped-machine check is still required.
 
 ## Evidence and refreshes
 

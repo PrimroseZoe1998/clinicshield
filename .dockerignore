@@ -1,0 +1,30 @@
+# Allow only runtime sources, templates, rules and three fictional clinics.
+**
+!Dockerfile
+!.dockerignore
+!requirements.txt
+!app.py
+!LICENSE
+!clinicshield/
+!clinicshield/**
+!rules/
+!rules/*.yaml
+!config/
+!config/nvd-allowlist.json
+!templates/
+!templates/*.csv
+!templates/*.xlsx
+!samples/
+!samples/lakeview_dental/
+!samples/lakeview_dental/**
+!samples/southside_counseling/
+!samples/southside_counseling/**
+!samples/westside_health/
+!samples/westside_health/**
+# Exclude local secrets and compiled files below allowed folders too.
+**/.env
+**/.env.*
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/.DS_Store

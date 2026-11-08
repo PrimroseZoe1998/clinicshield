@@ -2,34 +2,32 @@
 
 ## Done
 
-November 8: exports, PDF, guided flow and findings-table checkpoint dccfcfc pushed;
-green CI reported by the user. Exercised sample paths verified manually.
+November 8: exports, PDF, guided flow, findings table and wording checkpoint
+e83df4f pushed; green CI reported by the user. Exercised sample paths verified.
+Reading screen covers 56 prose blocks; technical-text exceptions and human
+comprehension/timed-user checks remain documented in ../readability-review.md.
 
-Plain-language increment implemented locally: shorter core guidance, all 25
-checklist entries and 24 rule actions; shared word guide in app/TXT/PDF;
-plain practice status labels and refreshed fictional PDFs. Non-fix rule fields
-are unchanged. Scores remain 65/82/80. See ../readability-review.md.
+Docker packaging prepared locally: Python 3.13 image, existing pinned dependencies,
+non-root user, allowlisted build context, health check and run guide. New
+ClinicShield container workflow builds the image, checks offline sample scores
+and exports, then verifies Streamlit startup. No registry publishing. See
+../docker.md.
 
-Screening: 56 selected prose blocks estimate grade 8 or below with a documented
-local heuristic. Raw evidence, technical IDs and source/reference text retain
-formal terms; the literal all-text criterion is not independently demonstrated.
-A human comprehension and timed first-time-user check remain open.
-
-Validation: 2,558 tests passed without exclusions. Changed-file medium/high Bandit
-and diff checks passed. All sample PDF pages were rendered and visually reviewed.
-After the page-break adjustment, eight PDF/guidance checks passed again. User
-screenshot confirms the word guide; the user also confirmed the updated PDF
-owner summary and appendix on the sample path. Fresh GitHub CI remains pending.
+Validation: workflow YAML, Python smoke-script syntax and Docker JSON commands
+checked; 33 sample/export/PDF tests passed. Changed-script medium/high Bandit and
+diff checks passed. No container build/run, commit, push or new CI claimed.
 
 ## Next
 
-Save/push this verified wording checkpoint and check CI. Continue Docker
-packaging, ownership/hosting prerequisites and usability checks.
+Save/push packaging and check both existing checks and the new container workflow.
+Verify a sample in a running container. Continue ownership/hosting prerequisites
+and timed first-time-user/comprehension checks.
 
 ## Blocked
 
-Week 3 framework-reference gaps remain unresolved. Resolve repository ownership
-before deployment per the brief.
+Docker CLI/Desktop is absent locally. Container and clean-machine benchmarks
+remain pending the Docker-equipped runner. Week 3 framework gaps and repository
+ownership before deployment remain unresolved.
 
 ## Ask
 
