@@ -46,7 +46,7 @@ def read_inventory_file(
 def read_assessment(
     *,
     checklist_json: bytes,
-    followups_json: bytes,
+    followups_json: bytes | None = None,
     medical_devices_present: str = "Unknown",
     workbook_xlsx: bytes | None = None,
     assets_csv: bytes | None = None,

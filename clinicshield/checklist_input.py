@@ -84,6 +84,29 @@ def read_checklist(
             "Medical device presence must be Yes, No, or Unknown."
         )
 
+    # Saved bundles retain follow-ups and applicability alongside the answers.
+    validate_upload(data, max_bytes=MAX_JSON_BYTES)
+    try:
+        saved = json.loads(data.decode("utf-8-sig"), object_pairs_hook=unique_object)
+    except (UnicodeDecodeError, json.JSONDecodeError, RecursionError):
+        raise InputError("Provide valid UTF-8 checklist JSON.") from None
+    if isinstance(saved, dict) and "checklist_schema_version" in saved:
+        if (type(saved["checklist_schema_version"]) is not int
+                or saved["checklist_schema_version"] != 1
+                or set(saved) != {"checklist_schema_version", "answers", "followups",
+                                  "medical_devices_present"}):
+            raise InputError("Unsupported saved checklist format.")
+        if followup_data is not None:
+            raise InputError("Saved checklist includes follow-ups; omit the separate follow-up file.")
+        presence = saved["medical_devices_present"]
+        if not isinstance(presence, str) or presence not in ANSWERS:
+            raise InputError("Medical device presence must be Yes, No, or Unknown.")
+        if medical_devices_present != "Unknown" and medical_devices_present != presence:
+            raise InputError("Medical device presence conflicts with the saved checklist.")
+        medical_devices_present = presence
+        data = json.dumps(saved["answers"]).encode("utf-8")
+        followup_data = json.dumps(saved["followups"]).encode("utf-8")
+
     answers = read_answers(data, QUESTION_IDS)
 
     if followup_data is None:

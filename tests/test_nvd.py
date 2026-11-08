@@ -288,6 +288,11 @@ def test_existing_applicability_is_not_silently_overwritten(tmp_path):
 
 def test_end_to_end_offline_report_with_supported_nvd_evidence(tmp_path,monkeypatch):
     import app
+    class FixtureClock(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            return NOW if tz is not None else NOW.replace(tzinfo=None)
+    monkeypatch.setattr(app, "datetime", FixtureClock)
     from clinicshield.kev_cache import KevSnapshot, write_kev_cache
     from clinicshield.report_text import render_assessment_text
     data = response_data()

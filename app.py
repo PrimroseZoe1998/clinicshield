@@ -1,3 +1,4 @@
+from clinicshield.report_exports import render_findings_csv, render_checklist_json
 from clinicshield.practice_scoring import practice_lines
 from clinicshield.score_explanation import explanation_lines
 from datetime import datetime, timedelta, timezone
@@ -128,6 +129,12 @@ def evaluate_supplied_assessment(
         now=now,
     )
     report = build_assessment_report(result)
+    report["checklist_export"] = {
+        "checklist_schema_version": 1,
+        "answers": dict(assessment.checklist.answers),
+        "followups": dict(assessment.checklist.followups),
+        "medical_devices_present": assessment.checklist.medical_devices_present,
+    }
     report["cache_messages"] = list(cache_messages)
     return report
 
@@ -136,9 +143,9 @@ def generate_uploaded(
     uploads, observation_days, *, cache_directory=None,
     lifecycle_mappings=None, applicability_json=None, nvd_mappings=None,
 ):
-    required = ("checklist_json", "followups_json")
+    required = ("checklist_json",)
     if any(uploads.get(key) is None for key in required):
-        raise InputError("Provide checklist and follow-up JSON files.")
+        raise InputError("Provide checklist JSON. Legacy answers also need a follow-up JSON file.")
     validate_assessment_uploads(
         *(value for value in uploads.values() if isinstance(value, bytes)),
         lifecycle_mappings, applicability_json, nvd_mappings,
@@ -175,7 +182,7 @@ def upload_inventory_inputs():
             uploads[f"{kind}_{suffix}"] = file.getvalue() if file else None
     for key, label in (
         ("checklist_json", "Checklist answers (JSON)"),
-        ("followups_json", "Follow-up answers (JSON)"),
+        ("followups_json", "Follow-up answers (JSON; omit for a saved checklist)"),
     ):
         file = st.file_uploader(label, type=["json"])
         uploads[key] = file.getvalue() if file else None
@@ -183,7 +190,9 @@ def upload_inventory_inputs():
         "Are medical devices present?", ["Unknown", "Yes", "No"],
     )
     st.caption(
-        "Assets and software plus checklist and follow-up answers are required. "
+        "Assets, software and checklist answers are required. Saved checklist JSON "
+        "includes follow-ups and medical-device presence; leave the presence selector "
+        "at Unknown to use the saved value. Legacy answers need a follow-up file. "
         "Services are optional; missing coverage stays visible. "
         "Uploaded inventories are evaluated in memory and are not saved to disk."
     )
@@ -501,6 +510,24 @@ def main():
                     )
                     st.caption(reference["rationale"])
                     st.text("Source: " + reference["source"])
+
+    st.download_button(
+        "Download findings (CSV)",
+        data=render_findings_csv(report),
+        file_name=f"clinicshield-{clinic}-findings.csv",
+        mime="text/csv",
+    )
+    st.caption(
+        "CSV includes confirmed and review findings. Exposure points are before "
+        "entity caps; they are not predicted score improvement or risk reduction."
+    )
+    st.download_button(
+        "Save checklist (JSON)",
+        data=render_checklist_json(report),
+        file_name=f"clinicshield-{clinic}-checklist.json",
+        mime="application/json",
+    )
+    st.caption("Saved checklist includes follow-ups and medical-device presence for reuse.")
 
     st.download_button(
         "Download readable assessment",

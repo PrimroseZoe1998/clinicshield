@@ -80,7 +80,7 @@ def fake_ui(monkeypatch, values):
     ui.radio.side_effect = lambda label, options: "Upload inventory" if label == "Assessment source" else "CSV"
     labels = {"Assets inventory (CSV)": "assets_csv", "Software inventory (CSV)": "software_csv",
               "Services inventory (CSV) (optional)": "services_csv",
-              "Checklist answers (JSON)": "checklist_json", "Follow-up answers (JSON)": "followups_json"}
+              "Checklist answers (JSON)": "checklist_json", "Follow-up answers (JSON; omit for a saved checklist)": "followups_json"}
     def upload(label, **kwargs):
         data = values.get(labels.get(label))
         return SimpleNamespace(getvalue=lambda: data) if data is not None else None
@@ -99,6 +99,12 @@ def test_upload_ui_generates_download_and_clears_stale_report(monkeypatch):
     ui = fake_ui(monkeypatch, values)
     app.main()
     assert not ui.error.called
+    downloads = {call.args[0]: call.kwargs for call in ui.download_button.call_args_list}
+    assert downloads["Download findings (CSV)"]["mime"] == "text/csv"
+    assert len(list(csv.DictReader(io.StringIO(downloads["Download findings (CSV)"]["data"])))) > 0
+    saved = json.loads(downloads["Save checklist (JSON)"]["data"])
+    assert saved["answers"] == json.loads(values["checklist_json"])
+    assert saved["followups"] == json.loads(values["followups_json"])
     ui.subheader.assert_any_call("Fix First plan")
     assert "assessment_report" in ui.session_state
     assert "uploaded inventory" in ui.download_button.call_args.kwargs["data"]
@@ -137,3 +143,16 @@ def test_uploaded_evidence_uses_current_inventory_links():
                 "release_name": "1", "mapping_basis": "Fictional test only.",
             }}
         ]).encode())
+
+
+def test_saved_bundle_upload_ui_exposes_downloads(monkeypatch):
+    from clinicshield.report_exports import render_checklist_json
+    values = inputs()
+    saved = render_checklist_json(app.generate_uploaded(values, 30)).encode()
+    values["checklist_json"] = saved
+    values.pop("followups_json")
+    ui = fake_ui(monkeypatch, values)
+    app.main()
+    assert not ui.error.called
+    downloads = {call.args[0]: call.kwargs for call in ui.download_button.call_args_list}
+    assert json.loads(downloads["Save checklist (JSON)"]["data"]) == json.loads(saved)
