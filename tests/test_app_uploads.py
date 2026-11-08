@@ -100,6 +100,8 @@ def test_upload_ui_generates_download_and_clears_stale_report(monkeypatch):
     app.main()
     assert not ui.error.called
     downloads = {call.args[0]: call.kwargs for call in ui.download_button.call_args_list}
+    assert downloads["Download assessment (PDF)"]["data"].startswith(b"%PDF-")
+    assert downloads["Download assessment (PDF)"]["mime"] == "application/pdf"
     assert downloads["Download findings (CSV)"]["mime"] == "text/csv"
     assert len(list(csv.DictReader(io.StringIO(downloads["Download findings (CSV)"]["data"])))) > 0
     saved = json.loads(downloads["Save checklist (JSON)"]["data"])

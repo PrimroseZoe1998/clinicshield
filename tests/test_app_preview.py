@@ -102,6 +102,7 @@ def test_generated_report_has_all_export_downloads():
     assert not app.exception
     buttons = app.get("download_button")
     assert [button.label for button in buttons] == [
+        "Download assessment (PDF)",
         "Download findings (CSV)",
         "Save checklist (JSON)",
         "Download readable assessment",

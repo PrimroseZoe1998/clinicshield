@@ -1,3 +1,4 @@
+from clinicshield.report_pdf import render_assessment_pdf
 from clinicshield.report_exports import render_findings_csv, render_checklist_json
 from clinicshield.practice_scoring import practice_lines
 from clinicshield.score_explanation import explanation_lines
@@ -510,6 +511,13 @@ def main():
                     )
                     st.caption(reference["rationale"])
                     st.text("Source: " + reference["source"])
+
+    st.download_button(
+        "Download assessment (PDF)",
+        data=render_assessment_pdf(report),
+        file_name=f"clinicshield-{clinic}-assessment.pdf",
+        mime="application/pdf",
+    )
 
     st.download_button(
         "Download findings (CSV)",
