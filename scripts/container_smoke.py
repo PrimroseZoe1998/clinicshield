@@ -11,12 +11,16 @@ from clinicshield.report_exports import render_checklist_json, render_findings_c
 from clinicshield.report_pdf import render_assessment_pdf
 
 
+def check_runtime_content(root=Path(".")):
+    for excluded in (".git", ".env", ".venv", "tests", "docs", "data/cache", "samples/reports"):
+        if (root / excluded).exists():
+            raise RuntimeError(f"Unexpected local/development content in runtime image: {excluded}")
+
+
 def main():
     if os.getuid() != 10001:
         raise RuntimeError("Container must run as the application user.")
-    for excluded in (".git", ".env", ".venv", "tests", "docs", "data/cache", "samples/reports"):
-        if Path(excluded).exists():
-            raise RuntimeError("Unexpected local/development content in runtime image.")
+    check_runtime_content()
     expected = {"lakeview_dental": 65, "southside_counseling": 82, "westside_health": 80}
     for clinic, score in expected.items():
         report = app.generate_example(clinic, 30, True)

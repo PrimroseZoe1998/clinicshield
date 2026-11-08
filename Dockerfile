@@ -23,7 +23,9 @@ COPY --chown=10001:10001 clinicshield/ ./clinicshield/
 COPY --chown=10001:10001 rules/ ./rules/
 COPY --chown=10001:10001 config/ ./config/
 COPY --chown=10001:10001 templates/ ./templates/
-COPY --chown=10001:10001 samples/ ./samples/
+COPY --chown=10001:10001 samples/lakeview_dental/ ./samples/lakeview_dental/
+COPY --chown=10001:10001 samples/southside_counseling/ ./samples/southside_counseling/
+COPY --chown=10001:10001 samples/westside_health/ ./samples/westside_health/
 
 USER 10001:10001
 EXPOSE 8501

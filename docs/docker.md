@@ -78,3 +78,19 @@ References: [Streamlit Docker guide](https://docs.streamlit.io/deploy/tutorials/
 Local preparation checks: YAML parsing, Python smoke-script syntax and JSON-form
 Docker commands validated; 33 sample/export/PDF tests passed. Changed-script
 medium/high Bandit and git diff --check passed. These are not container execution.
+
+
+## Initial runner result and copy correction
+
+The user-supplied November 8 runner screenshot confirms the image built. The
+subsequent offline smoke check stopped at the excluded-content assertion; app
+startup was skipped. The original error did not name the path, so the exact
+unexpected entry was not established from that screenshot.
+
+The Dockerfile now copies only the three named clinic directories instead of
+the whole samples directory. The ignore file also explicitly excludes reports,
+including empty directory structure. The smoke check retains its strict exclusion
+rule and now names the unexpected path. Six local layout-check tests pass,
+including rejection of empty report/cache/development directories and a dummy
+secret file. Bandit medium/high and diff checks pass. A rebuilt runner check is
+still required; startup and clean-machine acceptance are not yet established.

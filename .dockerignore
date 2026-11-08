@@ -21,6 +21,9 @@
 !samples/southside_counseling/**
 !samples/westside_health/
 !samples/westside_health/**
+# Reject generated report directories explicitly, including empty directories.
+samples/reports
+samples/reports/**
 # Exclude local secrets and compiled files below allowed folders too.
 **/.env
 **/.env.*

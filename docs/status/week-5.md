@@ -15,7 +15,10 @@ and exports, then verifies Streamlit startup. No registry publishing. See
 
 Validation: workflow YAML, Python smoke-script syntax and Docker JSON commands
 checked; 33 sample/export/PDF tests passed. Changed-script medium/high Bandit and
-diff checks passed. No container build/run, commit, push or new CI claimed.
+diff checks passed. User runner screenshot confirms 74828c8 built successfully; offline checks
+failed on unexpected image content, and startup was skipped. Copy scope is now
+limited to the three named clinics, report directories excluded explicitly, and
+errors name the path. Six layout tests passed; rebuilt container CI is pending.
 
 ## Next
 
