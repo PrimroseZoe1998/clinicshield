@@ -117,3 +117,19 @@ def test_new_assessment_clears_previous_session_answers():
     click(app,"Start a new assessment")
     assert app.session_state["guided"]["step"] == 0
     assert app.session_state["guided"]["report"] is None
+
+
+def test_findings_table_filters_preserve_scores_and_link_details():
+    app=open_app()
+    sample_to_checklist(app)
+    click(app,"Generate assessment")
+    before=app.metric[0].value
+    table=app.dataframe[0].value
+    assert not table.empty
+    assert {"Ref","Severity","Status","Entity","Evidence"} <= set(table.columns)
+    ref=table.iloc[0]["Ref"]
+    assert any(e.label.startswith(ref+" |") for e in app.expander)
+    next(s for s in app.selectbox if s.label=="Show findings").select("Needs review").run()
+    assert not app.exception
+    assert set(app.dataframe[0].value["Status"])=={"Needs review"}
+    assert app.metric[0].value==before

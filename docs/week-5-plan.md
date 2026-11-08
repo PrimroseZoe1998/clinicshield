@@ -65,3 +65,12 @@ see guided-assessment.md for scope, input/state handling and verification.
 Local tests pass without the former UI-file exclusion. Browser confirmation and
 CI remain pending for this increment. Next: risk-sorted findings table, reading
 level, packaging and deployment. The accepted scoring model is unchanged.
+
+
+## November 8 findings-table increment
+
+Guided-flow checkpoint 4d5db8a is pushed with green checks reported by the user.
+The Results overview table is now implemented locally with status filtering,
+severity/points ordering, evidence and stable links to detailed findings. See
+findings-table.md. Browser verification and fresh CI remain pending. Next work
+is the reading-level pass, Docker packaging, and deployment prerequisites/checks.

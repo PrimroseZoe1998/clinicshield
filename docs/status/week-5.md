@@ -2,30 +2,30 @@
 
 ## Done
 
-November 8: CSV/JSON checkpoint 9006866 and PDF checkpoint 4d58d1e pushed;
-green CI reported by the user. Downloads, saved-answer re-upload and PDF
-summary/appendix manually confirmed on exercised sample paths.
+November 8: exports 9006866, PDF 4d58d1e and guided-flow 4d5db8a pushed;
+green CI reported by the user. Exercised sample flow, four downloads,
+saved-answer re-upload, PDF summary/appendix and edited Q02 export confirmed.
 
-Five-screen journey implemented locally: Start, Upload, Checklist, Results,
-Fix First. Includes 25 reviewed questions and why-we-ask text, saved/legacy
-answer loading, derived Q24, Q23 applicability, templates, input validation,
-back navigation, source isolation and stale-report invalidation. Existing
-scoring and all four downloads preserved. See ../guided-assessment.md.
+Results findings table implemented locally: confirmed/review status, severity,
+entity, rules, evidence, pre-cap points, status filter and stable references to
+full details. Ordering is confirmed first, then review; severity and points within
+each group. Scores, export contents and Fix First ranks are unchanged. See
+../findings-table.md.
 
-Validation: 2,550 tests passed with no exclusions, including ten real Streamlit
-AppTest cases. Earlier UI stalls were sandbox loopback restrictions; local
-network permission resolved them. Changed-file medium/high Bandit and diff
-checks passed. User verified the sample flow through Fix First, all four
-download buttons, and Q02: No retained in exported JSON on November 8. This
-covers the exercised Lakeview path; fresh GitHub CI remains pending.
+Validation: 2,556 tests passed with no exclusions, including real Streamlit
+filtering/score checks. Changed-file medium/high Bandit and diff checks passed.
+User screenshots verify Needs review shows 32 of 38 Lakeview groups, and F007
+matches the R04 cloud:1 detail, supporting evidence and unconfirmed status.
+This covers the exercised path; fresh GitHub CI remains pending.
 
 ## Next
 
-Save/push the verified flow and check CI. Add the risk-sorted findings table. Continue readability, Docker and hosting requirements.
+Save/push the verified findings-table checkpoint and check CI. Continue
+reading-level review, Docker packaging and hosted deployment requirements.
 
 ## Blocked
 
-No implementation blocker. Week 3 framework-reference review remains unresolved.
+No implementation blocker. Week 3 framework references remain unresolved.
 Resolve repository ownership/transfer before deployment per the brief.
 
 ## Ask

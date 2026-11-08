@@ -1,3 +1,4 @@
+from clinicshield.findings_table import finding_rows, ordered_findings
 from clinicshield.report_pdf import render_assessment_pdf
 from clinicshield.report_exports import render_findings_csv, render_checklist_json
 from clinicshield.practice_scoring import practice_lines
@@ -217,6 +218,33 @@ def render_results(report):
                 f"disagrees with a Yes answer to {conflict['question_id']}."
             )
 
+    st.subheader("Findings overview")
+    st.caption(
+        "Confirmed findings appear first, then items needing review. Within each "
+        "group: severity, then Exposure points before caps. This order is not an "
+        "estimate of actual risk reduction. Use Ref to find full details below."
+    )
+    status_filter = st.selectbox(
+        "Show findings", ["All findings", "Confirmed findings", "Needs review"],
+        key="findings-status-filter",
+    )
+    rows = finding_rows(report, status_filter)
+    st.caption(f"Showing {len(rows)} of {len(report['findings'])} finding groups.")
+    if rows:
+        st.dataframe(rows, hide_index=True, width="stretch", column_config={
+            "Ref": st.column_config.TextColumn("Ref", width="small"),
+            "Finding": st.column_config.TextColumn("Finding", width="large"),
+            "Evidence": st.column_config.TextColumn("Evidence", width="large"),
+            "Exposure points before caps": st.column_config.NumberColumn(
+                "Exposure points before caps", help="Zero for review items is not proof of safety. These are finding points, not predicted score benefit.", format="%.2f"),
+        })
+    else:
+        st.info("No findings match this view within the supplied scope. Missing coverage still requires review.")
+    references = {
+        (finding["scoring_entity_id"], finding["issue_key"]): f"F{index:03d}"
+        for index, finding in enumerate(ordered_findings(report), 1)
+    }
+
     for heading, confirmed in (
         ("Findings from supplied evidence", True),
         ("Items requiring verification", False),
@@ -239,6 +267,7 @@ def render_results(report):
 
         for finding in selected:
             label = (
+                f"{references[(finding['scoring_entity_id'], finding['issue_key'])]} | "
                 f"{finding['severity']} | "
                 f"{', '.join(finding['rule_ids'])} | "
                 f"{finding['scoring_entity_id']}"
