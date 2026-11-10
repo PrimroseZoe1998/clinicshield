@@ -66,18 +66,21 @@ data, personal inventories or local caches are included as deployment secrets.
 ## Hosted checks before Week 5 closure
 
 - [ ] Record the actual HTTPS URL, revision, access settings and Python version.
-- [ ] Open the URL in a separate browser session and follow all five screens.
+- [x] User confirmed public InPrivate access and hosted sample flow.
 - [x] User confirmed original hosted scenarios at 65/82/80 with scenario evidence enabled.
 - [ ] Confirm provisional labels, unknown evidence and draft mappings remain visible.
 - [x] User downloaded/opened hosted Lakeview PDF: 65, owner summary and appendix.
-- [ ] Verify hosted CSV download and saved-checklist re-upload on synthetic data.
-- [ ] Check invalid-upload errors and session isolation using fictional inputs.
+- [x] User confirmed hosted CSV/JSON downloads and saved Lakeview checklist reuse at 80.
+- [x] User confirmed missing-file error and two-window session separation.
+      Other malformed-file cases were not manually exercised here.
 - [ ] Review provider logs, temporary storage behavior and app error output.
 - [x] Document the maintainer-selected private reporting route: SECURITY.md lists
       zmangwendeza@gmail.com, explicitly authorized by the user on November 8.
       No automated email was sent; mailbox delivery remains untested.
-- [ ] Have a first-time user complete the sample path and PDF download in under
-      five minutes without help; record the result and comprehension feedback.
+- [x] November 10 user report: separate first-time tester completed the sample and
+      PDF download in about one minute, without help; no issues reported.
+- [x] November 10 user confirmed keyboard navigation, visible focus, dropdown
+      selection with Alt+Down/arrows and Enter-triggered PDF download.
 
 Source references, readability-screen limits and unresolved Week 3 mappings remain
 explicit. These checks do not establish compliance or production readiness. The
@@ -90,3 +93,9 @@ settings. Twenty-seven sample/export tests passed. All three fictional CSV
 artifacts match their report group counts and expected scores. Bandit medium/high
 and git diff --check passed. The security contact is documented with user consent;
 authenticated provider setup, public launch and hosted checks remain pending.
+
+
+November 10 update: hosted checks, tester timing and keyboard observations are
+recorded in week-5-acceptance-review.md. Provider logs were reviewed only through
+the supplied excerpt; temporary storage/log retention and exact running SHA are
+not thereby established. No independent human accessibility certification is made.

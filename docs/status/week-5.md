@@ -2,29 +2,31 @@
 
 ## Done
 
-November 8: prototype deployed at https://clinicshield-uggyfds2f9etx6qo2qelpx.streamlit.app/
-User confirmed hosted scenarios Lakeview 65, Southside 82 and Westside 80, plus
-the Lakeview PDF owner summary/appendix. Python 3.13 was selected during setup.
-Both check workflows were reported green after preparation checkpoint 519e44c.
-Provider running SHA and unauthenticated access are not independently confirmed.
+November 10: first-time tester completed the sample and PDF in about one minute,
+without help or reported issues, per user. Hosted sample keyboard navigation,
+visible focus, Alt+Down/arrow dropdown selection and Enter PDF download confirmed.
 
-Five-screen flow, findings table, explanations, draft practices, four exports,
-three-clinic PDF/CSV artifacts, wording improvements and Docker packaging are
-implemented. See ../week-5-acceptance-review.md for requirement dispositions.
+Hosted URL: https://clinicshield-uggyfds2f9etx6qo2qelpx.streamlit.app/
+User confirmed 65/82/80 samples, Lakeview PDF, public InPrivate access, CSV/JSON
+downloads and saved-answer reuse at 80. Two-window state stayed separate. Empty
+uploads showed a clear error and remained on Upload. Supplied log excerpt showed
+startup/update success without visible errors. These are bounded user observations.
+
+All main implementation/artifacts are saved. See ../week-5-acceptance-review.md.
+No runtime change or new test/CI result is claimed in this documentation update.
 
 ## Next
 
-Verify separate-browser access, hosted CSV/JSON reuse, safe invalid-upload errors,
-session isolation and runtime/log handling. Record a first-time user's unassisted
-sample/PDF run under five minutes and comprehension feedback. Resolve findings,
-then finalize acceptance and close Week 5.
+Verify deployed revision and hosted warning labels; resolve remaining log/temp-data
+review limits, CI-versus-local Docker wording, technical reading exceptions and
+framework-reference disposition. Then finalize issue acceptance.
 
 ## Blocked
 
-No known new implementation defect. Timed-user evidence is still needed.
-Technical-text reading exceptions and Week 3 mapping gaps remain documented.
-Repository transfer was waived at Gate 1.
+Local Docker is unavailable; CI passed by user report. Week 3 mapping gaps remain.
+Exact running SHA and full host storage/log behavior are not verified.
 
 ## Ask
 
-Arrange a first-time tester. Week 4 LinkedIn publication remains unconfirmed.
+Keep Week 5 In Progress while final acceptance items remain. Week 4 LinkedIn
+publication remains unconfirmed.
