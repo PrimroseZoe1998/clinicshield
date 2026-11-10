@@ -15,7 +15,7 @@ Live demo: https://clinicshield-uggyfds2f9etx6qo2qelpx.streamlit.app/
 | One-page owner PDF and detailed appendix | Three sample artifacts rendered/reviewed; hosted Lakeview PDF confirmed by user | Implemented and exercised |
 | Findings CSV and checklist JSON | Local download/re-upload tests and user checks; CSV/PDF samples committed for three clinics | Implemented; hosted CSV/JSON downloads and Lakeview saved-answer reuse confirmed |
 | Dockerfile and clean environment execution | Container correction 7210788; user reported green after the build/offline-export/startup workflow | User-reported CI verification; Docker unavailable locally |
-| Live v0.9 URL | User opened hosted app and verified 65/82/80 | Hosted; InPrivate access confirmed by user; exact running SHA still unverified |
+| Live v0.9 URL | User opened hosted app and verified 65/82/80 | Hosted; InPrivate access confirmed by user; checkout 6a4c285 verified in hosted panel; provider-adjusted dependencies recorded |
 | Reading-level pass | 56 prose blocks at/below grade 8 by local heuristic; definitions and shorter wording added | First-time tester reported no issues; technical-text exceptions remain explicit |
 | First-time sample and PDF in under five minutes without help | User reported a separate first-time tester finished in about one minute, without help, including PDF download | Passed by user report; approximate timing, not instrumented measurement |
 
@@ -76,8 +76,9 @@ November 10 hosted warning screenshots additionally confirm:
 
 ## Remaining acceptance decisions and verification
 
-- Verify the exact deployed revision. Hosted provisional/coverage/draft labels
-  are confirmed in the November 10 screenshots.
+- Hosted checkout 6a4c285 and provisional/coverage/draft labels are confirmed in
+  November 10 screenshots. Preserve the observed PyArrow/Certifi drift and
+  host-enabled usage statistics in the deployment record.
 - Complete or document the limits of hosted temporary-data/log-retention checks
   against the existing threat model. Do not infer them from successful downloads.
 - The original issue asks for a clean-machine local Docker run. CI build/offline
@@ -93,8 +94,8 @@ November 10 hosted warning screenshots additionally confirm:
 
 ## Provenance and scope
 
-Current intended deployment source is main after 519e44c; the provider's running
-SHA has not been independently retrieved. Hosted observations are user reports.
+Latest screenshot-verified hosted checkout is 6a4c285e7d84f8873644a19dbd4f7bd0d12c7107.
+Hosted observations are user reports/screenshots, not independent agent browsing.
 Previous full suite: 2,558 passed with no exclusions; later packaging/layout and
 preparation checks are documented separately. This review changes documentation
 only and does not imply new tests, security effectiveness or compliance validation.
@@ -112,3 +113,11 @@ Official host override documentation means the repository's telemetry setting
 must not be asserted as effective in Community Cloud. See hosted-runtime-review.md.
 The pins remain unchanged; exact hosted runtime and provider policy limits remain
 acceptance observations to record, not proven local/cloud equivalence.
+
+
+The November 10 runtime panel screenshots confirm checkout 6a4c285, Python
+3.13.18, Streamlit 1.66.1, PyArrow 24.0.0, Certifi 2026.10.23 and pip 26.3.
+Effective usage statistics is true despite the repository's false request.
+See hosted-runtime-review.md for exact pins, evidence limits and reboot behavior.
+This resolves identification of the exercised checkout, not the remaining
+provider-data-handling or scope-acceptance decisions.

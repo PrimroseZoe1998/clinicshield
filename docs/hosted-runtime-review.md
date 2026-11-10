@@ -65,3 +65,34 @@ technical reading exceptions and CI-versus-local Docker wording remain explicit.
 Local verification: 2,569 tests passed without exclusions, including real UI flows
 and five drift/revision/fallback tests. Medium/high Bandit and diff checks passed.
 No new hosted panel values or fresh GitHub CI are claimed yet.
+
+
+## November 10 verified hosted panel
+
+The user supplied two screenshots after rebooting the app. The panel reports:
+
+| Field | Verified value |
+| --- | --- |
+| Checkout commit | 6a4c285e7d84f8873644a19dbd4f7bd0d12c7107 |
+| Python | 3.13.18 |
+| Effective usage-statistics setting | true |
+| Streamlit | 1.66.1; matches repository pin |
+| PyArrow | 24.0.0; repository pin 25.0.1; matches_pin false |
+| Certifi | 2026.10.23; repository pin 2026.10.19; matches_pin false |
+| pip | 26.3; no repository pin; matches_pin null |
+
+The checkout SHA matches the local 6a4c285 commit. These are screenshot-observed
+runtime values at this check, not a claim about subsequent deployments or every
+worker. The dependency drift and host-enabled usage statistics are now observed,
+not just inferred from log snippets or documentation. Requirements remain
+unchanged. No package safety finding is inferred solely from a version mismatch.
+
+Earlier live refreshes reported Updated app but did not display the imported
+module's new panel until the user rebooted. The panel then appeared. This records
+the observed recovery, not a proven root cause or a guarantee about all updates.
+
+Host-enabled usage statistics must remain part of the documented deployment
+configuration. It does not by itself prove that patient/assessment data is sent
+as telemetry, and these screenshots do not establish retention or temporary-file
+behavior. User input must remain fictional/non-patient while those scope limits
+are explicit. Fresh CI for 6a4c285 was reported green by the user.

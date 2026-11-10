@@ -66,7 +66,8 @@ data, personal inventories or local caches are included as deployment secrets.
 
 ## Hosted checks before Week 5 closure
 
-- [ ] Record the actual HTTPS URL, revision, access settings and Python version.
+- [x] HTTPS URL and public InPrivate access confirmed; November 10 panel shows
+      checkout 6a4c285 and Python 3.13.18. Host overrides are recorded separately.
 - [x] User confirmed public InPrivate access and hosted sample flow.
 - [x] User confirmed original hosted scenarios at 65/82/80 with scenario evidence enabled.
 - [x] November 10 screenshots confirm provisional/draft labels, unassessed
@@ -107,3 +108,10 @@ November 10 provider-log review: Python 3.13.18 and Streamlit 1.66.1 were visibl
 along with provider overrides to PyArrow and Certifi. The exact Git SHA was not
 shown. Build and runtime details now provides a targeted diagnostic view; hosted
 verification of the new panel remains pending. See hosted-runtime-review.md.
+
+
+November 10 panel verification after reboot: checkout 6a4c285, Python 3.13.18,
+Streamlit 1.66.1, PyArrow 24.0.0, Certifi 2026.10.23, pip 26.3 and effective
+usage statistics true. The exact SHA and expected/actual package comparisons
+are recorded in hosted-runtime-review.md. This supersedes earlier pending-panel
+statements, while log/temp-data retention limits remain open.
