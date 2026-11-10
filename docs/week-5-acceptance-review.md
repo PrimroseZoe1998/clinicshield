@@ -11,7 +11,7 @@ Live demo: https://clinicshield-uggyfds2f9etx6qo2qelpx.streamlit.app/
 | Requirement | Current evidence | Disposition |
 | --- | --- | --- |
 | Five-screen sample and real-upload flow | Guided UI and local AppTest coverage; user exercised sample flow and local uploads | Implemented; hosted missing-file and two-window isolation checks passed on exercised paths |
-| Findings table, practice scores, explanation | Implemented; local browser and automated checks recorded | Implemented; hosted warning presentation needs final check |
+| Findings table, practice scores, explanation | Implemented; local browser and automated checks recorded | Implemented; hosted provisional/draft/unassessed and coverage warnings verified in user screenshots |
 | One-page owner PDF and detailed appendix | Three sample artifacts rendered/reviewed; hosted Lakeview PDF confirmed by user | Implemented and exercised |
 | Findings CSV and checklist JSON | Local download/re-upload tests and user checks; CSV/PDF samples committed for three clinics | Implemented; hosted CSV/JSON downloads and Lakeview saved-answer reuse confirmed |
 | Dockerfile and clean environment execution | Container correction 7210788; user reported green after the build/offline-export/startup workflow | User-reported CI verification; Docker unavailable locally |
@@ -54,9 +54,30 @@ November 10 user reports/screenshots:
 - The sleeping-app page was encountered; the app reopened after being woken.
   Provider sleep/cold-start behavior is separate from the tester's reported run.
 
+November 10 hosted warning screenshots additionally confirm:
+
+- Lakeview overall 65, Safeguards 72.3, Exposure 55.0 and At risk, with the
+  Provisional score warning and the explanation that a higher score does not
+  prove safety.
+- Practice-area results (draft), draft provisional labels, and explicit statements
+  that mappings are not an official HICP crosswalk and practice scores do not
+  add or average into the overall result.
+- Email Safeguards 50 (3/6), Endpoint 66.67 (2/3), Exposure 91 and combined 76;
+  Access Safeguards 100 (10/10), Exposure 91 and combined 96; Data Safeguards
+  62.50 (5/8); Network Safeguards 0 (0/5); Vulnerability Safeguards 50 (1/2),
+  Exposure 73 and combined 59. These observed values are specific to this sample.
+- Missing practice Exposure stays unassessed, and combined results stay
+  unavailable when both components are not present. The denominator is 13
+  entities, size factor 1/1, with a 25-point cap per entity.
+- Six coverage warnings remain, including unavailable KEV/EPSS caches and four
+  software entries with no supplied applicability records. Global coverage limits
+  and the statement that missing components are not replaced/reweighted remain
+  visible. No source coverage or mapping validation is inferred from this check.
+
 ## Remaining acceptance decisions and verification
 
-- Verify the exact deployed revision and hosted provisional/coverage/draft labels.
+- Verify the exact deployed revision. Hosted provisional/coverage/draft labels
+  are confirmed in the November 10 screenshots.
 - Complete or document the limits of hosted temporary-data/log-retention checks
   against the existing threat model. Do not infer them from successful downloads.
 - The original issue asks for a clean-machine local Docker run. CI build/offline

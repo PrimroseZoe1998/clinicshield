@@ -68,7 +68,8 @@ data, personal inventories or local caches are included as deployment secrets.
 - [ ] Record the actual HTTPS URL, revision, access settings and Python version.
 - [x] User confirmed public InPrivate access and hosted sample flow.
 - [x] User confirmed original hosted scenarios at 65/82/80 with scenario evidence enabled.
-- [ ] Confirm provisional labels, unknown evidence and draft mappings remain visible.
+- [x] November 10 screenshots confirm provisional/draft labels, unassessed
+      practice components, missing combined values and coverage warnings.
 - [x] User downloaded/opened hosted Lakeview PDF: 65, owner summary and appendix.
 - [x] User confirmed hosted CSV/JSON downloads and saved Lakeview checklist reuse at 80.
 - [x] User confirmed missing-file error and two-window session separation.
