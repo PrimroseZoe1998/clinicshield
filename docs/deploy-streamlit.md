@@ -58,8 +58,9 @@ Permissions/visibility: https://docs.streamlit.io/deploy/streamlit-community-clo
 
 Community Cloud installs requirements.txt directly; it does not run this
 repository's Dockerfile. Docker workflow success is separate packaging evidence.
-The root Streamlit config disables usage statistics and file watching, uses
-headless mode and caps each upload at 10 MB. Existing application validators still
+The root Streamlit config requests disabled usage statistics/file watching,
+headless mode and a 10 MB per-upload cap. Community Cloud can override settings,
+including usage statistics; see hosted-runtime-review.md and the runtime panel. Existing application validators still
 enforce JSON-specific, row/cell and combined-upload limits. No passwords, patient
 data, personal inventories or local caches are included as deployment secrets.
 
@@ -100,3 +101,9 @@ November 10 update: hosted checks, tester timing and keyboard observations are
 recorded in week-5-acceptance-review.md. Provider logs were reviewed only through
 the supplied excerpt; temporary storage/log retention and exact running SHA are
 not thereby established. No independent human accessibility certification is made.
+
+
+November 10 provider-log review: Python 3.13.18 and Streamlit 1.66.1 were visible,
+along with provider overrides to PyArrow and Certifi. The exact Git SHA was not
+shown. Build and runtime details now provides a targeted diagnostic view; hosted
+verification of the new panel remains pending. See hosted-runtime-review.md.

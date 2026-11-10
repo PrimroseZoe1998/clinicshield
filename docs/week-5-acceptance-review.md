@@ -100,3 +100,15 @@ preparation checks are documented separately. This review changes documentation
 only and does not imply new tests, security effectiveness or compliance validation.
 Week 3 framework-reference gaps remain open. Repository transfer is already waived
 by Benjamin's October 16 Gate 1 decision; it is not a deployment blocker.
+
+
+## November 10 hosted dependency evidence
+
+User log screenshots show Python 3.13.18, Streamlit 1.66.1, a provider PyArrow
+25.0.1-to-24.0-series workaround and Certifi 2026.10.23 replacing the repository
+pin. No commit SHA was visible. Runtime details panel added to expose checkout,
+selected installed versions/pin drift and effective usage-statistics setting.
+Official host override documentation means the repository's telemetry setting
+must not be asserted as effective in Community Cloud. See hosted-runtime-review.md.
+The pins remain unchanged; exact hosted runtime and provider policy limits remain
+acceptance observations to record, not proven local/cloud equivalence.

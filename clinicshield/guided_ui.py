@@ -23,6 +23,10 @@ def run_guided_app(st, root, clinics, evaluate, render_results, render_fix_first
     with st.expander("Word guide and file types"):
         for line in glossary_lines():
             st.text(line)
+    with st.expander("Build and runtime details"):
+        from clinicshield.runtime_details import runtime_details
+        st.caption("These details help match this app to its source. The host may change packages or settings. Checkout commit is the local source revision, not a signed build attestation.")
+        st.json(runtime_details(root, usage_stats=st.get_option("browser.gatherUsageStats")))
     if "guided" not in st.session_state:
         st.session_state["guided"] = new_state()
     state = st.session_state["guided"]

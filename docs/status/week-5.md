@@ -2,33 +2,32 @@
 
 ## Done
 
-November 10: first-time tester completed the sample and PDF in about one minute,
-without help or reported issues, per user. Hosted sample keyboard navigation,
-visible focus, Alt+Down/arrow dropdown selection and Enter PDF download confirmed.
+November 10: user reported green for 4d27115. Hosted warnings, 65/82/80 samples,
+PDF/CSV/JSON reuse, missing-file handling, two-window isolation, about-one-minute
+first-time unassisted PDF completion and bounded keyboard checks are recorded.
 
-Hosted URL: https://clinicshield-uggyfds2f9etx6qo2qelpx.streamlit.app/
-User confirmed 65/82/80 samples, Lakeview PDF, public InPrivate access, CSV/JSON
-downloads and saved-answer reuse at 80. Two-window state stayed separate. Empty
-uploads showed a clear error and remained on Upload. Supplied log excerpt showed
-startup/update success without visible errors. These are bounded user observations.
+Latest user logs show Python 3.13.18, Streamlit 1.66.1, provider overrides to
+PyArrow/Certifi and successful updates, but no exact SHA. Added Build and runtime
+details for checkout commit, selected installed versions/pin drift and effective
+usage-statistics setting. Requirements remain unchanged. Official host docs list
+configuration overrides; local settings alone do not prove cloud telemetry state.
+See ../hosted-runtime-review.md.
 
-November 10 screenshots confirm hosted Lakeview 65/72.3/55, provisional/draft
-labels, unassessed components, unavailable combined values and six coverage
-warnings. All main implementation/artifacts are saved. See ../week-5-acceptance-review.md.
-No runtime change or new test/CI result is claimed in this documentation update.
+Validation: 2,569 tests passed with no exclusions. Changed-file medium/high Bandit
+and diff checks passed. New panel is not yet verified on the host; no fresh CI.
 
 ## Next
 
-Verify deployed revision; resolve remaining log/temp-data
-review limits, CI-versus-local Docker wording, technical reading exceptions and
-framework-reference disposition. Then finalize issue acceptance.
+Push this increment and check both workflows. Open the hosted runtime panel and
+record its revision, versions and effective setting. Resolve/document provider
+log/storage limits, CI-versus-local Docker wording, technical reading exceptions
+and outstanding framework-reference disposition before issue closure.
 
 ## Blocked
 
-Local Docker is unavailable; CI passed by user report. Week 3 mapping gaps remain.
-Exact running SHA and full host storage/log behavior are not verified.
+Local Docker unavailable; CI passed by user report. Week 3 mapping gaps and full
+host storage/log-retention review remain unresolved.
 
 ## Ask
 
-Keep Week 5 In Progress while final acceptance items remain. Week 4 LinkedIn
-publication remains unconfirmed.
+Keep Week 5 In Progress. Week 4 LinkedIn publication remains unconfirmed.
