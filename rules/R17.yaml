@@ -42,11 +42,11 @@ framework_references:
     contractual sufficiency or legal compliance.
   review_status: reviewed
 - framework: HICP 2023
-  reference: 'Volume 1: 4.S.B; printed p. 21 (partial)'
-  source: https://hhscyber.hhs.gov/Documents/HICP/tech-vol1-508.pdf#page=24
-  rationale: Partial project mapping; source checked October 30, 2026. Agreement presence does not
-    establish BAA applicability, contract sufficiency or vendor implementation; evaluate the vendor
-    relationship first.
+  reference: 'Volume 1: vendor-selection introduction; printed pp. 5-6 (partial)'
+  source: https://hhscyber.hhs.gov/Documents/HICP/tech-vol1-508.pdf#page=8
+  rationale: Partial project mapping; source checked November 16, 2026. The vendor-selection introduction
+    discusses BAAs beyond cloud backups. Agreement presence does not establish applicability, contract
+    sufficiency or vendor implementation; evaluate the vendor relationship first.
   review_status: reviewed
 - framework: HIPAA Security Rule
   reference: 45 CFR 164.314(a)(1); 164.314(a)(2)(i) (partial; applicability-dependent)

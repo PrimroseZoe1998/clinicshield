@@ -47,6 +47,18 @@ Next: preserve this checkpoint and review the Week 4 scoring/rubric requirements
 against the implemented model before selecting further implementation work.
 No further status email to Benjamin is required for this checkpoint.
 
+## November 16 reference follow-up
+
+Audited metadata across all 24 rules and corrected targeted HICP locators.
+R17 now uses the broader vendor-selection BAA discussion; R20 includes the
+governance pages. The healthcare review table now matches YAML page ranges for
+R11/R18. See [follow-up scope](../week-3-reference-follow-up.md).
+
+Source-checked partial references remain distinct from draft rule definitions.
+No severity, trigger, effort, cost or score-policy changes are intended. Direct
+HHS/CIS omissions, full rule validation and other prior scope differences remain
+explicit; this update does not close issue #5 or claim all-framework coverage.
+
 ## October 30, 2026 brief-based audit
 
 Done: compared the original Week 3 table with the implementation; added

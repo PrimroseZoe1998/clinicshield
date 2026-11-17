@@ -26,6 +26,8 @@ def test_reference_review_does_not_upgrade_draft_rules_or_claim_complete_coverag
                 "HIPAA Security Rule": ("October 30", "https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164/subpart-C/section-164."),
             }
             date, prefix = sources[ref.framework]
+            if ref.framework == "HICP 2023" and rule.rule_id in {"R17", "R20"}:
+                date = "November 16"
             assert f"source checked {date}, 2026" in ref.rationale
             assert ref.source.startswith(prefix)
 
@@ -78,3 +80,19 @@ def test_reporting_mapping_does_not_determine_notification_duties():
     assert "164.308(a)(6)(ii)" in reference.reference
     assert "Q22 requires separate breach/notification evaluation" in reference.rationale
     assert "No breach, legal notification duty, recipient or deadline" in reference.rationale
+
+
+def test_corrected_hicp_locators_and_scope_survive_report():
+    rules = {r.rule_id: r for r in load_rule_catalog(ROOT / "rules")}
+    def hicp(identifier):
+        return next(ref for ref in rules[identifier].framework_references
+                    if ref.framework == "HICP 2023")
+    assert "vendor-selection introduction" in hicp("R17").reference
+    assert "pp. 5-6" in hicp("R17").reference
+    assert hicp("R17").source.endswith("#page=8")
+    assert "pp. 27, 31-32" in hicp("R20").reference
+    assert "separate branches" in hicp("R20").rationale
+    text = render_assessment_text(generate_example("southside_counseling", 30, True))
+    assert "vendor-selection introduction" in text
+    assert "27, 31-32" in text
+    assert "not a compliance finding" in text

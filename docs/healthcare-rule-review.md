@@ -1,5 +1,10 @@
 # Healthcare rule reference review
 
+November 16 follow-up: R17/R20 HICP locators were corrected and R11/R18 table
+ranges aligned with existing YAML. See [follow-up](week-3-reference-follow-up.md)
+for source-check scope, tests and remaining limits. Other review dates below
+remain historical; this is not an exhaustive November 16 revalidation.
+
 Source checked October 30, 2026. These are partial project interpretations, not publisher-endorsed crosswalks or compliance determinations. Rule definitions remain draft. No triggers, severities, checklist weights or score calculations changed.
 
 ## Sources and method
@@ -24,16 +29,16 @@ Source checked October 30, 2026. These are partial project interpretations, not 
 | R08 | 2.S.A (p. 14) | 164.308(a)(1)(ii)(B) | SMB presence accompanies the OS-support issue; no exploitable SMB defect or separate legal prohibition is inferred. |
 | R09 | 6.S.A (p. 24) | 164.312(e)(1) | Telnet presence prompts traffic/access review; the listener does not prove transmission of ePHI or a transmission-security violation. |
 | R10 | 7.S.A (p. 26) | 164.308(a)(5)(ii)(D) | Unchanged-default-password evidence covers one credential condition. Password management is Addressable; no full credential audit is performed. |
-| R11 | 9.S.A; 6.S.A (p. 30) | 164.312(a)(1) | Medical-device separation evidence is limited; effective access enforcement and complete device security are not verified. |
+| R11 | 9.S.A; 6.S.A (pp. 24, 30) | 164.312(a)(1) | Medical-device separation evidence is limited; effective access enforcement and complete device security are not verified. |
 | R12 | 1.S.A (p. 10) | 164.312(d) | Email MFA evidence covers supplied accounts; phishing resistance and all authentication procedures are not verified. |
 | R13 | 3.S.A (p. 18) | 164.312(d) | Clinical MFA evidence covers the supplied application; authentication procedures and all access paths are not audited. |
 | R14 | 3.S.A (p. 16) | 164.312(a)(2)(i) | Shared-account evidence relates to user identification; individual identity tracking and legal applicability require separate evaluation. |
 | R15 | 2.S.A (p. 14) | 164.308(a)(5)(ii)(B) | Q03 reports antivirus status, not a complete malware-defense capability. The cited malware specification is Addressable. |
 | R16 | 4.S.B (p. 21) | 164.308(a)(7)(ii)(A); 164.308(a)(7)(ii)(D) | Q10 does not distinguish frequency from separation. Backup copies are Required; contingency testing is Addressable. Daily frequency and a six-month test interval are project benchmarks. |
-| R17 | 4.S.B (p. 21) | 164.314(a)(1); 164.314(a)(2)(i) | Agreement presence does not establish BAA applicability, contract sufficiency or vendor implementation; evaluate the vendor relationship first. |
-| R18 | 6.S.A; 6.S.B (p. 24) | 164.312(a)(1) | Guest separation is one access-boundary check; a checklist answer does not demonstrate technical isolation or a mandated topology. |
+| R17 | Vendor-selection introduction (pp. 5-6) | 164.314(a)(1); 164.314(a)(2)(i) | Agreement presence does not establish BAA applicability, contract sufficiency or vendor implementation; evaluate the vendor relationship first. |
+| R18 | 6.S.A; 6.S.B (pp. 24-25) | 164.312(a)(1) | Guest separation is one access-boundary check; a checklist answer does not demonstrate technical isolation or a mandated topology. |
 | R19 | 7.S.A (p. 26) | 164.308(a)(1)(ii)(B) | A combined router answer does not identify which setting failed; no specific CVE, enforced baseline or complete risk treatment is established. |
-| R20 | 8.S.A; 10.S.A (p. 27) | 164.308(a)(6)(i); 164.308(a)(2) | Incident planning and security responsibility are separate branches. A combined finding does not mean both failed or that response procedures were exercised. |
+| R20 | 8.S.A; 10.S.A (pp. 27, 31-32) | 164.308(a)(6)(i); 164.308(a)(2) | Incident planning and security responsibility are separate branches. A combined finding does not mean both failed or that response procedures were exercised. |
 | R21 | 8.S.A (p. 27) | 164.308(a)(6)(ii) | Q21 reporting preparation is related; Q22 requires separate breach/notification evaluation. No breach, legal notification duty, recipient or deadline is determined. |
 | R22 | 10.S.B (p. 33) | 164.308(a)(1)(ii)(A) | Reported absence of documented risk analysis prompts follow-up; a Yes answer would not establish a thorough or sufficient legal risk analysis. |
 | R23 | 10.S.C (p. 35) | 164.308(a)(5)(i) | Training answers do not verify attendance, coverage, effectiveness or all workforce roles. |

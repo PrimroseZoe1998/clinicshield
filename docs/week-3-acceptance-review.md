@@ -1,5 +1,10 @@
 # Week 3 acceptance audit
 
+November 16 addendum: the [reference follow-up](week-3-reference-follow-up.md)
+audits all 24 rules' metadata and corrects targeted HICP citations. Rules remain
+draft; this does not close the original conformance or independent-review gaps
+documented below. Current source locators take precedence over historical ones.
+
 Reviewed October 30, 2026 against the original
 ClinicShield_Project_Brief_Primrose_Mangwendeza.docx, Week 3 table, the current
 implementation, dated decisions and fresh local checks.

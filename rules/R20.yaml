@@ -36,9 +36,9 @@ framework_references:
     role; neither answer tests execution.
   review_status: reviewed
 - framework: HICP 2023
-  reference: 'Volume 1: 8.S.A; 10.S.A; printed p. 27 (partial)'
+  reference: 'Volume 1: 8.S.A; 10.S.A; printed pp. 27, 31-32 (partial)'
   source: https://hhscyber.hhs.gov/Documents/HICP/tech-vol1-508.pdf#page=30
-  rationale: Partial project mapping; source checked October 30, 2026. Incident planning and security
+  rationale: Partial project mapping; source checked November 16, 2026. Incident planning and security
     responsibility are separate branches. A combined finding does not mean both failed or that response
     procedures were exercised.
   review_status: reviewed
