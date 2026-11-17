@@ -138,3 +138,18 @@ this participant, so no pilot-driven fix is claimed.
 
 This checkpoint changes documentation only; local Markdown links and diff checks
 are checked. It adds no fresh code test, audit, release tag or Gate 3 approval.
+
+## Fresh security checkpoint, November 16
+
+See [verification details](../week-6-verification.md): Bandit scanned all severities
+with zero High/Medium, eight reviewed Low findings and no scan errors. A direct
+audit of all 77 exact pinned requirements returned zero known vulnerabilities
+and no skipped packages; installed versions match pins and pip check passed.
+The default resolver-backed local audit failed at temporary-environment setup;
+the successful fallback and its limits are explicit in the verification note.
+No dependency versions, security suppressions or CI audit settings changed.
+The fresh full local regression suite passed **2,579 tests**, without exclusions.
+
+The accessibility review distinguishes prior bounded keyboard/label evidence
+from unperformed zoom, screen-reader and direct comprehension checks. A manual
+pass is prepared; no new human results or Gate 3 acceptance are claimed.

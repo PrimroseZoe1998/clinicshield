@@ -22,7 +22,10 @@ reference rationales retain their exact terms. Some may need expert help. The
 formal legal/framework names are expanded in the word guide rather than renamed.
 These exceptions remain explicit; the brief's literal all-text target is not
 independently demonstrated by this screen. A timed first-time-user check and
-human comprehension review remain pending before full Week 5 acceptance.
+human comprehension review were not established by this screen. Week 5 has since
+closed by owner report with limitations retained. Its timed tester/keyboard
+observations and the Week 6 pilot are bounded evidence; direct comprehension
+responses remain unrecorded. See [current verification](week-6-verification.md).
 
 ## Meaning retained
 
