@@ -27,16 +27,30 @@ Existing controls include per-file and combined byte limits, workbook expansion
 limits, safe validation errors, authorized existing-scan parsing, guarded
 in-memory ingestion, and report invalidation when guided inputs change.
 
+## Cache and privacy hardening implemented November 16
+
+- Removed the browser's server cache-folder text field. The guided UI now reads
+  only `<repository>/data/cache` when saved feeds are enabled, including during
+  assessment generation with a stale session path. Operator-facing Python APIs
+  retain their explicit directory arguments for local tools and tests. Server
+  administrators remain responsible for the configured directory and its files.
+- Replaced the absolute no-disk/session-only privacy promise with bounded app
+  behavior, unverified host storage/log handling and a reminder that downloads
+  save a copy on the user's device. Fictional data only is explicit.
+- UI/wording checks: 14 passed, including all three fictional scenario scores,
+  navigation/reset behavior and stale-path rejection at the evaluation boundary.
+  The revised notice screens at estimated grade 6.5 under the project's local
+  heuristic; this is not an accessibility certification.
+- Full local regression suite: **2,570 passed**, without exclusions. Bandit at
+  medium/high severity and `git diff --check` passed. Hosted deployment and fresh
+  GitHub checks remain pending until this commit is pushed.
+
+No exploit or arbitrary-file disclosure was established. This removes unnecessary
+browser control of server resource locations. No scoring formula or dependency
+pins changed. Existing committed demonstration reports remain historical samples.
+
 ## Next hardening work
 
-- Restrict public UI cache reads to a server-configured public-feed directory.
-  The current text field accepts a server filesystem path; uploaded data should
-  not choose server resource locations. No arbitrary-file disclosure is claimed
-  by this review; loaders and their response behavior need focused inspection.
-- Narrow the user-facing privacy promise. The notice currently says inputs stay
-  in the session and are not saved to disk. Parser tests support bounded
-  application behavior, but do not establish provider storage, logs or temporary
-  file handling. Preserve the fictional-data-only pilot boundary.
 - Extend checks through guided upload changes, reset/error paths and optional
   evidence, with explicit separation from host behavior.
 - Prepare a pilot guide and feedback form after documenting those boundaries.

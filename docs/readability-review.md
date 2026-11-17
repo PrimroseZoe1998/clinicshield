@@ -42,7 +42,7 @@ changes presentation only, not question IDs, weights or Yes/No/Unknown semantics
 
 | Text | Estimated grade |
 | --- | ---: |
-| PRIVACY_NOTICE | 5.0 |
+| PRIVACY_NOTICE | 6.5 (revised November 16: host storage/log limitations and downloads) |
 | SCORE_GUIDE | 5.4 |
 | SCOPE_NOTICE | 4.6 |
 | PRIORITY_GUIDE | 3.6 |

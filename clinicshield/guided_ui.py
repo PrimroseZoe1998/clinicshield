@@ -121,7 +121,8 @@ def run_guided_app(st, root, clinics, evaluate, render_results, render_fix_first
             st.caption("This is a draft age limit for staff checks. Saved public feeds use a draft eight-day limit.")
             opts["use_caches"] = st.checkbox("Load saved public-feed caches", value=opts.get("use_caches",False))
             if opts["use_caches"]:
-                opts["cache_directory"] = st.text_input("Public-feed cache folder", value=opts.get("cache_directory",str(Path(root)/"data/cache")))
+                # Cache locations belong to the server operator, not browser inputs.
+                opts.pop("cache_directory", None)
                 st.caption("Reads saved public feeds on this server. It does not fetch feeds or assume a flaw affects your software.")
                 if not scenario:
                     file_input("Reviewed OS lifecycle mappings (JSON)","lifecycle_mappings","json",options=True)
@@ -190,7 +191,7 @@ def run_guided_app(st, root, clinics, evaluate, render_results, render_fix_first
                 evidence = build_sample_evidence(clinic,assessment,now=now) if mode == "Fictional example" and scenario else AssessmentEvidence()
                 opts = state["options"]
                 report = evaluate(assessment,evidence,opts.get("observation_days",30),now=now,
-                    cache_directory=opts.get("cache_directory") if opts.get("use_caches") else None,
+                    cache_directory=Path(root) / "data" / "cache" if opts.get("use_caches") else None,
                     lifecycle_mappings=opts.get("lifecycle_mappings") if opts.get("use_caches") and not scenario else None,
                     nvd_mappings=opts.get("nvd_mappings") if opts.get("use_caches") and not scenario else None,
                     applicability_json=opts.get("applicability_json") if not scenario else None)

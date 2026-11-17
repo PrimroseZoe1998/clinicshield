@@ -26,7 +26,10 @@ def test_start_has_privacy_and_sample_choice():
     app = open_app()
     assert not app.exception
     assert app.title[0].value == "ClinicShield"
-    assert any("not saved to disk" in item.value for item in app.info)
+    notice = " ".join(item.value for item in app.info)
+    assert "Use fictional data only" in notice
+    assert "Host storage and logs have not been fully checked" in notice
+    assert "Downloads save a copy on your device" in notice
     assert not app.metric
     assert not app.get("download_button")
 
@@ -107,6 +110,33 @@ def test_sample_path_stays_offline(monkeypatch):
     sample_to_checklist(app)
     click(app,"Generate assessment")
     assert app.metric
+
+
+def test_browser_cache_path_is_ignored_even_from_old_session(monkeypatch, tmp_path):
+    from clinicshield import assessment_cache
+
+    paths = []
+
+    def empty_cache(path):
+        paths.append(path)
+        return None
+
+    monkeypatch.setattr(assessment_cache, "read_kev_cache", empty_cache)
+    monkeypatch.setattr(assessment_cache, "read_epss_cache", empty_cache)
+    app = open_app()
+    click(app, "Continue to Upload")
+    state = app.session_state["guided"]
+    state["options"].update(use_caches=True, cache_directory=str(tmp_path))
+    app.run()
+    assert not app.exception
+    assert not any(t.label == "Public-feed cache folder" for t in app.text_input)
+    assert "cache_directory" not in app.session_state["guided"]["options"]
+    click(app, "Continue to Checklist")
+    # A stale session value must also be ignored at the evaluation boundary.
+    app.session_state["guided"]["options"]["cache_directory"] = str(tmp_path)
+    click(app, "Generate assessment")
+    assert not app.error
+    assert paths == [ROOT / "data/cache/kev.json", ROOT / "data/cache/epss.json"]
 
 
 def test_new_assessment_clears_previous_session_answers():

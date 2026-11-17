@@ -1,7 +1,8 @@
 """Shared plain-language guidance for the app and human-readable reports."""
 PRIVACY_NOTICE = (
-    "Do not upload patient data, passwords or recovery codes. "
-    "Your inputs stay in this session. They are not saved to disk. "
+    "Use fictional data only. Do not upload patient data, passwords or recovery codes. "
+    "The app processes inputs in session memory. Host storage and logs have not "
+    "been fully checked. Downloads save a copy on your device. "
     "ClinicShield does not scan your network."
 )
 SCORE_GUIDE = (

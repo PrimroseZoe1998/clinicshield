@@ -18,8 +18,11 @@ Existing guards cover selected filesystem and temporary-file APIs during
 ingestion, Python logging and captured terminal output. They do not establish
 host-wide persistence or retention guarantees.
 
-The public cache-folder text field and the scope of the privacy notice require
-hardening. Community Cloud package and usage-statistics overrides were observed
+The public cache-folder text field has been removed: guided assessments use the
+server's repository data/cache directory and ignore stale browser path values.
+The privacy notice now separates session-memory app processing from unverified
+host storage/log behavior and explains that downloads save a local copy.
+Community Cloud package and usage-statistics overrides were observed
 on November 10; see [hosted runtime review](hosted-runtime-review.md). No new
 provider-policy verification was performed for this code review. Continue using
 fictional inputs. Framework mappings remain provisional and sample benchmarks
