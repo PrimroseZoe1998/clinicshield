@@ -49,11 +49,11 @@ No exploit or arbitrary-file disclosure was established. This removes unnecessar
 browser control of server resource locations. No scoring formula or dependency
 pins changed. Existing committed demonstration reports remain historical samples.
 
-## Next hardening work
+## Next work
 
-- Exercise rejected uploads in the hosted UI with fictional test files; keep
-  these observations distinct from local automated checks.
-- Prepare a pilot guide and feedback form after documenting those boundaries.
+- Arrange a small fictional-data usability pilot using the guide below and
+  summarize actual feedback, assistance and failures without inventing results.
+- Continue reviewing host retention/log boundaries and other unresolved scope.
 
 ## Rejected uploads and reset checks, November 16
 
@@ -88,3 +88,31 @@ erasure or concurrent hosted workers.
 Provider retention/deletion guarantees; complete concurrent-session isolation;
 hosted malicious-file exercise; separate clean-machine local Docker run; full
 framework mapping validation. No new pilot participants or results are claimed.
+
+## Hosted upload checks reported November 16
+
+The user reported GitHub checks green for afa72b4, then performed these checks
+in the public app using supplied fictional test files:
+
+| Check | User-reported observation |
+| --- | --- |
+| Invalid assets CSV plus valid fictional software CSV | Unsupported-columns error; stayed on Upload; no scores; fictional sentinel not echoed in error |
+| Replace invalid assets with valid fictional Lakeview assets | Checklist opened and previous error disappeared |
+| Generate with Unknown answers, proceed to Fix First, start a new assessment, choose Upload inventory | Both upload fields empty and no previous results displayed |
+
+These are user-reported UI observations, not independently captured browser
+evidence or claims about secure memory erasure, retained uploads, provider logs,
+malicious payloads, all formats or concurrent sessions.
+
+## Pilot preparation
+
+Added [pilot testing guide](../pilot-testing-guide.md) and
+[blank feedback form](../pilot-feedback-form.md). They define a fictional-only
+Lakeview journey, separate wake-up time, the existing five-minute benchmark,
+PDF checks, comprehension questions, assistance reporting and private feedback
+handling. The owner must choose a private return route before sending the form.
+No invitations were sent and no additional pilot sessions or feedback are claimed.
+The Week 5 approximately one-minute first-time result remains historical evidence.
+
+This checkpoint changes documentation only. Markdown links and diff checks were
+reviewed; no fresh code tests or GitHub workflow results are claimed for it.
