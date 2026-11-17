@@ -18,8 +18,8 @@ recorded. Unknown details remain unknown rather than inferred from the guide.
 | Attempt | Completion | Assistance | Feedback | Evidence limits |
 | --- | --- | --- | --- | --- |
 | P01, reported November 16 | Owner reports four minutes to complete everything in the guide, which includes the checkup and opening the PDF | None, confirmed by owner | No confusion, unreadable content or broken behavior reported when asked | First-time status, role, browser/device, exact revision, selected clinic/evidence setting and separate wake-up time not supplied; no completed form or direct comprehension answers available |
-| P02, reported November 16 | Approximately two minutes, owner-reported | None, confirmed by owner | No problems or trouble opening the PDF reported | First-time status, role, browser/device, revision, inventory source/selected sample and separate wake-up time not supplied; no completed form or direct comprehension answers available |
-| P03, reported November 16 | Approximately two minutes, owner-reported | None, confirmed by owner | No problems or trouble opening the PDF reported | First-time status, role, browser/device, revision, inventory source/selected sample and separate wake-up time not supplied; no completed form or direct comprehension answers available |
+| P02, reported November 16 | Approximately two minutes, owner-reported | None, confirmed by owner | No problems or trouble opening the PDF reported | First-time status, role, browser/device, revision, exact selected clinic/evidence mode and separate wake-up time not supplied; no completed form or direct comprehension answers available |
+| P03, reported November 16 | Approximately two minutes, owner-reported | None, confirmed by owner | No problems or trouble opening the PDF reported | First-time status, role, browser/device, revision, exact selected clinic/evidence mode and separate wake-up time not supplied; no completed form or direct comprehension answers available |
 
 All three reported times (four, two and two minutes) are within the five-minute
 target; no assistance or problems were reported. P02/P03 timings are approximate
@@ -42,8 +42,8 @@ clarified host/privacy limits and explicitly invalidated reports after rejected
 inventory validation. Those were review-driven changes, not attributed to P01.
 
 - The owner reports three Week 6 testers, meeting the participant-count minimum.
-  Confirm P02/P03 used fictional data as required by the pilot scope; their
-  inventory source was not explicitly supplied. Record first-time status if known.
+  The owner confirmed P02/P03 used fictional clinic examples. Record first-time
+  status if known; exact clinic/evidence settings remain unspecified.
 - Ask each to explain provisional scores, unassessed coverage and Fix First
   priority in their own words, and record anonymized responses privately.
 - Log failed attempts as well as successes. Track fixes and retests if problems

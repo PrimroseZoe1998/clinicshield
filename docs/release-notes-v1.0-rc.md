@@ -35,8 +35,8 @@ pip check passed. Audit method and caveats are in
 
 Three Week 6 testers were reported at approximately four, two and two minutes,
 without help or reported problems, including opening their PDFs. The minimum
-participant count is met as reported. P02/P03 fictional-input scope, first-time
-status and direct comprehension feedback remain unconfirmed.
+participant count is met as reported. The owner confirmed P02/P03 used fictional
+clinic examples. First-time status and direct comprehension feedback remain unconfirmed.
 Owner also confirmed a keyboard-only sample journey with visible focus, no traps
 and PDF download. Keyboard and zoom observations are bounded to exercised views. See
 [pilot report](pilot.md) for the count and evidence limits.
@@ -68,7 +68,7 @@ with sensitive details. No response deadline or support window is promised.
 - Release/tag date: pending
 - Reviewed source SHA: pending
 - Final tests, audit and CI evidence: pending
-- Pilot count: three owner-reported Week 6 testers; scope confirmation and feedback disposition pending
+- Pilot count: three owner-reported Week 6 testers; fictional-example scope confirmed for P02/P03; feedback disposition pending
 - Gate 3 scope/limitations response: pending
 
 Finalize these fields and the [Gate 3 checklist](gate-3-review.md) before tagging.

@@ -77,8 +77,9 @@ an external security assessment has been completed by these checks.
 Before proposing the final tag:
 
 - [x] Record three owner-reported Week 6 pilot testers with timing, assistance and reported problems.
-- [ ] Confirm P02/P03 fictional-input scope; collect first-time status and actual
-  comprehension responses without inferring them from successful completion.
+- [x] Owner confirmed P02/P03 used fictional clinic examples.
+- [ ] Collect first-time status and actual comprehension responses without
+  inferring them from successful completion.
 - [ ] Review feedback and any required fixes/retests; retain explicit limits
   where additional accessibility coverage is deferred.
 - [ ] Confirm final intended source revision and fresh CI/test/audit results;

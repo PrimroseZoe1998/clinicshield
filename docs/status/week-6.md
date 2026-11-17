@@ -271,3 +271,13 @@ final release checks and Gate 3 disposition remain pending. Week 6 stays In Prog
 The owner also reports the updated PDF source link opened after green CI. This
 is a hosted functional observation, not screen-reader or semantic-tag validation.
 This update changes documentation only; no new runtime test results are claimed.
+
+
+## Pilot fictional-example scope confirmation
+
+The owner confirmed both additional testers (P02/P03) used fictional clinic
+examples. This resolves the input-source question above and completes the
+reported three-tester pilot count/scope requirement. Exact clinic/evidence
+settings, first-time status and direct comprehension answers are still unknown.
+The pilot report and Gate 3/release drafts reflect this confirmation. No new
+runtime tests, accessibility completion, release tag or Gate 3 approval is claimed.
