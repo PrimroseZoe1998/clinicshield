@@ -51,8 +51,11 @@ pins changed. Existing committed demonstration reports remain historical samples
 
 ## Next work
 
-- Arrange a small fictional-data usability pilot using the guide below and
-  summarize actual feedback, assistance and failures without inventing results.
+- Complete the brief's 3–5-person fictional-data pilot; one Week 6 attempt is
+  recorded so far. Collect at least two more distinct participants and record
+  first-time status, comprehension, assistance and failures.
+- Review fresh release-candidate security checks, accessibility and runtime
+  evidence; prepare Gate 3 and v1.0-rc after the completion requirements are met.
 - Continue reviewing host retention/log boundaries and other unresolved scope.
 
 ## Rejected uploads and reset checks, November 16
@@ -87,7 +90,7 @@ erasure or concurrent hosted workers.
 
 Provider retention/deletion guarantees; complete concurrent-session isolation;
 hosted malicious-file exercise; separate clean-machine local Docker run; full
-framework mapping validation. No new pilot participants or results are claimed.
+framework mapping validation. Pilot evidence is limited as recorded below.
 
 ## Hosted upload checks reported November 16
 
@@ -111,8 +114,27 @@ Added [pilot testing guide](../pilot-testing-guide.md) and
 Lakeview journey, separate wake-up time, the existing five-minute benchmark,
 PDF checks, comprehension questions, assistance reporting and private feedback
 handling. The owner must choose a private return route before sending the form.
-No invitations were sent and no additional pilot sessions or feedback are claimed.
+The developer sent no invitations. Subsequent owner-reported results appear below.
 The Week 5 approximately one-minute first-time result remains historical evidence.
 
 This checkpoint changes documentation only. Markdown links and diff checks were
 reviewed; no fresh code tests or GitHub workflow results are claimed for it.
+
+## Pilot result and original brief review
+
+The user reported checks green for 5188075. They then reported a tester completed
+everything in the pilot guide in four minutes, without help, and reported no
+confusion or broken/unreadable behavior. Recorded as P01 in [docs/pilot.md](../pilot.md),
+with unconfirmed first-time status, environment and direct comprehension answers
+left explicit. This is one reported Week 6 attempt; the Week 5 tester is not
+silently counted again.
+
+The original project brief specifies 3–5 testers, feedback with changes in
+docs/pilot.md, zero High findings from Bandit/pip-audit at Gate 3, a threat model,
+SECURITY.md, runtime no-persistence review, accessibility and v1.0-rc. The pilot
+report now tracks these requirements. Week 6 remains In Progress; one successful
+timed attempt is not full milestone completion. No new defects were reported by
+this participant, so no pilot-driven fix is claimed.
+
+This checkpoint changes documentation only; local Markdown links and diff checks
+are checked. It adds no fresh code test, audit, release tag or Gate 3 approval.
