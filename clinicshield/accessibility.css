@@ -1,0 +1,17 @@
+/* Static application styles only; never interpolate assessment/upload content. */
+button[data-testid="stBaseButton-primary"]:not(:disabled) {
+    background-color: #b42318 !important;
+    border-color: #b42318 !important;
+    color: #ffffff !important;
+}
+button[data-testid="stBaseButton-primary"]:not(:disabled):hover {
+    background-color: #912018 !important;
+    border-color: #912018 !important;
+}
+button[data-testid="stBaseButton-primary"]:not(:disabled):active {
+    background-color: #711a13 !important;
+    border-color: #711a13 !important;
+}
+button[data-testid="stBaseButton-primary"]:not(:disabled) p {
+    color: #ffffff !important;
+}

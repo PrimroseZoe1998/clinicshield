@@ -197,3 +197,20 @@ or complete accessibility certification. No defect or code change was reported.
 Two more distinct Week 6 testers, direct comprehension feedback, final source/
 security review and Gate 3 disposition remain pending before v1.0-rc. This is
 a documentation-only update; no fresh runtime checks or release tag claimed.
+
+## Measured contrast follow-up and PDF checks
+
+The owner reported selectable PDF text, readable layout and a working source
+link, plus visually clear app warnings/captions/buttons and written status labels.
+These results do not establish PDF tagging, reading order or screen-reader use.
+
+Computed hosted Results colors exposed a primary-button text ratio of 3.30:1,
+below the ordinary-text 4.5:1 threshold. Other sampled text ratios passed.
+A bundled static style changes the primary background to #b42318 with white
+text (calculated 6.57:1), with darker hover/active colors. Hosted post-deployment
+style verification remains pending. See [contrast review](../contrast-review.md)
+for measured values, compositing method and scope.
+
+42 UI/upload tests, six container-layout checks, medium/high Bandit and diff
+checks passed. No scoring, dependency or rule changes were made in this step.
+The combined accessibility item is not promoted to full conformance.

@@ -19,6 +19,7 @@ CHOICES = ["Unknown", "Yes", "No"]
 
 def run_guided_app(st, root, clinics, evaluate, render_results, render_fix_first):
     st.set_page_config(page_title="ClinicShield", layout="wide")
+    st.html(Path(__file__).with_name("accessibility.css"))
     st.title("ClinicShield")
     with st.expander("Word guide and file types"):
         for line in glossary_lines():
