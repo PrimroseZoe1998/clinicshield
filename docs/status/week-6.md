@@ -172,3 +172,16 @@ Current completion work remains:
 
 This update records user-reported evidence only. No fresh code tests or hosted
 privacy guarantees are claimed. Week 6 remains In Progress.
+
+## Gate 3 package prepared
+
+Added [Gate 3 review](../gate-3-review.md) and
+[draft v1.0-rc notes](../release-notes-v1.0-rc.md). The package reviews upload
+limits, runtime privacy evidence, threat-model/SECURITY boundaries, checkpoint
+security results, pilot count and accessibility limits together. It separates
+completed observations from pending testers, comprehension and final review.
+
+No message was sent to Benjamin, no approval recorded, and no release/tag created.
+Final source SHA, fresh release results and Gate 3 disposition remain pending.
+This is a documentation-only checkpoint; links and diff checks were reviewed,
+with no new runtime tests claimed.
