@@ -47,6 +47,11 @@ inventory validation. Those were review-driven changes, not attributed to P01.
 
 ## Gate 3 completion review
 
+The owner also reported readable/reachable Start, Results and Fix First screens
+at 200% browser zoom; see [verification details](week-6-verification.md). This is
+a separate owner functional check, not another pilot tester or a complete
+accessibility assessment. Direct pilot comprehension feedback remains pending.
+
 - [x] Pilot guide and feedback template prepared.
 - [x] One Week 6 attempt recorded with timing, assistance and reported problems.
 - [ ] 3–5 distinct Week 6 testers recorded (currently one reported attempt).

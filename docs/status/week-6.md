@@ -153,3 +153,22 @@ The fresh full local regression suite passed **2,579 tests**, without exclusions
 The accessibility review distinguishes prior bounded keyboard/label evidence
 from unperformed zoom, screen-reader and direct comprehension checks. A manual
 pass is prepared; no new human results or Gate 3 acceptance are claimed.
+
+## Hosted zoom check and next requirements
+
+The user subsequently confirmed readability and reachability at 200% browser
+zoom on Start, Results and Fix First, with no overlap or clipped text reported.
+Normal zoom was restored through the browser menu. See the
+[verification note](../week-6-verification.md) for coverage and evidence limits.
+No app defect or code change resulted from this check. This updates the earlier
+pending-zoom status, without claiming a full accessibility audit.
+
+Current completion work remains:
+
+- At least two further distinct Week 6 pilot testers (three minimum in the brief).
+- Direct comprehension feedback and review of any defects, with retests if needed.
+- Final release-scope security/runtime review and Gate 3 discussion with Benjamin.
+- v1.0-rc tag after required checks and disposition, not before.
+
+This update records user-reported evidence only. No fresh code tests or hosted
+privacy guarantees are claimed. Week 6 remains In Progress.

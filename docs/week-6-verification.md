@@ -72,6 +72,26 @@ For a fresh bounded manual pass, use fictional Lakeview inputs only:
 - Ask pilot testers to explain provisional scores, unassessed coverage and
   priority in their own words. Log misunderstandings and retest fixes.
 
-No new manual zoom, keyboard, contrast measurement, screen-reader or WCAG
-conformance result is claimed here. Full host persistence/retention review,
-framework mapping validation and final Gate 3 disposition remain separate.
+## Hosted 200% zoom observations reported November 16
+
+After reporting GitHub checks green for 43337ba, the owner performed the guided
+200% browser zoom check and reported:
+
+| Screen | Owner-reported result |
+| --- | --- |
+| Start | No text overlap or clipping; all controls reachable, including notice, clinic selection and Continue to Upload |
+| Results | Scores, provisional warning, explanations and Continue to Fix First readable and reachable |
+| Fix First | Opened action content and download control readable/reachable; no overlap or clipping reported |
+
+The owner restored normal zoom using the browser menu after Ctrl+0 did not
+restore it. This is a browser interaction observation, not an app defect
+diagnosis. No code change was required by the reported zoom exercise.
+
+These are owner-reported checks on the exercised hosted views, not independent
+screenshots or measurements. Browser/device, viewport dimensions and exact
+checkout revision were not supplied for this pass. Do not generalize the result
+to every table cell, optional control, viewport, PDF magnification or assistive
+technology. Upload and Checklist were traversed but not separately confirmed as
+complete zoom-review screens. No new keyboard-only, contrast measurement,
+screen-reader or WCAG conformance result is claimed. Full host persistence/
+retention review, framework mapping validation and Gate 3 disposition remain open.
