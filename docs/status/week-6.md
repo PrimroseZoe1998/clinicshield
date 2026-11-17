@@ -51,9 +51,37 @@ pins changed. Existing committed demonstration reports remain historical samples
 
 ## Next hardening work
 
-- Extend checks through guided upload changes, reset/error paths and optional
-  evidence, with explicit separation from host behavior.
+- Exercise rejected uploads in the hosted UI with fictional test files; keep
+  these observations distinct from local automated checks.
 - Prepare a pilot guide and feedback form after documenting those boundaries.
+
+## Rejected uploads and reset checks, November 16
+
+The user reported GitHub checks green for e15bd3d. A supplied hosted screenshot
+shows saved feeds enabled without the folder text field. The user also confirmed
+the revised Start privacy notice. These are bounded UI observations, not a new
+host retention audit.
+
+Inventory validation failures now explicitly clear any stored report on both
+InputError and generic ValueError/OSError paths. Upload callbacks already
+invalidate reports when files are replaced or removed; new tests exercise both.
+
+New coverage includes malformed CSV, JSON, XLSX and authorized Nmap XML;
+combined-size rejection; generic errors that do not echo the sentinel input;
+replacement/removal callbacks; and a real AppTest restart journey that removes
+filenames, optional evidence and reports, returns upload answers to Unknown,
+and requires new inventory before proceeding. Template downloads remain
+available on Upload; assessment report downloads do not.
+
+Verification: focused upload/UI/limits/privacy run **122 passed**. After adding
+two generic-error cases and tightening authorized XML coverage, the upload test
+file passed **30 tests**. These sets overlap and must not be added together.
+Medium/high Bandit and diff checks passed. The prior 2,570-test full-suite result
+predates this change; no new full-suite or hosted malformed-file run is claimed.
+
+UI callback tests use a mocked Streamlit surface; the reset journey uses real
+AppTest state. Neither measures browser upload transport, provider logs, memory
+erasure or concurrent hosted workers.
 
 ## Still unverified
 

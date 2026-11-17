@@ -136,8 +136,10 @@ def run_guided_app(st, root, clinics, evaluate, render_results, render_fix_first
             try:
                 validate_inventory_step(state)
             except InputError as exc:
+                invalidate(state)
                 st.error(str(exc))
             except (ValueError, OSError):
+                invalidate(state)
                 st.error("The inventory could not be read. Check file formats, required columns and asset links.")
             else:
                 go(2)

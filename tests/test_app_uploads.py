@@ -124,6 +124,90 @@ def test_invalid_upload_ui_stays_on_upload_and_displays_safe_error(monkeypatch):
     assert ui.session_state["guided"]["report"] is None
 
 
+@pytest.mark.parametrize("format,field,bad", [
+    ("CSV", "assets_csv", b"invalid,columns\nPRIVATE_SENTINEL,value"),
+    ("JSON", "assets_json", b'{"PRIVATE_SENTINEL":'),
+    ("Excel workbook", "workbook_xlsx", b"PRIVATE_SENTINEL"),
+    ("CSV", "nmap_xml", b"<PRIVATE_SENTINEL"),
+])
+def test_rejected_inventory_clears_stale_report_without_echoing_data(
+    monkeypatch, format, field, bad
+):
+    values = inputs(format=format)
+    values[field] = bad
+    if field == "nmap_xml":
+        values["scan_authorized"] = True
+    ui = fake_ui(monkeypatch, values, step=1)
+    state = ui.session_state["guided"]
+    state["format"] = format
+    state["report"] = {"stale": "PRIVATE_SENTINEL"}
+    if field == "nmap_xml":
+        ui.checkbox.side_effect = lambda label, **kwargs: label == "I confirm this scan was authorized"
+    app.main()
+    assert state["step"] == 1
+    assert state["report"] is None
+    assert ui.error.called
+    assert "PRIVATE_SENTINEL" not in str(ui.error.call_args_list)
+    assert all("template" in call.args[0] for call in ui.download_button.call_args_list)
+
+
+@pytest.mark.parametrize("error_type", [ValueError, OSError])
+def test_inventory_failure_uses_generic_message_and_clears_report(monkeypatch, error_type):
+    from clinicshield import guided_ui
+
+    def fail(state):
+        raise error_type("PRIVATE_SENTINEL")
+
+    ui = fake_ui(monkeypatch, inputs(), step=1)
+    ui.session_state["guided"]["report"] = {"old": True}
+    monkeypatch.setattr(guided_ui, "validate_inventory_step", fail)
+    app.main()
+    assert ui.session_state["guided"]["report"] is None
+    assert ui.session_state["guided"]["step"] == 1
+    assert "PRIVATE_SENTINEL" not in str(ui.error.call_args_list)
+    assert "inventory could not be read" in ui.error.call_args.args[0]
+
+
+def test_combined_upload_limit_rejected_in_guided_ui(monkeypatch):
+    from clinicshield import input_limits
+    ui = fake_ui(monkeypatch, inputs(), step=1)
+    monkeypatch.setattr(input_limits, "MAX_ASSESSMENT_BYTES", 1)
+    app.main()
+    assert ui.session_state["guided"]["step"] == 1
+    assert ui.session_state["guided"]["report"] is None
+    assert "combined assessment" in ui.error.call_args.args[0]
+
+
+@pytest.mark.parametrize("removed", [False, True])
+def test_upload_callback_replaces_or_removes_bytes_and_invalidates_report(monkeypatch, removed):
+    ui = fake_ui(monkeypatch, inputs(), step=1)
+    state = ui.session_state["guided"]
+    state["report"] = {"old": True}
+    state["filenames"]["assets_csv"] = "old.csv"
+    ui.button.return_value = False
+    ui.button.side_effect = lambda *args, **kwargs: False
+
+    def uploader(label, **kwargs):
+        if label == "Assets inventory (CSV)":
+            ui.session_state[kwargs["key"]] = (
+                None if removed else SimpleNamespace(
+                    name="replacement.csv", getvalue=lambda: b"replacement"
+                )
+            )
+            kwargs["on_change"]()
+        return None
+
+    ui.file_uploader.side_effect = uploader
+    app.main()
+    assert state["report"] is None
+    if removed:
+        assert "assets_csv" not in state["uploads"]
+        assert "assets_csv" not in state["filenames"]
+    else:
+        assert state["uploads"]["assets_csv"] == b"replacement"
+        assert state["filenames"]["assets_csv"] == "replacement.csv"
+
+
 def test_original_scenario_unchanged():
     assert app.generate_example("lakeview_dental", 30, True)["score"]["final"] == 65
 

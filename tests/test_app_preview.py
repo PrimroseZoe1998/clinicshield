@@ -144,9 +144,22 @@ def test_new_assessment_clears_previous_session_answers():
     sample_to_checklist(app)
     click(app,"Generate assessment")
     click(app,"Continue to Fix First")
+    old = app.session_state["guided"]
+    old["filenames"]["assets_csv"] = "fictional-private-marker.csv"
+    old["options"]["applicability_json"] = b"fictional-private-marker"
     click(app,"Start a new assessment")
     assert app.session_state["guided"]["step"] == 0
     assert app.session_state["guided"]["report"] is None
+    assert app.session_state["guided"]["filenames"] == {}
+    assert app.session_state["guided"]["options"] == {}
+    app.radio[0].set_value("Upload inventory").run()
+    assert app.session_state["guided"]["uploads"] == {}
+    assert set(app.session_state["guided"]["answers"].values()) == {"Unknown"}
+    click(app, "Continue to Upload")
+    click(app, "Continue to Checklist")
+    assert app.error
+    assert not app.metric
+    assert all("template" in b.label for b in app.get("download_button"))
 
 
 def test_findings_table_filters_preserve_scores_and_link_details():
