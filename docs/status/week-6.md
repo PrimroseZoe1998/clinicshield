@@ -214,3 +214,20 @@ for measured values, compositing method and scope.
 42 UI/upload tests, six container-layout checks, medium/high Bandit and diff
 checks passed. No scoring, dependency or rule changes were made in this step.
 The combined accessibility item is not promoted to full conformance.
+
+## Hosted focused-button and PDF structure follow-up
+
+After the owner reported green checks and rebooted, computed hosted default and
+keyboard-focused primary-button text colors confirmed 6.57:1 contrast. Focus and
+focus-visible were true with a shadow present. Hover/active rendered states and
+focus-indicator conformance were not established.
+
+Read-only pypdf inspection found all three committed sample PDFs untagged, with
+no document language or embedded URI link annotations. First-page text extracted.
+This is a known PDF structure limitation, separate from the owner's successful
+copy/layout/viewer-link check. Added the gap to Gate 3 and draft release notes;
+no exception, screen-reader result or PDF repair is claimed. See
+[detailed review](../contrast-review.md).
+
+This checkpoint changes documentation only. No fresh code tests were needed;
+diff and local Markdown links are checked. Week 6 stays In Progress.

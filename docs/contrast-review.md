@@ -69,3 +69,40 @@ The owner also reported that app warnings, muted explanations and buttons were
 clear, with written severity/status labels. Prior keyboard and 200% zoom evidence
 is recorded in [verification](week-6-verification.md). Full accessibility coverage
 and the combined issue checkbox remain open pending appropriate scope disposition.
+
+## Hosted verification after owner reboot
+
+The owner reported green CI for 6e33526, then rebooted Community Cloud because
+the previous imported UI still rendered the old color after a browser refresh.
+After reboot, the agent read the actual Continue to Upload button styles:
+white text on rgb(180,35,24), opacity 1, bundled stylesheet present. The default
+text contrast is **6.57428861557707:1**. A subsequent keyboard input focused the
+button without activating it: :focus and :focus-visible were true, the text and
+background remained unchanged, and a 3.2px rgba(255,75,75,0.5) focus shadow was
+present. A screenshot shows the focused button. This confirms default/focused
+text contrast and the presence of a focus treatment, not focus-indicator area or
+contrast conformance. Hover and pressed-state rendered colors remain unmeasured.
+Exact hosted checkout SHA was not captured in this check.
+
+## Read-only inspection of committed sample PDFs
+
+The committed samples were inspected with pypdf without rewriting them:
+
+| Sample | Pages | StructTreeRoot | MarkInfo/Marked | Document Lang | Embedded URI link annotations |
+| --- | ---: | --- | --- | --- | ---: |
+| Lakeview | 37 | Absent | Not marked | Absent | 0 |
+| Southside | 34 | Absent | Not marked | Absent | 0 |
+| Westside | 72 | Absent | Not marked | Absent | 0 |
+
+All had extractable first-page text and a document title. These historical
+artifacts are untagged; copying text does not establish semantic reading order.
+The report generator source also sets a title but declares no document language
+or semantic tagging. A link opening in the owner's viewer may be viewer URL
+detection; it is not evidence of embedded accessible link annotations in these
+committed files. No screen-reader run or complete page-order audit was performed.
+
+This is now a known PDF structure gap, not simply an unknown tagging status.
+The existing readable text export provides another format but is not asserted to
+be a formally validated equivalent. Gate 3 must decide whether tagged PDFs are
+required before the prototype candidate; no exception is approved here. No PDF
+was edited or regenerated during this inspection.

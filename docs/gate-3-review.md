@@ -64,6 +64,11 @@ an external security assessment has been completed by these checks.
   verification requested by the brief, which remains unperformed.
 - Raw evidence, identifiers and formal source names are outside the selected
   prose screening target; direct comprehension feedback is still pending.
+- Committed sample PDFs are untagged and have no document language or embedded
+  URI link annotations. Owner copy/layout/link checks do not establish semantic
+  reading order or screen-reader support. Decide tagged-PDF scope explicitly;
+  see [contrast/PDF review](contrast-review.md). No accessibility exception has
+  been accepted by this document.
 - A known-advisory scan is time-bound. Bandit's reviewed Low findings remain
   visible; no suppressions or dependency pin changes were used to obtain a pass.
 

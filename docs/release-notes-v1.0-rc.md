@@ -52,6 +52,12 @@ isolation, broad assistive-technology coverage, and separate clean-machine local
 Docker verification remain unverified. Community Cloud may override package
 versions and telemetry configuration. This candidate is not production-ready.
 
+The primary button's deployed default/focused text colors were measured at
+6.57:1 after reboot. This is not whole-app contrast certification. Committed PDF
+samples are untagged, without document language or embedded URI link annotations;
+PDF screen-reader/semantic reading-order support remains a known release-scope
+gap. See [accessibility evidence](contrast-review.md).
+
 Report security concerns using [SECURITY.md](../SECURITY.md), not a public issue
 with sensitive details. No response deadline or support window is promised.
 
