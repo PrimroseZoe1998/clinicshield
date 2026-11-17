@@ -1,7 +1,31 @@
 # ClinicShield Threat Model
 
-Status: Initial review, October 19, 2026.
-Scope: Current ingestion readers and planned assessment application.
+Status: Initial review October 19; implementation review added November 16, 2026.
+Scope: Ingestion readers and the implemented guided assessment application.
+
+## November 16 implementation update
+
+The application now scores validated records and displays findings, provisional
+scores, coverage warnings and a Fix First heuristic. It offers in-memory PDF,
+CSV, JSON and text downloads. CSV formula neutralization, session-state helpers,
+source-change reset behavior and safe upload errors have tests. These replace
+the planned/future status in the original review below; remaining-work entries
+in that historical table are not a current completion checklist.
+
+The focused upload/privacy/state run passed 141 tests. See
+[Week 6 status](status/week-6.md) for its exact scope and follow-up work.
+Existing guards cover selected filesystem and temporary-file APIs during
+ingestion, Python logging and captured terminal output. They do not establish
+host-wide persistence or retention guarantees.
+
+The public cache-folder text field and the scope of the privacy notice require
+hardening. Community Cloud package and usage-statistics overrides were observed
+on November 10; see [hosted runtime review](hosted-runtime-review.md). No new
+provider-policy verification was performed for this code review. Continue using
+fictional inputs. Framework mappings remain provisional and sample benchmarks
+are demonstrations, not independent effectiveness validation.
+
+## Original October 19 review (historical)
 
 ## Assets to protect
 
