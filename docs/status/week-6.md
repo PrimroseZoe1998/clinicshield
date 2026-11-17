@@ -51,7 +51,7 @@ pins changed. Existing committed demonstration reports remain historical samples
 
 ## Next work
 
-- Complete the brief's 3–5-person fictional-data pilot; one Week 6 attempt is
+- Complete the brief's 3â€“5-person fictional-data pilot; one Week 6 attempt is
   recorded so far. Collect at least two more distinct participants and record
   first-time status, comprehension, assistance and failures.
 - Review fresh release-candidate security checks, accessibility and runtime
@@ -129,7 +129,7 @@ with unconfirmed first-time status, environment and direct comprehension answers
 left explicit. This is one reported Week 6 attempt; the Week 5 tester is not
 silently counted again.
 
-The original project brief specifies 3–5 testers, feedback with changes in
+The original project brief specifies 3â€“5 testers, feedback with changes in
 docs/pilot.md, zero High findings from Bandit/pip-audit at Gate 3, a threat model,
 SECURITY.md, runtime no-persistence review, accessibility and v1.0-rc. The pilot
 report now tracks these requirements. Week 6 remains In Progress; one successful
@@ -252,3 +252,22 @@ Semantic heading/paragraph tags and verified reading order remain unfinished.
 The library's internal structure APIs were inspected but were not used to label
 text incorrectly or claim complete accessibility. The combined accessibility
 checkbox and Gate 3 accessibility gap remain open.
+
+
+## Additional pilot results reported November 16
+
+The owner reports two further testers at approximately two minutes each, with
+no help, problems or trouble opening their PDFs. Together with P01 (four minutes),
+three Week 6 testers are now recorded in docs/pilot.md. The reported participant
+count reaches the original minimum; no independent timing is claimed.
+
+P02/P03 inventory source was not explicitly supplied. Confirm fictional-data
+scope before marking the combined pilot task fully complete. First-time status
+and direct comprehension answers remain unknown. No defect or pilot-driven code
+change was reported. Earlier notes requesting two more testers are superseded by
+this update. Gate 3 and release drafts reflect the current count; accessibility,
+final release checks and Gate 3 disposition remain pending. Week 6 stays In Progress.
+
+The owner also reports the updated PDF source link opened after green CI. This
+is a hosted functional observation, not screen-reader or semantic-tag validation.
+This update changes documentation only; no new runtime test results are claimed.

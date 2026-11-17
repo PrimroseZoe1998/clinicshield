@@ -21,7 +21,7 @@ for this pilot. Previously approved scoring remains unchanged.
 | Week 6 cache restriction | Browser path field removed; evaluation ignores stale path values and uses repository data/cache | Operator Python APIs retain directory parameters; server setup remains trusted |
 | Rejected inputs and reset | Report invalidation on validation failure; replacement/removal and reset regressions; owner confirmed hosted CSV rejection, valid replacement and empty reset fields | Hosted observation covers these exercised paths, not every format or malicious payload |
 | Security checkpoint | 2,579 local tests; Bandit zero High/Medium, eight reviewed Low findings; 77 pinned packages audited with zero known advisories/skips; pip check passed | November 16 source checkpoint, not final tagged artifact; dependency audit fallback and host version drift documented |
-| Pilot | One Week 6 attempt reported as four minutes, no assistance, no problems reported | Brief requires 3–5 testers; first-time status and direct comprehension answers unconfirmed |
+| Pilot | One Week 6 attempt reported as four minutes, no assistance, no problems reported | Brief requires 3â€“5 testers; first-time status and direct comprehension answers unconfirmed |
 | Accessibility | Owner confirmed keyboard-only Lakeview journey through score explanation and PDF download, visible focus and no traps; Start, Results and Fix First readable/reachable at 200% zoom | Exercised paths only; not full screen-reader, contrast, WCAG or universal reading-level validation |
 
 Detailed evidence: [Week 6 status](status/week-6.md), [verification](week-6-verification.md),
@@ -64,8 +64,8 @@ an external security assessment has been completed by these checks.
   verification requested by the brief, which remains unperformed.
 - Raw evidence, identifiers and formal source names are outside the selected
   prose screening target; direct comprehension feedback is still pending.
-- Committed sample PDFs are untagged and have no document language or embedded
-  URI link annotations. Owner copy/layout/link checks do not establish semantic
+- Committed sample PDFs have document language and embedded web-source links,
+  but remain untagged. Owner copy/layout/link checks do not establish semantic
   reading order or screen-reader support. Decide tagged-PDF scope explicitly;
   see [contrast/PDF review](contrast-review.md). No accessibility exception has
   been accepted by this document.
@@ -76,8 +76,9 @@ an external security assessment has been completed by these checks.
 
 Before proposing the final tag:
 
-- [ ] Record at least three distinct Week 6 pilot testers, including failures,
-  assistance, first-time status and actual comprehension responses.
+- [x] Record three owner-reported Week 6 pilot testers with timing, assistance and reported problems.
+- [ ] Confirm P02/P03 fictional-input scope; collect first-time status and actual
+  comprehension responses without inferring them from successful completion.
 - [ ] Review feedback and any required fixes/retests; retain explicit limits
   where additional accessibility coverage is deferred.
 - [ ] Confirm final intended source revision and fresh CI/test/audit results;

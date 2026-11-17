@@ -1,4 +1,4 @@
-# ClinicShield v1.0-rc — draft release notes
+# ClinicShield v1.0-rc â€” draft release notes
 
 **Unreleased.** Prepared November 16, 2026. Tag, release date, final SHA and Gate 3
 disposition are pending. This file must not be presented as a published release.
@@ -33,8 +33,10 @@ zero known vulnerabilities and no skipped packages; installed pins match and
 pip check passed. Audit method and caveats are in
 [verification](week-6-verification.md). Final tagged-revision results: **pending**.
 
-One Week 6 usability attempt was reported at four minutes without help and with
-no problems reported. More testers and direct comprehension feedback are pending.
+Three Week 6 testers were reported at approximately four, two and two minutes,
+without help or reported problems, including opening their PDFs. The minimum
+participant count is met as reported. P02/P03 fictional-input scope, first-time
+status and direct comprehension feedback remain unconfirmed.
 Owner also confirmed a keyboard-only sample journey with visible focus, no traps
 and PDF download. Keyboard and zoom observations are bounded to exercised views. See
 [pilot report](pilot.md) for the count and evidence limits.
@@ -54,7 +56,7 @@ versions and telemetry configuration. This candidate is not production-ready.
 
 The primary button's deployed default/focused text colors were measured at
 6.57:1 after reboot. This is not whole-app contrast certification. Committed PDF
-samples are untagged, without document language or embedded URI link annotations;
+samples have document language and embedded web-source links but remain untagged;
 PDF screen-reader/semantic reading-order support remains a known release-scope
 gap. See [accessibility evidence](contrast-review.md).
 
@@ -66,7 +68,7 @@ with sensitive details. No response deadline or support window is promised.
 - Release/tag date: pending
 - Reviewed source SHA: pending
 - Final tests, audit and CI evidence: pending
-- Pilot count and feedback disposition: pending
+- Pilot count: three owner-reported Week 6 testers; scope confirmation and feedback disposition pending
 - Gate 3 scope/limitations response: pending
 
 Finalize these fields and the [Gate 3 checklist](gate-3-review.md) before tagging.
