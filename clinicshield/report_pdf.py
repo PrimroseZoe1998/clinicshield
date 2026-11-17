@@ -2,6 +2,7 @@ from clinicshield.reader_guidance import SCORE_GUIDE, SCOPE_NOTICE, PRIORITY_GUI
 """Create owner-summary and full-detail PDF reports entirely in memory."""
 from pathlib import Path
 import re
+from urllib.parse import urlsplit
 
 from fpdf import FPDF
 from fpdf.enums import XPos, YPos
@@ -36,10 +37,28 @@ def _text(pdf, value):
     return "".join(c if c == "\n" or ord(c) in cmap else f"[U+{ord(c):04X}]" for c in text)
 
 
+def _source_link(text):
+    """Link a single explicit web source; never interpret other URI schemes."""
+    urls = re.findall(r"https?://[^\s<>\"]+", str(text))
+    if len(urls) != 1:
+        return ""
+    url = urls[0].rstrip(".,;)")
+    try:
+        parsed = urlsplit(url)
+        if parsed.scheme not in {"http", "https"} or not parsed.hostname:
+            return ""
+        if parsed.username or parsed.password or any(ord(c) < 32 for c in url):
+            return ""
+    except ValueError:
+        return ""
+    return url
+
+
 def _paragraph(pdf, text, *, bold=False, size=9, height=4.5):
     pdf.set_font("Vera", "B" if bold else "", size)
     pdf.set_text_color(25, 38, 48)
-    pdf.multi_cell(0, height, _text(pdf, text), new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.multi_cell(0, height, _text(pdf, text), new_x=XPos.LMARGIN, new_y=YPos.NEXT,
+                   link=_source_link(text))
 
 
 def _short(value, limit):
@@ -59,6 +78,7 @@ def render_assessment_pdf(report: dict) -> bytes:
     pdf.add_font("Vera", fname=FONT_DIR / "Vera.ttf")
     pdf.add_font("Vera", "B", fname=FONT_DIR / "VeraBd.ttf")
     pdf.alias_nb_pages()
+    pdf.set_lang("en-US")
     pdf.set_title("ClinicShield assessment")
     pdf.set_author("ClinicShield")
     pdf.add_page()

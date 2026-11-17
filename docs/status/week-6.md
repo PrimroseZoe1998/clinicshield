@@ -231,3 +231,24 @@ no exception, screen-reader result or PDF repair is claimed. See
 
 This checkpoint changes documentation only. No fresh code tests were needed;
 diff and local Markdown links are checked. Week 6 stays In Progress.
+
+
+## PDF language and source-link follow-up (November 16)
+
+PDF exports now declare en-US and embed URI annotations for paragraphs containing
+one explicit HTTP(S) source URL. Other URI schemes, credential-bearing URLs,
+malformed hosts and ambiguous multiple-URL paragraphs are not made clickable.
+The annotation covers the source paragraph, including wrapped lines; visible
+report text and score calculations are unchanged. Links do not fetch sources.
+
+Fourteen PDF tests passed, including full appendix preservation, long/Unicode
+content, in-memory generation and link policy checks. Independent pypdf inspection
+confirmed language and URI annotations in all three regenerated synthetic reports;
+page counts remain 37/34/72. All pages were rendered and reviewed as contact
+sheets for gross layout changes. This does not establish detailed screen-reader
+behavior or PDF/UA conformance.
+
+Semantic heading/paragraph tags and verified reading order remain unfinished.
+The library's internal structure APIs were inspected but were not used to label
+text incorrectly or claim complete accessibility. The combined accessibility
+checkbox and Gate 3 accessibility gap remain open.

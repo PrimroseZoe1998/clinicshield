@@ -37,7 +37,7 @@ def test_empty_actions_and_long_labels_still_have_one_summary_page(monkeypatch):
 
 def test_unicode_and_long_evidence_export_without_mutation():
     report = app.generate_example("lakeview_dental", 30)
-    report["findings"][0]["evidence"][0]["details"]["unicode"] = "café 中文 😀 " + "A" * 12000
+    report["findings"][0]["evidence"][0]["details"]["unicode"] = "cafÃ© ä¸­æ–‡ ðŸ˜€ " + "A" * 12000
     data = report_pdf.render_assessment_pdf(report)
     assert data.startswith(b"%PDF-")
 
@@ -50,3 +50,27 @@ def test_pdf_generation_never_writes_assessment_files(monkeypatch):
     monkeypatch.setattr(Path, "write_bytes", forbidden)
     monkeypatch.setattr(Path, "write_text", forbidden)
     report_pdf.render_assessment_pdf(report)
+
+
+@pytest.mark.parametrize("text, expected", [
+    ("Source: https://example.org/report#page=3", "https://example.org/report#page=3"),
+    ("Source: https://example.org/report.", "https://example.org/report"),
+    ("javascript:alert(1)", ""),
+    ("file:///private/report", ""),
+    ("https://user:secret@example.org/", ""),
+    ("https://[invalid", ""),
+    ("https://one.example/ https://two.example/", ""),
+])
+def test_pdf_source_links_are_explicit_single_web_urls(text, expected):
+    assert report_pdf._source_link(text) == expected
+
+
+def test_pdf_language_and_embedded_source_links():
+    # Uncompressed catalog/annotation dictionaries verify public PDF output,
+    # without adding a PDF parser to application dependencies.
+    report = app.generate_example("lakeview_dental", 30, True)
+    data = report_pdf.render_assessment_pdf(report)
+    assert b"/Lang (en-US)" in data
+    assert b"/Subtype /Link" in data
+    assert b"/S /URI" in data
+    assert b"https://" in data

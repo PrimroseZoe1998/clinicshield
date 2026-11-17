@@ -70,3 +70,9 @@ with sensitive details. No response deadline or support window is promised.
 - Gate 3 scope/limitations response: pending
 
 Finalize these fields and the [Gate 3 checklist](gate-3-review.md) before tagging.
+
+
+PDF follow-up: language metadata and embedded single-source web links are now
+implemented and checked (14 PDF tests; regenerated three synthetic samples).
+Semantic tags, reading order and screen-reader validation remain pending;
+the earlier missing-language/link observation is superseded by this change.

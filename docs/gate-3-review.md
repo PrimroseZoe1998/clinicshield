@@ -94,3 +94,9 @@ Final source SHA, CI evidence and tag: pending.
 
 The package is prepared for review now. It does not close Week 6, approve a
 release or count outstanding testers as completed.
+
+
+PDF follow-up: language metadata and embedded single-source web links are now
+implemented and checked (14 PDF tests; regenerated three synthetic samples).
+Semantic tags, reading order and screen-reader validation remain pending;
+the earlier missing-language/link observation is superseded by this change.
