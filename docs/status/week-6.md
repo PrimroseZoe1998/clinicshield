@@ -185,3 +185,15 @@ No message was sent to Benjamin, no approval recorded, and no release/tag create
 Final source SHA, fresh release results and Gate 3 disposition remain pending.
 This is a documentation-only checkpoint; links and diff checks were reviewed,
 with no new runtime tests claimed.
+
+## Keyboard-only follow-up
+
+The owner confirmed all four keyboard-only sample tasks, visible focus, no
+traps, no mouse use and successful PDF download. The
+[verification note](../week-6-verification.md) and Gate 3/release drafts now
+include this bounded user-reported evidence. It is not a further pilot participant
+or complete accessibility certification. No defect or code change was reported.
+
+Two more distinct Week 6 testers, direct comprehension feedback, final source/
+security review and Gate 3 disposition remain pending before v1.0-rc. This is
+a documentation-only update; no fresh runtime checks or release tag claimed.

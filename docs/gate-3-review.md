@@ -22,7 +22,7 @@ for this pilot. Previously approved scoring remains unchanged.
 | Rejected inputs and reset | Report invalidation on validation failure; replacement/removal and reset regressions; owner confirmed hosted CSV rejection, valid replacement and empty reset fields | Hosted observation covers these exercised paths, not every format or malicious payload |
 | Security checkpoint | 2,579 local tests; Bandit zero High/Medium, eight reviewed Low findings; 77 pinned packages audited with zero known advisories/skips; pip check passed | November 16 source checkpoint, not final tagged artifact; dependency audit fallback and host version drift documented |
 | Pilot | One Week 6 attempt reported as four minutes, no assistance, no problems reported | Brief requires 3–5 testers; first-time status and direct comprehension answers unconfirmed |
-| Accessibility | Prior bounded keyboard observations; owner reports Start, Results and Fix First readable/reachable at 200% zoom | Not full screen-reader, contrast, WCAG or universal reading-level validation |
+| Accessibility | Owner confirmed keyboard-only Lakeview journey through score explanation and PDF download, visible focus and no traps; Start, Results and Fix First readable/reachable at 200% zoom | Exercised paths only; not full screen-reader, contrast, WCAG or universal reading-level validation |
 
 Detailed evidence: [Week 6 status](status/week-6.md), [verification](week-6-verification.md),
 [pilot report](pilot.md), [readability review](readability-review.md).

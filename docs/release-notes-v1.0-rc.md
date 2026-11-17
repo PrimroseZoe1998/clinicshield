@@ -35,7 +35,8 @@ pip check passed. Audit method and caveats are in
 
 One Week 6 usability attempt was reported at four minutes without help and with
 no problems reported. More testers and direct comprehension feedback are pending.
-Owner-reported zoom observations are bounded to the exercised views. See
+Owner also confirmed a keyboard-only sample journey with visible focus, no traps
+and PDF download. Keyboard and zoom observations are bounded to exercised views. See
 [pilot report](pilot.md) for the count and evidence limits.
 
 ## Interpretation and limitations

@@ -92,6 +92,21 @@ screenshots or measurements. Browser/device, viewport dimensions and exact
 checkout revision were not supplied for this pass. Do not generalize the result
 to every table cell, optional control, viewport, PDF magnification or assistive
 technology. Upload and Checklist were traversed but not separately confirmed as
-complete zoom-review screens. No new keyboard-only, contrast measurement,
-screen-reader or WCAG conformance result is claimed. Full host persistence/
+complete zoom-review screens. That zoom exercise did not establish keyboard-only,
+contrast measurement, screen-reader or WCAG conformance results. Full host persistence/
 retention review, framework mapping validation and Gate 3 disposition remain open.
+
+## Subsequent hosted keyboard-only check
+
+The owner confirmed completing all four requested steps without the mouse:
+selecting the fictional Lakeview scenario, proceeding through Checklist to
+Results, opening a score explanation, and continuing to Fix First to download
+the PDF. The owner explicitly confirmed visible focus throughout, no keyboard
+traps, and successful PDF download. No mouse-only control or defect was reported.
+
+This is a user-reported check of the exercised journey, not an independent
+observation of all widgets, optional uploads, table interactions or browser/device
+combinations. Exact keys used, browser version and source SHA were not supplied;
+the guide offered Alt+Down if Enter did not open a dropdown. No assistive-technology,
+contrast or WCAG conformance claim follows. This is separate owner verification,
+not a second pilot participant. No code change or fresh test run was needed.
