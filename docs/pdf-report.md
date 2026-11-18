@@ -40,3 +40,21 @@ November 8 plain-language update: owner guidance and recommended actions use
 shorter sentences. The appendix includes a word guide before technical details.
 Scoring/evidence/source content remains intact. See readability-review.md for
 screening method and limitations; it is not a universal grade-8 certification.
+
+November 18 tagging update: newly generated reports have heading and paragraph
+tags in report order, source link tags tied to clickable annotations, and
+pagination artifacts for repeated headers and footers. Poppler and pypdf
+inspection verified all three synthetic exports, including marked text, link
+associations and 37/34/72 page counts. Every page rendered identically at
+72 dpi to the previous exporter with matching inputs. The 35 targeted PDF and
+export tests passed. All three checked-in fictional samples were refreshed with the tagged exporter.
+
+On November 18, the owner tested the tagged Lakeview sample using Windows
+Narrator in Microsoft Edge. Narrator read ClinicShield and Owner summary in
+order. Heading navigation with H reached the score limits and Detailed
+appendix, and Down Arrow read the text below that heading. At the page break,
+Narrator announced page 2 and then Detailed appendix, skipping the repeated
+header and footer. The page 9 NIST source link was announced after keyboard
+focus and opened with Enter. The initial link-jump shortcut did not announce a
+source link. This walkthrough sampled the summary, appendix entry and one
+source link in this viewer and screen reader.

@@ -65,12 +65,25 @@ def test_pdf_source_links_are_explicit_single_web_urls(text, expected):
     assert report_pdf._source_link(text) == expected
 
 
-def test_pdf_language_and_embedded_source_links():
+def test_pdf_structure_language_and_embedded_source_links():
     # Uncompressed catalog/annotation dictionaries verify public PDF output,
     # without adding a PDF parser to application dependencies.
     report = app.generate_example("lakeview_dental", 30, True)
     data = report_pdf.render_assessment_pdf(report)
     assert b"/Lang (en-US)" in data
+    assert b"/Marked true" in data
+    assert b"/StructTreeRoot" in data
+    assert b"/ParentTree" in data
+    assert b"/StructParents " in data
+    assert b"/S /H1" in data
+    assert b"/S /H2" in data
+    assert b"/S /H3" in data
+    assert b"/S /H4" in data
+    assert b"/S /P" in data
+    assert b"/S /Link" in data
+    assert b"/Type /OBJR" in data
+    assert data.count(b"/StructParent ") == data.count(b"/Subtype /Link")
+    assert data.count(b"/Type /OBJR") == data.count(b"/Subtype /Link")
     assert b"/Subtype /Link" in data
     assert b"/S /URI" in data
     assert b"https://" in data

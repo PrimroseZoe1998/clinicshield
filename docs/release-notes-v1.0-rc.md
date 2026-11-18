@@ -55,10 +55,10 @@ Docker verification remain unverified. Community Cloud may override package
 versions and telemetry configuration. This candidate is not production-ready.
 
 The primary button's deployed default/focused text colors were measured at
-6.57:1 after reboot. This is not whole-app contrast certification. Committed PDF
-samples have document language and embedded web-source links but remain untagged;
-PDF screen-reader/semantic reading-order support remains a known release-scope
-gap. See [accessibility evidence](contrast-review.md).
+6.57:1 after reboot. This is not whole-app contrast certification. The three checked-in PDF
+samples include semantic tags, document language and embedded source links.
+The Lakeview sample passed a walkthrough of selected reading-order and link
+checks with Narrator in Edge. See [PDF verification](pdf-report.md).
 
 Report security concerns using [SECURITY.md](../SECURITY.md), not a public issue
 with sensitive details. No response deadline or support window is promised.
@@ -72,9 +72,3 @@ with sensitive details. No response deadline or support window is promised.
 - Gate 3 scope/limitations response: pending
 
 Finalize these fields and the [Gate 3 checklist](gate-3-review.md) before tagging.
-
-
-PDF follow-up: language metadata and embedded single-source web links are now
-implemented and checked (14 PDF tests; regenerated three synthetic samples).
-Semantic tags, reading order and screen-reader validation remain pending;
-the earlier missing-language/link observation is superseded by this change.

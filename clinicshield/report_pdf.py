@@ -1,32 +1,128 @@
-from clinicshield.reader_guidance import SCORE_GUIDE, SCOPE_NOTICE, PRIORITY_GUIDE
 """Create owner-summary and full-detail PDF reports entirely in memory."""
+from contextlib import contextmanager
 from pathlib import Path
 import re
 from urllib.parse import urlsplit
 
 from fpdf import FPDF
+from fpdf.actions import URIAction
+from fpdf.annotations import PDFAnnotation
 from fpdf.enums import XPos, YPos
+from fpdf.structure_tree import NumberTree
+from fpdf.syntax import PDFObject
+
+from clinicshield.reader_guidance import PRIORITY_GUIDE, SCORE_GUIDE, SCOPE_NOTICE
 
 from clinicshield.report_text import render_assessment_text
 
 FONT_DIR = Path(__file__).resolve().parent / "fonts"
 
 
+class _LinkReference:
+    def __init__(self, annotation):
+        self.annotation = annotation
+
+    def serialize(self, **_kwargs):
+        return f"<< /Type /OBJR /Obj {self.annotation.ref} >>"
+
+
+class _ReportParentTree(NumberTree):
+    """Map page MCIDs and link annotation keys to their owning structure elements."""
+
+    def __init__(self):
+        super().__init__()
+        self.links = []
+
+    def serialize(self, obj_dict=None, _security_handler=None):
+        entries = [
+            f"{key} [{' '.join(element.ref for element in elements)}]"
+            for key, elements in self.nums.items()
+        ]
+        entries.extend(
+            f"{annotation.struct_parent} {element.ref}"
+            for annotation, element in self.links
+        )
+        return PDFObject.serialize(self, {"/Nums": "[" + " ".join(entries) + "]"})
+
+
 class AssessmentPDF(FPDF):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self._parent_tree = _ReportParentTree()
+        self.struct_builder.struct_tree_root.parent_tree = self._parent_tree
+        self._block = None
+
+    @contextmanager
+    def structure_block(self, role):
+        previous = self._block
+        self._block = {"role": role, "page": None, "element": None} if role else None
+        try:
+            yield
+        finally:
+            self._block = previous
+
+    def _render_styled_text_line(self, text_line, *args, **kwargs):
+        # fpdf2 2.8.9's multi_cell handles page breaks before calling this hook.
+        # Keep line wrapping in fpdf2 and map each rendered line to its block.
+        block = self._block
+        if block is None:
+            self._out("/Artifact <</Type /Pagination>> BDC")
+            try:
+                return super()._render_styled_text_line(text_line, *args, **kwargs)
+            finally:
+                self._out("EMC")
+
+        page = self.pages[self.page]
+        mcid = len(self._parent_tree.nums.get(page.struct_parents, ()))
+        role = block["role"]
+        if block["page"] != self.page:
+            block["element"] = self._add_marked_content(struct_type=f"/{role}", mcid=mcid)
+            block["page"] = self.page
+        else:
+            block["element"].k.append(mcid)
+            self._parent_tree.nums[page.struct_parents].append(block["element"])
+
+        self._out(f"/{role} <</MCID {mcid}>> BDC")
+        try:
+            return super()._render_styled_text_line(text_line, *args, **kwargs)
+        finally:
+            self._out("EMC")
+
+    def link(self, x, y, w, h, link, alt_text=None, **kwargs):
+        # Source links are external URLs. Use indirect annotations so the tag
+        # can reference each clickable rectangle, including wrapped lines.
+        annotation = PDFAnnotation(
+            "Link", x=x * self.k, y=self.h_pt - y * self.k, width=w * self.k,
+            height=h * self.k, action=URIAction(link), contents=link, **kwargs,
+        )
+        self.pages[self.page].add_annotation(annotation)
+        element = self._block["element"]
+        element.k.append(_LinkReference(annotation))
+        self._parent_tree.links.append((annotation, element))
+        return annotation
+
+    def finish(self):
+        first_link_key = len(self._parent_tree.nums)
+        for key, (annotation, _) in enumerate(self._parent_tree.links, first_link_key):
+            annotation.struct_parent = key
+        return bytes(self.output())
+
     def header(self):
         if self.page_no() > 1:
-            self.set_font("Vera", "B", 9)
-            self.set_text_color(35, 65, 80)
-            self.cell(0, 7, "ClinicShield | Detailed assessment", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-            self.ln(2)
+            with self.structure_block(None):
+                self.set_font("Vera", "B", 9)
+                self.set_text_color(35, 65, 80)
+                self.cell(0, 7, "ClinicShield | Detailed assessment", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+                self.ln(2)
 
     def footer(self):
-        self.set_y(-14)
-        self.set_font("Vera", "", 7)
-        self.set_text_color(85, 95, 105)
-        self.cell(0, 4, f"ClinicShield | Lead developer: Primrose Mangwendeza | Page {self.page_no()} of {{nb}}",
-                  align="C", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-        self.cell(0, 4, "Prototype assessment - not proof of compliance or security effectiveness", align="C")
+        with self.structure_block(None):
+            self.set_y(-14)
+            self.set_font("Vera", "", 7)
+            self.set_text_color(85, 95, 105)
+            self.cell(0, 4, f"ClinicShield | Lead developer: Primrose Mangwendeza | Page {self.page_no()} of {{nb}}",
+                      align="C", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+            self.cell(0, 4, "Prototype assessment - not proof of compliance or security effectiveness", align="C")
 
 
 def _text(pdf, value):
@@ -54,11 +150,13 @@ def _source_link(text):
     return url
 
 
-def _paragraph(pdf, text, *, bold=False, size=9, height=4.5):
+def _paragraph(pdf, text, *, bold=False, size=9, height=4.5, role="P"):
     pdf.set_font("Vera", "B" if bold else "", size)
     pdf.set_text_color(25, 38, 48)
-    pdf.multi_cell(0, height, _text(pdf, text), new_x=XPos.LMARGIN, new_y=YPos.NEXT,
-                   link=_source_link(text))
+    link = _source_link(text)
+    with pdf.structure_block("Link" if link else role):
+        pdf.multi_cell(0, height, _text(pdf, text), new_x=XPos.LMARGIN,
+                       new_y=YPos.NEXT, link=link)
 
 
 def _short(value, limit):
@@ -82,8 +180,8 @@ def render_assessment_pdf(report: dict) -> bytes:
     pdf.set_title("ClinicShield assessment")
     pdf.set_author("ClinicShield")
     pdf.add_page()
-    _paragraph(pdf, "ClinicShield", bold=True, size=24, height=12)
-    _paragraph(pdf, "Owner summary", bold=True, size=14, height=9)
+    _paragraph(pdf, "ClinicShield", role="H1", bold=True, size=24, height=12)
+    _paragraph(pdf, "Owner summary", role="H2", bold=True, size=14, height=9)
     _paragraph(pdf, f"Assessment time: {report['evaluated_at']}", size=8)
     example = report.get("example_context")
     if example:
@@ -101,13 +199,13 @@ def render_assessment_pdf(report: dict) -> bytes:
     if score.get('critical_ceiling') is not None:
         _paragraph(pdf, f"Confirmed Critical finding: overall score capped at {score['critical_ceiling']}.", bold=True)
     pdf.ln(4)
-    _paragraph(pdf, "Read the score with its limits", bold=True, size=11, height=7)
+    _paragraph(pdf, "Read the score with its limits", role="H3", bold=True, size=11, height=7)
     _paragraph(pdf, f"{len(report['coverage_issues'])} coverage issues | {sum(f['status'] != 'confirmed_from_supplied_evidence' for f in report['findings'])} finding groups need review.")
     _paragraph(pdf, SCOPE_NOTICE)
     for item in score['limitations'][:3]:
         _paragraph(pdf, "- " + _short(item, 150))
     pdf.ln(4)
-    _paragraph(pdf, "Fix First: highest-ranked actions", bold=True, size=11, height=7)
+    _paragraph(pdf, "Fix First: highest-ranked actions", role="H3", bold=True, size=11, height=7)
     _paragraph(pdf, PRIORITY_GUIDE)
     actions = report.get('fix_first', {}).get('actions', [])
     for action in actions[:3]:
@@ -122,7 +220,7 @@ def render_assessment_pdf(report: dict) -> bytes:
     if pdf.page_no() != 1:
         raise ValueError("Owner summary exceeded one page.")
     pdf.add_page()
-    _paragraph(pdf, "Detailed appendix", bold=True, size=17, height=10)
+    _paragraph(pdf, "Detailed appendix", role="H2", bold=True, size=17, height=10)
     _paragraph(pdf, "Full report including findings requiring verification. Unsupported glyphs are shown as [U+code].", size=8)
     pdf.ln(3)
     headings = {"Why this score", "Practice-area results (draft)", "What this score covers",
@@ -133,11 +231,14 @@ def render_assessment_pdf(report: dict) -> bytes:
         if not line.strip():
             pdf.ln(2)
             continue
-        heading = line in headings or bool(re.match(r"^\d+\. ", line))
+        section = line in headings
+        finding_heading = bool(re.match(r"^\d+\. ", line))
+        role = "H3" if section else "H4" if finding_heading else "P"
+        heading = role != "P"
         if heading:
             if pdf.will_page_break(30 if line in headings else 22):
                 pdf.add_page()
             pdf.ln(2)
         _paragraph(pdf, line, bold=heading, size=10 if heading else 8.5,
-                   height=5.2 if heading else 4.2)
-    return bytes(pdf.output())
+                   height=5.2 if heading else 4.2, role=role)
+    return pdf.finish()

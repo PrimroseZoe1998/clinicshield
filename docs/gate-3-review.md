@@ -64,11 +64,9 @@ an external security assessment has been completed by these checks.
   verification requested by the brief, which remains unperformed.
 - Raw evidence, identifiers and formal source names are outside the selected
   prose screening target; direct comprehension feedback is still pending.
-- Committed sample PDFs have document language and embedded web-source links,
-  but remain untagged. Owner copy/layout/link checks do not establish semantic
-  reading order or screen-reader support. Decide tagged-PDF scope explicitly;
-  see [contrast/PDF review](contrast-review.md). No accessibility exception has
-  been accepted by this document.
+- The owner required semantic PDF tags and verified screen-reader reading order
+  before v1.0-rc. All three sample PDFs were refreshed with tags. See the
+  [PDF verification record](pdf-report.md) for the sampled Narrator walkthrough.
 - A known-advisory scan is time-bound. Bandit's reviewed Low findings remain
   visible; no suppressions or dependency pin changes were used to obtain a pass.
 
@@ -82,6 +80,9 @@ Before proposing the final tag:
   inferring them from successful completion.
 - [ ] Review feedback and any required fixes/retests; retain explicit limits
   where additional accessibility coverage is deferred.
+- [x] Implement semantic PDF tags and inspect the generated structure locally.
+- [x] Complete the sampled screen-reader walkthrough of the owner summary,
+  appendix transition and source link. Refresh all three release sample PDFs.
 - [ ] Confirm final intended source revision and fresh CI/test/audit results;
   keep local/hosted environment differences explicit.
 - [ ] Review the fictional-only release scope and outstanding limitations at
@@ -96,9 +97,3 @@ Final source SHA, CI evidence and tag: pending.
 
 The package is prepared for review now. It does not close Week 6, approve a
 release or count outstanding testers as completed.
-
-
-PDF follow-up: language metadata and embedded single-source web links are now
-implemented and checked (14 PDF tests; regenerated three synthetic samples).
-Semantic tags, reading order and screen-reader validation remain pending;
-the earlier missing-language/link observation is superseded by this change.
