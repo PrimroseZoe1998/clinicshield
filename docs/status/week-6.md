@@ -281,3 +281,17 @@ reported three-tester pilot count/scope requirement. Exact clinic/evidence
 settings, first-time status and direct comprehension answers are still unknown.
 The pilot report and Gate 3/release drafts reflect this confirmation. No new
 runtime tests, accessibility completion, release tag or Gate 3 approval is claimed.
+
+## Conditional Gate 3 approval
+
+Benjamin approved the fictional-data prototype demonstration and proposed
+v1.0-rc with conditions. The draft release notes document fictional-only use,
+provisional results, absence of certification and the limits of hosted
+retention, session isolation and accessibility coverage. A separate clean-machine
+Docker verification is required before tagging. The
+[local Docker walkthrough](../docker.md#november-18-local-docker-walkthrough)
+passed. Benjamin deferred the environment decision to the project owner, who
+accepted the documented run. The local v1.0-rc tag was created on November 19,
+2026 at the reviewed application revision. Week 6 remains In Progress until
+the tag and closeout records are published.
+See [Gate 3 review](../gate-3-review.md).

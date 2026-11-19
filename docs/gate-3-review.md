@@ -1,6 +1,6 @@
 # Gate 3 review package
 
-Prepared November 16, 2026. **Draft: review pending; Week 6 remains In Progress.**
+Prepared November 16, 2026. **Gate 3 approved with conditions; Week 6 remains In Progress.**
 Planned Gate 3: Friday November 20, per the original project brief.
 No message has been sent, approval recorded or release tag created by this file.
 
@@ -21,7 +21,7 @@ for this pilot. Previously approved scoring remains unchanged.
 | Week 6 cache restriction | Browser path field removed; evaluation ignores stale path values and uses repository data/cache | Operator Python APIs retain directory parameters; server setup remains trusted |
 | Rejected inputs and reset | Report invalidation on validation failure; replacement/removal and reset regressions; owner confirmed hosted CSV rejection, valid replacement and empty reset fields | Hosted observation covers these exercised paths, not every format or malicious payload |
 | Security checkpoint | 2,579 local tests; Bandit zero High/Medium, eight reviewed Low findings; 77 pinned packages audited with zero known advisories/skips; pip check passed | November 16 source checkpoint, not final tagged artifact; dependency audit fallback and host version drift documented |
-| Pilot | One Week 6 attempt reported as four minutes, no assistance, no problems reported | Brief requires 3â€“5 testers; first-time status and direct comprehension answers unconfirmed |
+| Pilot | Three owner-reported fictional sessions, about 4, 2 and 2 minutes, no help or reported problems; anonymized comprehension responses supplied | First-time status unknown |
 | Accessibility | Owner confirmed keyboard-only Lakeview journey through score explanation and PDF download, visible focus and no traps; Start, Results and Fix First readable/reachable at 200% zoom | Exercised paths only; not full screen-reader, contrast, WCAG or universal reading-level validation |
 
 Detailed evidence: [Week 6 status](status/week-6.md), [verification](week-6-verification.md),
@@ -63,7 +63,8 @@ an external security assessment has been completed by these checks.
 - CI container checks do not replace the separate clean-machine local Docker
   verification requested by the brief, which remains unperformed.
 - Raw evidence, identifiers and formal source names are outside the selected
-  prose screening target; direct comprehension feedback is still pending.
+  prose screening target. The owner supplied anonymized comprehension
+  responses on November 18.
 - The owner required semantic PDF tags and verified screen-reader reading order
   before v1.0-rc. All three sample PDFs were refreshed with tags. See the
   [PDF verification record](pdf-report.md) for the sampled Narrator walkthrough.
@@ -76,24 +77,44 @@ Before proposing the final tag:
 
 - [x] Record three owner-reported Week 6 pilot testers with timing, assistance and reported problems.
 - [x] Owner confirmed P02/P03 used fictional clinic examples.
-- [ ] Collect first-time status and actual comprehension responses without
-  inferring them from successful completion.
+- [x] Record the owner-supplied anonymized comprehension responses.
+- [ ] Confirm first-time status if available.
 - [ ] Review feedback and any required fixes/retests; retain explicit limits
   where additional accessibility coverage is deferred.
 - [x] Implement semantic PDF tags and inspect the generated structure locally.
 - [x] Complete the sampled screen-reader walkthrough of the owner summary,
   appendix transition and source link. Refresh all three release sample PDFs.
-- [ ] Confirm final intended source revision and fresh CI/test/audit results;
-  keep local/hosted environment differences explicit.
-- [ ] Review the fictional-only release scope and outstanding limitations at
-  Gate 3; record Benjamin's actual response and the owner's interpretation
-  accurately, without fabricating item-by-item validation.
-- [ ] Finalize [release notes](release-notes-v1.0-rc.md), create the approved
-  v1.0-rc tag at the reviewed revision, and record its SHA and date.
+- [x] Confirm the reviewed application revision and its passing CI runs.
+- [x] Record Benjamin's conditional approval of the fictional-data demo.
+- [x] Prominently disclose the release scope and limitations in the draft notes.
+- [x] Document the [local Docker verification](docker.md#november-18-local-docker-walkthrough).
+- [x] Record Benjamin's deferral and the owner's decision to accept the Docker run.
+- [x] Finalize [release notes](release-notes-v1.0-rc.md) and create the local
+  v1.0-rc tag at the reviewed application revision.
+- [ ] Confirm the tag and closeout documentation are published on GitHub.
 
-Reviewer response: pending.
-Accepted scope/limitations or requested changes: pending.
-Final source SHA, CI evidence and tag: pending.
+### Benjamin's decision
 
-The package is prepared for review now. It does not close Week 6, approve a
-release or count outstanding testers as completed.
+> I approve Gate 3 with conditions for the fictional-data prototype demonstration and proposed v1.0-rc release.
+
+Before tagging, Benjamin requires documented clean-machine Docker verification
+and prominent disclosures covering fictional-only use, provisional results,
+absence of security or compliance certification, and the hosted retention,
+session isolation and accessibility limits. Broader accessibility, hosted
+verification and framework refinements may remain open as follow-up. The
+approval applies to the fictional-data demonstration scope.
+
+Reviewed application revision is ea194c3c8210acff92619aa87b3d68046957c40b.
+[Checks #231](https://github.com/PrimroseZoe1998/clinicshield/actions/runs/44342494103)
+and [container #24](https://github.com/PrimroseZoe1998/clinicshield/actions/runs/44342494055)
+passed on that revision. Local Docker verification also passed.
+
+In response to the follow-up about the Docker environment, Benjamin wrote:
+
+> I'm going to have to default to you on this one, my friend, because I don't fully understand your question 😅😅
+
+The project owner accepted the fresh Docker installation on the existing
+development PC for this milestone. The run used a clean copy of the reviewed
+commit, a no-cache build, an offline smoke test and a browser/PDF walkthrough.
+The locally created November 19, 2026 tag points to the reviewed application
+revision. Publication remains pending.

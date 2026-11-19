@@ -1,13 +1,23 @@
 # ClinicShield v1.0-rc â€” draft release notes
 
-**Unreleased.** Prepared November 16, 2026. Tag, release date, final SHA and Gate 3
-disposition are pending. This file must not be presented as a published release.
+**Release candidate.** Gate 3 conditions are documented. The local tag exists.
+Publication on GitHub is pending.
 
-## Intended scope
+## Demo scope and limitations
 
-A fictional-data cybersecurity checkup prototype for demonstration and usability
-feedback. No production, compliance or independently verified risk-effectiveness
-claim is made. Do not upload patient information, real inventories or credentials.
+- **Fictional data only.** Use only fictional examples. Do not upload real
+  clinic inventories, patient information or credentials. Production deployment
+  is outside the approved scope.
+- **Provisional results.** Scores reflect the evidence and coverage assessed.
+  Fix First prioritizes actions. The prototype provides no security or
+  compliance certification.
+- **Hosted data handling.** Provider retention, logs and temporary-file
+  handling remain unverified. Complete isolation between concurrent hosted
+  sessions is unverified.
+- **Accessibility coverage.** Keyboard, zoom and Narrator/Edge findings apply
+  to the paths tested. Broader accessibility testing remains open.
+- **Framework mappings.** References are partial and draft. They do not
+  constitute validated compliance assessments.
 
 The prototype includes guided Start, Upload, Checklist, Results and Fix First
 screens; three fictional clinics; score explanations and coverage warnings;
@@ -36,7 +46,7 @@ pip check passed. Audit method and caveats are in
 Three Week 6 testers were reported at approximately four, two and two minutes,
 without help or reported problems, including opening their PDFs. The minimum
 participant count is met as reported. The owner confirmed P02/P03 used fictional
-clinic examples. First-time status and direct comprehension feedback remain unconfirmed.
+clinic examples. The owner supplied anonymized comprehension responses. First-time status remains unknown.
 Owner also confirmed a keyboard-only sample journey with visible focus, no traps
 and PDF download. Keyboard and zoom observations are bounded to exercised views. See
 [pilot report](pilot.md) for the count and evidence limits.
@@ -50,8 +60,9 @@ reduction. Westside's modeled 80-to-99 comparison is simulated, not completed
 remediation. Framework relationships are partial/draft and do not prove compliance.
 
 Provider retention/temp-file/log guarantees, complete concurrent-session
-isolation, broad assistive-technology coverage, and separate clean-machine local
-Docker verification remain unverified. Community Cloud may override package
+isolation and broad assistive-technology coverage remain unverified. The
+[local Docker test](docker.md#november-18-local-docker-walkthrough) passed on a
+fresh Docker Desktop installation on the existing development PC. Community Cloud may override package
 versions and telemetry configuration. This candidate is not production-ready.
 
 The primary button's deployed default/focused text colors were measured at
@@ -65,10 +76,10 @@ with sensitive details. No response deadline or support window is promised.
 
 ## Finalization fields
 
-- Release/tag date: pending
-- Reviewed source SHA: pending
-- Final tests, audit and CI evidence: pending
-- Pilot count: three owner-reported Week 6 testers; fictional-example scope confirmed for P02/P03; feedback disposition pending
-- Gate 3 scope/limitations response: pending
+- Local tag: `v1.0-rc`, November 19, 2026
+- Reviewed application SHA: `ea194c3c8210acff92619aa87b3d68046957c40b`
+- Reviewed application CI: [checks #231](https://github.com/PrimroseZoe1998/clinicshield/actions/runs/44342494103) and [container #24](https://github.com/PrimroseZoe1998/clinicshield/actions/runs/44342494055) passed on the tagged application revision.
+- Pilot count: three owner-reported Week 6 testers; fictional-example scope confirmed for P02/P03; anonymized comprehension responses supplied
+- Gate 3 response: approved with conditions for the fictional-data demo. The owner accepted the documented Docker run after Benjamin deferred the decision.
 
-Finalize these fields and the [Gate 3 checklist](gate-3-review.md) before tagging.
+See the [Gate 3 decision and checklist](gate-3-review.md).

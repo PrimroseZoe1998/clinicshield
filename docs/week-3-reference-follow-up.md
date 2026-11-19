@@ -76,3 +76,11 @@ comparison with the pre-change YAML confirms only framework reference metadata
 changed, in R17 and R20. All 24 rule metadata checks passed (113 references).
 Medium/high Bandit and diff checks passed. No new full-suite run, independently
 approved mapping, fresh NIST review or final Week 3 acceptance is claimed.
+
+## Reviewer disposition
+
+Benjamin accepted the partial framework mappings for the fictional-data
+prototype milestone provided they remain explicitly draft and are not presented
+as validated compliance assessments. Retain the corrected citations. The
+mapping omissions, broader coverage decisions and independent rule validation
+remain future work as listed above.

@@ -99,3 +99,21 @@ still required; startup and clean-machine acceptance are not yet established.
 November 8 runner update: after 7210788 the user reported green checks. This is
 user-reported CI evidence, not independently retrieved runner logs. The local
 computer still has no Docker installation. Hosted behavior remains separate.
+
+## November 18 local Docker walkthrough
+
+The owner tested reviewed application commit
+`ea194c3c8210acff92619aa87b3d68046957c40b` on the existing Windows ARM64
+development PC after a fresh Docker Desktop 4.99.0 installation. The engine
+reported 29.9.3 (linux/arm64). A clean archive of the commit was extracted to a
+new temporary directory and built with `--pull --no-cache`.
+
+The offline, read-only smoke test passed at scores 65, 82 and 80. PDF, CSV and
+checklist JSON exports passed for all three fictional clinics. A separate
+read-only container started at localhost:8502, and its Streamlit health
+endpoint returned HTTP 200 with body `ok`. The owner reported completing the
+fictional Lakeview browser walkthrough and opening its downloaded PDF.
+
+The test used a fresh Docker setup on the existing development PC. Benjamin
+deferred the decision about the environment to the project owner, who accepted
+this run for the fictional-data prototype. See the [Gate 3 decision](gate-3-review.md).

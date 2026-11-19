@@ -17,15 +17,14 @@ recorded. Unknown details remain unknown rather than inferred from the guide.
 
 | Attempt | Completion | Assistance | Feedback | Evidence limits |
 | --- | --- | --- | --- | --- |
-| P01, reported November 16 | Owner reports four minutes to complete everything in the guide, which includes the checkup and opening the PDF | None, confirmed by owner | No confusion, unreadable content or broken behavior reported when asked | First-time status, role, browser/device, exact revision, selected clinic/evidence setting and separate wake-up time not supplied; no completed form or direct comprehension answers available |
-| P02, reported November 16 | Approximately two minutes, owner-reported | None, confirmed by owner | No problems or trouble opening the PDF reported | First-time status, role, browser/device, revision, exact selected clinic/evidence mode and separate wake-up time not supplied; no completed form or direct comprehension answers available |
-| P03, reported November 16 | Approximately two minutes, owner-reported | None, confirmed by owner | No problems or trouble opening the PDF reported | First-time status, role, browser/device, revision, exact selected clinic/evidence mode and separate wake-up time not supplied; no completed form or direct comprehension answers available |
+| P01, reported November 16 | Owner reports four minutes to complete everything in the guide, which includes the checkup and opening the PDF | None, confirmed by owner | No confusion, unreadable content or broken behavior reported when asked | First-time status, role, browser/device, exact revision, selected clinic/evidence setting and separate wake-up time not supplied; no completed form available |
+| P02, reported November 16 | Approximately two minutes, owner-reported | None, confirmed by owner | No problems or trouble opening the PDF reported | First-time status, role, browser/device, revision, exact selected clinic/evidence mode and separate wake-up time not supplied; no completed form available |
+| P03, reported November 16 | Approximately two minutes, owner-reported | None, confirmed by owner | No problems or trouble opening the PDF reported | First-time status, role, browser/device, revision, exact selected clinic/evidence mode and separate wake-up time not supplied; no completed form available |
 
 All three reported times (four, two and two minutes) are within the five-minute
 target; no assistance or problems were reported. P02/P03 timings are approximate
 and their start/stop boundaries were not separately specified.
-It does not establish the separate first-time condition or demonstrate correct
-understanding of scores, coverage or priority without comprehension responses.
+First-time status remains unknown.
 No pilot-driven defect or resulting code change has been reported from these attempts.
 Do not infer accessibility, security effectiveness or general usability from
 three reported successful attempts or from absence of reported problems.
@@ -55,11 +54,15 @@ inventory validation. Those were review-driven changes, not attributed to P01.
 The owner also reported readable/reachable Start, Results and Fix First screens
 at 200% browser zoom; see [verification details](week-6-verification.md). This is
 a separate owner functional check, not another pilot tester or a complete
-accessibility assessment. Direct pilot comprehension feedback remains pending.
+accessibility assessment. On November 18 the owner supplied anonymized comprehension responses for
+all three testers. The responses describe a high score as limited to what was
+checked, unassessed items as unevaluated, and Fix First as prioritization
+without a prediction of score or risk improvement. No issue requiring a
+pilot-driven fix or retest was reported.
 
 - [x] Pilot guide and feedback template prepared.
 - [x] One Week 6 attempt recorded with timing, assistance and reported problems.
-- [ ] 3â€“5 distinct Week 6 testers recorded (currently one reported attempt).
+- [x] 3â€“5 distinct Week 6 testers recorded (three reported attempts).
 - [ ] Feedback/comprehension and accessibility observations reviewed; fixes and retests logged where needed.
 - [ ] Fresh release-candidate Bandit and dependency audit results reviewed against the zero-High benchmark; exceptions, if any, explicitly dispositioned.
 - [ ] Upload limits, runtime no-persistence evidence and threat-model/SECURITY documentation reviewed for the release scope, without claiming provider guarantees.
