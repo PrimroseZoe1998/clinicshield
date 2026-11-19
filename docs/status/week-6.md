@@ -1,6 +1,6 @@
 # Week 6: hardening and pilot preparation
 
-Status: In Progress. Started November 16, 2026.
+Status: Closed November 19, 2026. Started November 16, 2026.
 
 ## Starting point
 
@@ -291,7 +291,8 @@ retention, session isolation and accessibility coverage. A separate clean-machin
 Docker verification is required before tagging. The
 [local Docker walkthrough](../docker.md#november-18-local-docker-walkthrough)
 passed. Benjamin deferred the environment decision to the project owner, who
-accepted the documented run. The local v1.0-rc tag was created on November 19,
-2026 at the reviewed application revision. Week 6 remains In Progress until
-the tag and closeout records are published.
+accepted the documented run. On November 19, 2026, GitHub publication was
+verified for v1.0-rc at application commit ea194c3 and closeout documentation
+commit 975bf8f on main. Week 6 is closed. Broader accessibility, hosted
+verification and draft framework refinements remain follow-up work.
 See [Gate 3 review](../gate-3-review.md).

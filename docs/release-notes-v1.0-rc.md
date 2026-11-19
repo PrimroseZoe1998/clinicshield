@@ -1,7 +1,7 @@
 # ClinicShield v1.0-rc â€” draft release notes
 
-**Release candidate.** Gate 3 conditions are documented. The local tag exists.
-Publication on GitHub is pending.
+**Release candidate.** Gate 3 conditions are documented. The v1.0-rc tag
+was verified on GitHub on November 19, 2026.
 
 ## Demo scope and limitations
 
@@ -76,7 +76,7 @@ with sensitive details. No response deadline or support window is promised.
 
 ## Finalization fields
 
-- Local tag: `v1.0-rc`, November 19, 2026
+- Published tag: `v1.0-rc`, November 19, 2026
 - Reviewed application SHA: `ea194c3c8210acff92619aa87b3d68046957c40b`
 - Reviewed application CI: [checks #231](https://github.com/PrimroseZoe1998/clinicshield/actions/runs/44342494103) and [container #24](https://github.com/PrimroseZoe1998/clinicshield/actions/runs/44342494055) passed on the tagged application revision.
 - Pilot count: three owner-reported Week 6 testers; fictional-example scope confirmed for P02/P03; anonymized comprehension responses supplied

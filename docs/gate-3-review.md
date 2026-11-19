@@ -1,6 +1,6 @@
 # Gate 3 review package
 
-Prepared November 16, 2026. **Gate 3 approved with conditions; Week 6 remains In Progress.**
+Prepared November 16, 2026. **Gate 3 conditions met. Week 6 closed November 19, 2026.**
 Planned Gate 3: Friday November 20, per the original project brief.
 No message has been sent, approval recorded or release tag created by this file.
 
@@ -91,7 +91,7 @@ Before proposing the final tag:
 - [x] Record Benjamin's deferral and the owner's decision to accept the Docker run.
 - [x] Finalize [release notes](release-notes-v1.0-rc.md) and create the local
   v1.0-rc tag at the reviewed application revision.
-- [ ] Confirm the tag and closeout documentation are published on GitHub.
+- [x] Verify the tag and closeout documentation on GitHub.
 
 ### Benjamin's decision
 
@@ -117,4 +117,6 @@ The project owner accepted the fresh Docker installation on the existing
 development PC for this milestone. The run used a clean copy of the reviewed
 commit, a no-cache build, an offline smoke test and a browser/PDF walkthrough.
 The locally created November 19, 2026 tag points to the reviewed application
-revision. Publication remains pending.
+revision. GitHub publication was verified November 19, 2026. The tag
+resolves to ea194c3c8210acff92619aa87b3d68046957c40b, and the closeout
+documentation commit 975bf8f is on main.
